@@ -29,29 +29,14 @@
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/font-awesome.css",
               "src/assets/css/templatemo-training-studio.css",
-              "src/styles.css",
-              "src/assets/back/vendors/mdi/css/materialdesignicons.min.css",
-              "src/assets/back/vendors/css/vendor.bundle.base.css",
-              "src/assets/back/vendors/jvectormap/jquery-jvectormap.css",
-              "src/assets/back/vendors/flag-icon-css/css/flag-icon.min.css",
-              "src/assets/back/vendors/owl-carousel-2/owl.carousel.min.css",
-              "src/assets/back/vendors/owl-carousel-2/owl.theme.default.min.css",
-              "src/assets/back/css/style.css"
+              "src/styles.css"
+            
+
+             
             ],
             "scripts": [
-            "src/assets/back/vendors/js/vendor.bundle.base.js",
-            "src/assets/back/vendors/chart.js/Chart.min.js",
-            "src/assets/back/vendors/progressbar.js/progressbar.min.js",
-            "src/assets/back/vendors/jvectormap/jquery-jvectormap.min.js",
-            "src/assets/back/vendors/jvectormap/jquery-jvectormap-world-mill-en.js",
-            "src/assets/back/vendors/owl-carousel-2/owl.carousel.min.js",
-            "src/assets/back/js/off-canvas.js",
-            "src/assets/back/js/hoverable-collapse.js",
-            "src/assets/back/js/misc.js",
-            "src/assets/back/js/settings.js",
-            "src/assets/back/js/todolist.js",
-            "src/assets/back/js/dashboard.js"
-              
+      
+              "node_modules/jquery/dist/jquery.min.js" 
             ]
           },
           "configurations": {

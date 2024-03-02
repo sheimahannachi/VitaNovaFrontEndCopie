@@ -1,0 +1,84 @@
+<div class="container mt-4">
+    <div class="card">
+        <h1>Registration</h1>
+        <form>
+            <div class="form-row">
+                <!-- First Column -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" class="form-control" id="firstname" placeholder="Enter First Name">
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" class="form-control" id="lastname" placeholder="Enter Last Name">
+                        </div>
+                        <label>Username</label>
+                        <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" class="form-control" id="username" placeholder="Enter username">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" class="form-control" id="email" placeholder="Enter Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control" id="password" placeholder="Enter Password">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select class="form-control" [(ngModel)]="role" [ngModelOptions]="{standalone: true}">
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="USER">USER</option>
+                            <option value="NUTRITIONIST">NUTRITIONIST</option>
+                            <option value="COACH">COACH</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Second Column -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Picture</label>
+                        <input type="text" [(ngModel)]="picture" [ngModelOptions]="{standalone: true}" class="form-control" id="picture" placeholder="Enter Picture URL">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div>
+                            <label class="form-check-label mr-3">
+                                <input type="radio" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" value="WOMAN" name="gender" class="form-check-input">
+                                <span> Female</span>
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" value="MAN" name="gender" class="form-check-input">
+                                <span>Male</span>
+                            </label>
+                        </div>
+                    </div>
+<label>Birthdate</label>
+<div id="datepicker"></div>
+<input type="date" name="birthdate" id="birthdate" [(ngModel)]="dateOfBirth" [ngModelOptions]="{standalone: true}">
+
+                      
+
+
+                    <div class="form-group">
+                        <label>Weight</label>
+                        <input type="number" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" class="form-control" id="weight" placeholder="Enter Weight">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Height</label>
+                        <input type="number" [(ngModel)]="height" [ngModelOptions]="{standalone: true}" class="form-control" id="height" placeholder="Enter Height">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="save()">Register</button>
+        </form>
+    </div>
+</div>
