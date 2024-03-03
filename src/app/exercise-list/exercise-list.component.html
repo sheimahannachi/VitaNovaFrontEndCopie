@@ -24,8 +24,12 @@
       <td>{{ exercise.reps }}</td>
       <td><img [src]="exercise.picture" alt="Exercise Image" class="exercise-image img-fluid"></td>
       <td>
-        <button class="btn btn-primary"  (click)="editExercise(exercise)">Edit</button>
-        <button class="btn btn-danger"  (click)="deleteExercise(exercise)">Archived</button>
+        <button class="btn-dark-blue" (click)="editExercise(exercise)">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="btn-dark-blue" (click)="deleteExercise(exercise)">
+          <i class="fas fa-trash-alt"></i> Delete
+        </button>
       </td>
     </tr>
     </tbody>

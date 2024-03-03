@@ -18,3 +18,9 @@
   text-align: center;
   color: #999;
 }
+
+/* Styles CSS */
+.btn-blue {
+  color: blue;
+  margin-right: 5px; /* Espacement entre les boutons */
+}

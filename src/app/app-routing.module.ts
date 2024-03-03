@@ -6,7 +6,6 @@ import { LoginComponent } from './front-office/user/login/login.component';
 import { AllTemplateBackComponent } from './back-office/all-template-back/all-template-back.component';
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
-import { UsersBackComponent } from './back-office/users-back/users-back.component';
 const routes: Routes = [
   { path: '', component: AllTemplateFrontComponent },
   { path: 'signup', component: RegisterComponent } ,
@@ -22,7 +21,6 @@ const routes: Routes = [
 
     }
   ]},
-{path:'admin/users',component:UsersBackComponent},
 ]
 
 @NgModule({
