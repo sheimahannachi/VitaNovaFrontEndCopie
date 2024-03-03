@@ -1,0 +1,28 @@
+    /* Add your CSS styles here */
+    *{
+        background-color: #191c24;
+        color: #dddddd;
+
+    }
+    body {
+        font-family: Arial, sans-serif;
+        color: #dddddd;
+        background-color: #191c24;
+
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #191c24;
+    }
+
