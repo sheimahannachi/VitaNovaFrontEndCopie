@@ -1,0 +1,46 @@
+<h2>Liste des aliments ajoutés</h2>
+<div *ngIf="foods.length === 0">
+  <p>Aucun aliment ajouté pour le moment.</p>
+</div>
+<div *ngIf="foods.length > 0">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Code</th>
+      <th>Title</th>
+      <th>Calories</th>
+      <th>Glucides</th>
+      <th>Protein</th>
+      <th>Lipides</th>
+      <th>Ingredients</th>
+      <th>Food Pic</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let food of foods">
+      <td>{{ food.code }}</td>
+      <td>{{ food.title }}</td>
+      <td>{{ food.calories }}</td>
+      <td>{{ food.glucides }}</td>
+      <td>{{ food.protein }}</td>
+      <td>{{ food.lipides }}</td>
+      <td>{{ food.ingredients }}</td>
+      <td>
+        <img [src]="food.foodPic" alt="Food Pic">
+      </td>
+      <td>
+        <!-- Button for archiving food with icon -->
+        <button (click)="archiveFood(food)" class="btn btn-danger" title="Archiver">
+          <i class="bi bi-trash"></i>Archiver
+        </button>
+        <button  class="btn btn-primary" (click)="editFood(food)">
+          <i class="bi bi-pencil"></i> Edit
+        </button>
+
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

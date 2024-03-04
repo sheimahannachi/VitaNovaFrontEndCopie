@@ -1,0 +1,47 @@
+<form [formGroup]="foodForm" (ngSubmit)="onSubmit()" class="large-form">
+  <div class="form-group">
+    <label for="code">Code:</label>
+    <input type="text" id="code" formControlName="code">
+  </div>
+
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" id="title" formControlName="title">
+  </div>
+
+  <div class="form-group">
+    <label for="calories">Calories:</label>
+    <input type="number" id="calories" formControlName="calories">
+  </div>
+
+  <div class="form-group">
+    <label for="glucides">Glucides:</label>
+    <input type="number" id="glucides" formControlName="glucides">
+  </div>
+
+  <div class="form-group">
+    <label for="protein">Protein:</label>
+    <input type="number" id="protein" formControlName="protein">
+  </div>
+
+  <div class="form-group">
+    <label for="lipides">Lipides:</label>
+    <input type="number" id="lipides" formControlName="lipides">
+  </div>
+
+  <div class="form-group">
+    <label for="ingredients">Ingredients:</label>
+    <textarea id="ingredients" formControlName="ingredients"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="foodPic">Food Pic:</label>
+    <input type="file" id="foodPic" (change)="onFileSelected($event)" accept="image/*">
+  </div>
+
+  <div class="form-group">
+    <img [src]="getSelectedFileUrl()" id="preview" alt="Food Pic Preview" style="max-width: 200px; max-height: 200px;">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
