@@ -15,9 +15,13 @@ import { LoginComponent } from './front-office/user/login/login.component';
 import { NavBarBackComponent } from './back-office/nav-bar-back/nav-bar-back.component';
 import { AllTemplateBackComponent } from './back-office/all-template-back/all-template-back.component';
 import { FooterBackComponent } from './back-office/footer-back/footer-back.component';
-import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { SideBarBackComponent } from './back-office/side-bar-back/side-bar-back.component';
 
+import { AddexerciseComponent } from './addExercise/addexercise.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+import {RouterModule} from "@angular/router";
+import { AddPlanComponent } from './add-plan/add-plan.component';
 
 
 @NgModule({
@@ -26,27 +30,28 @@ import { SideBarBackComponent } from './back-office/side-bar-back/side-bar-back.
     NavbarComponent,
     FooterComponent,
     AllTemplateFrontComponent,
-    
-   
     UserComponent,
     RegisterComponent,
     LoginComponent,
     NavBarBackComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
-    UsersBackComponent,
     SideBarBackComponent,
- 
-    
-    
-    
+    AddexerciseComponent,
+    ExerciseListComponent,
+    AddPlanComponent,
+
+
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     HttpClientModule,
-    
+    ReactiveFormsModule,
+    RouterModule,
+    FormsModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
