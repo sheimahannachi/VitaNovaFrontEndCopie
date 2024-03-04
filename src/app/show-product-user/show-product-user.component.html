@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control search-input" placeholder="Rechercher un produit" aria-label="Rechercher un produit" [(ngModel)]="searchTerm" (input)="searchProducts()">
+          <div class="input-group-append">
+         
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Affichage des produits -->
+<!-- Template HTML pour afficher les produits avec le bouton Like -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let product of listeProduits">
+      <div class="card mb-4 shadow-sm product-card" [ngClass]="{'selected': product === selectedProduct}" (click)="expandCard(product)">
+        <img class="card-img-top product-image" [src]="product.picturePr" alt="Image du produit">
+        <div class="card-body">
+          <h5 class="card-title">Nom : {{ product.namePr }}</h5>
+          <p class="card-text">Prix :  {{ product.pricePr }}</p>
+          <p class="card-text">Catégorie : {{ product.categoriePr }}</p>
+          <div class="d-flex flex-column align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-success mb-2">Ajouter au panier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+         
+            
+
+
+
+  <div *ngIf="selectedProduct" class="expanded-card">
+    <!-- Contenu de la carte agrandie -->
+    <img class="card-img-top product-image" [src]="selectedProduct.picturePr" alt="Image du produit">
+    <div class="card-body">
+      <h5 class="card-title">Nom : {{ selectedProduct.namePr }}</h5>
+      <p class="card-text">Prix : {{ selectedProduct.pricePr }}</p>
+      <p class="card-text">Catégorie : {{ selectedProduct.categoriePr }}</p>
+      <!-- Autres détails du produit -->
+    </div>
+  
+    <!-- Champ de commentaire -->
+    <textarea [(ngModel)]="commentaire" class="form-control mt-3" rows="3" placeholder="Ajouter un commentaire..."></textarea>
+  
+    <!-- Bouton de fermeture de la carte agrandie -->
+    <button type="button" class="btn btn-danger mt-3" (click)="closeExpandedCard()">Fermer</button>
+  </div>
+  
+
+
+
+  

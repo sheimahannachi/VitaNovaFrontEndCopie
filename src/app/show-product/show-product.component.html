@@ -1,0 +1,78 @@
+
+          <div class="container">
+            <div class="row justify-content-start">
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <!-- Ajoutez le bouton pour naviguer vers l'interface d'ajout de produit -->
+                    <button class="btn btn-success" routerLink="/addProduct">Ajouter un produit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control search-input" placeholder="Search Product" aria-label="Entrez un terme de recherche" aria-describedby="button-addon2" [(ngModel)]="searchTerm" (input)="searchProducts()">
+        <div class="input-group-append">
+     
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ul>
+  <li *ngFor="let product of searchResults">
+    {{ product.namePr }} - {{ product.pricePr }}
+  </li>
+</ul>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Catégorie</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produit of listeProduits">
+        <td><img [src]="produit.picturePr" alt="Image du produit" style="width: 150px; height: 150px;"></td>
+        <td>{{ produit.namePr }}</td>
+        <td>{{ produit.pricePr }}</td>
+        <td>{{ produit.categoriePr }}</td>
+        <td class="action-cell">
+          <button [routerLink]="'/updateProduct/' + produit.idPr" class="btn btn-primary btn-sm">
+            <i class="fa fa-edit"></i> 
+          </button>
+          <button (click)="archiverProduct(produit.idPr)" class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i> 
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+    
+     
+        
+        
+        
+
+        
+        
+          
+          
+        
+          
+          

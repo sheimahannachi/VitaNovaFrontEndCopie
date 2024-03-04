@@ -1,0 +1,64 @@
+.product-card {
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 8px; /* Coins arrondis */
+    transition: box-shadow 0.3s ease; /* Animation d'ombre */
+    width: 350px; /* Largeur fixe pour toutes les cartes */
+    height: 400px; /* Hauteur fixe pour toutes les cartes */
+    overflow: hidden; /* Pour cacher le contenu qui dépasse */
+    margin-bottom: 20px; /* Marge inférieure entre les cartes */
+}
+
+.product-image {
+    width: 100%; /* Largeur de l'image */
+    height: 200px; /* Hauteur de l'image */
+    object-fit: cover; /* Ajustement de la taille de l'image */
+}
+
+  
+
+.card-body {
+    padding: 1.25rem; /* Espacement à l'intérieur de la carte */
+}
+
+.card-title {
+    font-size: 1.25rem; /* Taille du titre */
+    margin-bottom: 0.5rem; /* Marge inférieure */
+}
+
+.card-text {
+    margin-bottom: 0.25rem; /* Marge inférieure */
+}
+
+.btn-group {
+    margin-top: 1rem; /* Marge supérieure */
+}
+
+.expanded-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: rgb(5, 5, 5);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 40%; /* Largeur fixe pour la carte agrandie */
+    height: 80%; /* Hauteur automatique */
+    max-width: 80vw; /* Ajustez la largeur selon vos préférences */
+    max-height: 80vh; /* Ajustez la hauteur selon vos préférences */
+    overflow: auto;
+}
+
+.expanded-card .card-img-top {
+    width: 100%; /* Largeur de l'image */
+    height: 70%; /* Hauteur de l'image, ajustez selon vos préférences */
+    border-radius: 5px; /* Coins arrondis */
+}
+
+
+
+.btn-group {
+    margin-bottom: 1rem; /* Espacement entre le bouton Ajouter au panier et le bouton Like */
+  }

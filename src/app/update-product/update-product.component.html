@@ -1,0 +1,32 @@
+<div>
+  <h2>Modifier le produit</h2>
+  <form (ngSubmit)="updateProduit()" #productForm="ngForm">
+    <div class="form-group">
+      <label for="name">Nom :</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="productData.namePr" required>
+    </div>
+    <div class="form-group">
+      <label for="category">Catégorie :</label>
+      <select class="form-control" id="category" name="category" [(ngModel)]="productData.categoriePr" required>
+          <option value="NUTRITION">NUTRITION</option>
+          <option value="Fitness_Equipement">Fitness_Equipement</option>
+          <option value="Mentall_wellbeing">Mentall_wellbeing</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="price">Prix :</label>
+      <input type="number" class="form-control" id="price" name="price" [(ngModel)]="productData.pricePr" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="image">Image :</label>
+      <input type="file" class="form-control-file" id="image" name="image" (change)="onFileChange($event)" accept="image/*">
+      <div *ngIf="imagePreview">
+          <img [src]="imagePreview" alt="Image du produit">
+        </div>
+  </div>
+    
+    <button type="submit" class="btn btn-primary" >Modifier le produit</button>
+   
+  </form>
+</div>
