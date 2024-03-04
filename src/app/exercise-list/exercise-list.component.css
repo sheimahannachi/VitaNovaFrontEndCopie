@@ -1,0 +1,26 @@
+/* Custom CSS for Exercise Table */
+.exercise-table-container {
+  margin-top: 20px;
+}
+
+.exercise-row:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.exercise-image {
+  max-width: 100px;
+  height: auto;
+}
+
+.no-exercises-message {
+  margin-top: 20px;
+  text-align: center;
+  color: #999;
+}
+
+/* Styles CSS */
+.btn-blue {
+  color: blue;
+  margin-right: 5px; /* Espacement entre les boutons */
+}

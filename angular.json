@@ -22,21 +22,29 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/back/img",
+              "src/assets/back/scss",
+              "src/assets/back/css",
+              "src/assets/back/js"
+
             ],
             "styles": [
               "src/styles.css",
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/font-awesome.css",
               "src/assets/css/templatemo-training-studio.css",
-              "src/styles.css"
-            
+              "src/assets/back/css/nucleo-icons.css",
+              "src/assets/back/css/nucleo-svg.css",
+              "src/assets/back/css/material-dashboard.css"
 
-             
+
+
+
             ],
             "scripts": [
-      
-              "node_modules/jquery/dist/jquery.min.js" 
+
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {
