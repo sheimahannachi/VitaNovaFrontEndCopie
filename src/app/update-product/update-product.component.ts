@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Product } from 'src/app/Model/Product';
-import { ProductService } from 'src/app/Service/product.service';
+import { FormsModule, NgForm } from '@angular/forms';
+
 import { Router } from '@angular/router';
+import { ProductService } from '../ServiceProduct/product.service';
 
 @Component({
   selector: 'app-update-product',
@@ -15,6 +16,7 @@ export class UpdateProductComponent implements OnInit {
   productId: number | undefined;
   imageFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
+  @ViewChild('productForm')productForm!: NgForm;
 
   constructor(private productService: ProductService, private route: ActivatedRoute,private router: Router) { }
 

@@ -9,7 +9,7 @@ import { AllTemplateFrontComponent } from './front-office/all-template-front/all
 
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
-import { FormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './front-office/user/login/login.component';
 import { NavBarBackComponent } from './back-office/nav-bar-back/nav-bar-back.component';
@@ -18,10 +18,16 @@ import { FooterBackComponent } from './back-office/footer-back/footer-back.compo
 import { SideBarBackComponent } from './back-office/side-bar-back/side-bar-back.component';
 
 import { AddexerciseComponent } from './addExercise/addexercise.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { ShowProductComponent } from './show-product/show-product.component';
+
+import { CommonModule } from '@angular/common';
+import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
 
 
 @NgModule({
@@ -40,6 +46,11 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
     AddexerciseComponent,
     ExerciseListComponent,
     AddPlanComponent,
+    UpdateProductComponent,
+    AddProductComponent,
+    ShowProductComponent,
+    ShowProductUserComponent
+  
 
 
     ],
@@ -50,6 +61,7 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
+    CommonModule,
 
 
   ],

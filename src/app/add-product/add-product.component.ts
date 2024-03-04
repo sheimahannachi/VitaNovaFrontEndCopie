@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/Model/Product';
-import { ProductService } from 'src/app/Service/product.service';
+import { Product } from 'src/app/ModelProduct/Product';
+import { ProductService } from '../ServiceProduct/product.service';
+
 
 @Component({
   selector: 'app-add-product',

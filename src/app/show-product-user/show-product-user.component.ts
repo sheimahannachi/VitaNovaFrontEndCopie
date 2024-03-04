@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
-import { Product } from 'src/app/Model/Product';
-import { ProductService } from 'src/app/Service/product.service';
+import { Product } from 'src/app/ModelProduct/Product';
+import { ProductService } from '../ServiceProduct/product.service';
+
 
 @Component({
   selector: 'app-show-product-user',
