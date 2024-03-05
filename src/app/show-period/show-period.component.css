@@ -1,0 +1,132 @@
+/* Define a class for custom titles */
+.custom-title {
+  font-size: 20px; /* Adjust font size */
+  font-weight: bold;
+  color: #ee861f; /* Pink title color */
+  margin-bottom: 5px; /* Add some space below title */
+  text-transform: uppercase; /* Convert text to uppercase */
+}
+
+/* Update specific titles with the custom class */
+.cycle-length-title,
+.start-date-title,
+.symptoms-title,
+.mood-title {
+  font-family: 'Arial', sans-serif; /* Example: Change font family */
+}
+
+/* Rest of the styles remain the same */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center cards horizontally */
+}
+
+.col-lg-4 {
+  flex: 0 0 calc(33.333% - 20px); /* Adjust card width */
+  margin: 10px; /* Add some space between cards */
+}
+
+.period-tracker-card {
+  background-color: #ece2db; /* Light pink background */
+  border: 2px solid #f6edf2; /* Pink border */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-text {
+  color: #0f0b0d; /* Dark pink text color */
+  font-size: 16px; /* Increase text size */
+  line-height: 1.5; /* Add spacing between lines */
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto; /* Push buttons to the bottom */
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.btn-update {
+  background-color: #eb4b16; /* Pink button color */
+  color: white;
+  border: none;
+}
+
+.btn-archive {
+  background-color: #ee9127; /* Dark pink button color */
+  color: white;
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+.three h1 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5em;
+  padding-bottom: 15px;
+  position: relative;
+  color :#ffcf33
+}
+.three h1:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 55px;
+  background-color: #d6830d;
+}
+.three h1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  height: 1px;
+  width: 95%;
+  max-width: 255px;
+  background-color: #cc780a;
+}
+.nine h1 {
+font-size:18px; text-transform:uppercase; color:#d2700e; letter-spacing:1px;
+  font-family:"Playfair Display", serif; font-weight:400;
+}
+.nine h1 span {
+  margin-top: 5px;
+    font-size:18px; color:#b14806; word-spacing:1px; font-weight:normal; letter-spacing:2px;
+    text-transform: uppercase; font-family:"Raleway", sans-serif; font-weight:500;
+
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-template-rows: 27px 0;
+    grid-gap: 20px;
+    align-items: center;
+}
+
+.nine h1 span:after,.nine h1 span:before {
+    content: " ";
+    display: block;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    height: 5px;
+  background-color:#f8f8f8;
+}

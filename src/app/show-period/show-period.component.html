@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let periodTracker of periodTrackers">
+      <div class="card h-100 period-tracker-card">
+        <div class="card-body">
+          <div class="start-date-title custom-title">
+            <div class="nine">
+              <h1>Start Date :</h1>
+            </div>
+          </div>
+          <p class="card-text">{{ periodTracker.startDate }}</p>
+        
+          <div class="cycle-length-title custom-title">
+            <div class="nine">
+              <h1>Cycle Length :</h1>
+            </div>
+          </div>
+          <p class="card-text">{{ periodTracker.cycleLength }}</p>
+        
+          <div class="mood-title custom-title">
+            <div class="nine">
+              <h1>Mood :</h1>
+            </div>
+          </div>
+          <p class="card-text">{{ periodTracker.mood }}</p>
+        
+          <div class="symptoms-title custom-title">
+            <div class="nine">
+              <h1>Symptoms :</h1>
+            </div>
+          </div>
+          <p class="card-text">{{ periodTracker.symptoms.join(', ') }}</p>
+          <div class="card-buttons">
+            <button class="btn btn-update" (click)="updatePeriodInformation(periodTracker.idPeriod)">Update</button>
+
+            <button class="btn btn-archive" (click)="archivePeriod(periodTracker.idPeriod)">Archive</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
