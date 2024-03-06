@@ -1,0 +1,41 @@
+<div *ngIf="exercises.length > 0" class="exercise-table-container">
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Body Part</th>
+      <th>Intensity</th>
+      <th>Sets</th>
+      <th>Reps</th>
+      <th>Image</th>
+      <th>Action</th> <!-- New column for action buttons -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let exercise of exercises" class="exercise-row">
+      <td>{{ exercise.title }}</td>
+      <td>{{ exercise.description }}</td>
+      <td>{{ exercise.typeEx }}</td>
+      <td>{{ exercise.bodypart }}</td>
+      <td>{{ exercise.intensity }}</td>
+      <td>{{ exercise.sets }}</td>
+      <td>{{ exercise.reps }}</td>
+      <td><img [src]="exercise.picture" alt="Exercise Image" class="exercise-image img-fluid"></td>
+      <td>
+        <button class="btn-dark-blue" (click)="editExercise(exercise)">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="btn-dark-blue" (click)="deleteExercise(exercise)">
+          <i class="fas fa-trash-alt"></i> Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="exercises.length === 0" class="no-exercises-message">
+  <p>No exercises found.</p>
+</div>
