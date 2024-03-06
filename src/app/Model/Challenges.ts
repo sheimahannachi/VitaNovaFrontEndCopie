@@ -1,5 +1,6 @@
 import { Community } from "./Community";
 
+
 export enum ChallengeType{
     WATER,
     CALORIES

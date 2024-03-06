@@ -1,0 +1,47 @@
+
+<div class="card">
+    <h2>Communities</h2>
+    <div class="table-responsive">
+<table class="table align-items-center mb-0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Community Name</th>
+            <th>Description</th>
+            <th>Members</th>
+            <th>Creation date</th>
+            <th>Status</th>
+           
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let a of communities">
+            <td>
+                {{a.id}}
+            </td>
+            <td>
+                {{a.communityName}}
+            </td>
+            <td>
+                {{a.description}}
+            </td>
+            <td>
+                {{a.membres}}
+            </td>
+            <td>
+                {{a.creationDate}}
+            </td>
+            <td>
+                <div *ngIf="a.status==true"> Active</div>
+                <div *ngIf="!a.status==true"> Inactive</div>
+            </td>
+        </tr>
+    </tbody>
+    
+</table>
+
+</div>
+        </div>
+   
+
+        

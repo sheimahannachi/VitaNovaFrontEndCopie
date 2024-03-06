@@ -1,7 +1,8 @@
+import { UserModule } from "./user/user.module";
 
 
 
-class Communication{
+export class Communication{
 
     id!:Number;
 
@@ -10,6 +11,8 @@ class Communication{
     sentDate!:Date;
 
     seen!:boolean;
+
+    sender: UserModule
     
 
 }

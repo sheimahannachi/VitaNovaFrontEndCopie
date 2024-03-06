@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Community } from '../Model/Community';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunityServiceService {
 
-  URL="localhost:8081";
+  URL="http://localhost:8081";
   addUrl="/addCommunity";
   updateUrl="/updateComunity";
   deleteByIdUrl="/deleteCommunity";
@@ -32,8 +33,8 @@ export class CommunityServiceService {
   }
 
                     //Post
-  addCommunity(community:Community):Observable<Community>{
-    return this.http.post<Community>(this.URL+this.addUrl,community);
+  addCommunity(community:Community, id:number):Observable<Community>{
+    return this.http.post<Community>(this.URL+this.addUrl+"/"+id,community);
   }
 
             //Update

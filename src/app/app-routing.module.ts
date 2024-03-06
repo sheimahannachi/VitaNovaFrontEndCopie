@@ -7,13 +7,27 @@ import { AllTemplateBackComponent } from './back-office/all-template-back/all-te
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
 import { CommunityComponent } from './community/community.component';
+import { HomeComponent } from './home/home.component';
+import { AddCommunityComponent } from './add-community/add-community.component';
+import { AllCommunitiesBackComponent } from './all-communities-back/all-communities-back.component';
+import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 const routes: Routes = [
+  {path:"",redirectTo:"app/home",pathMatch:"full"},
 
-  {path:"",
+  {path:"app",
   component:AllTemplateFrontComponent,children:[
-    {path:"community", component:CommunityComponent}
+    {path:"home",component:HomeComponent},
+    {path:"community", component:CommunityComponent},
+    {path:"addCommunity",component:AddCommunityComponent},
+    {path:"addChallenge", component:AddChallengeComponent},
+
+    
+
+
   ]
 },
+{path:"",redirectTo:"/app/home",pathMatch:'full'},
+
 { path: 'signup', component: RegisterComponent } ,
 { path: 'login', component: LoginComponent } ,
 
@@ -26,7 +40,9 @@ const routes: Routes = [
     path: "ListExercice",
     component: ExerciseListComponent,
 
-  }
+  },
+  {path:"communities",component:AllCommunitiesBackComponent},
+  
 ]},
 
 ];

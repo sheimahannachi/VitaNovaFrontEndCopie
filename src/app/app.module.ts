@@ -26,6 +26,11 @@ import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { AddChallengeComponent } from './add-challenge/add-challenge.component';
+import { AddCommunityComponent } from './add-community/add-community.component';
+import { AllCommunitiesBackComponent } from './all-communities-back/all-communities-back.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -47,9 +52,14 @@ import { FormsModule } from '@angular/forms';
     AddexerciseComponent,
     ExerciseListComponent,
     AddPlanComponent,
+    HomeComponent,
+    AddChallengeComponent,
+    AddCommunityComponent,
+    AllCommunitiesBackComponent,
 
 
     ],
+    entryComponents:[AddChallengeComponent],
   
   imports: [
     BrowserModule,
@@ -58,12 +68,15 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
+    MatDialogModule,
 
 
     AppRoutingModule,
     FormsModule,
     HttpClientModule
   ],
+  exports:[MatDialogModule,],
+
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,57 @@
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="addDiv">
+    <form [formGroup]="myForm">
+    <table>
+
+        <tr>
+            <td>
+                <div class="input-group input-group-static mb-4">
+                    <label>Challenge Name</label>
+                    <input type="text" class="form-control" formControlName="name" >
+                  </div>
+                  <div *ngIf="name.touched">Name is Obligatory</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-group input-group-static mb-4">
+                    <label>Challenge Description</label>
+                    <input type="text" class="form-control" formControlName="description" >
+                  </div>
+                  <div *ngIf="description.touched">description is Obligatory</div>
+                  
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-group input-group-outline my-3">
+                    <label class="form-label" *ngIf="goal.pristine || goal.touched ">Goal</label>
+                    <input type="number" class="form-control" formControlName="goal">
+                  </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="input-group input-group-static mb-4">
+                    <label for="exampleFormControlSelect1" class="ms-0">Type</label>
+                    <select class="form-control" id="exampleFormControlSelect1" formControlName="type" >
+                      <option *ngFor="let item of object.keys(challengeType)">{{item}}</option>
+                      
+                      
+                    </select>
+                  </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+                <button type="button" class="btn btn-secondary btn-lg w-100" (click)="saveChallenge()">New Challenge</button>
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+</div>
+<br><br><br><br><br><br><br><br><br>

@@ -1,26 +1,83 @@
+<!--
+
+<div class="chat-container">
+
+    <div class="chat-header">
+        <h2 class="title">Community Name {{CommunityName}}</h2>
+
+    </div>
+
+</div>
+-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<div class="tChat">
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card chat-app">
+                <div id="plist" class="people-list">
+                    <div class="input-group">
+                        
+                    </div>                                      <!--*ngFor="let a in membres"-->
+                    <ul class="list-unstyled chat-list mt-2 mb-0" *ngFor="let a of members" >
+                        <li class="clearfix">
+                            <!--Generated using ts-->
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+
+                            <div class="about"> <!--{{a.firstName}} {{a.lastName}} -->
+                                <div class="name">{{a.firstName}} {{a.lastName}} <!--Vincent Porter--></div>
+                                                                        
+                            </div>
+                        </li>
+                      
+                    </ul>
+                </div>
+                <div class="chat">
+                    <div class="chat-header clearfix">
+                       
+                    </div>
+                    <div class="chat-history">
+                                        <!-- *ngFor="let i of messages"-->
+                        <ul class="m-b-0" *ngFor="let i of messages">
+                            <li class="clearfix" *ngIf="i.sender==current">           <!--*ngIf"=i.sender==current"-->
+                                <div class="message-data text-right">
+                                                                    <!-- {{i.sentDate}}-->
+                                    <span class="message-data-time ">{{i.sentDate}}</span>
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                </div>                                      <!-- {{i.message}}-->
+                                <div class="message other-message float-right "> {{i.message}} </div>
+                           
+                            </li>       <!--*ngIf="i.sender !=current"-->
+                            <li class="clearfix" *ngIf="i.sender !=current">
+                                <div class="message-data">          <!-- {{i.sentDate}}-->
+                                    <span class="message-data-time">{{i.sentDate}}</span>
+                                </div>                          <!-- {{i.message}}-->
+                                <div class="message my-message">{{i.message}}</div>                                    
+                            </li>                               
+                           
+                        </ul>
+                    </div>
+
+                    
 
 
 
-<div id="chat-page" >
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>aaa</h2>
-        </div>
-        <div class="connecting">
-            Connecting...
-        </div>
-        <ul id="messageArea">
 
-        </ul>
-        <form id="messageForm" name="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                    <button type="submit" class="primary">Send</button>
+
+
+
+
+                    <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><button (click)="sendMessage()"><!--<i class="fa fa-send"></i>--></button></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Write your message..." [(ngModel)]="message">    {{message}}                                
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </div>
     </div>
 </div>
-
-

@@ -1,15 +1,52 @@
-
-
 <div class="community">
-<h3 class="CName">{{ClasseName}}</h3>
-<h4 class="CName">{{creatorName}} </h4>
+    
+    <div class="cc">
+        <br>
+        <br><br>
+        <br>
+        <br>
+        
+        <br>
+        <h3 class="CName">{{ClasseName}}</h3>
+        <h4 class="CName">{{creatorName}} </h4>
+        
+    </div>
+        <!--
+            <div class="topThree"
+            <ul *ngFor="let a in firstThree">
+                <li>
+                    <tr>
+                    <td>{{a.firstName}}</td>
+                    <td>{{a.lastName}}</td>
+                    </tr>
+                </li>
+            </ul>
+        </div>
+        -->
+        <br><br><br>
+   <app-communication></app-communication>
+    
+    <div class="button-container">
+        <button type="button" (click)="openAddChallenge()">Add Challenge</button>
+        
+        <button type="button" routerLink="/chat">Chat</button>
+    
+        <button class="circle-button">Join</button>
+    </div>
 
-
-<button type="button">Add Challenge</button>
-<button type="button">Chat</button>
-
-
-
-<button class="circle-button">Join</button>
-
+    <br>
+        <br><br>
+        <br>
+        <br>
+        
+        <br><br>
+        <br><br>
+        <br>
+        <br><br><br>
+        <br><br>
+        <br>
+        <br>
+        
+        <br>
 </div>
+<router-outlet></router-outlet>

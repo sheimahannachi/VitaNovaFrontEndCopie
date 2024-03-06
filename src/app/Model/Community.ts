@@ -1,6 +1,7 @@
+import { UserModule } from "./user/user.module";
 
 
-class Community{
+export class Community{
     id!:Number;
 
     communityName!:string;
@@ -9,6 +10,12 @@ class Community{
     status!:boolean;
 
     chatChannel!:string;
+   
+    creationDate:Date;
+    
+    creator:UserModule;
+
+    membres:UserModule[];
 
 
     
