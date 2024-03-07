@@ -1,39 +1,39 @@
 
 <div class="card">
-    <h2>Communities</h2>
+    <h2>Challenges</h2>
     <div class="table-responsive">
 <table class="table align-items-center mb-0">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Community Name</th>
+            <th>Challenge Name</th>
             <th>Description</th>
-            <th>Members</th>
+            <th>Community Name</th>
             <th>Creation date</th>
             <th>Status</th>
            
         </tr>
     </thead>
     <tbody >
-        <tr *ngFor="let a of communities">
+        <tr *ngFor="let a of challenges">
             <td>
                 {{a.id}}
             </td>
             <td>
-                {{a.communityName}}
+                {{a.name}}
             </td>
             <td>
                 {{a.description}}
             </td>
             <td>
-                {{a.membres}}
+                {{a.community.communityName}}
             </td>
             <td>
                 {{a.creationDate}}
             </td>
             <td>
-                <div *ngIf="a.status==true"> Active</div>
-                <div *ngIf="!a.status==true"> Inactive</div>
+                <div *ngIf="a.active==true"> Active</div>
+                <div *ngIf="!a.active==true"> Inactive</div>
             </td>
         </tr>
     </tbody>
@@ -64,6 +64,3 @@
 
 </div>
         </div>
-   
-
-        

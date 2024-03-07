@@ -24,10 +24,14 @@
         </div>
         -->
         <br><br><br>
+        <router-outlet></router-outlet>
+        <div *ngIf="test==1">
    <app-communication></app-communication>
+        </div>
+        
     
     <div class="button-container">
-        <button type="button" (click)="openAddChallenge()">Add Challenge</button>
+        <button type="button"  routerLink="addChallenge">Add Challenge</button>
         
         <button type="button" routerLink="/chat">Chat</button>
     
@@ -49,4 +53,3 @@
         
         <br>
 </div>
-<router-outlet></router-outlet>

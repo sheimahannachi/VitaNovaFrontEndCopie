@@ -16,7 +16,8 @@ export class ChallengesService {
   addUrl="addChallenge";
   updateUrl="updateChallenge";
   deleteUrl="deleteChallenge";
-  findallActiveUrl="findAllActive";
+  findallActiveUrl="findAllActiveChallenges";
+  findallUrl="findAllChallenges";
 
 
 
@@ -27,5 +28,10 @@ export class ChallengesService {
   addChallenge(challenge:Challenges, id:number):Observable<Challenges>{
     const params =new HttpParams().set('communityId',id);
     return this.http.post<Challenges>(this.URL+this.addUrl,challenge,{params});
+  }
+
+  findAllChallenges(page:number):Observable<any>{
+    let params=new HttpParams().set('page',page);
+    return this.http.get<any>(this.URL+this.findallUrl,{params});
   }
 }

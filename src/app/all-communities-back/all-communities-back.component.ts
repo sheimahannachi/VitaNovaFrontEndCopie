@@ -8,14 +8,39 @@ import { Community } from '../Model/Community';
   styleUrls: ['./all-communities-back.component.css']
 })
 export class AllCommunitiesBackComponent {
-  constructor(private service:CommunityServiceService){}
+
+  page:number;
+  constructor(private service:CommunityServiceService){
+    this.page=0;
+  }
   communities:Community[];
+  
 
   ngOnInit(){
-    this.service.getAllComunity().subscribe((res)=>{
-      this.communities=res;
+    this.getAllCommunities();
+  }
+
+
+  getAllCommunities(){
+    this.service.getAllComunity(this.page).subscribe((res)=>{
+      this.communities=res.content;
 
     })
+
+  }
+
+
+
+  nextPage(){
+    this.page++;
+    this.getAllCommunities();
+  }
+
+  previousPage(){
+    if(this.page>0){
+    this.page--;
+    this.getAllCommunities();
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ChallengesService } from '../Services/challenges.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ChallengeType, Challenges } from '../Model/Challenges';
 
@@ -15,7 +15,7 @@ export class AddChallengeComponent {
   communityId:number;
   object=Object;
 
-  constructor(private service:ChallengesService,private router:Router){}
+  constructor(private service:ChallengesService,private router:Router,private ac:ActivatedRoute){}
 
   myForm: FormGroup;
   enumValidator(enumType: any): ValidatorFn {
@@ -34,9 +34,9 @@ export class AddChallengeComponent {
         goal:new FormControl('',[Validators.required,Validators.pattern(/^\d+$/), Validators.min(0)]),
         type:new FormControl('',[Validators.required,this.enumValidator(ChallengeType)])
      
-      
-     
+       
     });
+    this.communityId=parseInt( this.ac.snapshot.paramMap.get('id'));
   }
 
   get name(){
@@ -64,7 +64,7 @@ export class AddChallengeComponent {
     challenge.description=this.description.value;
     challenge.goal=this.goal.value;
     challenge.type=this.type.value
-    this.service.addChallenge(challenge,this.communityId).subscribe(res=>this.router.navigateByUrl('/app/community'));
+    this.service.addChallenge(challenge,1).subscribe(res=>this.router.navigateByUrl('/app/community'));
   }
-
+  //this.communityId
 }

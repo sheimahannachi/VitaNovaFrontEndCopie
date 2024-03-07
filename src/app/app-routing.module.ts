@@ -11,22 +11,25 @@ import { HomeComponent } from './home/home.component';
 import { AddCommunityComponent } from './add-community/add-community.component';
 import { AllCommunitiesBackComponent } from './all-communities-back/all-communities-back.component';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
+import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 const routes: Routes = [
-  {path:"",redirectTo:"app/home",pathMatch:"full"},
+  {path:"",redirectTo:"/app/home",pathMatch:'full'},
 
   {path:"app",
   component:AllTemplateFrontComponent,children:[
     {path:"home",component:HomeComponent},
-    {path:"community", component:CommunityComponent},
+    {path:"community", component:CommunityComponent,children:[
+      {path:"addChallenge", component:AddChallengeComponent},
+    ]},
     {path:"addCommunity",component:AddCommunityComponent},
-    {path:"addChallenge", component:AddChallengeComponent},
+    
 
     
 
 
   ]
 },
-{path:"",redirectTo:"/app/home",pathMatch:'full'},
+
 
 { path: 'signup', component: RegisterComponent } ,
 { path: 'login', component: LoginComponent } ,
@@ -42,6 +45,7 @@ const routes: Routes = [
 
   },
   {path:"communities",component:AllCommunitiesBackComponent},
+  {path:"chalenges", component:AllChallengesBackComponent}
   
 ]},
 

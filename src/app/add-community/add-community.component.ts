@@ -3,6 +3,7 @@ import { Community } from '../Model/Community';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunityServiceService } from '../Services/community-service.service';
 import { Router } from '@angular/router';
+import { UserModule } from '../Model/user/user.module';
 
 @Component({
   selector: 'app-add-community',
@@ -13,6 +14,8 @@ export class AddCommunityComponent {
   constructor(private service:CommunityServiceService,private router:Router){
     this.router=router;
   }
+
+  current:UserModule;
 
   myForm: FormGroup;
 
@@ -47,6 +50,7 @@ export class AddCommunityComponent {
       let community = new Community();
       community.communityName=this.communityName.value;
       community.description= this.description.value;
+      community.creator=this.current;
       
       this.service.addCommunity(community,1).subscribe(()=>{
         this.myForm.reset();

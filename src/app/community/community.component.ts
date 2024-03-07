@@ -8,17 +8,31 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
   styleUrls: ['./community.component.css']
 })
 export class CommunityComponent {
-  constructor(private dailog: MatDialog){}
+  constructor(private dailog: MatDialog)
+  {
+    // User Connected get Community 
+  }
+
+
+
 
 ClasseName="";
 creatorName="";
 communityId:number;
+test:number;
 
+ngOnInit(){
+  this.test=1;
+
+}
+/*
 openAddChallenge() {
-  this.dailog.open(AddChallengeComponent/*,{
+
+  
+  this.dailog.open(AddChallengeComponent,{
     data:this.communityId
-  }*/)
+  })
   }
- 
+ */
 
 }

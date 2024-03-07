@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Community } from '../Model/Community';
@@ -24,8 +24,9 @@ export class CommunityServiceService {
     return this.http.get<Community>(this.URL+this.findByIdUrl+"/"+id);
   }
 
-  getAllComunity():Observable<Community[]>{
-    return this.http.get<Community[]>(this.URL+this.findAllUrl);
+  getAllComunity(page:number):Observable<any>{
+    let params=new HttpParams().set('page',page)
+    return this.http.get<any>(this.URL+this.findAllUrl,{params});
   }
 
   getByNomComunity(name:string):Observable<Community[]>{
