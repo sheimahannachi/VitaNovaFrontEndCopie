@@ -37,15 +37,19 @@ export class ShowProductComponent implements OnInit {
               pricePr: product.pricePr,
               categoriePr: product.categoriePr,
               picturePr: this.productService.getImageUrl(product.picturePr),
+              descriptionPr: product.descriptionPr,
+              statusPr: product.statusPr,
               archivePr: false,
+              quantityPr: product.quantityPr,
             }));
-          console.log('Données récupérées du service:', this.listeProduits);
+          console.log('Data retrieved from the service:', this.listeProduits);
         },
         (error) => {
-          console.error('Erreur lors de la récupération des produits :', error);
+          console.error('Error retrieving products:', error);
         }
       );
   }
+  
 
   
   searchProducts(): void {
@@ -60,7 +64,10 @@ export class ShowProductComponent implements OnInit {
               pricePr: product.pricePr,
               categoriePr: product.categoriePr,
               picturePr: this.productService.getImageUrl(product.picturePr),
+              descriptionPr: product.descriptionPr,
+              statusPr: product.statusPr,
               archivePr: false,
+              quantityPr: product.quantityPr,
             }));
           console.log('Résultats de la recherche :', this.listeProduits);
         },

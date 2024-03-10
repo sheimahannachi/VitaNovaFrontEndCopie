@@ -12,7 +12,15 @@ import { ProductService } from '../ServiceProduct/product.service';
 })
 
 export class UpdateProductComponent implements OnInit {
-  productData: any;
+  productData: any ={
+    namePr: '',
+    categoriePr: '',
+    pricePr: null,
+    quantityPr: null,
+    descriptionPr: '',
+    statusPr: '',
+    picturePr: ''
+  };
   productId: number | undefined;
   imageFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
@@ -51,14 +59,14 @@ export class UpdateProductComponent implements OnInit {
       );
   }
   
-  updateProduit(): void {
+  updateProduct(): void {
     if (!this.productData) {
       console.error('Le produit est null.');
       return;
     }
-
+  
     const formData = new FormData();
-
+  
     // Ajouter les champs modifiés au FormData
     if (this.productData.namePr) {
       formData.append('namePr', this.productData.namePr);
@@ -69,23 +77,32 @@ export class UpdateProductComponent implements OnInit {
     if (this.productData.pricePr) {
       formData.append('pricePr', this.productData.pricePr.toString());
     }
-
+    if (this.productData.quantityPr) {
+      formData.append('quantityPr', this.productData.quantityPr.toString());
+    }
+    if (this.productData.descriptionPr) {
+      formData.append('descriptionPr', this.productData.descriptionPr);
+    }
+    if (this.productData.statusPr) {
+      formData.append('statusPr', this.productData.statusPr);
+    }
+  
     // Supprimer l'image existante si une nouvelle image est sélectionnée
-  if (this.imageFile) {
-    formData.append('image', this.imageFile, this.imageFile.name);
-  } else if (this.productData.picturePr) {
-    // Ne pas ajouter d'image si aucune nouvelle image n'est sélectionnée
-    // Supprimer l'image existante
-    formData.append('removeImage', 'true');
-  }
-
+    if (this.imageFile) {
+      formData.append('image', this.imageFile, this.imageFile.name);
+    } else if (this.productData.picturePr) {
+      // Ne pas ajouter d'image si aucune nouvelle image n'est sélectionnée
+      // Supprimer l'image existante
+      formData.append('removeImage', 'true');
+    }
+  
     // Assurez-vous que l'identifiant du produit est défini avant de le passer
     if (this.productId !== undefined) {
       this.productService.updateProduct(formData, this.productId).subscribe(
         (response) => {
           console.log('Produit mis à jour avec succès :', response);
           // Rediriger vers l'interface showProduct après la mise à jour du produit
-          this.router.navigate(['/showProduct']);
+          this.router.navigate(['/admin/showProduct']);
         },
         (error) => {
           console.error('Erreur lors de la mise à jour du produit :', error);
@@ -95,6 +112,7 @@ export class UpdateProductComponent implements OnInit {
       console.error("L'identifiant du produit est indéfini.");
     }
   }
+  
   
 
   onFileChange(event: any): void {
@@ -112,7 +130,4 @@ export class UpdateProductComponent implements OnInit {
       this.imageFile = file;
     }
   }
-  
-  
 }
-

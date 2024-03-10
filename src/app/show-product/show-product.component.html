@@ -5,7 +5,7 @@
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <!-- Ajoutez le bouton pour naviguer vers l'interface d'ajout de produit -->
-                    <button class="btn btn-success" routerLink="/addProduct">Ajouter un produit</button>
+                    <button class="btn btn-success" routerLink="/admin/addProduct">Add Product</button>
                   </div>
                 </div>
               </div>
@@ -38,7 +38,10 @@
         <th>Image</th>
         <th>Name</th>
         <th>Price</th>
+        <th>Quantity</th>
         <th>Catégorie</th>
+        <th>Description</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -47,9 +50,12 @@
         <td><img [src]="produit.picturePr" alt="Image du produit" style="width: 150px; height: 150px;"></td>
         <td>{{ produit.namePr }}</td>
         <td>{{ produit.pricePr }}</td>
+        <td>{{ produit.quantityPr }}</td>
         <td>{{ produit.categoriePr }}</td>
+        <td>{{ produit.descriptionPr }}</td>
+        <td>{{ produit.statusPr }}</td>
         <td class="action-cell">
-          <button [routerLink]="'/updateProduct/' + produit.idPr" class="btn btn-primary btn-sm">
+          <button [routerLink]="'/admin/updateProduct/' + produit.idPr" class="btn btn-primary btn-sm">
             <i class="fa fa-edit"></i> 
           </button>
           <button (click)="archiverProduct(produit.idPr)" class="btn btn-danger btn-sm">
@@ -59,7 +65,6 @@
       </tr>
     </tbody>
   </table>
-
 </div>
 
 

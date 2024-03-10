@@ -36,7 +36,10 @@ export class ShowProductUserComponent {
               pricePr: product.pricePr,
               categoriePr: product.categoriePr,
               picturePr: "http://localhost:80/aziz/" + product.picturePr,
+              descriptionPr: product.descriptionPr,
+              statusPr: product.statusPr,
               archivePr: false,
+              quantityPr: product.quantityPr,
             }));
           console.log('Données récupérées du service:', this.listeProduits);
         },
@@ -57,7 +60,10 @@ export class ShowProductUserComponent {
               pricePr: product.pricePr,
               categoriePr: product.categoriePr,
               picturePr: this.productService.getImageUrl(product.picturePr),
+              descriptionPr: product.descriptionPr,
+              statusPr: product.statusPr,
               archivePr: false,
+              quantityPr: product.quantityPr,
             }));
           console.log('Résultats de la recherche :', this.listeProduits);
         },

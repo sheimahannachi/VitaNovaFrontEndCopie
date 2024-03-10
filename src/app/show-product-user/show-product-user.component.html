@@ -1,3 +1,35 @@
+<header class="header-area header-sticky">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="index.html" class="logo">Training<em> Studio</em></a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                      <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                      <li class="scroll-to-section"><a href="#features">About</a></li>
+                      <li class="scroll-to-section"><a href="#our-classes">Classes</a></li>
+                      <li class="scroll-to-section"><a href="/showProductUser">Shop</a></li>
+                      <li class="scroll-to-section"><a href="#contact-us">Contact</a></li> 
+                      <li class="main-button"><a href="#">Sign Up</a></li>
+                  </ul>        
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+              </nav>
+          </div>
+      </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+<br>
+<br>
+<br>
+<br>
+
 <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
@@ -19,12 +51,15 @@
       <div class="card mb-4 shadow-sm product-card" [ngClass]="{'selected': product === selectedProduct}" (click)="expandCard(product)">
         <img class="card-img-top product-image" [src]="product.picturePr" alt="Image du produit">
         <div class="card-body">
-          <h5 class="card-title">Nom : {{ product.namePr }}</h5>
-          <p class="card-text">Prix :  {{ product.pricePr }}</p>
+          <h5 class="card-title">Name : {{ product.namePr }}</h5>
+          <p class="card-text">Price :  {{ product.pricePr }}</p>
+          <p class="card-text">Quantity : {{ product.quantityPr }}</p>
           <p class="card-text">Catégorie : {{ product.categoriePr }}</p>
+          <p class="card-text">Description : {{ product.descriptionPr }}</p>
+          <p class="card-text">Status : {{ product.statusPr }}</p>
           <div class="d-flex flex-column align-items-center">
             <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-success mb-2">Ajouter au panier</button>
+              <button type="button" class="btn btn-sm btn-success mb-2">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -49,13 +84,11 @@
     </div>
   
     <!-- Champ de commentaire -->
-    <textarea [(ngModel)]="commentaire" class="form-control mt-3" rows="3" placeholder="Ajouter un commentaire..."></textarea>
-  
+    
     <!-- Bouton de fermeture de la carte agrandie -->
     <button type="button" class="btn btn-danger mt-3" (click)="closeExpandedCard()">Fermer</button>
   </div>
   
-
 
 
   
