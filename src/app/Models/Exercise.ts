@@ -9,5 +9,8 @@ export class Exercise {
   sets!: number;
   reps!: number;
   picture!: string;
+  archived!:boolean;
+
+
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Exercise} from "../Models/Exercise";
+import {UserRating} from "../Models/UserRating";
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,12 @@ export class WorkoutService {
   updateExercise(formData: FormData, exerciseId: number): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/UpdateExercise/${exerciseId}`, formData, { observe: 'response' });
   }
-
+  getActiveExercises(): Observable<Exercise[]> {
+    return this.http.get<Exercise[]>(`${this.baseUrl}/GetActiveExercise`);}
+  rateExercise(exerciseId: number, rate: number) {
+    return this.http.post(`${this.baseUrl}/rateExercise/${exerciseId}/${rate}`,{});
+  }
+  saveUserExerciseRating(userExerciseRating:UserRating,idEx:number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/saveUserExerciseRating/${idEx}`, userExerciseRating);
+  }
 }

@@ -22,7 +22,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
-
+import {CommonModule} from "@angular/common";
+import { ExerciseListFrontComponent } from './exercise-list-front/exercise-list-front.component';
+import { ExerciseModalComponent } from './exercise-modal/exercise-modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,8 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
     AddexerciseComponent,
     ExerciseListComponent,
     AddPlanComponent,
+    ExerciseListFrontComponent,
+    ExerciseModalComponent,
 
 
     ],
@@ -50,6 +56,9 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
+    CommonModule,
+    MatDialogModule,
+    MatIconModule,
 
 
   ],

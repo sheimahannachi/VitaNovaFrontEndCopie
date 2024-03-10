@@ -24,3 +24,42 @@
   color: blue;
   margin-right: 5px; /* Espacement entre les boutons */
 }
+.button-container {
+  text-align: right;
+  margin-bottom: 10px;
+}
+.alert {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+.exercise-row.archived {
+  background-color: #FFE1DE;
+  color: white;
+}
+
+.exercise-row.non-archived {
+  background-color: #DEFDEF;
+  color: white;
+}
+/* Ajoutez ce style CSS à votre feuille de style */
+.img-fixed {
+  width: 100px; /* Largeur fixe */
+  height: 100px; /* Hauteur fixe */
+  object-fit: cover; /* Maintient la proportion de l'image et couvre la zone spécifiée */
+  border-radius: 50%; /* Pour créer une forme circulaire (optionnel, ajustez selon vos besoins) */
+}
+

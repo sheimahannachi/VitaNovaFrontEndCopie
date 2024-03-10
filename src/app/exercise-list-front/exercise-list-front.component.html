@@ -1,0 +1,22 @@
+<div class="navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="page-container">
+  <div class="exercise-container">
+    <div *ngFor="let exercise of exercises" class="exercise-card">
+      <div class="exercise-title-rating">
+        <div class="exercise-title" (click)="showExerciseDetails(exercise)">
+          {{ exercise.title }}
+        </div>
+        <div class="exercise-rating">
+          <div *ngFor="let star of [1, 2, 3, 4, 5]"
+               class="fa fa-star"
+               (click)="rateExercise(exercise.id,star)"
+               [class.checked]="star <= selectedRating"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

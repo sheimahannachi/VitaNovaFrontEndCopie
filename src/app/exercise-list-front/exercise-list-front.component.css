@@ -1,0 +1,74 @@
+/* Navbar styles */
+.navbar {
+   /* Set the background color of the navbar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Page container */
+.page-container {
+  padding-top: 70px; /* Adjust as needed to create space for the fixed navbar */
+}
+
+/* Exercise list container */
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px; /* Add additional padding to create space below the fixed navbar */
+}
+
+/* Exercise card */
+.exercise-card {
+  width: 80%;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Définissez la couleur de fond grise */
+  }
+
+/* Exercise title and rating container */
+.exercise-title-rating {
+  display: flex;
+  align-items: center;
+}
+
+/* Exercise title */
+.exercise-title {
+  background-color: #f0f0f0;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.exercise-title:hover {
+  background-color: #e0e0e0;
+}
+
+/* Exercise rating */
+.exercise-rating {
+  margin-left: auto; /* Align the rating to the right */
+}
+
+/* Add styles for the stars */
+.fa-star {
+  font-size: 16px; /* Adjust size of the stars */
+  margin-right: 2px; /* Adjust spacing between stars */
+  cursor: pointer; /* Add cursor pointer */
+  color: #ccc; /* Set default color of the stars */
+}
+
+.fa-star.checked {
+  color: #ffd700; /* Set color for checked stars */
+}
+
+.fa-star:hover {
+  color: #ffd700; /* Set color for stars on hover */
+}
+
+
+/* Modal and Footer styles remain unchanged */
