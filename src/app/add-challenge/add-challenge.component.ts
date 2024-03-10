@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChallengesService } from '../Services/challenges.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { ChallengeType, Challenges } from '../Model/Challenges';
+import { ChallengeCompare, ChallengeType, Challenges } from '../Model/Challenges';
 
 @Component({
   selector: 'app-add-challenge',
@@ -11,7 +11,8 @@ import { ChallengeType, Challenges } from '../Model/Challenges';
 })
 export class AddChallengeComponent {
 
-  challengeType=ChallengeType;
+  challengeType=Object.keys(ChallengeType).filter(k => !isNaN(Number(ChallengeType[k])));
+  challengeCompare=Object.keys(ChallengeCompare).filter(k => !isNaN(Number(ChallengeCompare[k])));
   communityId:number;
   object=Object;
 
@@ -31,11 +32,13 @@ export class AddChallengeComponent {
         name: new FormControl('', [Validators.required]),
         
         description:new FormControl('',[Validators.required]),
-        goal:new FormControl('',[Validators.required,Validators.pattern(/^\d+$/), Validators.min(0)]),
-        type:new FormControl('',[Validators.required,this.enumValidator(ChallengeType)])
+        goal:new FormControl('',[Validators.required,Validators.pattern(/^\d+$/), Validators.min(10)]),
+        type:new FormControl(ChallengeType.WATER,[Validators.required,this.enumValidator(ChallengeType)]),
+        compare: new FormControl(ChallengeCompare.LESS,[this.enumValidator(ChallengeCompare)])
      
        
     });
+
     this.communityId=parseInt( this.ac.snapshot.paramMap.get('id'));
   }
 
@@ -55,6 +58,10 @@ export class AddChallengeComponent {
     return this.myForm.get('type');
   }
 
+  get compare(){
+    return this.myForm.get('compare')
+  }
+
 
 
   saveChallenge(){
@@ -64,6 +71,13 @@ export class AddChallengeComponent {
     challenge.description=this.description.value;
     challenge.goal=this.goal.value;
     challenge.type=this.type.value
+
+    if(challenge.type==ChallengeType.CALORIES){
+    challenge.compare=this.compare.value;
+  }
+    else{
+      challenge.compare=ChallengeCompare.MORE;
+    }
     this.service.addChallenge(challenge,1).subscribe(res=>this.router.navigateByUrl('/app/community'));
   }
   //this.communityId

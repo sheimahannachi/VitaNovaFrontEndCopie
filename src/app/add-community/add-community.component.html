@@ -1,4 +1,4 @@
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="addDiv">
 <form [formGroup]="myForm">
 <table>
@@ -10,7 +10,7 @@
                 <label>Community Name</label>
                 <input type="text" class="form-control" formControlName="communityName" >
               </div>
-              <div *ngIf="communityName.touched">Name Obligatory</div>
+              <div *ngIf="communityName.touched && communityName.value===''"><h5 style="color:#f44335 ;" >*Name Obligatory</h5></div>
 
               
 
@@ -26,7 +26,7 @@
                 <label>Description</label>
                 <input type="text" class="form-control" formControlName="description">
               </div>
-            <div *ngIf="communityName.touched">Description  Obligatory</div>
+            <div *ngIf="communityName.touched && description.value===''"><h5 style="color:#f44335 ;" >*Description  Obligatory</h5></div>
 
             
 
@@ -37,7 +37,7 @@
         <td>
             
             
-            <button type="button" class="btn btn-secondary btn-lg w-100" (click)="addCommunity()">Create new community</button>
+            <button type="button" class="btn btn-secondary btn-lg w-100" [disabled]="myForm.invalid" (click)="addCommunity()">Create new community</button>
             
         </td>
     </tr>

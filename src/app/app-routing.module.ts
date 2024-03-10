@@ -12,6 +12,7 @@ import { AddCommunityComponent } from './add-community/add-community.component';
 import { AllCommunitiesBackComponent } from './all-communities-back/all-communities-back.component';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
+import { FindCommunityComponent } from './find-community/find-community.component';
 const routes: Routes = [
   {path:"",redirectTo:"/app/home",pathMatch:'full'},
 
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path:"addChallenge", component:AddChallengeComponent},
     ]},
     {path:"addCommunity",component:AddCommunityComponent},
+    {path:"findCommunity",component:FindCommunityComponent}
     
 
     

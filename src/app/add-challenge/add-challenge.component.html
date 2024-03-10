@@ -5,48 +5,82 @@
 
         <tr>
             <td>
-                <div class="input-group input-group-static mb-4">
+                
+                <div class="input-group input-group-static mb-4 col">
                     <label>Challenge Name</label>
                     <input type="text" class="form-control" formControlName="name" >
                   </div>
-                  <div *ngIf="name.touched">Name is Obligatory</div>
+                  <div *ngIf="name.touched && name.value==''"><h5 style="color:#f44335 ;" >*Name is Obligatory</h5>
+                
+                </div>{{name.invalid}}
             </td>
-        </tr>
-        <tr>
+
             <td>
-                <div class="input-group input-group-static mb-4">
+                <div class="input-group input-group-static mb-4 col">
                     <label>Challenge Description</label>
-                    <input type="text" class="form-control" formControlName="description" >
+                    <textarea class="form-control" rows="1" formControlName="description" ></textarea>
                   </div>
-                  <div *ngIf="description.touched">description is Obligatory</div>
+                  <div *ngIf="description.touched && description.value=='' "  ><h5 style="color:#f44335 ;" >*Description is Obligatory</h5>
+                
+                </div>{{description.invalid}}
                   
 
             </td>
         </tr>
         <tr>
+            
+        </tr> <!--goal.pristine || goal.touched -->
+        <tr >
             <td>
-                <div class="input-group input-group-outline my-3">
-                    <label class="form-label" *ngIf="goal.pristine || goal.touched ">Goal</label>
-                    <input type="number" class="form-control" formControlName="goal">
-                  </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="input-group input-group-static mb-4">
+                <div class="input-group input-group-static mb-4 col  ">
                     <label for="exampleFormControlSelect1" class="ms-0">Type</label>
                     <select class="form-control" id="exampleFormControlSelect1" formControlName="type" >
-                      <option *ngFor="let item of object.keys(challengeType)">{{item}}</option>
+                      <option *ngFor="let item of challengeType">{{item}}</option>
                       
                       
                     </select>
+                    {{type.invalid}}
                   </div>
+            </td>
+            <td>
+                <div class="col">
+                    <h5 style="color:#6c757d ;" >*In water type, compare to will automatically be MORE THAN</h5>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
+                <div class="input-group input-group-static mb-4 col" *ngIf="type.value==='CALORIES'" >
+                    <label for="exampleFormControlSelect1" class="ms-0">Compare</label>
+                    <select class="form-control" id="exampleFormControlSelect1" formControlName="compare" >
+                      <option *ngFor="let item of challengeCompare">{{item}} </option>
+                      
+                      
+                    </select>
+                    {{compare.invalid}}
+                  </div>
+            </td>
+            <td>
+                <div class="input-group input-group-outline my-3 col">
+                    
+                    <input type="number" placeholder="Goal" class="form-control" formControlName="goal">
+                  </div>
+                  <div *ngIf="goal.touched && goal.value=='' "  ><h5 style="color:#f44335 ;" >*Goal is Obligatory</h5>
+                 <div *ngIf="goal?.invalid">
+                    <div *ngIf="goal.errors['min(10)']"><h5 style="color:#f44335 ;" >*Goal can't be below 10</h5></div>
+
+                 </div>
+                </div>
+                {{goal.invalid}}
+            </td>
+        </tr>
+      
+       
+        <tr>
+            <td>
+                {{myForm.invalid}}
                 
-                <button type="button" class="btn btn-secondary btn-lg w-100" (click)="saveChallenge()">New Challenge</button>
+                <button type="button" class="btn btn-secondary btn-lg w-100" [disabled]="myForm.invalid" (click)="saveChallenge()">New Challenge</button>
             </td>
         </tr>
 
@@ -54,4 +88,4 @@
 
 </form>
 </div>
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>

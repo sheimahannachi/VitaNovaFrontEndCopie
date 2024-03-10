@@ -1,0 +1,8 @@
+.myCards{
+    margin-left: 20px; /* Espace à gauche */
+    margin-right: 20px; /* Espace à droite */
+}
+.card{
+    width: 300px; /* Largeur fixe de 300 pixels */
+    height: 300px; /* Hauteur fixe de 200 pixels */
+}

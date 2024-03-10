@@ -6,6 +6,12 @@ export enum ChallengeType{
     CALORIES
 }
 
+export enum ChallengeCompare{
+    MORE,
+    LESS
+
+}
+
 
 export class Challenges
 {
@@ -22,6 +28,8 @@ export class Challenges
 
     goal:number;
     type:ChallengeType;
+
+    compare:ChallengeCompare;
 
     community:Community;
 

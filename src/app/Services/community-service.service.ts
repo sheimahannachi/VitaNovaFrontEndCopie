@@ -15,6 +15,7 @@ export class CommunityServiceService {
   findByIdUrl="/findCommunity";
   findAllUrl="/findAllCommunities";
   findByNom="/findCommunitiesByNom";
+  getAllOrderByChallenges="/getCommunitiesOrderedByChallenges";
 
 
   constructor(private http: HttpClient) { }
@@ -29,8 +30,16 @@ export class CommunityServiceService {
     return this.http.get<any>(this.URL+this.findAllUrl,{params});
   }
 
-  getByNomComunity(name:string):Observable<Community[]>{
-    return this.http.get<Community[]>(this.URL+this.findAllUrl+"/"+name);
+  getByNomComunity(name:string,page:number):Observable<any>{
+    let params=new HttpParams().set('page',page)
+    return this.http.get<any>(this.URL+this.findAllUrl+"/"+name,{params});
+  }
+
+
+
+  getCommunitiesOrderByChallenge(page:number):Observable<any>{
+    let params=new HttpParams().set('page',page);
+    return this.http.get<any>(this.URL+this.getAllOrderByChallenges,{params});
   }
 
                     //Post

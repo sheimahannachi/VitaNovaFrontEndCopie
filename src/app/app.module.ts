@@ -32,6 +32,7 @@ import { AddCommunityComponent } from './add-community/add-community.component';
 import { AllCommunitiesBackComponent } from './all-communities-back/all-communities-back.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
+import { FindCommunityComponent } from './find-community/find-community.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
     AddCommunityComponent,
     AllCommunitiesBackComponent,
     AllChallengesBackComponent,
+    FindCommunityComponent,
 
 
     ],
