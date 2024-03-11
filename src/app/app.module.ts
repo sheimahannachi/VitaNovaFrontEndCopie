@@ -22,6 +22,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
+import { UsersBackComponent } from './users-back/users-back.component';
+import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
     AddexerciseComponent,
     ExerciseListComponent,
     AddPlanComponent,
+    UsersBackComponent,
+    UserProfileComponent,
 
 
     ],
