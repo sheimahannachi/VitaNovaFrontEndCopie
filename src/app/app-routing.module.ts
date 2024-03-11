@@ -13,6 +13,7 @@ import { AllCommunitiesBackComponent } from './all-communities-back/all-communit
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 import { FindCommunityComponent } from './find-community/find-community.component';
+import { UpdateCommunityComponent } from './update-community/update-community.component';
 const routes: Routes = [
   {path:"",redirectTo:"/app/home",pathMatch:'full'},
 
@@ -20,10 +21,11 @@ const routes: Routes = [
   component:AllTemplateFrontComponent,children:[
     {path:"home",component:HomeComponent},
     {path:"community", component:CommunityComponent,children:[
-      {path:"addChallenge", component:AddChallengeComponent},
+      {path:"addChallenge/:id", component:AddChallengeComponent},
     ]},
     {path:"addCommunity",component:AddCommunityComponent},
-    {path:"findCommunity",component:FindCommunityComponent}
+    {path:"findCommunity",component:FindCommunityComponent},
+    {path:"updateCommunity/:id",component:UpdateCommunityComponent},
     
 
     

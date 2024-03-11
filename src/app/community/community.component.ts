@@ -22,6 +22,7 @@ communityId:number;
 test:number;
 
 ngOnInit(){
+  this.communityId=1
   this.test=1;
 
 }

@@ -31,9 +31,9 @@
         
     
     <div class="button-container">
-        <button type="button"  routerLink="addChallenge">Add Challenge</button>
+        <button type="button"  [routerLink]="['addChallenge',communityId]">Add Challenge</button>
         
-        <button type="button" routerLink="/chat">Chat</button>
+        <button type="button" [routerLink]="['/app/updateCommunity',communityId]">Update</button>
     
         <button class="circle-button">Join</button>
     </div>

@@ -33,6 +33,7 @@ import { AllCommunitiesBackComponent } from './all-communities-back/all-communit
 import {MatDialogModule} from '@angular/material/dialog';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 import { FindCommunityComponent } from './find-community/find-community.component';
+import { UpdateCommunityComponent } from './update-community/update-community.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { FindCommunityComponent } from './find-community/find-community.componen
     AllCommunitiesBackComponent,
     AllChallengesBackComponent,
     FindCommunityComponent,
+    UpdateCommunityComponent,
 
 
     ],

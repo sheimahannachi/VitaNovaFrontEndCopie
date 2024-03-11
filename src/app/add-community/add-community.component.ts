@@ -52,10 +52,13 @@ export class AddCommunityComponent {
       community.description= this.description.value;
       community.creator=this.current;
       
-      this.service.addCommunity(community,1).subscribe(()=>{
+      this.service.addCommunity(community,1).subscribe(response=>{
         this.myForm.reset();
         this.router.navigateByUrl("/app/home")
         
+      },
+      error=>{
+        console.error('BackEnd error while adding community:',error);
       })
       
     }
