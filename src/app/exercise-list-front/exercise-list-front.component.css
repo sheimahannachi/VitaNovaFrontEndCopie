@@ -1,6 +1,5 @@
 /* Navbar styles */
 .navbar {
-   /* Set the background color of the navbar */
   position: fixed;
   top: 0;
   left: 0;
@@ -18,48 +17,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px; /* Add additional padding to create space below the fixed navbar */
+  padding-top: 100px; /* Add additional padding to create space below the fixed navbar */
 }
 
 /* Exercise card */
+/* Exercise card */
 .exercise-card {
+  cursor: pointer; /* Add pointer cursor to indicate clickable element */
   width: 80%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
-  background-color: #f0f0f0; /* Définissez la couleur de fond grise */
-  }
+  background-color: #f0f0f0; /* Set the background color to grey */
+}
 
 /* Exercise title and rating container */
 .exercise-title-rating {
   display: flex;
-  align-items: center;
+  justify-content: space-between; /* Align items to the start and end of the container */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Add padding for spacing */
 }
 
 /* Exercise title */
 .exercise-title {
-  background-color: #f0f0f0;
-  padding: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.exercise-title:hover {
-  background-color: #e0e0e0;
-}
-
-/* Exercise rating */
-.exercise-rating {
-  margin-left: auto; /* Align the rating to the right */
+  font-weight: bold;
 }
 
 /* Add styles for the stars */
 .fa-star {
   font-size: 16px; /* Adjust size of the stars */
   margin-right: 2px; /* Adjust spacing between stars */
-  cursor: pointer; /* Add cursor pointer */
-  color: #ccc; /* Set default color of the stars */
 }
 
 .fa-star.checked {
@@ -70,5 +59,17 @@
   color: #ffd700; /* Set color for stars on hover */
 }
 
+/* Share button */
+.share-button {
+  cursor: pointer;
+}
 
-/* Modal and Footer styles remain unchanged */
+/* Pagination Controls */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+}

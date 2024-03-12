@@ -10,7 +10,7 @@ export class Exercise {
   reps!: number;
   picture!: string;
   archived!:boolean;
-
+  rating!:number;
 
 
 }

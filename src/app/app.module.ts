@@ -27,6 +27,8 @@ import { ExerciseListFrontComponent } from './exercise-list-front/exercise-list-
 import { ExerciseModalComponent } from './exercise-modal/exercise-modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { MatIconModule } from '@angular/material/icon';
+import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
+import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { MatIconModule } from '@angular/material/icon';
     AddPlanComponent,
     ExerciseListFrontComponent,
     ExerciseModalComponent,
+    ExerciseLinkModelComponent,
+    ExerciseDetailsComponent,
 
 
     ],
