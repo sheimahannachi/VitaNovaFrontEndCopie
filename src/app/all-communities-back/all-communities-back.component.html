@@ -1,6 +1,27 @@
 
 <div class="card">
+  <table>
+    <tr>
+      <td>
     <h2>Communities</h2>
+  </td>
+  <td>
+    <div class="ss">
+    
+      
+    
+      <select name="pets" id="pet-select">
+        <option (click)="pageSize(5)" >5</option>
+        <option (click)="pageSize(10)" >10</option>
+        <option (click)="pageSize(15)">15</option>
+      </select>
+    
+      </div>
+    
+  </td>
+  </tr>
+    
+    </table>
     <div class="table-responsive">
 <table class="table align-items-center mb-0">
     <thead>
@@ -55,6 +76,9 @@
                   </span>
                   <span class="sr-only">Next</span>
                 </a>
+              </li>
+              <li>
+                <div *ngIf="booltest"><h3 style="color: #495057;">No more communities</h3></div>
               </li>
               </ul>
               </nav>

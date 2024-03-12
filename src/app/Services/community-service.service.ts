@@ -25,13 +25,13 @@ export class CommunityServiceService {
     return this.http.get<Community>(this.URL+this.findByIdUrl+"/"+id);
   }
 
-  getAllComunity(page:number):Observable<any>{
-    let params=new HttpParams().set('page',page)
+  getAllComunity(page:number,size:number):Observable<any>{
+    let params=new HttpParams().set('page',page).set('size',size);
     return this.http.get<any>(this.URL+this.findAllUrl,{params});
   }
 
   getByNomComunity(name:string,page:number):Observable<any>{
-    let params=new HttpParams().set('page',page)
+    let params=new HttpParams().set('page',page);
     return this.http.get<any>(this.URL+this.findAllUrl+"/"+name,{params});
   }
 
