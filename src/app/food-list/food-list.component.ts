@@ -23,7 +23,8 @@ export class FoodListComponent implements OnInit {
             protein: ['', Validators.required], // Double attribute with required validator
             lipides: ['', Validators.required], // Double attribute with required validator
             title: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
-            ingredients: ['', Validators.required] // String attribute with required validator
+            ingredients: ['', Validators.required], // String attribute with required validator
+          category: ['', Validators.required]
         });
       this.router=route;
   }
@@ -57,6 +58,9 @@ export class FoodListComponent implements OnInit {
         // Navigate to the "AddFood" page with the selected food details
         this.router.navigate(['/admin/addFood'], { state:{food,foodId:food.id}});
     }
+  goToAddFoodPage(): void {
+    this.router.navigate(['/admin/addFood']);
+  }
 
 
 

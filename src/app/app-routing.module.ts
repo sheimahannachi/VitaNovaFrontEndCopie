@@ -9,10 +9,14 @@ import {FoodListComponent} from "./food-list/food-list.component";
 
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
+import {FoodCardComponent} from "./food-card/food-card.component";
+import {FoodDetailsComponent} from "./food-details/food-details.component";
 const routes: Routes = [
   { path: '', component: AllTemplateFrontComponent },
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+  {path:"foodFront",component:FoodCardComponent},
+  { path: 'foodDetails/:id', component: FoodDetailsComponent },
 {path:'admin',component:AllTemplateBackComponent, children: [
     {
       path: "exercise",

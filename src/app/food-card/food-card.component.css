@@ -1,0 +1,32 @@
+/* Custom CSS for Food Card Component */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.card {
+  width: 100%; /* Set the width of the card to occupy the entire column */
+  margin-bottom: 20px; /* Add margin to create space between cards */
+}
+
+.food-image {
+  width: 100%; /* Ensure the food image fills the entire width of the card */
+  height: auto; /* Maintain aspect ratio of the image */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Increase font size of the card title */
+}
+
+.card-title button {
+  border: none; /* Remove border from button */
+  background-color: transparent; /* Make button background transparent */
+}
+
+.card-title i {
+  margin-left: 10px; /* Add margin to the left of the plus icon */
+  color: green; /* Change the color of the plus icon */
+}

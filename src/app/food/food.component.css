@@ -63,3 +63,14 @@ textarea {
 .btn:hover {
   background-color: #0056b3;
 }
+.custom-btn {
+  background-color: #EC2562;
+  border-color: #EC2562;
+}
+
+.custom-btn:hover {
+  background-color: #EC2562; /* Hex value for dark pink */
+}
+
+
+

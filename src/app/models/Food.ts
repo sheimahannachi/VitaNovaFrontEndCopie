@@ -8,6 +8,7 @@ export class Food {
   title!: string;
   ingredients!: string;
   foodPic!: string;
+  category!:string;
   // @ts-ignore
   //date!: Date; // ou vous pouvez utiliser le type Date si vous utilisez des dates JavaScript
   archive!: boolean;

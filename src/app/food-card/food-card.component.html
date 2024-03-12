@@ -1,0 +1,53 @@
+
+  <div class="container">
+    <div class="row">
+      <!-- Filtres -->
+      <div class="col-md-3">
+        <!-- Filtrage par titre -->
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="searchTitle">
+        </div>
+        <!-- Filtrage par catégorie -->
+        <div class="mb-3">
+          <p>Filter by category:</p>
+          <div class="form-check" *ngFor="let category of categories">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="selectedCategories" [value]="category">
+            <label class="form-check-label">{{ category }}</label>
+          </div>
+        </div>
+        <!-- Filtrage par plage de calories -->
+        <div class="mb-3">
+          <p>Filter by calories range:</p>
+          <input type="number" class="form-control mb-2" placeholder="Min" [(ngModel)]="minCalories">
+          <input type="number" class="form-control" placeholder="Max" [(ngModel)]="maxCalories">
+        </div>
+        <!-- Bouton pour appliquer les filtres -->
+        <div class="text-center">
+          <button class="btn btn-primary" (click)="applyFilters()">Apply Filters</button>
+        </div>
+      </div>
+
+      <!-- Cartes des aliments filtrés -->
+      <div class="col-md-9">
+        <div class="row">
+          <div *ngFor="let food of filteredFoods">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title d-flex justify-content-between">
+                    {{ food.title }}
+                    <button class="btn btn-success" (click)="goToDetails(food.id)">
+                      <i class="fa" [ngClass]="{'fa-minus': isDetailsVisible(food.id), 'fa-plus': !isDetailsVisible(food.id)}"></i>
+                    </button>
+                  </h5>
+                  <!-- Informations supplémentaires masquées par défaut -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

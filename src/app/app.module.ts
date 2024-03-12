@@ -8,7 +8,6 @@ import { AllTemplateFrontComponent } from './front-office/all-template-front/all
 
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './front-office/user/login/login.component';
 import { NavBarBackComponent } from './back-office/nav-bar-back/nav-bar-back.component';
@@ -21,10 +20,11 @@ import {CommonModule} from "@angular/common";
 import { SideBarBackComponent } from './back-office/side-bar-back/side-bar-back.component';
 
 import { AddexerciseComponent } from './addExercise/addexercise.component';
-import {ReactiveFormsModule} from "@angular/forms";
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
+import { FoodCardComponent } from './food-card/food-card.component';
+import { FoodDetailsComponent } from './food-details/food-details.component';
 
 
 @NgModule({
@@ -48,6 +48,8 @@ import { AddPlanComponent } from './add-plan/add-plan.component';
 
     FoodComponent,
     FoodListComponent,
+    FoodCardComponent,
+    FoodDetailsComponent,
 
 
     ],
