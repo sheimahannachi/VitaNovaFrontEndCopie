@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { Product } from '../ModelProduct/Product';
 
 @Injectable({
@@ -41,6 +41,30 @@ export class ProductService {
   searchProductsByName(searchTerm: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/search?term=${searchTerm}`);
   }
+  filterProducts(categorie: string | null, price: number | null): Observable<Product[]> {
+    // Créer les paramètres de la requête HTTP
+    let params = new HttpParams();
+    
+    // Si la catégorie est définie et n'est pas "ALL", ajouter le paramètre de catégorie à la requête
+    if (categorie !== null && categorie !== 'ALL' && ['NUTRITION', 'Fitness_Equipement', 'Mentall_wellbeing'].includes(categorie)) {
+      params = params.set('categoriePr', categorie); // Ajouter le paramètre 'categoriePr' avec la valeur de la catégorie à la requête
+    }
+    
+    // Ajouter le paramètre de prix à la requête si défini
+    if (price !== null) {
+      params = params.set('pricePr', price.toString()); // Ajouter le paramètre 'pricePr' avec la valeur du prix à la requête
+    }
+  
+    // Effectuer une requête HTTP GET avec les paramètres définis
+    return this.http.get<Product[]>(`${this.baseUrl}/filter`, { params }).pipe(
+      catchError(error => {
+        console.error('Erreur lors du filtrage des produits :', error); // Afficher l'erreur s'il y a lieu
+        throw error; // Relancer l'erreur pour la gestion ultérieure
+      })
+    );
+}
+
+
 }
 
  
