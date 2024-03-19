@@ -1,0 +1,75 @@
+/* Navbar styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Page container */
+.page-container {
+  padding-top: 70px; /* Adjust as needed to create space for the fixed navbar */
+}
+
+/* Exercise list container */
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px; /* Add additional padding to create space below the fixed navbar */
+}
+
+/* Exercise card */
+/* Exercise card */
+.exercise-card {
+  cursor: pointer; /* Add pointer cursor to indicate clickable element */
+  width: 80%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Set the background color to grey */
+}
+
+/* Exercise title and rating container */
+.exercise-title-rating {
+  display: flex;
+  justify-content: space-between; /* Align items to the start and end of the container */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Add padding for spacing */
+}
+
+/* Exercise title */
+.exercise-title {
+  font-weight: bold;
+}
+
+/* Add styles for the stars */
+.fa-star {
+  font-size: 16px; /* Adjust size of the stars */
+  margin-right: 2px; /* Adjust spacing between stars */
+}
+
+.fa-star.checked {
+  color: #ffd700; /* Set color for checked stars */
+}
+
+.fa-star:hover {
+  color: #ffd700; /* Set color for stars on hover */
+}
+
+/* Share button */
+.share-button {
+  cursor: pointer;
+}
+
+/* Pagination Controls */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+}

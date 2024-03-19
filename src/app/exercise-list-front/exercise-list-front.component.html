@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="navbar">
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="exercise-container">
+    <div *ngFor="let exercise of exercises" class="exercise-card" (click)="showExerciseDetails(exercise)">
+      <div class="exercise-title-rating">
+        <div class="exercise-title">{{ exercise.title }}</div>
+        <div class="exercise-actions">
+          <div class="exercise-rating">
+            <div *ngFor="let star of [1, 2, 3, 4, 5]" class="fa fa-star"
+                 (click)="rateExercise(exercise.id, star); $event.stopPropagation()"
+                 [class.checked]="star <= selectedRating">
+            </div>
+          </div>
+          <span class="average-rating">{{ exercise.rating.toFixed(1) }}</span>
+          <div class="share-button" (click)="copyExerciseLink(exercise.id); $event.stopPropagation()">
+            <i class="fa fa-share"></i> Share
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <button *ngIf="currentPage > 0" (click)="previousPage()">
+        <i class="fa fa-chevron-left"></i> Previous
+      </button>
+      <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+      <button *ngIf="currentPage < totalPages - 1" (click)="nextPage()">
+        Next <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

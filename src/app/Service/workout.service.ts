@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Exercise} from "../Models/Exercise";
+import {UserRating} from "../Models/UserRating";
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,21 @@ export class WorkoutService {
   updateExercise(formData: FormData, exerciseId: number): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/UpdateExercise/${exerciseId}`, formData, { observe: 'response' });
   }
-
+  getActiveExercises(page:number,size:number): Observable<Exercise[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<Exercise[]>(`${this.baseUrl}/GetActiveExercise`,{params});}
+  rateExercise(exerciseId: number, rate: number) {
+    return this.http.post(`${this.baseUrl}/rateExercise/${exerciseId}/${rate}`,{});
+  }
+  saveUserExerciseRating(userExerciseRating:UserRating,idEx:number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/saveUserExerciseRating/${idEx}`, userExerciseRating);
+  }
+  getExerciseById(exerciseId: number): Observable<Exercise> {
+    return this.http.get<Exercise>(`${this.baseUrl}/getExerciseById/${exerciseId}`);
+  }
+  getAverageRating(exerciseId: number): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/Rating/${exerciseId}`);
+  }
 }
