@@ -5,3 +5,9 @@ export interface UserInfoResponse {
     email: string;
     token:string;
   }
+  export interface ResetPasswordRequest {
+
+    email: string;
+    password:string;
+    phone:string;
+  }

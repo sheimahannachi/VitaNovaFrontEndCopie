@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import{UserModule} from '../Models/user.module'
+import { ResetPasswordRequest } from '../front-office/user/login/UserInfoResponse';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,14 +25,25 @@ export class UserService {
   updateUser(user: UserModule): Observable<UserModule> {
     return this.http.put<UserModule>(`${this.baseAdminUrl}/UpdateUser`, user);
   }
-  resetPassword(email:string,password:string): Observable<void>{
+  resetPassword(email:string,password:string,phone:string): Observable<void>{
     let payload = {
       email,
-      password
+      password,
+      phone
     }
-        return this.http.put<void>(`${this.baseUrl}/`,payload);
+    console.log(payload);
+        return this.http.put<void>(`http://localhost:8081/api/resetPassword`,payload);
     
   }
+  resetPasswordPhone(phone:string,password:string): Observable<void>{
+    let payload = {
+      phone,
+      password
+    }
+        return this.http.put<void>(`${this.baseUrl}/reset-password-Phone`,payload);
+    
+  }
+  
 
   checkUsername(username: string) {
     return this.http.get<boolean>(`${this.baseUrl}/user/check-username?username=${username}`);
