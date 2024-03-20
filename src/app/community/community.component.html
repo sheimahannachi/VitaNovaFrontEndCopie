@@ -1,0 +1,55 @@
+<div class="community">
+    
+    <div class="cc">
+        <br>
+        <br><br>
+        <br>
+        <br>
+        
+        <br>
+        <h3 class="CName">{{ClasseName}}</h3>
+        <h4 class="CName">{{creatorName}} </h4>
+        
+    </div>
+        <!--
+            <div class="topThree"
+            <ul *ngFor="let a in firstThree">
+                <li>
+                    <tr>
+                    <td>{{a.firstName}}</td>
+                    <td>{{a.lastName}}</td>
+                    </tr>
+                </li>
+            </ul>
+        </div>
+        -->
+        <br><br><br>
+        <router-outlet></router-outlet>
+        <div *ngIf="test==1">
+   <app-communication></app-communication>
+        </div>
+        
+    
+    <div class="button-container">
+        <button type="button"  [routerLink]="['addChallenge',communityId]">Add Challenge</button>
+        
+        <button type="button" [routerLink]="['/app/updateCommunity',communityId]">Update</button>
+    
+        <button class="circle-button">Join</button>
+    </div>
+
+    <br>
+        <br><br>
+        <br>
+        <br>
+        
+        <br><br>
+        <br><br>
+        <br>
+        <br><br><br>
+        <br><br>
+        <br>
+        <br>
+        
+        <br>
+</div>
