@@ -1,75 +1,101 @@
 /* Navbar styles */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
+
 
 /* Page container */
-.page-container {
-  padding-top: 70px; /* Adjust as needed to create space for the fixed navbar */
+body{
+  background: black;
 }
+
 
 /* Exercise list container */
 .exercise-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 100px; /* Add additional padding to create space below the fixed navbar */
+  padding-top: 80px; /* Add additional padding to create space below the fixed navbar */
 }
 
-/* Exercise card */
 /* Exercise card */
 .exercise-card {
   cursor: pointer; /* Add pointer cursor to indicate clickable element */
   width: 80%;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  margin-bottom: 20px; /* Increased margin for better separation */
+  border: 1px solid black; /* Lighter border color */
   border-radius: 10px;
   overflow: hidden;
-  background-color: #f0f0f0; /* Set the background color to grey */
+  background-color: white; /* White background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
 
 /* Exercise title and rating container */
 .exercise-title-rating {
   display: flex;
-  justify-content: space-between; /* Align items to the start and end of the container */
-  align-items: center; /* Align items vertically */
-  padding: 10px; /* Add padding for spacing */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
 }
 
 /* Exercise title */
 .exercise-title {
   font-weight: bold;
+  color: #333; /* Darker text color */
 }
 
 /* Add styles for the stars */
 .fa-star {
-  font-size: 16px; /* Adjust size of the stars */
-  margin-right: 2px; /* Adjust spacing between stars */
+  font-size: 16px;
+  margin-right: 2px;
+  color: #ffd700; /* Default star color */
+  cursor: pointer;
 }
 
-.fa-star.checked {
-  color: #ffd700; /* Set color for checked stars */
-}
-
+.fa-star.checked,
 .fa-star:hover {
-  color: #ffd700; /* Set color for stars on hover */
+  color: #ffac33; /* Change color for checked and hover states */
 }
 
 /* Share button */
 .share-button {
   cursor: pointer;
+  color: #007bff; /* Share button color */
 }
 
 /* Pagination Controls */
 .pagination {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
 }
-
+/* Next and Previous button styles */
+/* Next and Previous button styles */
 .pagination button {
-  margin: 0 5px;
+  display: flex;
+  align-items: center; /* Align items vertically */
+  padding: 5px 10px; /* Smaller padding for buttons */
+  background-color: transparent !important; /* Transparent background */
+  color: #B4D821; /* Green text color */
+  border: 1px solid black; /* Green border */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Set the color of the chevron icons */
+.fa-chevron-left,
+.fa-chevron-right {
+  font-size: 13px;
+  color: #B4D821; /* Green color for icons */
+}
+
+/* Set the color of the text "Next" */
+.pagination button span {
+  margin-right: 10px;
+  /* Add space between icon and text */
+}
+
+/* Hover effect */
+.pagination button:hover {
+  background-color: #fff; /* White background on hover */
+  color:#B4D821 ; /* White text color on hover */
 }
