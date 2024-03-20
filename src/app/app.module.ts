@@ -15,6 +15,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ShowPeriodComponent } from './show-period/show-period.component';
+import { CalendarComponent } from './calendar/calendar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { ShowPeriodComponent } from './show-period/show-period.component';
     FooterBackComponent,
     PeriodTrackerComponent,
     ShowPeriodComponent,
+    CalendarComponent,
     
   ],
   imports: [

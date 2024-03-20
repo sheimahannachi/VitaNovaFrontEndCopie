@@ -28,15 +28,22 @@
   <h1>
     <span>please select your last Period StartDate</span>
   </h1>
+  
   <div class="calendar">
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Select a date" [(ngModel)]="selectedDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <app-calendar [selectedRangeValue]="selectedDateRange"
+    (selectedRangeValueChange)="handleDateChange($event)"[min]="today">
+</app-calendar> 
+<span class="error-message" *ngIf="dateErrorMessage">{{ dateErrorMessage }}</span> 
   </div>
 </div>
 
+<div class="two">
+  <h1>
+    <span>Period Length (Days)</span>
+  </h1>
+  <input type="number" id="period-length" [(ngModel)]="periodLength">
+  <span class="error-message" *ngIf="periodLengthErrorMessage">{{ periodLengthErrorMessage }}</span>
+</div>
 
 
 <div class="calendar-container">
@@ -101,8 +108,9 @@
   </div>
   <!-- Add more symptoms as needed -->
 </div>
-
 </div>
+<span class="error-message" *ngIf="symptomErrorMessage">{{ symptomErrorMessage }}</span>
+
 
   <div class="calendar-container">
     <div class="mood-selection">        
@@ -124,6 +132,10 @@
   </div>
     </div>
   </div>
+
+
+    
+    <span class="error-message" *ngIf="moodErrorMessage">{{ moodErrorMessage }}</span>
   
 
   <button id="save-btn" (click)="saveInformation()">Save</button>

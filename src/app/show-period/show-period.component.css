@@ -19,7 +19,8 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center cards horizontally */
+  justify-content: center;
+  padding-top: 150px; /* Center cards horizontally */
 }
 
 .col-lg-4 {

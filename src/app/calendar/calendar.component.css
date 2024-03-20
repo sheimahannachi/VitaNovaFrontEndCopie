@@ -1,0 +1,56 @@
+/* component.css */
+
+/* Calendar container */
+.mat-calendar {
+    font-family: 'Arial', sans-serif;
+    background-color: #f6e9d4;
+    border: 2px solid #f08016; /* Pink border */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
+  }
+  
+  /* Selected date */
+  .mat-calendar-body-selected {
+    background-color: #ba4a04; /* Pink background for selected date */
+    color: #ba2005; /* White text color for selected date */
+  }
+  
+  /* Header */
+  .mat-calendar-header {
+    background-color: #ff7eb9; /* Pink background for header */
+    color: #fff; /* White text color for header */
+  }
+  
+  /* Today's date */
+  .mat-calendar-body-today {
+    background-color: #ffd3e0; /* Light pink background for today's date */
+  }
+  
+  /* Buttons */
+  .mat-calendar-previous-button,
+  .mat-calendar-next-button {
+    color: #cf7129; /* Pink color for navigation buttons */
+  }
+  
+  /* Weekday labels */
+  .mat-calendar-table-header th {
+    color: #ff7eb9; /* Pink color for weekday labels */
+  }
+  
+  /* Date cells */
+  .mat-calendar-body-cell {
+    color: #b05429; /* Pink color for date text */
+  }
+  
+  /* Hover effect */
+  .mat-calendar-body-cell:hover {
+    background-color: #d97212; /* Light pink background on hover */
+  }
+  
+  /* Selected range */
+  .mat-calendar-body-selected-range {
+    background-color: rgba(255, 126, 185, 0.4); /* Light pink background for selected range */
+  }
+  
+  
