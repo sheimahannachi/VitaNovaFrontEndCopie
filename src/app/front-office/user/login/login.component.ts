@@ -74,12 +74,26 @@ if(this.generatedCode==this.verificationCode){
 
   savePassword(){
     if(this.newPassword==this.confirmPassword){
-    this.userService.resetPassword(this.email,this.newPassword);
-  alert("password changed");
-  this.router.navigate(['/profile']); 
+      if(this.resetMethod==='email'){
+    this.userService.resetPassword(this.email,this.newPassword,"").subscribe(response => {alert("password changed");
+    location.reload();
+  }, error => {
+     
+      console.error('error', error);
+    });
 
-  }
-  }
+
+  }}
+  else if(this.resetMethod==='phone'){
+    this.userService.resetPasswordPhone(this.phoneNumber,this.newPassword).subscribe(response => {alert("password changed");
+    location.reload();
+  }, error => {
+     
+      console.error('error', error);
+    });
+
+
+  }}
   startCountdown() {
     const interval = setInterval(() => {
       this.countdown--;
