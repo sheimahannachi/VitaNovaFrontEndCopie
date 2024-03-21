@@ -140,7 +140,16 @@
                             <label>Weight</label>
                             <input type="number" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" name="weight" class="form-control" id="weight" placeholder="Enter Weight">
                         </div>
-
+                        <div class="form-group2" >
+                        
+                            <label for="phoneNumberLabel" class="phoneNumberLabel">Phone Number</label>
+                            <div class="phoneGroup">
+                       
+                              <label for="" class="usernamelabel">+216 </label>
+                            <input type="text" id="usernameField" class="phoneNumber" name="phoneNumber" pattern="\d+" maxlength="8"   [(ngModel)]="phoneNumber" required placeholder="12345678">
+                         
+                          </div>
+                          </div>
                         <div class="form-group">
                             <label>Height</label>
                             <input type="number" [(ngModel)]="height" [ngModelOptions]="{standalone: true}" name="height" class="form-control" id="height" placeholder="Enter Height">

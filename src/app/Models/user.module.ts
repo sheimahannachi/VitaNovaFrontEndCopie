@@ -34,6 +34,8 @@ export class UserModule {
   picture!: string ;
   verified!: boolean ;
   score!:number;
+  phone!: string ;
+
   // personalGoals: PersonalGoals = new PersonalGoals(); // Example initial value
   // periodTracker: PeriodTracker = new PeriodTracker(); // Example initial value
   // cart: Cart = new Cart(); // Example initial value

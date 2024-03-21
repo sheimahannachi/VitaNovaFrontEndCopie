@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { LoginRequest } from '../front-office/user/login/LoginRequest';
 import { UserInfoResponse } from '../front-office/user/login/UserInfoResponse';
 import { CookieService } from 'ngx-cookie-service';
@@ -27,7 +27,16 @@ export class AuthService {
   }
 
   getUserInfoFromToken(): Observable<UserModule> {
-    return this.http.get<UserModule>(`http://localhost:8081/api/getuserfromtoken`, { withCredentials: true });
+    return this.http.get<UserModule>(`${this.baseUrl}/getuserfromtoken`, { withCredentials: true }).pipe(
+      catchError(error => {
+        console.error('Error fetching user info from token:', error);
+        alert("Session expired ");
+        // Clear JWT cookie and redirect to login
+        this.clearJwtCookie();
+        this.router.navigate(['/login']);
+        return throwError(error);
+      })
+    );
   }
 
 

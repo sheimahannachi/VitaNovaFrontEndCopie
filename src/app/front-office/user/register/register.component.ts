@@ -3,6 +3,7 @@ import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Component ,NgZone} from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/Service/user.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class RegisterComponent {
   picture: string ="";
   gender:string="";
   weight:number=0;
+  phoneNumber:string="";
   passwordTEST:boolean=false;
   height:number=0;
   strengthText: string = '';
@@ -33,7 +35,7 @@ verified:boolean=false;
 textColor: string = '';
 EmailExists:boolean=false;
 UsernameExists:boolean=false;
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService) {
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
 
 
   }
@@ -56,7 +58,8 @@ UsernameExists:boolean=false;
       "dateOfBirth":this.dateOfBirth,
       "firstName":this.firstName,
       "lastName":this.lastName,
-      "verified":this.verified
+      "verified":this.verified,
+      "phone":this.phoneNumber
     };
     
     if(this.verified==true){
@@ -65,7 +68,7 @@ UsernameExists:boolean=false;
 
         console.log(bodyData);
         alert(" Registered Successfully");
-
+        this.router.navigate(['/login']); 
     });
   }
   }}
