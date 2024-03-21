@@ -105,4 +105,8 @@ if(this.generatedCode==this.verificationCode){
     }, 1000);
   }
   
+  reloadPage() {
+    location.reload(); // This line reloads the page
+  }
+
 }

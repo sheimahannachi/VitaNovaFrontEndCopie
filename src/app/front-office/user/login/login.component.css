@@ -371,7 +371,8 @@ margin: 5px;
 }
 
 #inputField3:focus,
-#inputField3:valid{
+#inputField3:valid,#inputField4:focus,
+#inputField4:valid{
   background-color: #F3F3F3;
   transition-duration: .3s;
 }
@@ -394,23 +395,87 @@ margin: 5px;
   background-color: white;
 }
 
+#inputField4{
+  width: 30%;
+}
 
+.usernamelabel {
+  display: flex;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
 
-.phoneGroup #inputField{
+margin-top: 15px;
+margin-bottom: 15px;
+margin-right: 10px;
+}
+
+#usernameField {
+  width: 200px;
+  height: 40px;
+  background-color: #292929;
+  border-radius: 30px;
+  border: 2px solid #292929;
+  outline: none;
+  caret-color: rgb(9, 208, 92);
+  color: rgb(212, 212, 212);
+  font-size: 16px;
+  transition-duration: .2s;
   width: 60%;
-  margin: 0;
-  padding: 0;
+  margin-left: 15px;
+  display: flex; /* Use flexbox to align items */
+margin-left:0 ;
+
 }
-#phoneID{
-  color:#000000 ;
-  width: 22%;
-  margin: 0;
-  margin-right: -2px;
-  padding: 0;
-  background-color: #ffffff;
-border-top-right-radius: 11px;
+
+#usernameField:focus,
+#usernameField:valid {
+  border: 2px solid rgb(88, 255, 138);
+  transition-duration: .2s;
 }
-.phoneGroup{
-  margin: 0;
-  padding: 0;
+.form-group2{
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Align items vertically */
+  display: inline;
+  padding: 25px;
 }
+.phoneGroup {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Align items vertically */
+
+}
+.phoneNumberLabel{
+display: inline;
+margin-left:-25px ;
+}
+
+.back {
+  display: flex;
+  height: 2em;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  color: #147605;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
+  background:transparent;
+ }
+ 
+ .back > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 90px;
+  transition: all 0.4s ease-in;
+fill: #3a9425; }
+ 
+ .back:hover > svg {
+  font-size: 3.0em;
+  transform: translateX(-5px);
+ }
+ 
+ .back:hover {
+  box-shadow: 7px 7px 29px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-2px);
+ }
