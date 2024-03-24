@@ -1,6 +1,7 @@
 /* Custom CSS for Exercise Table */
 .exercise-table-container {
   margin-top: 20px;
+
 }
 
 .exercise-row:hover {
@@ -9,8 +10,10 @@
 }
 
 .exercise-image {
-  max-width: 100px;
-  height: auto;
+  width: 100px; /* Fix the width */
+  height: 100px; /* Fix the height */
+  border-radius: 50%; /* Ensure circular shape */
+  object-fit: cover; /* Maintain aspect ratio */
 }
 
 .no-exercises-message {
@@ -24,10 +27,12 @@
   color: blue;
   margin-right: 5px; /* Espacement entre les boutons */
 }
+
 .button-container {
   text-align: right;
   margin-bottom: 10px;
 }
+
 .alert {
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
@@ -46,20 +51,41 @@
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
+
 .exercise-row.archived {
-  background-color: #FFE1DE;
+  background-color: #ffe1de;
   color: white;
 }
 
 .exercise-row.non-archived {
-  background-color: #DEFDEF;
+  background-color: #defdef;
   color: white;
 }
-/* Ajoutez ce style CSS à votre feuille de style */
-.img-fixed {
-  width: 100px; /* Largeur fixe */
-  height: 100px; /* Hauteur fixe */
-  object-fit: cover; /* Maintient la proportion de l'image et couvre la zone spécifiée */
-  border-radius: 50%; /* Pour créer une forme circulaire (optionnel, ajustez selon vos besoins) */
+
+/* Adjust table layout and cell width */
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse; /* Ensure borders collapse properly */
 }
 
+th, td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap; /* Prevent text wrapping by default */
+  overflow: hidden; /* Hide overflow content */
+  text-overflow: ellipsis; /* Add ellipsis for overflow content */
+}
+
+/* Allow table title to wrap onto multiple lines */
+th.title {
+  white-space: normal; /* Allow text to wrap */
+  max-width: 200px; /* Limit the maximum width */
+  word-wrap: break-word; /* Enable word wrapping */
+  overflow: visible; /* Allow overflow content to be visible */
+  text-overflow: unset; /* Remove ellipsis */
+}
+.pagination-controls {
+  margin-top: 20px; /* Add some space between the table and pagination controls */
+}

@@ -38,8 +38,11 @@ export class WorkoutService {
     return this.http.post<any>(`${this.baseUrl}/addExercise`, exercise, {observe: 'response'});
   }
 
-  getExercises(): Observable<Exercise[]> {
-    return this.http.get<Exercise[]>(`${this.baseUrl}/GetExercise`);
+  getExercises(page:number,size:number): Observable<Exercise[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<Exercise[]>(`${this.baseUrl}/GetExercise`,{params});
 
   }
 

@@ -7,16 +7,16 @@
   </div>
   <table class="table table-bordered table-hover">
     <colgroup>
-      <!-- Définir la largeur fixe des colonnes -->
-      <col style="width: 10%;">
+      <!-- Define equal width for all columns -->
+      <col style="width: 11.11%;">
       <col style="width: 20%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
+      <col style="width: 11.11%;">
+      <col style="width: 11.11%;">
+      <col style="width: 11.11%;">
+      <col style="width: 11.11%;">
+      <col style="width: 11.11%;">
+      <col style="width: 11.11%;">
+      <col style="width: 11.11%;">
     </colgroup>
     <thead class="thead-light">
     <tr>
@@ -34,34 +34,36 @@
     <tbody>
     <tr *ngFor="let exercise of exercises" class="exercise-row" [ngClass]="{'archived': exercise.archived, 'non-archived': !exercise.archived}">
       <td style="color: #625F5F;">{{ exercise.title }}</td>
-      <td style="color: #625F5F;">{{ exercise.description }}</td>
+      <td style="color: #625F5F; white-space: normal;">{{ exercise.description }}</td>
       <td style="color: #625F5F;">{{ exercise.typeEx }}</td>
       <td style="color: #625F5F;">{{ exercise.bodypart }}</td>
       <td style="color: #625F5F;">{{ exercise.intensity }}</td>
       <td style="color: #625F5F;">{{ exercise.sets }}</td>
       <td style="color: #625F5F;">{{ exercise.reps }}</td>
       <td>
-        <!-- Fixer la taille de l'image -->
         <img [src]="exercise.picture" alt="Exercise Image" class="exercise-image img-fixed">
       </td>
       <td>
         <button class="btn" (click)="editExercise(exercise)">
           <i class="fa fa-edit" style="color:#625F5F; font-size: 20px;"></i>
         </button>
-          <button class="btn" (click)="deleteExercise(exercise)">
-            <i class="fa" [ngClass]="{'fa-archive fa-lg': !exercise.archived, 'fa-undo fa-lg': exercise.archived}"></i>
-          </button>
+        <button class="btn" (click)="deleteExercise(exercise)">
+          <i class="fa" [ngClass]="{'fa-archive fa-lg': !exercise.archived, 'fa-undo fa-lg': exercise.archived}"></i>
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
+  <div class="pagination-controls">
+    <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+    <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>
+  </div>
 </div>
 <div *ngIf="showDeleteAlert" class="delete-alert" style="color: black;">
   <p>Are you sure you want to delete this exercise?</p>
   <button class="btn btn-danger" (click)="deleteConfirmed()">Yes</button>
   <button class="btn btn-secondary" (click)="cancelDelete()">No</button>
 </div>
-<!-- Display alert if no exercises found -->
 <div *ngIf="exercises.length === 0" class="no-exercises-message" style="color: black;">
   <div class="alert alert-warning" role="alert">
     No exercises found.

@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AddexerciseComponent implements OnInit {
   exerciseForm: FormGroup;
-  intensity: string[] = ['HIGH', 'MEDIUM', 'LOW'];
+  intensity: string[] = ['HIGH', 'LOW', 'MEDIUM'];
   selectedFile: File | null = null;
   exercise: Exercise = new Exercise();
 

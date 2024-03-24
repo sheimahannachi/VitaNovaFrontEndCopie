@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/back/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/back/img/favicon.png">
   <title>Material Dashboard 2 by Creative Tim</title>
@@ -16,39 +16,29 @@
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+    /* Specific styles for the back office container */
+    .back-office-container {
+      display: flex; /* Use flexbox for layout */
+      height: 100vh; /* Full height of the viewport */
       font-family: 'Roboto', sans-serif; /* Ensure consistent font across the page */
-    }
-    .container {
-      display: flex;
-      height: 100%;
+      background: transparent; /* Set background color as needed */
     }
     .sidebar {
       width: 260px; /* Adjust the width as needed */
-      background-color:#; /* Adjust the background color as needed */
+      background-color: transparent; /* Adjust the background color as needed */
       color: #fff; /* Adjust the text color as needed */
       padding: 20px; /* Add some padding for spacing */
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0; /* Adjusted to stretch to the bottom */
-    }
-    .sidebar h1 {
-      margin-top: 0;
     }
     .main-content {
       flex: 1; /* Take remaining space */
       padding: 20px; /* Add some padding for spacing */
-      margin-left: 260px; /* Adjusted to account for sidebar width */
     }
   </style>
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
-<div class="container">
+<!-- Back office container -->
+<div class="back-office-container">
   <div class="sidebar">
     <!-- Sidebar content goes here -->
     <app-side-bar-back></app-side-bar-back> <!-- Your sidebar component -->
@@ -82,3 +72,4 @@
 <script src="../assets/back/js/material-dashboard.min.js?v=3.1.0"></script>
 </body>
 </html>
+

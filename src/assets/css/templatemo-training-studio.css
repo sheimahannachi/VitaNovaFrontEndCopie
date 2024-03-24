@@ -82,7 +82,6 @@ header, nav, section, article, aside, footer, hgroup {
 html, body {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  background-color: #fff;
   font-size: 16px;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
@@ -113,11 +112,7 @@ p {
 global styles
 ---------------------------------------------
 */
-html,
-body {
-  background: black;
-  font-family: 'Poppins', sans-serif;
-}
+
 
 ::selection {
   background: #B4D821 ;
@@ -148,7 +143,7 @@ body {
 .section-heading {
   text-align: center;
   margin-top: 140px;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 
 .section-heading h2 {
