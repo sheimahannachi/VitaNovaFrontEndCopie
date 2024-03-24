@@ -4,6 +4,7 @@ import { Component ,NgZone} from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { UserService } from 'src/app/Service/user.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent {
   username: string ="";
   firstName: string ="";
   lastName: string ="";
-  dateOfBirth!: Date;
+  dateOfBirth: Date=new Date();
   email: string ="";
   password: string ="";
   role: string="";
@@ -23,35 +24,107 @@ export class RegisterComponent {
   gender:string="";
   weight:number=0;
   phoneNumber:string="";
-  passwordTEST:boolean=false;
   height:number=0;
-  strengthText: string = '';
   selectedFile: File | null = null;
   showVerificationCodeInput: boolean = false;
   verificationCode!: string;
   generatedCode!: string;
   show_verification:boolean=false;
-verified:boolean=false;
 textColor: string = '';
+
+selectedFileName!:string;
+passwordConfirm!:string;
+registerSection:number=0;
+
+
+
+theme:string="dark";
+image1:string="http://localhost/cats/giphy2.gif";
+image2:string="http://localhost/cats/giphy2.gif";
+image3:string="http://localhost/cats/giphy2.gif";
+
+/*ERRORS*/
+termsChecked:boolean=false;
+phoneError:boolean=false;
+emailError:boolean=false;
+termsError:boolean=false;
 EmailExists:boolean=false;
 UsernameExists:boolean=false;
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
+verified:boolean=false;
+usernameError:boolean=false;
+roleError:boolean=false;
+genderError:boolean=false;
+DateError:boolean=false;
+strengthText: string = '';
 
+
+
+
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
+    this.selectedFileName = this.selectedFile?.name ?? '';
+    this.generatedCode=this.generateVerificationCode();
 
   }
- 
+  switchModes(){
+  if(this.theme=="dark"){
+    this.theme="light";
+    this.image1="http://localhost/cats/cat2.gif";
+    this.image2="http://localhost/cats/cat3.gif";
+    this.image3="http://localhost/cats/cat5.gif";
+
+}
+  else {this.theme="dark";
+  this.image1="http://localhost/cats/giphy2.gif";
+  this.image2="http://localhost/cats/giphy2.gif";
+  this.image3="http://localhost/cats/giphy2.gif";
+
+}
+  console.log(this.theme);
+ }
+
+ ValidateAll() {
+
+  if (this.phoneNumber.length !== 8 || !/^\d+$/.test(this.phoneNumber)) {
+    this.phoneError = true;
+  } else {
+    this.phoneError = false;
+  }
+  if(this.role==""){this.roleError=true ; }else this.roleError=false;
+  if(this.gender==""){this.genderError=true;}else this.genderError=false;
+
+  // Parse the date of birth string into a Date object
+  const dateOfBirth = new Date(this.dateOfBirth);
+
+  // Calculate the date 13 years ago from today
+  const thirteenYearsAgo = new Date();
+  thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13);
+
+
+  // Compare the year, month, and day components of the dates
+  if (dateOfBirth.getFullYear() > thirteenYearsAgo.getFullYear() ||
+      (dateOfBirth.getFullYear() === thirteenYearsAgo.getFullYear() && dateOfBirth.getMonth() > thirteenYearsAgo.getMonth()) ||
+      (dateOfBirth.getFullYear() === thirteenYearsAgo.getFullYear() && dateOfBirth.getMonth() === thirteenYearsAgo.getMonth() && dateOfBirth.getDate() > thirteenYearsAgo.getDate())) {
+    this.DateError = true;
+  } else {
+    this.DateError = false;
+  }
+  
+}
 
   save()
   {
-    
-    if (this.validateFields() && this.validateEmail(this.email) ) {
+    this.ValidateAll()
+
+   
+    if (this.validateFields() && this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false ) {
+      this.copyFileToXAMPP();
 
     let bodyData = {
       "username" : this.username,
       "email" : this.email,
       "password" : this.password,
       "role": this.role,
-      "picture":this.picture,
+      "picture":this.selectedFileName,
       "gender":this.gender,
       "height":this.height,
       "weight":this.weight,
@@ -61,8 +134,10 @@ UsernameExists:boolean=false;
       "verified":this.verified,
       "phone":this.phoneNumber
     };
+
     
     if(this.verified==true){
+
     this.http.post("http://localhost:8081/api/signup",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
 
@@ -79,10 +154,11 @@ UsernameExists:boolean=false;
       this.verified = true;
       console.log('Email verified successfully');
     } else {
+      this.verified = false;
       console.log('Verification code does not match');
+
     }
-    console.log(this.verificationCode);
-    console.log(this.generateVerificationCode);
+
 
   }
 
@@ -91,29 +167,43 @@ checkEmail(){
   this.userService.checkEmail(this.email).subscribe((exists: boolean) => {
     if (exists) {
       this.EmailExists=true;
-      console.log('Email already exists');
-      // Handle existing email scenario
     } else {
       this.EmailExists=false;
-      console.log('Email available');
-      // Handle available email scenario
+    }
+  });
+  
+}
+checkUsername(){
+  this.userService.checkUsername(this.username).subscribe((exists: boolean) => {
+    if (exists) {
+      this.UsernameExists=true;
+    } else {
+      this.UsernameExists=false;
     }
   });
   
 }
 
+timerSeconds = 0;
+
+
   sendVerificationCode() {
     this.checkEmail();
-    console.log(this.EmailExists)
-    if(!this.EmailExists){
     this.generatedCode=this.generateVerificationCode();
+// Start the timer
+
+    if(!this.EmailExists&&this.validateEmail(this.email)){
+      this.emailError=false;
 this.showVerificationCodeInput=true;
     // Make HTTP POST request to your backend endpoint
     const apiUrl = 'http://localhost:8081/api/sendEmail';
     const payload = { to: this.email, subject:"verification",text: this.generatedCode };
+    this.timerSeconds = 30;
+    this.startTimer();
 
     this.http.post(apiUrl, payload).subscribe(
       (response) => {
+        
         console.log('Verification code sent successfully');
         // Handle success (e.g., show a success message to the user)
       },
@@ -125,7 +215,17 @@ this.showVerificationCodeInput=true;
     else{this.EmailExists=true;}
   }
 
+  startTimer() {
+    const timer = setInterval(() => {
+      this.timerSeconds--;
   
+      if (this.timerSeconds <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+
+
 
 
   onPasswordChange(): void {
@@ -138,7 +238,8 @@ this.showVerificationCodeInput=true;
       this.textColor = 'red';
     } else if (strength < 5) {
       this.strengthText = 'Moderate';
-      this.textColor = 'black';
+  this.textColor='turquoise'
+    
     } else {
       this.strengthText = 'Strong';
       this.textColor = 'green';
@@ -185,17 +286,45 @@ this.showVerificationCodeInput=true;
 
   onFileChanged(event: any): void {
     this.selectedFile = event.target.files[0];
+    this.selectedFileName = this.selectedFile?.name ?? '';
+
   }
+  getImageUrl(file: File): string {
+    return URL.createObjectURL(file);
+}
 
 
-getSelectedFileUrl(): SafeUrl | null {
+  getSelectedFileName(): string | null {
     if (this.selectedFile) {
-      const url = window.URL.createObjectURL(this.selectedFile);
-      return this.sanitizer.bypassSecurityTrustUrl(url);
+      return this.selectedFile.name;
     } else {
       return null;
     }
   }
+  copyFileToXAMPP(): void {
+    if (this.selectedFile) {
+      console.log("in copyfiletoxamp function " + this.selectedFile);
+  
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+  
+      this.http.post<any>(`http://localhost:8081/api/misc/copyToXampp`, formData).pipe(
+        catchError(error => {
+          console.error('An error occurred:', error);
+          return throwError('Failed to upload file'); // Return a custom error message
+        })
+      ).subscribe(response => {
+        console.log('File uploaded successfully:', response);
+        // Handle success if needed
+      }, error => {
+        console.error('Error uploading file:', error);
+        // Handle error if needed
+      });
+    } else {
+      console.log("empty file");
+    }
+  }
+
 
 
   generateVerificationCode(): string {
@@ -221,20 +350,18 @@ getSelectedFileUrl(): SafeUrl | null {
         this.password &&
         this.role &&
         this.gender &&
-        this.dateOfBirth &&
-        this.weight &&
-        this.height
+        this.dateOfBirth 
     );
 
-    if (areAllFieldsValid)return true;
+    if ((areAllFieldsValid)&&this.roleError==false&&this.phoneError==false)return true;
     else return false;
 }
 
   validateEmail(email: string): boolean {
-    // Add your email validation logic here.
-    // You can use a regular expression to check if the email is valid.
+
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    if (re.test(String(email).toLowerCase())==true){this.emailError=false; return true;}
+    else this.emailError=true;return false ;
   }
   
   validatePassword(password: string): boolean {
@@ -242,7 +369,40 @@ getSelectedFileUrl(): SafeUrl | null {
     // You can check if the password meets certain requirements, such as a minimum length or the presence of special characters.
     return password.length >= 8;
   }
+  validateUsername() {
+    if (this.username && /^[^0-9].*$/.test(this.username.trim())) {
+      this.usernameError=false;
 
+      return true;
+    } else {
+      this.usernameError=true;
+      return false;
+    }
+  }
   
+
+onTermsChange(checked: boolean) {
+  this.termsChecked = checked;
+}
+ next1(){
+ this.checkEmail();
+this.checkUsername();
+this.validateUsername();
+
+if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&this.verified&&this.termsChecked)this.registerSection=this.registerSection+1;
+else
+if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&!this.verified) alert("Email verification is required");
+if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&this.verified&&!this.termsChecked){this.termsError=true;}else this.termsError=false;
+this.registerSection=this.registerSection+1
+}
   
+
+next2(){
+ 
+if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password==this.passwordConfirm&&(this.strengthText=="Moderate"||this.strengthText=="Strong"))this.registerSection=this.registerSection+1;
+this.registerSection=this.registerSection+1
+}
+
+
+
 }

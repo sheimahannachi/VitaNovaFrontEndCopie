@@ -55,7 +55,6 @@ import { UserProfileComponent } from './front-office/user/profile/user-profile/u
     RouterModule,
     FormsModule,
 
-
   ],
   providers: [],
   bootstrap: [AppComponent]

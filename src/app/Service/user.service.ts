@@ -46,13 +46,13 @@ export class UserService {
   
 
   checkUsername(username: string) {
-    return this.http.get<boolean>(`${this.baseUrl}/user/check-username?username=${username}`);
+    return this.http.get<boolean>(`${this.baseUrl}/checkUsername?username=${username}`);
   }
-
+  
   checkEmail(email: string) {
-    return this.http.get<boolean>(`${this.baseUrl}/user/check-email?email=${email}`);
+    return this.http.get<boolean>(`${this.baseUrl}/checkEmail?email=${email}`);
   }
-
+  
 
 
 
