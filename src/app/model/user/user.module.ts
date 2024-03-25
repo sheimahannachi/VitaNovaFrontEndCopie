@@ -6,7 +6,7 @@ export enum Gender {
 }
 
 export enum ERole {
-  ROLE_USER = 'ROLE_USER',
+  ROLE_USER = 'USER',
   ROLE_ADMIN = 'ROLE_ADMIN'
 }
 

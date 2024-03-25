@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { AddChallengeComponent } from '../add-challenge/add-challenge.component';
+import { CommunityServiceService } from '../Services/community-service.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-community',
@@ -8,11 +10,18 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
   styleUrls: ['./community.component.css']
 })
 export class CommunityComponent {
-  constructor(private dailog: MatDialog)
+
+  constructor(private service:CommunityServiceService,private router:Router)
   {
     // User Connected get Community 
   }
 
+  deleteCommunity() {
+   this.service.deleteComunity(this.communityId).subscribe(res=>{
+
+    this.router.navigateByUrl("");
+   })
+    }
 
 
 

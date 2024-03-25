@@ -10,13 +10,14 @@ import { Community } from '../Model/Community';
 export class AllCommunitiesBackComponent {
 
 
+
   page:number;
   sizePage:number;
-  booltest:boolean
+  booltest:number;
   constructor(private service:CommunityServiceService){
     this.page=0;
     this.sizePage=5;
-    this.booltest=false;
+    this.booltest=0;
   }
   communities:Community[];
   
@@ -30,9 +31,16 @@ export class AllCommunitiesBackComponent {
     this.service.getAllComunity(this.page,this.sizePage).subscribe((res)=>{
       if(res.numberOfElements!=0){
       this.communities=res.content;
-      }else{
+      } 
+      if (res.numberOfElements==0&& this.page>0){
 
-        this.booltest=true;
+        this.booltest=1;
+        setTimeout(() => {
+         this.booltest=0;
+        }, 1000);
+      }
+      if (res.numberOfElements==0&& this.page==0){
+        this.booltest=2;
       }
 
     })
@@ -60,5 +68,12 @@ export class AllCommunitiesBackComponent {
     this.getAllCommunities();
     
     }
+
+
+    deleteCommunity(communityId: Number) {
+     this.service.deleteComunity(communityId).subscribe(res=>{
+      this.ngOnInit();
+     })
+      }
 
 }

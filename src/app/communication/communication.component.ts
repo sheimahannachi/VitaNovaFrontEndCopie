@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommunicationServiceService } from '../Services/communication-service.service';
 
 
@@ -6,6 +6,7 @@ import { CommunicationServiceService } from '../Services/communication-service.s
 import { Subscription } from 'rxjs';
 import { Communication } from '../Model/Communication';
 import { ERole, Gender, UserModule } from '../Model/user/user.module';
+import { DateAdapter } from '@angular/material/core';
 
 
 @Component({
@@ -13,17 +14,9 @@ import { ERole, Gender, UserModule } from '../Model/user/user.module';
   templateUrl: './communication.component.html',
   styleUrls: ['./communication.component.css']
 })
-export class CommunicationComponent {
-
-   /* user: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    weight: number;
-    height: number;
-    password: string;
-  }*/
+export class CommunicationComponent implements AfterViewInit {
+  @ViewChild('messagesList') htmlMessages:ElementRef; 
+  
   user:UserModule = {
     idUser: 1,
     firstName: "firas",
@@ -86,6 +79,81 @@ export class CommunicationComponent {
     picture: '',
     role:ERole.ROLE_USER
     },
+    {
+      idUser: 6,
+      firstName: "Alice",
+      lastName: "Smith",
+      email: "alice.smith@example.com",
+      weight: 65,
+      height: 165,
+      password: "strongPassword456",
+      username: '',
+    dateOfBirth: undefined,
+    gender: Gender.MALE,
+    archive: false,
+    picture: '',
+    role:ERole.ROLE_USER
+    },
+    {
+      idUser: 7,
+      firstName: "Alice",
+      lastName: "Smith",
+      email: "alice.smith@example.com",
+      weight: 65,
+      height: 165,
+      password: "strongPassword456",
+      username: '',
+    dateOfBirth: undefined,
+    gender: Gender.MALE,
+    archive: false,
+    picture: '',
+    role:ERole.ROLE_USER
+    },
+    {
+      idUser: 8,
+      firstName: "Alice",
+      lastName: "Smith",
+      email: "alice.smith@example.com",
+      weight: 65,
+      height: 165,
+      password: "strongPassword456",
+      username: '',
+    dateOfBirth: undefined,
+    gender: Gender.MALE,
+    archive: false,
+    picture: '',
+    role:ERole.ROLE_USER
+    },
+    {
+      idUser: 9,
+      firstName: "Alice",
+      lastName: "Smith",
+      email: "alice.smith@example.com",
+      weight: 65,
+      height: 165,
+      password: "strongPassword456",
+      username: '',
+    dateOfBirth: undefined,
+    gender: Gender.MALE,
+    archive: false,
+    picture: '',
+    role:ERole.ROLE_USER
+    },
+    {
+      idUser: 3,
+      firstName: "Alice",
+      lastName: "Smith",
+      email: "alice.smith@example.com",
+      weight: 65,
+      height: 165,
+      password: "strongPassword456",
+      username: '',
+    dateOfBirth: undefined,
+    gender: Gender.MALE,
+    archive: false,
+    picture: '',
+    role:ERole.ROLE_USER
+    },
   ];
 
   communicationList: Communication[] = [
@@ -101,7 +169,7 @@ export class CommunicationComponent {
       message: "Tout va bien, merci !",
       sentDate: new Date("2024-02-27T08:05:00"),
       seen: true,
-      sender: this.userList[3]
+      sender: this.user
     },
     {
       id: 3,
@@ -110,27 +178,67 @@ export class CommunicationComponent {
       seen: false,
       sender: this.userList[2]
     },
+    {
+      id: 2,
+      message: "Tout va bien, merci !",
+      sentDate: new Date("2024-02-27T08:05:00"),
+      seen: true,
+      sender: this.user
+    },
+    {
+      id: 3,
+      message: "Avez-vous terminé le rapporteeeeeeee ?",
+      sentDate: new Date("2024-02-27"),
+      seen: false,
+      sender: this.userList[2]
+    },
+    
     
   ];
 
   subscription:Subscription;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  constructor(private service:CommunicationServiceService ){
+
+constructor(private service:CommunicationServiceService,private renderer:Renderer2 ){
 
     this.subscription=this.service.fonctionAppelee.subscribe((comunication:Communication)=>{
       this.handleMessage(comunication);
+      
     })
 
   }
+  ngAfterViewInit(): void {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(){
+    
+    
+      const element = this.htmlMessages.nativeElement;
+      element.scrollTop=element.scrollHeight;
+      console.log("HERE "+ element.scrollHeight);
+      
+    
+  }
+
+
+
+
+
+
+
+
+
+
 //bd old messages
-  messages:Communication[]=this.communicationList;
+  messages:Communication[]=[];
   //Community name waiting for session
   CommunityName:string="one";
   //Community members
   members=this.userList;  // User[]=[]
 
   // Sending message
-  communication:Communication=new Communication();
+
   message:string="";
 
 //Message revieved 
@@ -141,8 +249,11 @@ export class CommunicationComponent {
  
 
 ngOnInit(){
+
   this.service.communityId=1;
+  this.messages=this.communicationList;
   this.connect();
+  
   
 }
 
@@ -155,7 +266,7 @@ ngOnInit(){
 
 
   handleMessage(communication:Communication) {
-    communication.sender=this.userList[2];
+    console.log(communication.sender.idUser);
     this.messages.push(communication);
   }
 
@@ -169,20 +280,21 @@ ngOnInit(){
   }
 
   
-  sendMessage(/*communication:Communication*/){
-    this.communication.sender=this.current;
+  sendMessage(){
     var com:Communication=new Communication();
     com.sender=this.current;
-
+    com.sentDate= new Date();
     com.message=this.message;
-    console.log("houna"+this.message);
-    this.messages.push(com);
+    
 
-    console.log(this.messages);
-    this.service._send(this.communication);
+    this.service._send(com);
     
     this.message="";
-    console.log(2);
+    
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 10);
+    
   }
 
 

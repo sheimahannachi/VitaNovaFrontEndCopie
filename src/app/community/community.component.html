@@ -31,25 +31,17 @@
         
     
     <div class="button-container">
-        <button type="button"  [routerLink]="['addChallenge',communityId]">Add Challenge</button>
+        <button type="button" class="btn bg-gradient-success" [routerLink]="['addChallenge',communityId]">Add Challenge</button>
         
-        <button type="button" [routerLink]="['/app/updateCommunity',communityId]">Update</button>
+        <button type="button" class="btn bg-gradient-success" [routerLink]="['/app/updateCommunity',communityId]">Update</button>
+        <button type="button" class="btn bg-gradient-success" (click)="deleteCommunity()">Delete Community</button>
     
-        <button class="circle-button">Join</button>
+        
     </div>
 
     <br>
-        <br><br>
-        <br>
-        <br>
+ 
         
-        <br><br>
-        <br><br>
-        <br>
-        <br><br><br>
-        <br><br>
-        <br>
-        <br>
         
-        <br>
-</div>
+       
+

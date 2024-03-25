@@ -1,7 +1,9 @@
 .community{
-  margin-left: 30px;
  
-  margin-bottom: 200px;
+ 
+  height: 1000px;
+  background-image: url('../../assets/BackgroundImages/community.jpg');
+  background-size: 1800px 1800px;
 
 }
 
@@ -19,7 +21,7 @@
   cursor: pointer; 
 */
 }
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 
 .button-container {
   position: absolute;

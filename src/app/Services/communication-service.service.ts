@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { Communication } from '../Model/Communication';
+import { UserModule } from '../Model/user/user.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationServiceService {
 
-  public fonctionAppelee: EventEmitter<any> = new EventEmitter<any>();
+  public fonctionAppelee: EventEmitter<Communication> = new EventEmitter<Communication>();
 
   constructor(private http:HttpClient) { }
   URL="http://localhost:8081";
@@ -107,8 +108,9 @@ export class CommunicationServiceService {
          }
          
          comm!:Communication;
-         onMessageReceived(message:Communication) {
-           console.log("Message Recieved from Server :: " + message.message +" "+message.sentDate);
+         onMessageReceived=(payload)=> {
+          var message:Communication=JSON.parse(payload.body);
+           console.log("Message Recieved from Server :: " + message.message +" "+message.sentDate+" "+message.sender.idUser);
            this.fonctionAppelee.emit(message);
          } 
 
