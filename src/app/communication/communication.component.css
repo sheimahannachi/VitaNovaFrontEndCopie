@@ -99,6 +99,7 @@
     padding-left: 10px
 }
 .chat-history{
+    height: 400px;
     max-height: 400px;
     overflow-y: auto;
     background: #b3d821c5;

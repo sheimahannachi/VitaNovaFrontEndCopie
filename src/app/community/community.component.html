@@ -25,8 +25,8 @@
         -->
         <br><br><br>
         <router-outlet></router-outlet>
-        <div *ngIf="test==1">
-   <app-communication></app-communication>
+        <div *ngIf="divTest">
+   <app-communication [idFromParent]="communityId"></app-communication>
         </div>
         
     

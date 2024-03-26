@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { CommunicationServiceService } from '../Services/communication-service.service';
 
 
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Communication } from '../Model/Communication';
 import { ERole, Gender, UserModule } from '../Model/user/user.module';
 import { DateAdapter } from '@angular/material/core';
+import { Community } from '../Model/Community';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class CommunicationComponent implements AfterViewInit {
   @ViewChild('messagesList') htmlMessages:ElementRef; 
+  @Input() idFromParent:number;
   
   user:UserModule = {
     idUser: 1,
@@ -155,7 +157,7 @@ export class CommunicationComponent implements AfterViewInit {
     role:ERole.ROLE_USER
     },
   ];
-
+/*
   communicationList: Communication[] = [
     {
       id: 1,
@@ -194,10 +196,27 @@ export class CommunicationComponent implements AfterViewInit {
     },
     
     
-  ];
+  ];*/
 
   subscription:Subscription;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+page:number;
+//bd old messages
+messages:Communication[]=[];
+//Community name waiting for session
+
+//Community members
+members=this.userList;  // User[]=[]
+
+// Sending message
+
+message:string="";
+
+//Message resieved 
+
+current=this.user; //this.user; //User
+communityId:number;
+community:Community=new Community();
 
 constructor(private service:CommunicationServiceService,private renderer:Renderer2 ){
 
@@ -206,8 +225,13 @@ constructor(private service:CommunicationServiceService,private renderer:Rendere
       
     })
 
+    this.page=0;
+    
+   
+
   }
   ngAfterViewInit(): void {
+  
     this.scrollToBottom();
   }
 
@@ -230,29 +254,19 @@ constructor(private service:CommunicationServiceService,private renderer:Rendere
 
 
 
-//bd old messages
-  messages:Communication[]=[];
-  //Community name waiting for session
-  CommunityName:string="one";
-  //Community members
-  members=this.userList;  // User[]=[]
 
-  // Sending message
-
-  message:string="";
-
-//Message revieved 
-  communicationRecieved:Communication=new Communication();
-  current=this.user; //this.user; //User
-  communityId:number=1;
-  
  
 
 ngOnInit(){
 
-  this.service.communityId=1;
-  this.messages=this.communicationList;
+  this.communityId=this.idFromParent;
+  this.service.communityId=this.communityId;
+  this.community.id=this.communityId;
+ // this.messages=this.communicationList;
+ console.log("before connect ::"+this.idFromParent)
+ console.log("also before :: "+this.communityId)
   this.connect();
+  this.getAllCommunicationByCommunity();
   
   
 }
@@ -263,11 +277,25 @@ ngOnInit(){
     this.service.findysenderAndReciever.Subscribe(mes=>this.Messages=mes)
   }*/
 
+  getAllCommunicationByCommunity(){
+    
+    this.service.findByCommunity(this.communityId,this.page).subscribe(response=>{
+      
+      this.messages=response.content;
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 10);
+
+    })
+  }
 
 
   handleMessage(communication:Communication) {
-    console.log(communication.sender.idUser);
+    
     this.messages.push(communication);
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 10);
   }
 
   connect(){
@@ -285,15 +313,14 @@ ngOnInit(){
     com.sender=this.current;
     com.sentDate= new Date();
     com.message=this.message;
+    com.community=this.community;
     
 
     this.service._send(com);
     
     this.message="";
     
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 10);
+    
     
   }
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as Stomp from 'stompjs';
@@ -20,6 +20,7 @@ export class CommunicationServiceService {
   deleteUrl="/deleteCommunication";
   findCommunicationById="/findCommunication";
   findBySenderAndRecieverUrl="/findBySenderAndReciever";
+  findByCommunityUrl="/getCommbyCommunity";
 
 
 
@@ -32,6 +33,13 @@ export class CommunicationServiceService {
     return this.http.get<Communication>(this.URL+this.findBySenderAndRecieverUrl,sender,reciever);
   }
 */
+
+findByCommunity(communityId:number,page:number):Observable<any>{
+  var params=new HttpParams()
+  .set('communityId',communityId)
+  .set('page',page);
+return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentials:true});
+}
                       //add
   addCommunication(communication:Communication):Observable<Communication>{
     return this.http.post<Communication>(this.URL+this.addCommunication,communication);

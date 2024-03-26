@@ -10,9 +10,13 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./community.component.css']
 })
 export class CommunityComponent {
+  communityId:number;
+  divTest:boolean;
 
   constructor(private service:CommunityServiceService,private router:Router)
   {
+    this.communityId=1;
+    this.divTest=true;
     // User Connected get Community 
   }
 
@@ -27,11 +31,11 @@ export class CommunityComponent {
 
 ClasseName="";
 creatorName="";
-communityId:number;
+
 test:number;
 
 ngOnInit(){
-  this.communityId=1
+  
   this.test=1;
 
 }
