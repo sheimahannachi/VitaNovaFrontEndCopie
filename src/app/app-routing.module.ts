@@ -23,7 +23,6 @@ const routes: Routes = [
   {path:"foodFront",component:FoodCardComponent},
   { path: 'foodDetails/:id', component: FoodDetailsComponent },
 {path:'admin',component:AllTemplateBackComponent, children: [
-   
     {
       path:"addFood",
       component:FoodComponent,
@@ -36,25 +35,22 @@ const routes: Routes = [
     {
       path:"getFoods",
       component:FoodListComponent,
-    }
-  ]},
-];
-  { path:'admin',component:AllTemplateBackComponent, children: [
-      {
-        path: "listex",
-        component: ExerciseListComponent,
+    },
+    {
+      path: "listex",
+      component: ExerciseListComponent,
 
-      },
-
-      {
+    },
+    {
       path: "exercise",
       component: AddexerciseComponent,
     },
 
-  ],},
+  ]},
   {path: "exerciseworkout",component:ExerciseListFrontComponent},
   {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
-]
+];
+
 
 
 @NgModule({

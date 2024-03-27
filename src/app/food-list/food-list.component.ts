@@ -14,39 +14,70 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./food-list.component.css']
 })
 export class FoodListComponent implements OnInit {
-  foods: any[] = [];
+  foods: Food[] = [];
   baseUrl: string = 'http://localhost:80/uploads/';
   foodForm : FormGroup;
   private router!: Router;
-    constructor(private formBuilder: FormBuilder,private foodService: FoodService, private sanitizer: DomSanitizer, private route: Router) {
-        this.foodForm = this.formBuilder.group({
-            calories: ['', Validators.required], // Double attribute with required validator
-            glucides: ['', Validators.required], // Double attribute with required validator
-            protein: ['', Validators.required], // Double attribute with required validator
-            lipides: ['', Validators.required], // Double attribute with required validator
-            title: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
-            category: ['', Validators.required],
-            vitaminC: ['', Validators.required],
-            vitaminB6: ['', Validators.required],
-            vitaminE: ['', Validators.required],
-            calcium: ['', Validators.required]
+  totalElements = 0;
+  totalPages = 0;
+  currentPage = 0;
+  constructor(private formBuilder: FormBuilder, private foodService: FoodService, private sanitizer: DomSanitizer, private route: Router) {
+    this.foodForm = this.formBuilder.group({
+      calories: ['', Validators.required], // Double attribute with required validator
+      glucides: ['', Validators.required], // Double attribute with required validator
+      protein: ['', Validators.required], // Double attribute with required validator
+      lipides: ['', Validators.required], // Double attribute with required validator
+      title: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
+      category: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
+      vitaminC: ['', Validators.required],
+      vitaminB6: ['', Validators.required],
+      vitaminE: ['', Validators.required],
+      calcium: ['', Validators.required]
+    });
 
-        });
-      this.router=route;
+    this.router = route;
   }
+
 
   ngOnInit(): void {
-    this.getFoods();
+    this.getFoods(0,10);
   }
 
-  getFoods(): void {
-    this.foodService.getFoods().subscribe(foods => {
-      this.foods = foods;
-      this.foods.forEach(foods => {
+  getFoods(page:number,size:number): void {
+    this.foodService.getFoods(page,size) .subscribe((pageData: any)  => {
+      this.totalElements = pageData.totalElements;
+      this.totalPages = pageData.totalPages;
+      this.currentPage = pageData.number;
+      this.foods = pageData.content;
+    /*  this.foods.forEach(foods => {
         foods.foodPic = this.baseUrl + foods.foodPic;
-      });
+      });*/
     });
   }
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      let nextPage = this.currentPage + 1;
+      let size = 10; // Default size for pages greater than 1
+      if (nextPage === 1 || nextPage === 2) {
+        size = 10; // Size for the first two pages
+      }
+      this.getFoods(nextPage, size);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 0) {
+      let previousPage = this.currentPage - 1;
+      let size = 10; // Default size for pages greater than 0
+      if (previousPage === 0 || previousPage === 1) {
+        size = 10; // Size for the first two pages
+      } else {
+        size = 10; // Size for the rest of the pages
+      }
+      this.getFoods(previousPage, size);
+    }
+  }
+
   archiveFood(food: Food): void {
     if (confirm('Are you sure you want to delete this article?')) {
         this.foodService.archiveFood(food.id)

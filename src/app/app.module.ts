@@ -16,7 +16,6 @@ import { FooterBackComponent } from './back-office/footer-back/footer-back.compo
 import { FoodComponent } from './food/food.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FoodListComponent } from './food-list/food-list.component';
-import {CommonModule} from "@angular/common";
 import { SideBarBackComponent } from './back-office/side-bar-back/side-bar-back.component';
 
 import { AddexerciseComponent } from './addExercise/addexercise.component';

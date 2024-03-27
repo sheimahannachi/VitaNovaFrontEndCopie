@@ -40,7 +40,7 @@ export class ExerciseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getExercises(1,3);
+    this.getExercises(0,3);
   }
   toggleSearch(): void {
     this.searching = !this.searching;
@@ -174,7 +174,7 @@ export class ExerciseListComponent implements OnInit {
   previousPage() {
     if (this.currentPage > 0) {
       const previousPage = this.currentPage - 1;
-      const size = 10; // Page size
+      const size =3; // Page size
       this.getExercises(previousPage, size);
     }
   }

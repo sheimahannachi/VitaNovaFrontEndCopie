@@ -43,20 +43,27 @@
       <td>
         <img [src]="exercise.picture" alt="Exercise Image" class="exercise-image img-fixed">
       </td>
-      <td>
+      <td class="button-wrapper">
         <button class="btn" (click)="editExercise(exercise)">
-          <i class="fa fa-edit" style="color:#625F5F; font-size: 20px;"></i>
+          <i class="fa fa-edit" style="color:#625F5F; font-size: 17px;"></i>
         </button>
         <button class="btn" (click)="deleteExercise(exercise)">
-          <i class="fa" [ngClass]="{'fa-archive fa-lg': !exercise.archived, 'fa-undo fa-lg': exercise.archived}"></i>
+          <i class="fa" [ngClass]="{'fa-archive fa-lg': !exercise.archived, 'fa-undo fa-lg': exercise.archived}"
+             style="color:#625F5F; font-size: 15px;"></i>
         </button>
+
       </td>
     </tr>
     </tbody>
   </table>
   <div class="pagination-controls">
-    <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
-    <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>
+    <button class="btn btn-pagination" (click)="previousPage()" [disabled]="currentPage === 0">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <span>{{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button class="btn btn-pagination" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">
+      <i class="fa fa-chevron-right"></i>
+    </button>
   </div>
 </div>
 <div *ngIf="showDeleteAlert" class="delete-alert" style="color: black;">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Food} from "../models/food";
 
@@ -13,8 +13,11 @@ export class FoodService {
   addFood(formData: FormData): Observable<Food> {
     return this.http.post<any>(`${this.baseUrl}/addFood`, formData);
   }
-  getFoods(): Observable<Food[]> {
-    return this.http.get<Food[]>(`${this.baseUrl}/getFood`);
+  getFoods(page:number,size:number): Observable<Food[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<Food[]>(`${this.baseUrl}/getFood`,{params});
   }
   archiveFood(id: number): Observable<Food> {
     return this.http.delete<Food>(`${this.baseUrl}/archiveFood/${id}`);

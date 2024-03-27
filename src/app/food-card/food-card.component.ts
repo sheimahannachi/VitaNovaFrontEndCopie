@@ -28,7 +28,7 @@ export class FoodCardComponent implements OnInit {
     minCalories: number = 0;
     maxCalories: number = 500;
     ngOnInit() {
-        this.getFoods();
+        this.getFoods(1,10);
     }
 
     constructor(private foodService: FoodService,private router: Router,public dialog: MatDialog) {
@@ -79,8 +79,8 @@ export class FoodCardComponent implements OnInit {
 
     }
 
-    getFoods(): void {
-        this.foodService.getFoods().subscribe(foods => {
+    getFoods(page:number,size:number): void {
+        this.foodService.getFoods(page,size).subscribe(foods => {
             this.foods = foods;
             this.filteredFoods = [...this.foods]; // Initialize filteredFoods with all foods
             /*this.applyFilters(); // Apply filters initially*/
