@@ -17,26 +17,27 @@ export class FoodComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private foodService: FoodService, private sanitizer: DomSanitizer, private router: Router) {
     this.foodForm = this.formBuilder.group({
-      code: ['', Validators.required], // String attribute with required validator
       calories: ['', Validators.required], // Double attribute with required validator
       glucides: ['', Validators.required], // Double attribute with required validator
       protein: ['', Validators.required], // Double attribute with required validator
       lipides: ['', Validators.required], // Double attribute with required validator
       title: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
-      ingredients: ['', Validators.required], // String attribute with required validator
       category: ['', Validators.required],
-      foodPic: [null, Validators.required]
+      vitaminC: ['', Validators.required],
+      vitaminB6: ['', Validators.required],
+      vitaminE: ['', Validators.required],
+      calcium: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    const foodData: Food | null = history.state.food;
+    /*const foodData: Food | null = history.state.food;
     if (foodData) {
       this.newFood = foodData;
       this.populateFormWithFoodData();
     } else {
       console.error("Food data is not present in the state.");
-    }
+    }*/
   }
 
   onSubmit(): void {
@@ -52,14 +53,16 @@ export class FoodComponent implements OnInit {
     if (this.selectedFile) {
       const formData = new FormData();
       // Append food data to FormData
-      formData.append('code', this.foodForm.get('code')!.value);
+      formData.append('category', this.foodForm.get('category')!.value);
       formData.append('title', this.foodForm.get('title')!.value);
       formData.append('calories', this.foodForm.get('calories')!.value);
-      formData.append('glucides', this.foodForm.get('glucides')!.value);
       formData.append('protein', this.foodForm.get('protein')!.value);
       formData.append('lipides', this.foodForm.get('lipides')!.value);
-      formData.append('ingredients', this.foodForm.get("ingredients")!.value);
-      formData.append('category', this.foodForm.get('category')!.value);
+      formData.append('glucides', this.foodForm.get('glucides')!.value);
+      formData.append('calcium', this.foodForm.get('calcium')!.value);
+      formData.append('vitaminC', this.foodForm.get('vitaminC')!.value);
+      formData.append('vitaminB6', this.foodForm.get('vitaminB6')!.value);
+      formData.append('vitaminE', this.foodForm.get('vitaminE')!.value);
 
       // Append image file to FormData
       formData.append('pic', this.selectedFile);
@@ -77,14 +80,17 @@ export class FoodComponent implements OnInit {
   updateFood(): void {
     const formData = new FormData();
     // Append food data to FormData
-    formData.append('code', this.foodForm.get('code')!.value);
+    formData.append('category', this.foodForm.get('category')!.value);
     formData.append('title', this.foodForm.get('title')!.value);
     formData.append('calories', this.foodForm.get('calories')!.value);
-    formData.append('glucides', this.foodForm.get('glucides')!.value);
     formData.append('protein', this.foodForm.get('protein')!.value);
     formData.append('lipides', this.foodForm.get('lipides')!.value);
-    formData.append('ingredients', this.foodForm.get("ingredients")!.value);
-    formData.append('category', this.foodForm.get('category')!.value);
+    formData.append('glucides', this.foodForm.get('glucides')!.value);
+    formData.append('calcium', this.foodForm.get('calcium')!.value);
+    formData.append('vitaminC', this.foodForm.get('vitaminC')!.value);
+    formData.append('vitaminB6', this.foodForm.get('vitaminB6')!.value);
+    formData.append('vitaminE', this.foodForm.get('vitaminE')!.value);
+
     // Append image file to FormData
     if (this.selectedFile) {
       formData.append('pic', this.selectedFile);
@@ -121,17 +127,19 @@ export class FoodComponent implements OnInit {
 
 
 
-  populateFormWithFoodData(): void {
+ /* populateFormWithFoodData(): void {
     this.foodForm.patchValue({
-      code: this.newFood.code,
+      category: this.newFood.category,
+      title: this.newFood.title,
       calories: this.newFood.calories,
-      glucides: this.newFood.glucides,
       protein: this.newFood.protein,
       lipides: this.newFood.lipides,
-      ingredients: this.newFood.ingredients,
-      title: this.newFood.title,
-      foodPic: this.newFood.foodPic,
-      category: this.newFood.category
+      glucides: this.newFood.glucides,
+      calcium: this.newFood.calcium,
+      vitaminC: this.newFood.vitaminC,
+      vitaminB6: this.newFood.vitaminB6,
+      vitaminE: this.newFood.vitaminE
+
     });
-  }
+  }*/
 }

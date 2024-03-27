@@ -1,21 +1,17 @@
 export class Food {
   id!: number;
-  code!: string;
   calories!: number;
   glucides!: number;
   protein!: number;
   lipides!: number;
   title!: string;
-  ingredients!: string;
   foodPic!: string;
-  category!:string;
-  // @ts-ignore
-  //date!: Date; // ou vous pouvez utiliser le type Date si vous utilisez des dates JavaScript
   archive!: boolean;
-
-
-
-
+  category!: string;
+  vitaminC!: number ; // Default value for vitaminC
+  vitaminB6!: number; // Default value for vitaminB6
+  vitaminE!: number; // Default value for vitaminE
+  calcium!: number; // Default value for calcium
 
 
 }

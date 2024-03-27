@@ -7,28 +7,34 @@
       <form [formGroup]="foodForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
         <div class="form-group">
-          <input type="text" id="code" formControlName="code" class="form-control border-input" placeholder="Enter Code">
-        </div>
-        <div class="form-group">
-          <input type="text" id="title" formControlName="title" class="form-control border-input" placeholder="Enter Title">
-        </div>
-        <div class="form-group">
           <input type="text" id="category" formControlName="category" class="form-control border-input" placeholder="Enter Category">
+        </div>
+        <div class="form-group">
+          <input type="text" id="title" formControlName="title" class="form-control border-input" placeholder="Enter Product">
         </div>
         <div class="form-group">
           <input type="number" id="calories" formControlName="calories" class="form-control border-input" placeholder="Enter Calories">
         </div>
         <div class="form-group">
-          <input type="number" id="glucides" formControlName="glucides" class="form-control border-input" placeholder="Enter Glucides">
-        </div>
-        <div class="form-group">
           <input type="number" id="protein" formControlName="protein" class="form-control border-input" placeholder="Enter Protein">
         </div>
         <div class="form-group">
-          <input type="number" id="lipides" formControlName="lipides" class="form-control border-input" placeholder="Enter Lipides">
+          <input type="number" id="lipides" formControlName="lipides" class="form-control border-input" placeholder="Enter Lipid">
         </div>
         <div class="form-group">
-          <textarea id="ingredients" formControlName="ingredients" class="form-control border-input" placeholder="Enter Ingredients"></textarea>
+          <input type="number" id="glucides" formControlName="glucides" class="form-control border-input" placeholder="Enter Sugar">
+        </div>
+        <div class="form-group">
+          <input type="number" id="calcium" formControlName="calcium" class="form-control border-input" placeholder="Enter Calcium">
+        </div>
+        <div class="form-group">
+          <input type="number" id="vitaminC" formControlName="vitaminC" class="form-control border-input" placeholder="Enter Vitamin C">
+        </div>
+        <div class="form-group">
+          <input type="number" id="vitaminB6" formControlName="vitaminB6" class="form-control border-input" placeholder="Enter Vitamin B6">
+        </div>
+        <div class="form-group">
+          <input type="number" id="vitaminE" formControlName="vitaminE" class="form-control border-input" placeholder="Enter Vitamin E">
         </div>
         <div class="form-group">
           <div class="custom-file">

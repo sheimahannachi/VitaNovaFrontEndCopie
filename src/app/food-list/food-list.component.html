@@ -1,47 +1,50 @@
 <h2>List of foods</h2>
 
-<!-- Bouton Add avec la couleur deeppink -->
-<div class="d-flex justify-content-end mb-3">
+<div class="d-flex justify-content-between mb-3">
   <button class="btn btn-primary" (click)="goToAddFoodPage()">+ Add</button>
+  <button class="btn btn-primary" (click)="downloadExcel()">
+    <i class="fa fa-download" style="color: white;"></i>
+  </button>
 </div>
 
 <div *ngIf="foods.length === 0">
   <p>Aucun aliment ajouté pour le moment.</p>
 </div>
 
-
-
 <div *ngIf="foods.length > 0">
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Code</th>
-      <th>Title</th>
       <th>Category</th>
+      <th>Product</th>
       <th>Calories</th>
-      <th>Glucides</th>
       <th>Protein</th>
-      <th>Lipides</th>
-      <th>Ingredients</th>
+      <th>Lipid</th>
+      <th>Sugar</th>
+      <th>Calcium</th>
+      <th>Vitamin C</th>
+      <th>Vitamin B6</th>
+      <th>Vitamin E</th>
       <th>Food Pic</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let food of foods">
-      <td>{{ food.code }}</td>
-      <td>{{ food.title }}</td>
       <td>{{ food.category }}</td>
+      <td>{{ food.title }}</td>
       <td>{{ food.calories }}</td>
-      <td>{{ food.glucides }}</td>
       <td>{{ food.protein }}</td>
       <td>{{ food.lipides }}</td>
-      <td>{{ food.ingredients }}</td>
+      <td>{{ food.glucides }}</td>
+      <td>{{ food.calcium }}</td>
+      <td>{{ food.vitaminC }}</td>
+      <td>{{ food.vitaminB6 }}</td>
+      <td>{{ food.vitaminE }}</td>
       <td>
         <img class="food-pic" [src]="food.foodPic" alt="Food Pic" style="max-width: 50px; max-height: 50px;">
       </td>
       <td>
-        <!-- Boutons d'action pour archiver et éditer avec des icônes -->
         <button class="btn btn-action" (click)="archiveFood(food)">
           <i class="fa fa-trash" style="color:deeppink; font-size: 20px;"></i>
         </button>

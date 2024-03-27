@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './front-office/navbar/navbar.component';
 import { FooterComponent } from './front-office/footer/footer.component';
 import { AllTemplateFrontComponent } from './front-office/all-template-front/all-template-front.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +25,8 @@ import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { FoodCardComponent } from './food-card/food-card.component';
 import { FoodDetailsComponent } from './food-details/food-details.component';
+import { FoodDetailsDialogComponent } from './food-details-dialog/food-details-dialog.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -50,6 +52,7 @@ import { FoodDetailsComponent } from './food-details/food-details.component';
     FoodListComponent,
     FoodCardComponent,
     FoodDetailsComponent,
+    FoodDetailsDialogComponent,
 
 
     ],
@@ -61,6 +64,8 @@ import { FoodDetailsComponent } from './food-details/food-details.component';
     FormsModule,
     CommonModule,
     RouterModule,
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
