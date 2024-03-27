@@ -71,4 +71,15 @@ export class WorkoutService {
   getAverageRating(exerciseId: number): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/Rating/${exerciseId}`);
   }
+  searchExercises(bodyPart: string, searchText: string): Observable<Exercise[]> {
+    const params = {
+      bodyPart: bodyPart || '',
+      searchText: searchText || ''
+    };
+    return this.http.get<Exercise[]>(`${this.baseUrl}/searchEx`, { params });
+  }
+  addPlan(workoutplan: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/addPlan`, workoutplan, {observe: 'response'});
+  }
+
 }

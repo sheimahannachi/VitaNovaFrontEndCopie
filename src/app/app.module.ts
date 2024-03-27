@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './front-office/navbar/navbar.component';
 import { FooterComponent } from './front-office/footer/footer.component';
 import { AllTemplateFrontComponent } from './front-office/all-template-front/all-template-front.component';
-
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
 import { FormsModule } from '@angular/forms';
@@ -63,6 +62,7 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
     CommonModule,
     MatDialogModule,
     MatIconModule,
+
 
 
   ],

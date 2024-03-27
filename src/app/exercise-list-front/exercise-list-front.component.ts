@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {ExerciseModalComponent} from "../exercise-modal/exercise-modal.component";
 import {UserRating} from "../Models/UserRating";
 import {ExerciseLinkModelComponent} from "../exercise-link-model/exercise-link-model.component";
+import {AddPlanComponent} from "../add-plan/add-plan.component";
 
 @Component({
   selector: 'app-exercise-list-front',
@@ -68,7 +69,6 @@ export class ExerciseListFrontComponent implements OnInit {
   }
 
 
-
   nextPage() {
     if (this.currentPage < this.totalPages - 1) {
       const nextPage = this.currentPage + 1;
@@ -115,9 +115,17 @@ export class ExerciseListFrontComponent implements OnInit {
 
     // Open the dialog with the exercise link
     this.dialog.open(ExerciseLinkModelComponent, {
-      data: { exerciseLink: this.selectedExerciseLink },
+      data: {exerciseLink: this.selectedExerciseLink},
       width: '80%',
 
+    });
+  }
+
+  openCreateWorkoutDialog(): void {
+    const dialogRef = this.dialog.open(AddPlanComponent, {
+      width: '500px',
+      // Optionally pass data to the dialog if needed
+      // data: { /* your data */ }
     });
   }
 }
