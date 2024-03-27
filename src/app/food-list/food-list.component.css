@@ -1,0 +1,17 @@
+.table th, .table td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color : black;;
+}
+
+.food-pic {
+  max-width: 100px;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.food-pic:hover {
+  transform: scale(1.1);
+}
