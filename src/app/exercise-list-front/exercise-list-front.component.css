@@ -1,0 +1,136 @@
+/* Reset default styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Page container */
+.container-frontex {
+  position: relative; /* Position relative for absolute positioning of button */
+  width: 100%;
+}
+
+/* Fixed navbar */
+.navbarfront {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #333; /* Navbar background color */
+  color: #fff; /* Text color */
+  padding: 10px 0; /* Adjust padding as needed */
+}
+
+/* Create Workout button */
+.create-workout-button {
+  position: absolute;
+  top: 70px; /* Adjust top position as needed */
+  right: 30px; /* Adjust right position as needed */
+  color: #B4D821; /* Button text color */
+  background-color: #B4D821; /* Transparent background */
+  border-radius: 5px; /* Button border radius */
+  cursor: pointer;
+}
+
+/* Exercise list container */
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px; /* Adjust as needed to create space below the fixed navbar and button */
+  width: 100%;
+  background-color: black;
+}
+
+/* Exercise card */
+.exercise-card {
+  cursor: pointer;
+  width: 80%;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Exercise title and rating container */
+.exercise-title-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+/* Exercise title */
+.exercise-title {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Star ratings */
+.fa-star {
+  font-size: 16px;
+  margin-right: 2px;
+  color: #ffd700;
+  cursor: pointer;
+}
+
+.fa-star.checked,
+.fa-star:hover {
+  color: #ffac33;
+}
+
+/* Share button */
+.share-button {
+  cursor: pointer;
+  color: #007bff;
+}
+
+/* Pagination Controls */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Next and Previous button styles */
+.pagination button {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #B4D821;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Chevron icon colors */
+.fa-chevron-left,
+.fa-chevron-right {
+  font-size: 13px;
+  color: #B4D821;
+}
+
+/* Text color for "Next" */
+.pagination button span {
+  margin-right: 10px;
+}
+
+/* Hover effect */
+.pagination button:hover {
+  background-color: #fff;
+  color: #B4D821;
+}
+
+/* Footer */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333; /* Footer background color */
+  color: #fff; /* Text color */
+  padding: 10px 0; /* Adjust padding as needed */
+}

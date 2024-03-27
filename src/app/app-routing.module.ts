@@ -11,21 +11,19 @@ import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
 import {FoodCardComponent} from "./food-card/food-card.component";
 import {FoodDetailsComponent} from "./food-details/food-details.component";
+import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-front.component";
+import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component";
+import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
+
 const routes: Routes = [
   { path: '', component: AllTemplateFrontComponent },
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+
   {path:"foodFront",component:FoodCardComponent},
   { path: 'foodDetails/:id', component: FoodDetailsComponent },
 {path:'admin',component:AllTemplateBackComponent, children: [
-    {
-      path: "exercise",
-      component: AddexerciseComponent,
-    },
-    {
-      path: "ListExercice",
-      component: ExerciseListComponent,
-    },
+   
     {
       path:"addFood",
       component:FoodComponent,
@@ -41,6 +39,22 @@ const routes: Routes = [
     }
   ]},
 ];
+  { path:'admin',component:AllTemplateBackComponent, children: [
+      {
+        path: "listex",
+        component: ExerciseListComponent,
+
+      },
+
+      {
+      path: "exercise",
+      component: AddexerciseComponent,
+    },
+
+  ],},
+  {path: "exerciseworkout",component:ExerciseListFrontComponent},
+  {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+]
 
 
 @NgModule({
