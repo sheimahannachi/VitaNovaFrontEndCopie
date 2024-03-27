@@ -1,6 +1,12 @@
 
 <div class="card">
-  <table>
+<div *ngIf="booltest==2">
+
+</div>
+
+
+
+  <table *ngIf="booltest!=2">
     <tr>
       <td>
     <h2>Communities</h2>
@@ -32,6 +38,7 @@
             <th>Members</th>
             <th>Creation date</th>
             <th>Status</th>
+            <th>Action</th>
            
         </tr>
     </thead>
@@ -56,6 +63,9 @@
                 <div *ngIf="a.status==true"> Active</div>
                 <div *ngIf="!a.status==true"> Inactive</div>
             </td>
+            <td>
+              <button type="button" (click)="deleteCommunity(a.id)" class="btn btn-danger">Delete</button>
+            </td>
         </tr>
     </tbody>
     <div class="tablefooter">
@@ -78,7 +88,7 @@
                 </a>
               </li>
               <li>
-                <div *ngIf="booltest"><h3 style="color: #495057;">No more communities</h3></div>
+                <div *ngIf="booltest==1"><h3 style="color: #495057;">No more communities</h3></div>
               </li>
               </ul>
               </nav>

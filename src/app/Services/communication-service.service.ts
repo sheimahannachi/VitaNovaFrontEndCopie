@@ -1,16 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { Communication } from '../Model/Communication';
+import { UserModule } from '../Model/user/user.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationServiceService {
 
-  public fonctionAppelee: EventEmitter<any> = new EventEmitter<any>();
+  public fonctionAppelee: EventEmitter<Communication> = new EventEmitter<Communication>();
 
   constructor(private http:HttpClient) { }
   URL="http://localhost:8081";
@@ -19,6 +20,7 @@ export class CommunicationServiceService {
   deleteUrl="/deleteCommunication";
   findCommunicationById="/findCommunication";
   findBySenderAndRecieverUrl="/findBySenderAndReciever";
+  findByCommunityUrl="/getCommbyCommunity";
 
 
 
@@ -31,6 +33,13 @@ export class CommunicationServiceService {
     return this.http.get<Communication>(this.URL+this.findBySenderAndRecieverUrl,sender,reciever);
   }
 */
+
+findByCommunity(communityId:number,page:number):Observable<any>{
+  var params=new HttpParams()
+  .set('communityId',communityId)
+  .set('page',page);
+return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentials:true});
+}
                       //add
   addCommunication(communication:Communication):Observable<Communication>{
     return this.http.post<Communication>(this.URL+this.addCommunication,communication);
@@ -107,8 +116,9 @@ export class CommunicationServiceService {
          }
          
          comm!:Communication;
-         onMessageReceived(message:Communication) {
-           console.log("Message Recieved from Server :: " + message.message +" "+message.sentDate);
+         onMessageReceived=(payload)=> {
+          var message:Communication=JSON.parse(payload.body);
+           console.log("Message Recieved from Server :: " + message.message +" "+message.sentDate+" "+message.sender.idUser);
            this.fonctionAppelee.emit(message);
          } 
 

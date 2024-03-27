@@ -1,3 +1,4 @@
+import { Community } from "./Community";
 import { UserModule } from "./user/user.module";
 
 
@@ -12,7 +13,11 @@ export class Communication{
 
     seen!:boolean;
 
-    sender: UserModule
+    sender: UserModule;
+
+    reciever: UserModule;
+
+    community :Community;
     
 
 }

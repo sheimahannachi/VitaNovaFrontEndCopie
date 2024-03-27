@@ -22,7 +22,26 @@ import { FindCommunityComponent } from './find-community/find-community.componen
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 
 const routes: Routes = [
-  { path: '', component: AllTemplateFrontComponent },
+  {path:"",redirectTo:"/app/home",pathMatch:'full'},
+  {path:"app",redirectTo:"/app/home",pathMatch:'full'},
+  {path:"app",
+    component:AllTemplateFrontComponent,children:[
+      {path:"home",component:HomeComponent},
+      {path:"community", component:CommunityComponent,children:[
+          {path:"addChallenge/:id", component:AddChallengeComponent},
+        ]},
+      {path:"addCommunity",component:AddCommunityComponent},
+      {path:"findCommunity",component:FindCommunityComponent},
+      {path:"updateCommunity/:id",component:UpdateCommunityComponent},
+      {path: "exerciseworkout",component:ExerciseListFrontComponent},
+      {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+
+
+
+
+    ]
+  },
+  
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
   { path:'admin',component:AllTemplateBackComponent, children: [
@@ -36,47 +55,19 @@ const routes: Routes = [
       path: "exercise",
       component: AddexerciseComponent,
     },
+    {path:"communities",component:AllCommunitiesBackComponent},
+    {path:"chalenges", component:AllChallengesBackComponent}
 
   ],},
-  {path: "exerciseworkout",component:ExerciseListFrontComponent},
-  {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
-  {path:"",redirectTo:"/app/home",pathMatch:'full'},
+  
+  
 
-  {path:"app",
-    component:AllTemplateFrontComponent,children:[
-      {path:"home",component:HomeComponent},
-      {path:"community", component:CommunityComponent,children:[
-          {path:"addChallenge/:id", component:AddChallengeComponent},
-        ]},
-      {path:"addCommunity",component:AddCommunityComponent},
-      {path:"findCommunity",component:FindCommunityComponent},
-      {path:"updateCommunity/:id",component:UpdateCommunityComponent},
+  
 
 
+ 
 
-
-
-    ]
-  },
-
-
-  { path: 'signup', component: RegisterComponent } ,
-  { path: 'login', component: LoginComponent } ,
-
-  {path:'admin',component:AllTemplateBackComponent, children: [
-      {
-        path: "exercise",
-        component: AddexerciseComponent,
-      },
-      {
-        path: "ListExercice",
-        component: ExerciseListComponent,
-
-      },
-      {path:"communities",component:AllCommunitiesBackComponent},
-      {path:"chalenges", component:AllChallengesBackComponent}
-
-    ]},
+  
 
 ]
 

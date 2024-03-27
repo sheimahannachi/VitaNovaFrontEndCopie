@@ -2,7 +2,7 @@ import { UserModule } from "./user/user.module";
 
 
 export class Community{
-    id!:Number;
+    id!:number;
 
     communityName!:string;
     description!:string;

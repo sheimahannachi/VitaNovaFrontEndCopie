@@ -16,6 +16,7 @@ export class CommunityServiceService {
   findAllUrl="/findAllCommunities";
   findByNom="/findCommunitiesByNom";
   getAllOrderByChallenges="/getCommunitiesOrderedByChallenges";
+  addMemberToCommunityURL='/addMemberToComunity';
 
 
   constructor(private http: HttpClient) { }
@@ -39,12 +40,12 @@ export class CommunityServiceService {
 
   getCommunitiesOrderByChallenge(page:number):Observable<any>{
     let params=new HttpParams().set('page',page);
-    return this.http.get<any>(this.URL+this.getAllOrderByChallenges,{params});
+    return this.http.get<any>(this.URL+this.getAllOrderByChallenges,{params,withCredentials:true});
   }
 
                     //Post
   addCommunity(community:Community, id:number):Observable<Community>{
-    return this.http.post<Community>(this.URL+this.addUrl+"/"+id,community);
+    return this.http.post<Community>(this.URL+this.addUrl+"/"+id,community,{withCredentials:true});
   }
 
             //Update
@@ -52,11 +53,18 @@ export class CommunityServiceService {
   return this.http.put<Community>(this.URL+this.updateUrl+"/"+id,community);
  }
 
+ addMemberToCommunity(userId:number,communityId:number):Observable<boolean>{
+  let params=new HttpParams()
+  .set('userId',userId)
+  .set('communityId',communityId);
+  return this.http.put<boolean>(this.URL+this.addMemberToCommunityURL,{params});
+ }
+
 
             //Delete
 
 deleteComunity(id:Number):Observable<Community>{
-return this.http.delete<Community>(this.URL+this.deleteByIdUrl+"/"+id);
+return this.http.delete<Community>(this.URL+this.deleteByIdUrl+"/"+id,{withCredentials:true});
 }
 
 }
