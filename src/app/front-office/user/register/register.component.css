@@ -884,3 +884,160 @@ border-radius: 50px;
   margin: 2px;
   color: #e16a55;
 }
+
+
+.btn {
+  padding: 6px 16px;
+  font-size: 8px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  transition: 0.5s;
+  background: #1e1e1e;
+  cursor: pointer;
+  color: rgb(78, 255, 47);
+  box-shadow: 0 0 10px #363636, inset 0 0 10px #363636;
+}
+
+.btn:hover {
+  animation: a 0.5s 1 linear;
+}
+
+@keyframes a {
+  0% {
+    transform: scale(0.7, 1.3);
+  }
+
+  25% {
+    transform: scale(1.3, 0.7);
+  }
+
+  50% {
+    transform: scale(0.7, 1.3);
+  }
+
+  75% {
+    transform: scale(1.3, 0.7);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+  
+
+  .btnProceed {
+    --green: #1BFD9C;
+    font-size: 15px;
+    padding: 0.7em 2.7em;
+    letter-spacing: 0.06em;
+    position: relative;
+    font-family: inherit;
+    border-radius: 0.6em;
+    overflow: hidden;
+    transition: all 0.3s;
+    line-height: 1.4em;
+    border: 2px solid var(--green);
+    background: linear-gradient(to right, rgba(27, 253, 156, 0.1) 1%, transparent 40%,transparent 60% , rgba(27, 253, 156, 0.1) 100%);
+    color: var(--green);
+    box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.4), 0 0 9px 3px rgba(27, 253, 156, 0.1);
+  }
+  
+  .btnProceed:hover {
+    color: #82ffc9;
+    box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.6), 0 0 9px 3px rgba(27, 253, 156, 0.2);
+  }
+  
+  .btnProceed:before {
+    content: "";
+    position: absolute;
+    left: -4em;
+    width: 4em;
+    height: 100%;
+    top: 0;
+    transition: transform .4s ease-in-out;
+    background: linear-gradient(to right, transparent 1%, rgba(27, 253, 156, 0.1) 40%,rgba(27, 253, 156, 0.1) 60% , transparent 100%);
+  }
+  
+  .btnProceed:hover:before {
+    transform: translateX(15em);
+  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .buttonFlip{
+    position: relative;
+   
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    color: white;
+ 
+    
+    border: none;
+   
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .buttonFlip::before {
+    content: '';
+    inset: 0;
+    left: -4px;
+    top: -1px;
+    margin: auto;
+    width: 128px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #43ff59 0%, #4fdd95 100%);
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .buttonFlip::after {
+    content: "";
+    z-index: 0;
+    inset: 0;
+    background: linear-gradient(-45deg, #4f9843 0%, #4fdd95 100%);
+    transform: translate3d(0, 0, 0) scale(0.95);
+    filter: blur(20px);
+  }
+  
+  .buttonFlip:hover::after {
+    filter: blur(30px);
+  }
+  
+  .buttonFlip:hover::before {
+    transform: rotate(-180deg);
+  }
+  
+  .buttonFlip:active::before {
+    scale: 0.7;
+  }
+

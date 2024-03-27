@@ -115,10 +115,10 @@
                                     class="form-control" class="inputField" placeholder="Enter Verification Code"
                                     required>
                             </div>
-                            <button *ngIf="!verified" type="button" class="btn btn-primary" (click)="verifyEmail()"
+                            <button *ngIf="!verified" type="button" class="btn" (click)="verifyEmail()"
                                 [disabled]="verified">Verify Email</button>
 
-
+                                
 
 
 
@@ -140,8 +140,9 @@
                     </div>
                 </div>
                 <div class="form-group form-button">
-                    <input type="submit" name="signup" id="signup" class="form-submit" value="Proceed"
-                        (click)="next1()">
+                    <button type="button" name="signup" id="signup" class="btnProceed" (click)="next1()">
+                        Proceed
+                        </button>
                 </div>
             </div>
         </section>
@@ -213,7 +214,7 @@
                     </div>
                 </div>
                 <div class="form-group form-button">
-                    <input type="button" name="signup" id="signup" class="form-submit" value="Proceed"
+                    <input type="button" name="signup" id="signup" class="btnProceed" value="Proceed"
                         (click)="next2()">
                 </div>
             </div>
@@ -348,19 +349,20 @@
                     
                     <div class="signup-image">
                         <figure><img src="{{image3}}" alt="sign up image"></figure>
-                        <a href="#" class="signup-image-link">Already a member?</a>
+                        <a routerLink="/login" class="signup-image-link">Already a member?</a>
                     </div>
-                </div>
-                <div class="form-group form-button">
-                    <input type="button" name="signup" id="signup" class="form-submit" value="Register"
-                        (click)="save()">
-                </div>
+                </div>  
+             
+                    <button name="signup" id="signup" class="buttonFlip" (click)="save()">Register</button>
+
             </div>
             
         </section>
 
 
     </div>
+    
+
 </body>
 
 </html>

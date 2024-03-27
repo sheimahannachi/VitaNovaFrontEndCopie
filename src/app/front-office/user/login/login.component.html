@@ -59,7 +59,7 @@
 
                 <a (click)="showResetPasswordForm = true">Forgot Password?</a>
             </div>
-            <button type="submit" class="btn btn-primary" class="button">Login</button>
+            <button type="submit" class="button">Login</button>
         </form>
         <form *ngIf="showResetPasswordForm && !verified" (ngSubmit)="sendVerificationCode()">
             <div class="form-group2">
