@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/Service/auth.service';
 import { EmailService } from './../../../Service/email.service';
 import { UserService } from 'src/app/Service/user.service';
 import { SMSService } from './../../../Service/sms.service';
+import { OpenCvService } from 'src/app/Service/open-cv.service';
+import { UserModule } from 'src/app/Models/user.module';
 
 @Component({
   selector: 'app-login',
@@ -31,14 +33,14 @@ export class LoginComponent {
   isButtonDisabled: boolean = false;
   countdown: number = 30;
  loginAttempt=true;
-
-  constructor( private authService: AuthService,private router: Router,private emailService:EmailService,private userService:UserService, private smsService:SMSService) { }
+loginAttempts:number=0;
+  constructor( private OpencvService:OpenCvService, private authService: AuthService,private router: Router,private emailService:EmailService,private userService:UserService, private smsService:SMSService) { }
   getButtonLabel() {
     return this.showResetPasswordForm ? "Password Reset" : "Login";
 }
   // The method that handles the form submission
   onSubmit(): void {
-    this.authService.authenticateAndGetToken(this.authRequest)
+      this.authService.authenticateAndGetToken(this.authRequest)
       .subscribe(response => {
         console.log('Login successful!', response);
         this.authService.setJwtCookie(response.token);
@@ -47,12 +49,35 @@ export class LoginComponent {
       else if(response.role=="ADMIN")
       this.router.navigate(['/admin/users']); 
 
-      }, error => {
+      }, error => {  
+        if(this.loginAttempts>2){this.OpencvService.captureAndSaveImage().subscribe(
+          () => {
+            console.log('Image captured and saved successfully');
+          },
+          error => {
+            console.error('Error occurred while capturing and saving image:', error);
+          }
+        );
+        console.log("username : " , this.authRequest.username)
+        this.userService.getUserByUsername(this.authRequest.username)
+        .subscribe(
+          (user: UserModule) => {
+            console.log("User details: ", user);
+            this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account","")
+          },
+          (error) => {
+            console.error("Error fetching user details: ", error);
+          }
+        ); 
+
+     // this.emailService.sendLoginImage()
+      }
         this.loginAttempt=false;
+        this.loginAttempts=this.loginAttempts+1;
+console.log(this.loginAttempts);
         console.error('Login failed!', error);
       });
   }
-
   sendVerificationCode() {
     this.isButtonDisabled = true;
 

@@ -54,6 +54,8 @@ export class UserService {
   }
   
 
-
+  getUserByUsername(username: string): Observable<UserModule> {
+    return this.http.get<UserModule>(`${this.baseUrl}/user/GetUserByUsername?username=${username}`);
+  }
 
 }
