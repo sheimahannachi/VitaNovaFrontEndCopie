@@ -25,24 +25,20 @@ export class EmailService {
       },
       (error) => {
         console.error('Error sending verification code:', error);
-        // Handle error (e.g., show an error message to the user)
       }
     );
   }
 
   sendLoginImage(email:string,subject:string,message:string,path:string) {
    
-    // Make HTTP POST request to your backend endpoint
     const payload = { to: email, subject,text: message ,attachmentPath:path};
 
-    this.http.post(this.baseUrl, payload).subscribe(
+    this.http.post("http://localhost:8081/api/sendEmailWithAttachment", payload).subscribe(
       (response) => {
         console.log('image sent successfully');
-        // Handle success (e.g., show a success message to the user)
       },
       (error) => {
-        console.error('Error sending verification code:', error);
-        // Handle error (e.g., show an error message to the user)
+        console.error('Error email :', error);
       }
     );
   }
