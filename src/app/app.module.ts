@@ -42,6 +42,11 @@ import { AllCommunitiesBackComponent } from './all-communities-back/all-communit
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
+//Amine
+import { UsersBackComponent } from './users-back/users-back.component';
+import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
+
+
 
 @NgModule({
   declarations: [
@@ -75,6 +80,11 @@ import { UpdateCommunityComponent } from './update-community/update-community.co
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
+//Amine
+    UsersBackComponent,
+    UserProfileComponent,
+
+
 
     ],
     entryComponents:[AddChallengeComponent],

@@ -1,0 +1,28 @@
+.container {
+    max-width: 400px;
+    margin: 50px auto; /* Center the profile component */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-info {
+    margin-top: 20px;
+  }
+  
+  .profile-info p {
+    margin-bottom: 10px;
+  }
+  
+  .profile-info strong {
+    font-weight: bold;
+  }
+  
+  /* Add more styles as needed */
+  

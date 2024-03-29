@@ -1,15 +1,92 @@
-<div class="container">
-    <h1>Login</h1>
-    <form (ngSubmit)="onSubmit(username.value, password.value)">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" class="form-control" name="username" #username required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+   
+</head>
+
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">Vita<em> NOVA</em></a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="#top" class="">Home</a></li>
+                        <li class="scroll-to-section"><a href="#features">About</a></li>
+                        <li class="scroll-to-section"><a href="#our-classes">Classes</a></li>
+                        <li class="scroll-to-section"><a href="#schedule">Schedules</a></li>
+                        <li class="scroll-to-section"><a href="#contact-us">Contact</a></li> 
+                        <li class="main-button"><a routerLink="/signup">Sign Up</a></li>
+                    </ul>        
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" name="password" #password required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+    </div>
+</header>
+
+<body>
+    <div class="containerForm">
+        <h2>{{ getButtonLabel() }}</h2>
+        <form *ngIf="!showResetPasswordForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" name="username" [(ngModel)]="authRequest.username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" name="password" [(ngModel)]="authRequest.password" required>
+                <a (click)="showResetPasswordForm = true">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <form *ngIf="showResetPasswordForm && !verified" (ngSubmit)="sendVerificationCode()">
+            <div class="form-group">
+                          <input type="radio" id="phoneRadio" name="resetMethod" value="phone"  [(ngModel)]="resetMethod">
+                          <label for="phoneRadio">Phone Number</label><br>
+                          <input type="radio" id="emailRadio" name="resetMethod" value="email" [(ngModel)]="resetMethod">
+                          <label for="emailRadio">Email</label><br>
+                      </div>
+                      <div class="form-group" *ngIf="resetMethod === 'email'">
+                          <label for="emailLabel"> Email </label>
+                          <input type="text" id="mail" class="form-control" name="email" [(ngModel)]="email" required placeholder="Jhon@gmail.com">
+                      </div>
+                      <div class="form-group" *ngIf="resetMethod === 'phone'">
+                          <label for="phoneNumberLabel">Phone Number</label>
+                          <input type="text" id="phoneNumber" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber" required placeholder="123456789">
+                      </div>
+                      <div class="form-group">
+                          <label for="verificationCode">Verification Code</label>
+                          <input type="text" id="verificationCode" class="form-control" name="verificationCode" [(ngModel)]="verificationCode" required>
+                      </div>
+              <a (click)="sendVerificationCode()" class="btn-link">Send Code</a>
+              <button type="button" class="btn btn-primary" (click)="verifyCode()">Verify Code</button>
+          </form>
+          
+          <form *ngIf="showResetPasswordForm && verified">
+              <div class="form-group">
+                  <label for="newPassword">New Password</label>
+                  <input type="password" id="newPassword" class="form-control" name="newPassword" [(ngModel)]="newPassword" required>
+              </div>
+              <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" required>
+              </div>
+              <button type="button" class="btn btn-primary" (click)="savePassword()">Save</button>
+          </form>
+          
+        
+    
     <p class="text-danger" *ngIf="errorMessage">{{errorMessage}}</p>
 </div>
+</body>
+</html>

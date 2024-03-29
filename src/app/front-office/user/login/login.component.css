@@ -1,0 +1,71 @@
+
+body {
+  position: relative; /* Make the body a positioning context */
+  background-image: url('../../../../assets/images/slide-01.jpg');
+  background-size: cover; /* Adjust as needed */
+  background-repeat: no-repeat;
+}
+.containerForm {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px; /* Adjusted width */
+  padding: 40px; /* Increased padding for better spacing */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff; /* Changed background color to white */
+  display: flex;
+  flex-direction: column; /* Align items in a column */
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%; /* Set width to 100% for responsiveness */
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 5px; /* Added margin for better spacing */
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px; /* Added margin for better spacing */
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.text-danger {
+  color: #dc3545;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+ header{
+  background-image: url('../../../../assets/images/slide-01.jpg');
+
+ }

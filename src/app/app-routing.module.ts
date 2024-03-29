@@ -21,6 +21,10 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 
+//Amine 
+import { UsersBackComponent } from './users-back/users-back.component';
+import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
+
 const routes: Routes = [
   {path:"",redirectTo:"/app/home",pathMatch:'full'},
   {path:"app",redirectTo:"/app/home",pathMatch:'full'},
@@ -35,14 +39,7 @@ const routes: Routes = [
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
-
-
-
-
-    ]
-  },
-  
-  { path: 'signup', component: RegisterComponent } ,
+      { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
   { path:'admin',component:AllTemplateBackComponent, children: [
       {
@@ -56,20 +53,36 @@ const routes: Routes = [
       component: AddexerciseComponent,
     },
     {path:"communities",component:AllCommunitiesBackComponent},
-    {path:"chalenges", component:AllChallengesBackComponent}
+    {path:"chalenges", component:AllChallengesBackComponent},
+    {
+      path: '', component: AllTemplateFrontComponent
+    },
+    {
+      path: "profile", component: UserProfileComponent
+    },
+    { path: 'signup', component: RegisterComponent },
+    { path: 'login', component: LoginComponent },
+    {
+      path: 'admin', component: AllTemplateBackComponent, children: [
+        {
+          path: "exercise",
+          component: AddexerciseComponent,
+        },
+        {
+          path: "ListExercice",
+          component: ExerciseListComponent,
+  
+        },
+        {
+          path: "users",
+          component: UsersBackComponent
+        }
+      ]
+    },
 
   ],},
   
-  
-
-  
-
-
- 
-
-  
-
-]
+    ]}]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
