@@ -7,12 +7,18 @@
         <br>
         
         <br>
+        <router-outlet></router-outlet>
         <div class="cont">
-        
+         
         
     <div class="TopThree">
         <table>
             <thead>
+                <tr>
+                    <div class="commName">
+                    <h1 class="CName"style="color:#b3d821c5; ">{{community.communityName}} </h1>
+                </div>
+                </tr>
                 <tr>
                     <td><h2 class="CName"style="color:#b3d821c5; ">Top 3 Active members </h2></td>
                 </tr>
@@ -20,9 +26,12 @@
             <tbody *ngFor="let u of topThree; let i=index">
                 <tr>
                      
-                    <td><h3 class="CName" style="color:#b3d821c5; display: inline-block;">{{ increment(i) }}</h3>
+                    <td>
+                        <div class="topUser">
+                        <h3 class="CName" style="color:#b3d821c5; display: inline-block;">{{ increment(i) }}</h3>
                         &nbsp;
                         <h3 class="CName" style="color:#b3d821c5; display: inline-block;">{{ u.username }}</h3>
+                    </div>
                     </td>
                 </tr>
 
@@ -48,7 +57,7 @@
         </div>
         -->
         <br><br><br>
-        <router-outlet></router-outlet>
+        
         <div *ngIf="divTest">
    <app-communication [idFromParent]="communityId" [communityMembers]="members"></app-communication>
         </div>
