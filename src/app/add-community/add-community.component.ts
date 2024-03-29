@@ -10,12 +10,19 @@ import { UserModule } from '../Model/user/user.module';
   templateUrl: './add-community.component.html',
   styleUrls: ['./add-community.component.css']
 })
+
 export class AddCommunityComponent {
+  current:UserModule;
+  error:string;
+
   constructor(private service:CommunityServiceService,private router:Router){
     this.router=router;
+    this.current=new UserModule();
+    this.current.idUser=2;
+    this.error="";
   }
 
-  current:UserModule;
+  
 
   myForm: FormGroup;
 
@@ -51,16 +58,32 @@ export class AddCommunityComponent {
       community.communityName=this.communityName.value;
       community.description= this.description.value;
       community.creator=this.current;
+      community.creationDate=new Date();
+      community.status=true;
       
-      this.service.addCommunity(community,1).subscribe(response=>{
+      
+      this.service.addCommunity(community,this.current.idUser).subscribe(response=>{
         this.myForm.reset();
         this.router.navigateByUrl("/app/home")
         
       },
       error=>{
         console.error('BackEnd error while adding community:',error);
+
+        if (error && error.error && Object.keys(error.error).length > 1) {
+          // Accédez à la deuxième erreur
+          const secondError = Object.values(error.error)[1];
+          this.error=secondError.toString();
+          
+        } else {
+          console.log('Aucune deuxième erreur trouvée.');
+        }
       })
       
+    }
+
+    clearError(){
+      this.error="";
     }
 
 }

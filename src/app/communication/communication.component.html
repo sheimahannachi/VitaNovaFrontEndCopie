@@ -24,7 +24,7 @@
                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
 
                             <div class="about">
-                                <div class="name">{{a.firstName}} {{a.lastName}} </div>
+                                <div class="name">{{a.username }}  </div>
                                                                         
                             </div>
                         </li>
@@ -34,15 +34,19 @@
                  <div class="chat">
 
                     <div #messagesList class="chat-history">
-                                       
+                        <div class="seeMore">
+                            <h6 style="color: blue;cursor: pointer;" (click)="pagePlus()">See more ...</h6>
+                        </div>
+                                    
                         <ul class="m-b-0" *ngFor="let i of messages">
+                            
                             <li class="clearfix" *ngIf="i.sender.idUser!=current.idUser">           
-                                <div class="message-data text-right">
+                                <div class="message-data right-div text-right">
                                                                     <!-- {{i.sentDate}}-->
                                     <span class="message-data-time ">{{i.sentDate}}</span>
                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
                                 </div>                                      <!-- {{i.message}}-->
-                                <div class="message other-message float-right "> {{i.message}} </div>
+                                <div class="message my-message float-right "> {{i.message}} </div>
                            
                             </li>       <!--*ngIf="i.sender !=current"-->
                             <li class="clearfix" *ngIf="i.sender.idUser==current.idUser">

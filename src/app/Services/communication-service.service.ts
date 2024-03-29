@@ -20,7 +20,7 @@ export class CommunicationServiceService {
   deleteUrl="/deleteCommunication";
   findCommunicationById="/findCommunication";
   findBySenderAndRecieverUrl="/findBySenderAndReciever";
-  findByCommunityUrl="/getCommbyCommunity";
+  findByCommunityUrl="/getCommbyCommunityFirst";
 
 
 

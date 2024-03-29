@@ -8,6 +8,7 @@ import { Communication } from '../Model/Communication';
 import { ERole, Gender, UserModule } from '../Model/user/user.module';
 import { DateAdapter } from '@angular/material/core';
 import { Community } from '../Model/Community';
+import { CommunityServiceService } from '../Services/community-service.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { Community } from '../Model/Community';
 export class CommunicationComponent implements AfterViewInit {
   @ViewChild('messagesList') htmlMessages:ElementRef; 
   @Input() idFromParent:number;
+  @Input() communityMembers:UserModule[];
   
   user:UserModule = {
     idUser: 1,
@@ -32,55 +34,12 @@ export class CommunicationComponent implements AfterViewInit {
     gender: Gender.MALE,
     archive: false,
     picture: '',
-    role:ERole.ROLE_USER
+    role:ERole.ROLE_USER,
+    communities:null
   };
   
    userList:UserModule[]= [
-    {
-      idUser: 2,
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
-      weight: 70,
-      height: 180,
-      password: "securePassword123",
-      username: '',
-    dateOfBirth: undefined,
-    gender: Gender.MALE,
-    archive: false,
-    picture: '',
-    role:ERole.ROLE_USER
-    },
-    {
-      idUser: 3,
-      firstName: "Alice",
-      lastName: "Smith",
-      email: "alice.smith@example.com",
-      weight: 65,
-      height: 165,
-      password: "strongPassword456",
-      username: '',
-    dateOfBirth: undefined,
-    gender: Gender.MALE,
-    archive: false,
-    picture: '',
-    role:ERole.ROLE_USER
-    },
-    {
-      idUser: 4,
-      firstName: "Bob",
-      lastName: "Johnson",
-      email: "bob.johnson@example.com",
-      weight: 80,
-      height: 175,
-      password: "safePassword789",
-      username: '',
-    dateOfBirth: undefined,
-    gender: Gender.MALE,
-    archive: false,
-    picture: '',
-    role:ERole.ROLE_USER
-    },
+   
     {
       idUser: 6,
       firstName: "Alice",
@@ -94,7 +53,8 @@ export class CommunicationComponent implements AfterViewInit {
     gender: Gender.MALE,
     archive: false,
     picture: '',
-    role:ERole.ROLE_USER
+    role:ERole.ROLE_USER,
+    communities:null
     },
     {
       idUser: 7,
@@ -109,7 +69,8 @@ export class CommunicationComponent implements AfterViewInit {
     gender: Gender.MALE,
     archive: false,
     picture: '',
-    role:ERole.ROLE_USER
+    role:ERole.ROLE_USER,
+    communities:null
     },
     {
       idUser: 8,
@@ -124,38 +85,10 @@ export class CommunicationComponent implements AfterViewInit {
     gender: Gender.MALE,
     archive: false,
     picture: '',
-    role:ERole.ROLE_USER
+    role:ERole.ROLE_USER,
+    communities:null
     },
-    {
-      idUser: 9,
-      firstName: "Alice",
-      lastName: "Smith",
-      email: "alice.smith@example.com",
-      weight: 65,
-      height: 165,
-      password: "strongPassword456",
-      username: '',
-    dateOfBirth: undefined,
-    gender: Gender.MALE,
-    archive: false,
-    picture: '',
-    role:ERole.ROLE_USER
-    },
-    {
-      idUser: 3,
-      firstName: "Alice",
-      lastName: "Smith",
-      email: "alice.smith@example.com",
-      weight: 65,
-      height: 165,
-      password: "strongPassword456",
-      username: '',
-    dateOfBirth: undefined,
-    gender: Gender.MALE,
-    archive: false,
-    picture: '',
-    role:ERole.ROLE_USER
-    },
+    
   ];
 /*
   communicationList: Communication[] = [
@@ -206,7 +139,7 @@ messages:Communication[]=[];
 //Community name waiting for session
 
 //Community members
-members=this.userList;  // User[]=[]
+members:UserModule[]  // User[]=[]
 
 // Sending message
 
@@ -218,7 +151,7 @@ current=this.user; //this.user; //User
 communityId:number;
 community:Community=new Community();
 
-constructor(private service:CommunicationServiceService,private renderer:Renderer2 ){
+constructor(private service:CommunicationServiceService,private comService:CommunityServiceService ){
 
     this.subscription=this.service.fonctionAppelee.subscribe((comunication:Communication)=>{
       this.handleMessage(comunication);
@@ -226,6 +159,7 @@ constructor(private service:CommunicationServiceService,private renderer:Rendere
     })
 
     this.page=0;
+    this.members=[];
     
    
 
@@ -247,7 +181,10 @@ constructor(private service:CommunicationServiceService,private renderer:Rendere
 
 
 
-
+  pagePlus() {
+    this.page=this.page+1;
+    this.getAllCommunicationByCommunity();
+    }
 
 
 
@@ -263,10 +200,10 @@ ngOnInit(){
   this.service.communityId=this.communityId;
   this.community.id=this.communityId;
  // this.messages=this.communicationList;
- console.log("before connect ::"+this.idFromParent)
- console.log("also before :: "+this.communityId)
+ 
   this.connect();
   this.getAllCommunicationByCommunity();
+  this.getMembres();
   
   
 }
@@ -280,11 +217,15 @@ ngOnInit(){
   getAllCommunicationByCommunity(){
     
     this.service.findByCommunity(this.communityId,this.page).subscribe(response=>{
-      
-      this.messages=response.content;
+      if(this.messages.length==0){
+      this.messages=response.content.reverse();
       setTimeout(() => {
         this.scrollToBottom();
       }, 10);
+      }else{
+        this.messages=response.content.reverse().concat(this.messages)
+      }
+     
 
     })
   }
@@ -322,6 +263,16 @@ ngOnInit(){
     
     
     
+  }
+
+
+  getMembres(){
+    this.comService.getCommunityMembers(this.communityId).subscribe(response=>{
+      this.members=response;
+      console.log("got members "+response);
+    },error=>{
+      console.error("an error ocured ");
+    })
   }
 
 
