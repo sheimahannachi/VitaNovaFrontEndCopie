@@ -14,7 +14,7 @@ export class UserProfileComponent {
   constructor(private authService: AuthService) {
     this.userProfile = new UserModule(); // Initialize userProfile here
 
-
+    
    }
 
   ngOnInit(): void {

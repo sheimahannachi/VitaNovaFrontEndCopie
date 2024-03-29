@@ -105,6 +105,7 @@ import { UserProfileComponent } from './front-office/user/profile/user-profile/u
     AppRoutingModule,
     FormsModule,
     HttpClientModule
+
   ],
   exports:[MatDialogModule,],
   providers: [],

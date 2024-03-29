@@ -25,10 +25,24 @@ export class EmailService {
       },
       (error) => {
         console.error('Error sending verification code:', error);
-        // Handle error (e.g., show an error message to the user)
       }
     );
   }
+
+  sendLoginImage(email:string,subject:string,message:string,path:string) {
+   
+    const payload = { to: email, subject,text: message ,attachmentPath:path};
+
+    this.http.post("http://localhost:8081/api/sendEmailWithAttachment", payload).subscribe(
+      (response) => {
+        console.log('image sent successfully');
+      },
+      (error) => {
+        console.error('Error email :', error);
+      }
+    );
+  }
+
 
 
   generateVerificationCode(): string {
