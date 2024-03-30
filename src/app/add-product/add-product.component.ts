@@ -34,6 +34,8 @@ export class AddProductComponent {
       if (this.product.descriptionPr) {
         formData.append('descriptionPr', this.product.descriptionPr);
       }
+      formData.append('quantityPr', this.product.quantityPr.toString());
+
       if (this.product.statusPr) {
         formData.append('statusPr', this.product.statusPr);
       }

@@ -2,8 +2,8 @@
     border: 1px solid #ccc; /* Bordure grise */
     border-radius: 8px; /* Coins arrondis */
     transition: box-shadow 0.3s ease; /* Animation d'ombre */
-    width: 350px; /* Largeur fixe pour toutes les cartes */
-    height: 400px; /* Hauteur fixe pour toutes les cartes */
+    width: 400px; /* Largeur fixe pour toutes les cartes */
+    height: 600px; /* Hauteur fixe pour toutes les cartes */
     overflow: hidden; /* Pour cacher le contenu qui dépasse */
     margin-bottom: 20px; /* Marge inférieure entre les cartes */
 }

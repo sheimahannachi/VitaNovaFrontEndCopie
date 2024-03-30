@@ -28,7 +28,7 @@ import { ShowProductComponent } from './show-product/show-product.component';
 
 import { CommonModule } from '@angular/common';
 import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
-
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,9 @@ import { ShowProductUserComponent } from './show-product-user/show-product-user.
     UpdateProductComponent,
     AddProductComponent,
     ShowProductComponent,
-    ShowProductUserComponent
+    ShowProductUserComponent,
+    CartComponent,
+   
   
 
 

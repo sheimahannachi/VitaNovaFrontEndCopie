@@ -10,6 +10,6 @@ export class Product {
     statusPr!: string;
     picturePr!: string; // Vous pouvez utiliser `Uint8Array` pour représenter un tableau de bytes
     archivePr!: boolean;
-  //  likesCount: number = 0;
+   likeCount!: number ;
 }
 

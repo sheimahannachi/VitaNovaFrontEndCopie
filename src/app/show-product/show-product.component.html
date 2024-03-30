@@ -72,7 +72,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let produit of filteredProducts">
-            <td><img [src]="productService.getImageUrl(produit.picturePr)" alt="Image du produit"  style="width: 150px; height: 150px;">></td>
+            <td><img [src]="productService.getImageUrl(produit.picturePr)" alt="Image du produit"  style="width: 150px; height: 150px;"></td>
             <td>{{ produit.namePr }}</td>
             <td>{{ produit.pricePr }}</td>
             <td>{{ produit.quantityPr }}</td>
@@ -93,19 +93,3 @@
     </div>
   </div>
 </div>
-
-
-
-    
-     
-        
-        
-        
-
-        
-        
-          
-          
-        
-          
-          

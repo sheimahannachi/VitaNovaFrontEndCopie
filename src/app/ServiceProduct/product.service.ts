@@ -10,7 +10,7 @@ import { Product } from '../ModelProduct/Product';
 export class ProductService {
 
   private baseUrl = 'http://localhost:8082/Product';
-  private imageBaseUrl = 'http://localhost:80/aziz/';
+  private imageBaseUrl = 'http://192.168.174.134/uploads/';
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +41,17 @@ export class ProductService {
   searchProductsByName(searchTerm: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/search?term=${searchTerm}`);
   }
+
+  addLike(/*idUser: number,*/ idPr: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/addLike/${idPr}`, {/*idUser,*/ idPr});
+  }
+ 
+
+
+
+
+
+  
   filterProducts(categorie: string | null, price: number | null): Observable<Product[]> {
     // Créer les paramètres de la requête HTTP
     let params = new HttpParams();

@@ -21,41 +21,49 @@ export class ShowProductComponent implements OnInit {
   categoryFilter: string = '';
   priceFilter: number | null = null;
   statusFilter: string = '';
+  currentPage: number = 1;
+  itemsPerPage: number = 4;
+  totalItems: number = 0;
+  totalPages: number[] = [];
  
 
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
     this.categoryFilter = 'ALL'; // Initialiser la catégorie par défaut à "ALL"
-    this.showProducts();
-    
+    this.filterProducts();
   }
 
   showProducts(): void {
-    this.productService.showProducts()
-      .subscribe(
-        (products: any[]) => {
-          this.listeProduits = products
-            .filter(product => product.archivePr === false)
-            .map(product => ({
-              idPr: product.idPr, 
-              namePr: product.namePr,
-              pricePr: product.pricePr,
-              categoriePr: product.categoriePr,
-              picturePr: this.productService.getImageUrl(product.picturePr),
-              descriptionPr: product.descriptionPr,
-              statusPr: product.statusPr,
-              archivePr: false,
-              quantityPr: product.quantityPr,
-            }));
-          console.log('Data retrieved from the service:', this.listeProduits);
-        },
-        (error) => {
-          console.error('Error retrieving products:', error);
-        }
-      );
-  }
+    this.productService.showProducts().subscribe(
+      (products: any[]) => {
+        const filteredProducts = products.filter(product => !product.archivePr && product.quantityPr > 0);
   
+        // Mettre à jour la liste listeProduits avec les produits à afficher
+        this.listeProduits = filteredProducts.map(product => ({
+          idPr: product.idPr,
+          namePr: product.namePr,
+          pricePr: product.pricePr,
+          categoriePr: product.categoriePr,
+          picturePr: this.productService.getImageUrl(product.picturePr),
+          descriptionPr: product.descriptionPr,
+          quantityPr: product.quantityPr,
+          statusPr: product.statusPr,
+          archivePr: false,
+          likeCount: product.likeCount,
+          
+        }));
+  
+        console.log('Données récupérées depuis le service:', this.listeProduits);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des produits :', error);
+      }
+    );
+  }
+
+ 
+
 
   
   searchProducts(): void {
@@ -74,6 +82,7 @@ export class ShowProductComponent implements OnInit {
               statusPr: product.statusPr,
               archivePr: false,
               quantityPr: product.quantityPr,
+              likeCount: product.likeCount,
             }));
           console.log('Résultats de la recherche :', this.listeProduits);
           this.showProducts();
@@ -100,44 +109,51 @@ export class ShowProductComponent implements OnInit {
       });
   }
 
-// Méthode pour filtrer les produits en fonction des filtres de catégorie et de prix
-filterProducts(): void {
-  // Récupérer tous les produits depuis le service
-  this.productService.showProducts().subscribe(
-    (produits: Product[]) => {
-      // Filtrer les produits pour ne garder que ceux qui ne sont pas archivés
-      this.filteredProducts = produits.filter(product => product.archivePr === false);
-      
-      // Filtrer ensuite selon le prix et la catégorie si les filtres sont définis
-      if (this.categoryFilter === 'ALL') {
-        // Afficher tous les produits sans filtre de catégorie
-        if (this.priceFilter !== null) {
-          // Si un filtre de prix est défini, appliquer le filtre
-          this.filteredProducts = this.filteredProducts.filter(product => {
-            // Vérifier que product.pricePr et this.priceFilter ne sont pas null avant de comparer
-            return product.pricePr !== null && product.pricePr <= this.priceFilter!;
-          });
+  filterProducts(): void {
+    // Récupérer tous les produits depuis le service
+    this.productService.showProducts().subscribe(
+      (produits: Product[]) => {
+        // Filtrer les produits pour ne garder que ceux qui ne sont pas archivés
+        let filteredProducts = produits.filter(product => product.archivePr === false);
+        
+        // Filtrer ensuite selon le prix et la catégorie si les filtres sont définis
+        if (this.categoryFilter === 'ALL') {
+          // Afficher tous les produits sans filtre de catégorie
+          if (this.priceFilter !== null) {
+            // Si un filtre de prix est défini, appliquer le filtre
+            filteredProducts = filteredProducts.filter(product => {
+              // Vérifier que product.pricePr et this.priceFilter ne sont pas null avant de comparer
+              return product.pricePr !== null && product.pricePr <= this.priceFilter!;
+            });
+          }
+        } else {
+          // Filtrer par catégorie spécifiée
+          if (this.priceFilter !== null || this.categoryFilter !== '') {
+            // Appliquer les filtres de prix et de catégorie
+            filteredProducts = filteredProducts.filter(product => {
+              // Vérifier si le produit passe le filtre de prix
+              let passPriceFilter = this.priceFilter === null || (product.pricePr !== null && product.pricePr <= this.priceFilter!);
+              // Vérifier si le produit passe le filtre de catégorie
+              let passCategoryFilter = this.categoryFilter === '' || product.categoriePr === this.categoryFilter;
+              // Retourner vrai si le produit passe les deux filtres, faux sinon
+              return passPriceFilter && passCategoryFilter;
+            });
+          }
         }
-      } else {
-        // Filtrer par catégorie spécifiée
-        if (this.priceFilter !== null || this.categoryFilter !== '') {
-          // Appliquer les filtres de prix et de catégorie
-          this.filteredProducts = this.filteredProducts.filter(product => {
-            // Vérifier si le produit passe le filtre de prix
-            let passPriceFilter = this.priceFilter === null || (product.pricePr !== null && product.pricePr <= this.priceFilter!);
-            // Vérifier si le produit passe le filtre de catégorie
-            let passCategoryFilter = this.categoryFilter === '' || product.categoriePr === this.categoryFilter;
-            // Retourner vrai si le produit passe les deux filtres, faux sinon
-            return passPriceFilter && passCategoryFilter;
-          });
-        }
+        
+        // Mettre à jour la liste des produits filtrés
+        this.filteredProducts = filteredProducts;
+  
+        
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des produits :', error);
       }
-    },
-    (error) => {
-      console.error('Erreur lors de la récupération des produits :', error);
-    }
-  );
-}
+    );
+  }
+  
+
+
 
 // Méthode appelée lorsqu'une catégorie est sélectionnée
 onCategoryChange(event: any): void {
@@ -153,6 +169,13 @@ onPriceChange(event: any): void {
   this.priceFilter = event.target.value !== '' ? parseFloat(event.target.value) : null;
   // Appeler la méthode de filtrage pour mettre à jour la liste des produits filtrés
   this.filterProducts();
+}
+
+// Méthode pour paginer les produits filtrés
+paginateProducts(): void {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = Math.min(startIndex + this.itemsPerPage, this.totalItems);
+  this.listeProduits = this.filteredProducts.slice(startIndex, endIndex);
 }
 
  

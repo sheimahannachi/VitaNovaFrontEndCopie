@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Product } from 'src/app/ModelProduct/Product';
 import { ProductService } from '../ServiceProduct/product.service';
+import { AuthService } from '../services/auth.service';
+import { LikeProductService } from '../ServiceProduct/LikeProductService ';
 
 
 @Component({
@@ -14,15 +16,20 @@ export class ShowProductUserComponent {
   searchTerm: string = '';
   isCardExpanded: boolean = false; // Variable pour suivre l'état d'agrandissement de la carte
   selectedProduct: Product | null = null;
-  showCommentField: boolean = false;
-  commentaire: string = '';
-
+  userId: number = 1; 
+  nombreLikes: number = 0;
   
-
-  constructor(private productService: ProductService) { }
+  
+  constructor(private productService: ProductService) { 
+    this.userId = 0;
+  }
 
   ngOnInit(): void {
     this.showProducts();
+    this.listenForLikeUpdates();
+  
+    
+    
   }
   showProducts(): void {
     this.productService.showProducts()
@@ -35,12 +42,14 @@ export class ShowProductUserComponent {
               namePr: product.namePr,
               pricePr: product.pricePr,
               categoriePr: product.categoriePr,
-              picturePr: "http://localhost:80/aziz/" + product.picturePr,
+              picturePr: this.productService.getImageUrl(product.picturePr),
               descriptionPr: product.descriptionPr,
               statusPr: product.statusPr,
               archivePr: false,
               quantityPr: product.quantityPr,
+              likeCount: product.likeCount ,
             }));
+            
           console.log('Données récupérées du service:', this.listeProduits);
         },
         (error) => {
@@ -48,6 +57,36 @@ export class ShowProductUserComponent {
         }
       );
   }
+  addLikeToProduct(productId: number): void {
+    this.productService.addLike(productId).subscribe(
+      (response: any) => {
+        console.log('Like ajouté avec succès !');
+        // Récupérer le produit correspondant dans la liste
+        const product = this.listeProduits.find(prod => prod.idPr === productId);
+        if (product) {
+          // Mettre à jour le nombre de likes du produit avec la valeur renvoyée par la réponse
+          product.likeCount = response.likeCount;
+        }
+      },
+      error => {
+        console.error('Erreur lors de l\'ajout du like :', error);
+        // Gérer l'erreur ici
+      }
+    );
+  }
+  listenForLikeUpdates(): void {
+    const eventSource = new EventSource('/likes');
+
+    eventSource.onmessage = (event) => {
+      this.nombreLikes = parseInt(event.data);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('Erreur SSE : ', error);
+    };
+  }
+  
+  
   searchProducts(): void {
     if (this.searchTerm.trim() !== '') {
       this.productService.searchProductsByName(this.searchTerm).subscribe(
@@ -64,6 +103,7 @@ export class ShowProductUserComponent {
               statusPr: product.statusPr,
               archivePr: false,
               quantityPr: product.quantityPr,
+              likeCount: product.likeCount || 0
             }));
           console.log('Résultats de la recherche :', this.listeProduits);
         },
@@ -76,6 +116,7 @@ export class ShowProductUserComponent {
       this.showProducts();
     }
   }
+  /*
   expandCard(product: Product): void {
     this.selectedProduct = product;
     this.isCardExpanded = false;
@@ -84,7 +125,7 @@ export class ShowProductUserComponent {
   closeExpandedCard(): void {
    this.selectedProduct = null;
       this.isCardExpanded = true;
-      this.commentaire = ''; // Réinitialiser le champ de commentaire lorsque la carte est réduite
+     
   }
 
 
@@ -95,9 +136,8 @@ export class ShowProductUserComponent {
       // Si l'élément cliqué n'est pas à l'intérieur de la carte agrandie et que la carte est agrandie
       // alors réduire la carte agrandie
       this.closeExpandedCard();
-    }
+    }*/
   }
   
   
  
-}
