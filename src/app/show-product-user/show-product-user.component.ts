@@ -18,6 +18,7 @@ export class ShowProductUserComponent {
   selectedProduct: Product | null = null;
   userId: number = 1; 
   nombreLikes: number = 0;
+  showDetails: boolean = false;
   
   
   constructor(private productService: ProductService) { 
@@ -61,16 +62,14 @@ export class ShowProductUserComponent {
     this.productService.addLike(productId).subscribe(
       (response: any) => {
         console.log('Like ajouté avec succès !');
-        // Récupérer le produit correspondant dans la liste
         const product = this.listeProduits.find(prod => prod.idPr === productId);
         if (product) {
-          // Mettre à jour le nombre de likes du produit avec la valeur renvoyée par la réponse
-          product.likeCount = response.likeCount;
+          product.likeCount+= 1;
         }
       },
       error => {
         console.error('Erreur lors de l\'ajout du like :', error);
-        // Gérer l'erreur ici
+        // Handle error here
       }
     );
   }
