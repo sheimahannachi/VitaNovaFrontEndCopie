@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
+import { UserService } from 'src/app/Service/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,8 +11,13 @@ import { AuthService } from 'src/app/Service/auth.service';
 export class UserProfileComponent {
 
   userProfile: UserModule;
-  
-  constructor(private authService: AuthService) {
+  editMode: boolean = false;
+  editMode2: boolean = false;
+  newPassword:string="";
+  confirmPassword:string="";
+  editField: string = ''; // Tracks which field is being edited
+
+  constructor(private authService: AuthService,private userService:UserService) {
     this.userProfile = new UserModule(); // Initialize userProfile here
 
     
@@ -34,4 +40,78 @@ export class UserProfileComponent {
     );
   }
 
+
+
+
+  toggleEditMode(): void {
+   console.log("Session name : " , sessionStorage.getItem("username"))
+    this.editMode = !this.editMode;
 }
+
+
+
+cancelEdit(): void {
+  this.editMode = !this.editMode;
+
+}
+
+saveEdits(){
+  this.editMode=false;
+this.userService.updateUser(this.userProfile).subscribe();
+
+}
+
+
+toggleEditMode2(field: string): void {
+  this.editMode2 = true;
+  this.editField = field;
+}
+
+saveEdits2(): void {
+  if (this.editField === 'password') {
+    // Check if passwords match
+    if (this.newPassword === this.confirmPassword) {
+      // Update password logic here
+      console.log('New password:', this.newPassword);
+      console.log('Confirmed password:', this.confirmPassword);
+      // Reset password fields
+      this.newPassword = '';
+      this.confirmPassword = '';
+    } else {
+      // Display error message or handle mismatched passwords
+      console.error('Passwords do not match');
+    }
+  } else if (this.editField === 'email') {
+    // Update email logic here
+    console.log('New email:', this.userProfile.email);
+  }
+  // Reset edit mode and edit field
+  this.editMode2 = false;
+  this.editField = '';
+}
+
+cancelEdit2(): void {
+  // Reset password fields if canceled
+  this.newPassword = '';
+  this.confirmPassword = '';
+  // Reset edit mode and edit field
+  this.editMode2 = false;
+  this.editField = '';
+}
+
+
+
+
+save2(){
+  if(this.newPassword==this.confirmPassword){
+  this.userService.resetPassword(this.userProfile.email,this.newPassword,"").subscribe(response => {alert("password changed");
+this.editMode2=false;
+}, error => {
+   
+    console.error('error', error);
+  });
+
+
+}}
+}
+

@@ -10,7 +10,7 @@ import { AllTemplateFrontComponent } from './front-office/all-template-front/all
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './front-office/user/login/login.component';
 import { NavBarBackComponent } from './back-office/nav-bar-back/nav-bar-back.component';
 import { AllTemplateBackComponent } from './back-office/all-template-back/all-template-back.component';
@@ -24,8 +24,7 @@ import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-
-
+import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +43,7 @@ import { UserProfileComponent } from './front-office/user/profile/user-profile/u
     AddPlanComponent,
     UsersBackComponent,
     UserProfileComponent,
-
+    
 
     ],
   imports: [
@@ -54,9 +53,14 @@ import { UserProfileComponent } from './front-office/user/profile/user-profile/u
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
+    RecaptchaV3Module,
 
   ],
-  providers: [],
+  providers: [
+    { provide: RECAPTCHA_V3_SITE_KEY, // Provide RECAPTCHA_V3_SITE_KEY token
+      useValue: '6LcbJKkpAAAAAOoN0N7k6mGN4n0CuFrkCsOcCPMH' 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

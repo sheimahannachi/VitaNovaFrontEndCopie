@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
-import { Component ,NgZone} from '@angular/core';
+import { Component ,HostListener,NgZone} from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { UserService } from 'src/app/Service/user.service';
+import { RecaptchaModule,ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-register',
@@ -56,14 +57,38 @@ roleError:boolean=false;
 genderError:boolean=false;
 DateError:boolean=false;
 strengthText: string = '';
+captcha:string="";
+
+resolved(captchaResponse:string){
+  
+  this.captcha=captchaResponse;
+  console.log('resolved captcha ' + this.captcha);
+  }
+
+
+@HostListener('window:beforeunload', ['$event']) beforeUnloadHander($event: any) { 
+  if (this.registerSection > 0) 
+  { $event.returnValue = 'You will lose your progress. Are you sure you want to leave this page?'; } 
+}
+
+@HostListener('window:popstate', ['$event'])
+onPopState(event: any): void {
+  if (this.registerSection > 0) {
+    if (!confirm('You will lose your progress. Are you sure you want to leave this page?')) {
+      history.pushState(null, document.title, window.location.href);
+      event.preventDefault();
+    }
+  }
+}
 
 
 
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
+  constructor(private recaptchaV3Service: ReCaptchaV3Service, private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
     this.selectedFileName = this.selectedFile?.name ?? '';
     this.generatedCode=this.generateVerificationCode();
-
+   
+  
   }
   switchModes(){
   if(this.theme=="dark"){
@@ -113,7 +138,16 @@ strengthText: string = '';
 
   save()
   {
+    console.log("save")
+   
+
+    
+
+    
     this.ValidateAll()
+    console.log("verified " , this.verified)
+    console.log("this.validateFields() " , this.validateFields())
+    console.log(" lkol " , this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false)
 
    
     if (this.validateFields() && this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false ) {
@@ -134,7 +168,7 @@ strengthText: string = '';
       "verified":this.verified,
       "phone":this.phoneNumber
     };
-
+   
     
     if(this.verified==true){
 
@@ -147,6 +181,9 @@ strengthText: string = '';
     });
   }
   }}
+
+
+
 
  verifyEmail() {
     if (this.verificationCode === this.generatedCode) {
@@ -280,20 +317,19 @@ this.showVerificationCodeInput=true;
 
 
 
-
-
-
-
   onFileChanged(event: any): void {
     this.selectedFile = event.target.files[0];
     this.selectedFileName = this.selectedFile?.name ?? '';
-
   }
-  getImageUrl(file: File): string {
-    return URL.createObjectURL(file);
-}
-
-
+  
+  getImageUrl(file: File | null): string {
+    if (file) {
+      return URL.createObjectURL(file);
+    } else {
+      return ''; // Or you can return a default image URL if no file is selected
+    }
+  }
+  
   getSelectedFileName(): string | null {
     if (this.selectedFile) {
       return this.selectedFile.name;
@@ -353,7 +389,7 @@ this.showVerificationCodeInput=true;
         this.dateOfBirth 
     );
 
-    if ((areAllFieldsValid)&&this.roleError==false&&this.phoneError==false)return true;
+    if ((areAllFieldsValid))return true;
     else return false;
 }
 
@@ -393,14 +429,12 @@ if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameEx
 else
 if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&!this.verified) alert("Email verification is required");
 if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&this.verified&&!this.termsChecked){this.termsError=true;}else this.termsError=false;
-this.registerSection=this.registerSection+1
 }
   
 
 next2(){
  
 if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password==this.passwordConfirm&&(this.strengthText=="Moderate"||this.strengthText=="Strong"))this.registerSection=this.registerSection+1;
-this.registerSection=this.registerSection+1
 }
 
 
