@@ -39,6 +39,8 @@ const routes: Routes = [
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+      ]},
+      
       { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
   { path:'admin',component:AllTemplateBackComponent, children: [
@@ -82,7 +84,8 @@ const routes: Routes = [
 
   ],},
   
-    ]}]
+    
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
