@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { PeriodTracker } from '../Models/PeriodTracker';
 import { map } from 'rxjs/operators';
 import { SymptomRating } from '../Models/PeriodTracker';
+import { Exercise } from '../Models/Exercise'; // Make sure to import the Exercise model
+import { Food } from '../Models/Food';
 
 
 
@@ -74,7 +76,14 @@ askQuestionToChatbot(question: string): Observable<any> {
 
   return this.http.post<any>(this.apiUrl, body, { headers });
 }
-  
+getPeriodExercises(): Observable<Exercise[]> {
+  return this.http.get<Exercise[]>(`${this.baseUrl}exercises`);
+}
+
+getPeriodFood(): Observable<Food[]> {
+  return this.http.get<Food[]>(`${this.baseUrl}period-food`);
+}
+
 }
 
 

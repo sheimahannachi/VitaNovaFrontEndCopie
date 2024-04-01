@@ -2,6 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import { PeriodTracker } from '../Models/PeriodTracker';
 import { PeriodTrackerServiceService } from '../Service/period-tracker-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Exercise } from '../Models/Exercise';
+import { Food } from '../Models/Food';
 
 
 @Component({
@@ -17,6 +19,10 @@ export class PeriodInsightsComponent {
   nextPeriodDate?: string;
   userQuestion: string = ''; // Track user input
   chatHistory: string[] = [];
+  exercises: Exercise[]= [];
+  foods: Food[]= []; // Define an array to store fetched foods
+
+
 
 
 
@@ -24,20 +30,27 @@ export class PeriodInsightsComponent {
 
     
 
-ngOnInit(): void {
-  this.route.queryParams.subscribe(params => {
-    this.idPeriod = params['id'];
-    if (this.idPeriod) {
-      // Fetch cycle phase when component initializes
-      this.fetchCyclePhase(this.idPeriod);
-      this.fetchNextOvulationDate(this.idPeriod);
-      // Fetch next period date
-      this.fetchNextPeriodDate(this.idPeriod);
-      this.addChatbotClickListener();
+  ngOnInit(): void {
 
-    }
-  });
-}
+
+  
+
+
+
+    this.route.queryParams.subscribe(params => {
+      this.idPeriod = params['id'];
+      if (this.idPeriod) {
+        // Fetch cycle phase when component initializes
+        this.fetchCyclePhase(this.idPeriod);
+        this.fetchNextOvulationDate(this.idPeriod);
+        // Fetch next period date
+        this.fetchNextPeriodDate(this.idPeriod);
+        this.addChatbotClickListener();
+        this.getPeriodExercises();
+        this.fetchPeriodFoods();
+      }
+    });
+  }
 
 fetchCyclePhase(idPeriod: number) {
   console.log('Fetching cycle phase for idPeriod:', idPeriod); 
@@ -126,6 +139,16 @@ fetchCyclePhase(idPeriod: number) {
       }
     );
   }
+
+  getPeriodExercises(): void {
+    this.periodTrackerService.getPeriodExercises()
+      .subscribe(exercises => this.exercises = exercises);
+  }
+  fetchPeriodFoods(): void {
+    this.periodTrackerService.getPeriodFood()
+      .subscribe(foods => this.foods = foods);
+  }
+
 
 
 
