@@ -12,8 +12,10 @@ import { Community } from '../Model/Community';
 })
 export class UpdateCommunityComponent {
 
+  error:string;
   constructor(private service:CommunityServiceService,private router:Router,private ac:ActivatedRoute){
     this.router=router;
+    this.error="";
     
   }
 
@@ -77,7 +79,25 @@ export class UpdateCommunityComponent {
       this.service.updateCommunity(this.community,this.community.id).subscribe(result=>{
         this.myForm.reset();
         this.router.navigateByUrl("");
-      })
+      },
+      error=>{
+        console.error('BackEnd error while adding community:',error);
+
+        if (error && error.error && Object.keys(error.error).length > 1) {
+          // Accédez à la deuxième erreur
+          const secondError = Object.values(error.error)[1];
+          this.error=secondError.toString();
+          
+        } else {
+          console.log('Aucune deuxième erreur trouvée.');
+        }
+      }
+      )
+      }
+
+
+      clearError(){
+        this.error="";
       }
 
 }
