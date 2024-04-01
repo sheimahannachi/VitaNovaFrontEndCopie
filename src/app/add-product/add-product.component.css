@@ -71,3 +71,17 @@ input[type="file"] {
 .form-control {
     width: 100%; /* Ajustez cette valeur selon vos préférences */
 }
+
+.error-message {
+    color: black; /* Rouge */
+    font-size: 20px; /* Taille de police plus grande */
+    font-weight: bold; /* Texte en gras */
+    text-align: center; /* Texte centré */
+    margin-top: 10px; /* Marge supérieure augmentée */
+    background-color: rgb(235, 98, 98); /* Couleur de fond rouge pour le champ de message */
+    padding: 10px; /* Ajouter un remplissage pour plus d'espace autour du texte */
+    border-radius: 5px; /* Ajouter une bordure arrondie */
+  }
+  
+  
+  
