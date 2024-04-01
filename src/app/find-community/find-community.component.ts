@@ -3,6 +3,7 @@ import { Community } from '../Model/Community';
 import { CommunityServiceService } from '../Services/community-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserModule } from '../Model/user/user.module';
 
 @Component({
   selector: 'app-find-community',
@@ -16,11 +17,15 @@ page:number;
 myForm:FormGroup;
 whereAmI:number;
 test:number;
+current:UserModule;
+errorMessage:string;
 
 constructor(private service:CommunityServiceService,private router:Router){
   this.page=0;
   this.communities=[];
   this.test=0;
+  this.current=new UserModule();
+  this.errorMessage="";
 }
 
 ngOnInit(){
@@ -108,9 +113,17 @@ previousPage(){
 
 com:Community
 joinCommunity(communityId:number) {
-  this.service.addMemberToCommunity(0,communityId).subscribe(res=>{
+  if(this.current.communities!=null){
+    this.errorMessage="You can't join multiple community at once...";
+  }else{
+  this.service.addMemberToCommunity(this.current.idUser,communityId).subscribe(res=>{
     this.router.navigateByUrl("/app/community");
   })
+}
+  }
+
+  getCurrentUser(){
+    //cal user service get the user connected
   }
 
 }

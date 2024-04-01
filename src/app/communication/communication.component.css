@@ -1,16 +1,24 @@
 
 .tChat{
-    margin-top: 200px;
+    
     margin-left:200px;
     width: 900px;
     
 }
+/*text-right*/
+.right-div{
+    margin-left: 400px;
+
+}
 .custom-input::placeholder{
     color: #000000;
 }
+.seeMore{
+    margin-left: 300px;
+}
 
 .card {
-    background-color: #000000c5;
+    background-color: #414040c5;
     transition: .5s;
     border: 0;
     margin-bottom: 30px;

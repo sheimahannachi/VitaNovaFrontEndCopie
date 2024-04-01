@@ -7,8 +7,41 @@
         <br>
         
         <br>
-        <h3 class="CName">{{ClasseName}}</h3>
-        <h4 class="CName">{{creatorName}} </h4>
+        <router-outlet></router-outlet>
+        <div class="cont">
+         
+        
+    <div class="TopThree">
+        <table>
+            <thead>
+                <tr>
+                    <div class="commName">
+                    <h1 class="CName"style="color:#b3d821c5; ">{{community.communityName}} </h1>
+                </div>
+                </tr>
+                <tr>
+                    <td><h2 class="CName"style="color:#b3d821c5; ">Top 3 Active members </h2></td>
+                </tr>
+            </thead>
+            <tbody *ngFor="let u of topThree; let i=index">
+                <tr>
+                     
+                    <td>
+                        <div class="topUser">
+                        <h3 class="CName" style="color:#b3d821c5; display: inline-block;">{{ increment(i) }}</h3>
+                        &nbsp;
+                        <h3 class="CName" style="color:#b3d821c5; display: inline-block;">{{ u.username }}</h3>
+                    </div>
+                    </td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+                <h5 class="CName" style="color:#b3d821c5; ">Comunity created by {{creatorName}} </h5>
+            </tfoot>
+        </table>
+</div>
+</div>
         
     </div>
         <!--
@@ -24,17 +57,20 @@
         </div>
         -->
         <br><br><br>
-        <router-outlet></router-outlet>
+        
         <div *ngIf="divTest">
-   <app-communication [idFromParent]="communityId"></app-communication>
+   <app-communication [idFromParent]="communityId" [communityMembers]="members"></app-communication>
         </div>
         
     
     <div class="button-container">
-        <button type="button" class="btn bg-gradient-success" [routerLink]="['addChallenge',communityId]">Add Challenge</button>
         
-        <button type="button" class="btn bg-gradient-success" [routerLink]="['/app/updateCommunity',communityId]">Update</button>
-        <button type="button" class="btn bg-gradient-success" (click)="deleteCommunity()">Delete Community</button>
+        <button type="button" class="btn bg-gradient-success" [routerLink]="['addChallenge',communityId]" *ngIf="amCreator">Add Challenge</button>
+        
+        <button type="button" class="btn bg-gradient-success" [routerLink]="['/app/updateCommunity',communityId]"*ngIf="amCreator">Update</button>
+        <button type="button" class="btn bg-gradient-success" (click)="deleteCommunity()" *ngIf="amCreator">Delete Community</button>
+
+        <button type="button" class="btn bg-gradient-success" (click)="leaveCommunity()"*ngIf="!amCreator">Leave Community</button>
     
         
     </div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Community } from '../Community';
 export enum Gender {
   MALE = 'MAN',
   FEMALE = 'WOMAN'
@@ -34,7 +35,7 @@ export class UserModule {
   // periodTracker: PeriodTracker = new PeriodTracker(); // Example initial value
   // cart: Cart = new Cart(); // Example initial value
   // foods: Food[] = [];
-//  communities: Community[] = [];
+  communities: Community;
   role!: ERole ; // Example initial value
 
   constructor() {
