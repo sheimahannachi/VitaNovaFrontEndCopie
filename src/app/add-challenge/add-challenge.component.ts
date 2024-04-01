@@ -28,15 +28,15 @@ export class AddChallengeComponent {
 
   ngOnInit(){
     this.myForm=new FormGroup({
-      
+
         name: new FormControl('', [Validators.required]),
-        
+
         description:new FormControl('',[Validators.required]),
         goal:new FormControl('',[Validators.required,Validators.pattern(/^\d+$/), Validators.min(10)]),
         type:new FormControl(ChallengeType.WATER,[Validators.required,this.enumValidator(ChallengeType)]),
         compare: new FormControl(ChallengeCompare.LESS,[this.enumValidator(ChallengeCompare)])
-     
-       
+
+
     });
 
     this.communityId=parseInt( this.ac.snapshot.paramMap.get('id'));
@@ -78,7 +78,7 @@ export class AddChallengeComponent {
     else{
       challenge.compare=ChallengeCompare.MORE;
     }
-    this.service.addChallenge(challenge,1).subscribe(res=>{this.router.navigateByUrl('/app/community')},
+    this.service.addChallenge(challenge,1).subscribe(res=>{this.router.navigateByUrl('/vitaNova/community')},
     error=>{
       console.error('BackEnd error while adding challenge:',error);
     });

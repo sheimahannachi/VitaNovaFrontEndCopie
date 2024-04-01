@@ -1,16 +1,16 @@
 <div class="community">
-    
+
     <div class="cc">
         <br>
         <br><br>
         <br>
         <br>
-        
+
         <br>
         <router-outlet></router-outlet>
         <div class="cont">
-         
-        
+
+
     <div class="TopThree">
         <table>
             <thead>
@@ -25,7 +25,7 @@
             </thead>
             <tbody *ngFor="let u of topThree; let i=index">
                 <tr>
-                     
+
                     <td>
                         <div class="topUser">
                         <h3 class="CName" style="color:#b3d821c5; display: inline-block;">{{ increment(i) }}</h3>
@@ -42,7 +42,7 @@
         </table>
 </div>
 </div>
-        
+
     </div>
         <!--
             <div class="topThree"
@@ -57,27 +57,27 @@
         </div>
         -->
         <br><br><br>
-        
+
         <div *ngIf="divTest">
    <app-communication [idFromParent]="communityId" [communityMembers]="members"></app-communication>
         </div>
-        
-    
+
+
     <div class="button-container">
-        
+
         <button type="button" class="btn bg-gradient-success" [routerLink]="['addChallenge',communityId]" *ngIf="amCreator">Add Challenge</button>
-        
+
         <button type="button" class="btn bg-gradient-success" [routerLink]="['/app/updateCommunity',communityId]"*ngIf="amCreator">Update</button>
         <button type="button" class="btn bg-gradient-success" (click)="deleteCommunity()" *ngIf="amCreator">Delete Community</button>
 
         <button type="button" class="btn bg-gradient-success" (click)="leaveCommunity()"*ngIf="!amCreator">Leave Community</button>
-    
-        
+
+
     </div>
 
     <br>
- 
-        
-        
-       
+
+
+
+
 

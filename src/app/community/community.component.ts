@@ -21,7 +21,7 @@ export class CommunityComponent {
   amCreator:boolean;
   test:number;
   members:UserModule[];
-  
+
 
   constructor(private service:CommunityServiceService,private router:Router)
   {
@@ -31,12 +31,12 @@ export class CommunityComponent {
     this.currentUser=new UserModule();
     this.currentUser.communities=new Community();
 
-    //Initialised false get it from current if creator or not 
-    this.amCreator=true;
+    //Initialised false get it from current if creator or not
+    this.amCreator=false;
     this.test=0;
-    
-    
-    // User Connected get Community 
+
+
+    // User Connected get Community
   }
 
   deleteCommunity() {
@@ -58,11 +58,11 @@ ngOnInit(){
 
   this.currentUser.communities.id=this.communityId;
 
-  
+
   this.getThisCommunity();
-  
+
   this.fetchTopThree();
-  
+
 
 }
 
@@ -70,10 +70,10 @@ ngOnInit(){
 getThisCommunity(){
   this.service.getComunity(this.currentUser.communities.id).subscribe(response=>{
     this.community=response;
-    
+
     this.creatorName=this.community.creator.firstName+" "+this.community.creator.lastName;
   })
-  
+
 }
 
 getCurrentUser(){

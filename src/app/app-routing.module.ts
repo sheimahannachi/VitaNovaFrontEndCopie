@@ -35,7 +35,7 @@ import { BrowserModule } from '@angular/platform-browser';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
-  //{path:"app",redirectTo:"/app/home",pathMatch:'full'},
+  {path:"vitaNova",redirectTo:"/vitaNova/home",pathMatch:'full'},
 
   { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[

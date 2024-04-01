@@ -22,19 +22,19 @@ export class AddCommunityComponent {
     this.error="";
   }
 
-  
+
 
   myForm: FormGroup;
 
   ngOnInit(){
     this.myForm=new FormGroup({
-      
+
         communityName: new FormControl('', [Validators.required]),
-        
+
         description:new FormControl('',[Validators.required]),
-     
-      
-     
+
+
+
     });
   }
 
@@ -60,12 +60,12 @@ export class AddCommunityComponent {
       community.creator=this.current;
       community.creationDate=new Date();
       community.status=true;
-      
-      
+
+
       this.service.addCommunity(community,this.current.idUser).subscribe(response=>{
         this.myForm.reset();
-        this.router.navigateByUrl("/app/home")
-        
+        this.router.navigateByUrl("/vitaNova/home")
+
       },
       error=>{
         console.error('BackEnd error while adding community:',error);
@@ -74,12 +74,12 @@ export class AddCommunityComponent {
           // Accédez à la deuxième erreur
           const secondError = Object.values(error.error)[1];
           this.error=secondError.toString();
-          
+
         } else {
           console.log('Aucune deuxième erreur trouvée.');
         }
       })
-      
+
     }
 
     clearError(){
