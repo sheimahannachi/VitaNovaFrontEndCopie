@@ -25,10 +25,11 @@ import { UpdateCommunityComponent } from './update-community/update-community.co
 import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
-/*import { AddProductComponent } from './add-product/add-product.component';
+import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
-import { ShowProductUserComponent } from './show-product-user/show-product-user.component';*/
+import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
+
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 const routes: Routes = [
@@ -52,12 +53,13 @@ const routes: Routes = [
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
 
       //aziz
-      /*{path:"showProductUser",
-        component: ShowProductUserComponent},*/]},
+      {path:"showProductUser",
+        component: ShowProductUserComponent},]},
 //amine
 
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+
 
 //Admin
   { path:'admin',component:AllTemplateBackComponent, children: [
@@ -72,6 +74,7 @@ const routes: Routes = [
         path: "ListExercice",
         component: ExerciseListComponent,
 
+
       },
       //firas
       {path:"communities",component:AllCommunitiesBackComponent},
@@ -84,12 +87,12 @@ const routes: Routes = [
         component: UsersBackComponent
       },
       //aziz
-      /*{path:"addProduct",
+      {path:"addProduct",
         component: AddProductComponent},
       {path:"showProduct",
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
-        component: UpdateProductComponent },*/]},
+        component: UpdateProductComponent },]},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes),BrowserModule, FormsModule],

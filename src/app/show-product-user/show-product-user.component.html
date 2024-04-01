@@ -1,0 +1,65 @@
+<body>
+<br><br>
+<br>
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control search-input" placeholder="Rechercher un produit" aria-label="Rechercher un produit" [(ngModel)]="searchTerm" (input)="searchProducts()">
+          <div class="input-group-append">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Affichage des produits -->
+<!-- Template HTML pour afficher les produits avec le bouton Like -->
+<div id="container">
+  <!-- Start Product details and image -->
+  <div class="product-details" *ngFor="let product of listeProduits">
+      <div class="product-info">
+          <h1>{{ product.namePr }}</h1>
+
+          <!-- Product image -->
+          <div class="product-image">
+              <img [src]="product.picturePr" alt="Image du produit">
+              <div class="info">
+                  <h2>Product <br> Details</h2>
+                  <ul>
+                      <li><strong>Prix :</strong> {{ product.pricePr }}</li>
+                      <li><strong>Quantité :</strong> {{ product.quantityPr }}</li>
+                      <li><strong>Catégorie :</strong> {{ product.categoriePr }}</li>
+                      <li><strong>Status :</strong> {{ product.statusPr }}</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <div class="like-button">
+        <button (click)="addLikeToProduct(product.idPr)">
+            <span>{{ product.likeCount }}</span>
+            <i class="fa fa-heart" aria-hidden="true"></i>
+        </button>
+    </div>
+    <h4>Description</h4>
+      <p class="Product Details"> {{ product.descriptionPr }}</p>
+
+      <div class="control">
+          <button class="btn">
+              <span class="price">Price : {{ product.pricePr }}</span>
+              <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+              <span class="buy">Buy Now</span>
+          </button>
+      </div>
+  </div>
+  <!-- End Product details and image -->
+</div>
+</body>
+
+
+
+
+
