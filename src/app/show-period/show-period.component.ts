@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ShowPeriodComponent implements OnInit {
   periodTrackers: PeriodTracker[] = [];
+  currentCyclePhase: string = ""; // Variable to store the fetched cycle phase
+
   
 
   constructor(private periodTrackerService: PeriodTrackerServiceService,
@@ -31,6 +33,13 @@ export class ShowPeriodComponent implements OnInit {
     if (periodTrackerId) {
       // Navigate to PeriodTrackerComponent with the period tracker ID as a route parameter
       this.router.navigate(['/PeriodInformation', periodTrackerId]);
+    }
+  }
+  
+  getCyclePhase(idPeriod: number): void {
+    if (idPeriod) {
+      // Navigate to PeriodInsightsComponent with the period ID as a query parameter
+      this.router.navigate(['/PeriodInsights'], { queryParams: { id: idPeriod } });
     }
   }
   archivePeriod(idPeriod: number): void {
