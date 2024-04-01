@@ -21,74 +21,78 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 
-//Amine 
+//Amine
 import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
+/*import { AddProductComponent } from './add-product/add-product.component';
+import { ShowProductComponent } from './show-product/show-product.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { ShowProductUserComponent } from './show-product-user/show-product-user.component';*/
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 const routes: Routes = [
-  {path:"",redirectTo:"/app/home",pathMatch:'full'},
-  {path:"app",redirectTo:"/app/home",pathMatch:'full'},
-  {path:"app",
+
+  {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
+  //{path:"app",redirectTo:"/app/home",pathMatch:'full'},
+
+  { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
+      //firas
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
         ]},
       {path:"addCommunity",component:AddCommunityComponent},
       {path:"findCommunity",component:FindCommunityComponent},
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
+      //yoser
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
+
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
-      ]},
-      
-      { path: 'signup', component: RegisterComponent } ,
+
+      //aziz
+      /*{path:"showProductUser",
+        component: ShowProductUserComponent},*/]},
+//amine
+
+  { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+
+//Admin
   { path:'admin',component:AllTemplateBackComponent, children: [
+      //yoser
+      {path: "listex",
+        component: ExerciseListComponent,
+      },
+      {path: "exercise",
+        component: AddexerciseComponent,
+      },
       {
-        path: "listex",
+        path: "ListExercice",
         component: ExerciseListComponent,
 
       },
-
+      //firas
+      {path:"communities",component:AllCommunitiesBackComponent},
+      {path:"chalenges", component:AllChallengesBackComponent},
+      //amine
+      {path: "profile", component: UserProfileComponent
+      },
       {
-      path: "exercise",
-      component: AddexerciseComponent,
-    },
-    {path:"communities",component:AllCommunitiesBackComponent},
-    {path:"chalenges", component:AllChallengesBackComponent},
-    {
-      path: '', component: AllTemplateFrontComponent
-    },
-    {
-      path: "profile", component: UserProfileComponent
-    },
-    { path: 'signup', component: RegisterComponent },
-    { path: 'login', component: LoginComponent },
-    {
-      path: 'admin', component: AllTemplateBackComponent, children: [
-        {
-          path: "exercise",
-          component: AddexerciseComponent,
-        },
-        {
-          path: "ListExercice",
-          component: ExerciseListComponent,
-  
-        },
-        {
-          path: "users",
-          component: UsersBackComponent
-        }
-      ]
-    },
-
-  ],},
-  
-    
-]
-
+        path: "users",
+        component: UsersBackComponent
+      },
+      //aziz
+      /*{path:"addProduct",
+        component: AddProductComponent},
+      {path:"showProduct",
+        component: ShowProductComponent},
+      { path: 'updateProduct/:id',
+        component: UpdateProductComponent },*/]},
+];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),BrowserModule, FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
