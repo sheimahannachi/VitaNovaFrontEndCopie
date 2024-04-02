@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Component ,HostListener,NgZone} from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { UserService } from 'src/app/Service/user.service';
 import { RecaptchaModule,ReCaptchaV3Service } from 'ng-recaptcha';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-register',
@@ -150,40 +151,50 @@ onPopState(event: any): void {
     console.log(" lkol " , this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false)
 
    
-    if (this.validateFields() && this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false ) {
-      this.copyFileToXAMPP();
-
-    let bodyData = {
-      "username" : this.username,
-      "email" : this.email,
-      "password" : this.password,
-      "role": this.role,
-      "picture":this.selectedFileName,
-      "gender":this.gender,
-      "height":this.height,
-      "weight":this.weight,
-      "dateOfBirth":this.dateOfBirth,
-      "firstName":this.firstName,
-      "lastName":this.lastName,
-      "verified":this.verified,
-      "phone":this.phoneNumber
-    };
-   
-    
-    if(this.verified==true){
-
-    this.http.post("http://localhost:8081/api/signup",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
-    {
-
-        console.log(bodyData);
-        alert(" Registered Successfully");
-        this.router.navigate(['/login']); 
-    });
-  }
-  }}
-
-
-
+    if (this.validateFields() && this.validateEmail(this.email) && !this.DateError && !this.genderError && !this.roleError && !this.phoneError) {
+      // Check if a file is selected
+      if (this.selectedFile) {
+        // Create FormData object
+        const formData = new FormData();
+        this.copyFileToFTP();
+        // Append form fields
+        formData.append('username', this.username);
+        formData.append('email', this.email);
+        formData.append('password', this.password);
+        formData.append('role', this.role);
+        formData.append('gender', this.gender);
+        formData.append('height', String(this.height));
+        formData.append('weight', String(this.weight));
+        
+        // Convert date to ISO string
+        const isoDate = new Date(this.dateOfBirth).toISOString();
+        formData.append('dateOfBirth', isoDate); 
+    console.log(isoDate)
+        formData.append('firstName', this.firstName);
+        formData.append('lastName', this.lastName);
+        formData.append('verified', String(this.verified));
+        formData.append('phone', this.phoneNumber);
+        
+        // Append the selected file
+        formData.append('picture', this.selectedFileName); // Include file name
+        
+        // Send HTTP POST request
+        this.http.post("http://localhost:8081/api/signup", formData).subscribe(
+          (resultData: any) => {
+            console.log(resultData);
+            alert("Registered Successfully");
+            this.router.navigate(['/login']);
+          },
+          (error) => {
+            console.error('Error registering user:', error);
+            // Handle error if needed
+          }
+        );
+      } else {
+        console.error('No file selected.');
+        // Handle case where no file is selected
+      }
+    }}
 
  verifyEmail() {
     if (this.verificationCode === this.generatedCode) {
@@ -318,15 +329,20 @@ this.showVerificationCodeInput=true;
 
 
   onFileChanged(event: any): void {
-    this.selectedFile = event.target.files[0];
-    this.selectedFileName = this.selectedFile?.name ?? '';
+    const files: FileList = event.target.files;
+    if (files && files.length > 0) {
+      this.selectedFile = files[0];
+      this.selectedFileName=this.selectedFile.name;
+    }
+    console.log(this.selectedFile)
   }
+
   
   getImageUrl(file: File | null): string {
     if (file) {
       return URL.createObjectURL(file);
     } else {
-      return ''; // Or you can return a default image URL if no file is selected
+      return ''; // 
     }
   }
   
@@ -337,7 +353,7 @@ this.showVerificationCodeInput=true;
       return null;
     }
   }
-  copyFileToXAMPP(): void {
+  /*copyFileToXAMPP(): void {
     if (this.selectedFile) {
       console.log("in copyfiletoxamp function " + this.selectedFile);
   
@@ -359,7 +375,7 @@ this.showVerificationCodeInput=true;
     } else {
       console.log("empty file");
     }
-  }
+  }*/
 
 
 
@@ -439,4 +455,37 @@ if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password
 
 
 
+copyFileToFTP(): void {
+  if (this.selectedFile) {
+    console.log("in copyfiletoFTP function " + this.selectedFile);
+
+    const newFileName = uuidv4() + '.jpg'; 
+    console.log("New filename:", newFileName);
+this.selectedFileName=newFileName;
+    // Create a new File object with the selected file and the new filename
+    const renamedFile = new File([this.selectedFile], newFileName, { type: this.selectedFile.type });
+
+    const formData = new FormData();
+    formData.append('file', renamedFile);
+
+    this.http.post<any>(`http://localhost:8081/api/misc/copyToFTP`, formData).pipe(
+      catchError(error => {
+        console.error('An error occurred:', error);
+        return throwError('Failed to upload file'); // Return a custom error message
+      })
+    ).subscribe(response => {
+      console.log('File uploaded successfully:', response);
+      // Handle success if needed
+    }, error => {
+      console.error('Error uploading file:', error);
+      // Handle error if needed
+    });
+  } else {
+    console.log("empty file");
+  }
 }
+}
+
+
+
+

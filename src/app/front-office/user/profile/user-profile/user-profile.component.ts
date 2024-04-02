@@ -1,4 +1,6 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Observable, catchError, throwError } from 'rxjs';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 import { UserService } from 'src/app/Service/user.service';
@@ -16,15 +18,16 @@ export class UserProfileComponent {
   newPassword:string="";
   confirmPassword:string="";
   editField: string = ''; // Tracks which field is being edited
-
-  constructor(private authService: AuthService,private userService:UserService) {
+  profilePictureUrl:string="";
+  constructor(private authService: AuthService,private userService:UserService,private http: HttpClient) {
     this.userProfile = new UserModule(); // Initialize userProfile here
-
+   
     
    }
 
   ngOnInit(): void {
     this.getUserInfoFromToken();
+    
   }
 
 
@@ -33,11 +36,26 @@ export class UserProfileComponent {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
         this.userProfile = response;
+        console.log(this.userProfile.picture)
+        this.downloadFile(this.userProfile.picture).subscribe(
+          (imageData: Blob) => {
+            // Convert the Blob data to a base64 string
+            const reader = new FileReader();
+            reader.onload = () => {
+              this.profilePictureUrl = reader.result as string;
+            };
+            reader.readAsDataURL(imageData);
+          },
+          (error) => {
+            console.error('Error downloading image:', error);
+          }
+        );
       },
       error => {
         console.error('Error fetching user information:', error);
       }
     );
+    
   }
 
 
@@ -113,5 +131,15 @@ this.editMode2=false;
 
 
 }}
+
+
+downloadFile(filename: string): Observable<Blob> {
+  // Set headers to indicate that we expect a blob response
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  // Make a GET request to the download endpoint with the filename as a path parameter
+  return this.http.get(`http://localhost:8081/api/misc/download/${filename}`, { headers: headers, responseType: 'blob' });
 }
+}
+
 
