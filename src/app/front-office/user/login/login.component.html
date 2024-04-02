@@ -32,7 +32,7 @@
                   </svg>
                   <span *ngIf="!loginAttempt" class="loginAttempt"> username or password is incorrect</span>
 
-                <a (click)="showResetPasswordForm = true">Forgot Password?</a>
+                <a (click)="showResetPasswordForm = true">Forgot Password?</a><a routerLink="/signup">Create an account?</a>
             </div>
             <button type="submit" class="button">Login</button>
         </form>

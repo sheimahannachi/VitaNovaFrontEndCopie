@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
+import { MiscService } from 'src/app/Service/misc.service';
 import { UserService } from 'src/app/Service/user.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class UserProfileComponent {
   confirmPassword:string="";
   editField: string = ''; // Tracks which field is being edited
   profilePictureUrl:string="";
-  constructor(private authService: AuthService,private userService:UserService,private http: HttpClient) {
+  constructor(private authService: AuthService,private userService:UserService,private http: HttpClient,private miscservice:MiscService) {
     this.userProfile = new UserModule(); // Initialize userProfile here
    
     
@@ -37,19 +38,7 @@ export class UserProfileComponent {
       (response: UserModule) => {
         this.userProfile = response;
         console.log(this.userProfile.picture)
-        this.downloadFile(this.userProfile.picture).subscribe(
-          (imageData: Blob) => {
-            // Convert the Blob data to a base64 string
-            const reader = new FileReader();
-            reader.onload = () => {
-              this.profilePictureUrl = reader.result as string;
-            };
-            reader.readAsDataURL(imageData);
-          },
-          (error) => {
-            console.error('Error downloading image:', error);
-          }
-        );
+        this.downloadImage(this.userProfile.picture);
       },
       error => {
         console.error('Error fetching user information:', error);
@@ -133,13 +122,17 @@ this.editMode2=false;
 }}
 
 
-downloadFile(filename: string): Observable<Blob> {
-  // Set headers to indicate that we expect a blob response
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-  // Make a GET request to the download endpoint with the filename as a path parameter
-  return this.http.get(`http://localhost:8081/api/misc/download/${filename}`, { headers: headers, responseType: 'blob' });
+downloadImage(filename: string): void {
+  this.miscservice.downloadImage(filename).subscribe((blob: Blob) => {
+    const url = window.URL.createObjectURL(blob);
+    this.profilePictureUrl=url;
+  }, error => {
+    console.error('Error downloading image:', error);
+    // Handle error
+  });
 }
+
+
 }
 
 

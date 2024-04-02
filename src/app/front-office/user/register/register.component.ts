@@ -8,6 +8,7 @@ import { Observable, catchError, of, throwError } from 'rxjs';
 import { UserService } from 'src/app/Service/user.service';
 import { RecaptchaModule,ReCaptchaV3Service } from 'ng-recaptcha';
 import { v4 as uuidv4 } from 'uuid';
+import { MiscService } from 'src/app/Service/misc.service';
 
 @Component({
   selector: 'app-register',
@@ -85,7 +86,7 @@ onPopState(event: any): void {
 
 
 
-  constructor(private recaptchaV3Service: ReCaptchaV3Service, private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
+  constructor(private miscService:MiscService,private recaptchaV3Service: ReCaptchaV3Service, private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
     this.selectedFileName = this.selectedFile?.name ?? '';
     this.generatedCode=this.generateVerificationCode();
    
@@ -154,9 +155,9 @@ onPopState(event: any): void {
     if (this.validateFields() && this.validateEmail(this.email) && !this.DateError && !this.genderError && !this.roleError && !this.phoneError) {
       // Check if a file is selected
       if (this.selectedFile) {
+        this.uploadImage(this.selectedFile);
         // Create FormData object
         const formData = new FormData();
-        this.copyFileToFTP();
         // Append form fields
         formData.append('username', this.username);
         formData.append('email', this.email);
@@ -176,7 +177,7 @@ onPopState(event: any): void {
         formData.append('phone', this.phoneNumber);
         
         // Append the selected file
-        formData.append('picture', this.selectedFileName); // Include file name
+        formData.append('file', this.selectedFile); // Include file name
         
         // Send HTTP POST request
         this.http.post("http://localhost:8081/api/signup", formData).subscribe(
@@ -455,35 +456,17 @@ if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password
 
 
 
-copyFileToFTP(): void {
-  if (this.selectedFile) {
-    console.log("in copyfiletoFTP function " + this.selectedFile);
-
-    const newFileName = uuidv4() + '.jpg'; 
-    console.log("New filename:", newFileName);
-this.selectedFileName=newFileName;
-    // Create a new File object with the selected file and the new filename
-    const renamedFile = new File([this.selectedFile], newFileName, { type: this.selectedFile.type });
-
-    const formData = new FormData();
-    formData.append('file', renamedFile);
-
-    this.http.post<any>(`http://localhost:8081/api/misc/copyToFTP`, formData).pipe(
-      catchError(error => {
-        console.error('An error occurred:', error);
-        return throwError('Failed to upload file'); // Return a custom error message
-      })
-    ).subscribe(response => {
-      console.log('File uploaded successfully:', response);
-      // Handle success if needed
-    }, error => {
-      console.error('Error uploading file:', error);
-      // Handle error if needed
-    });
-  } else {
-    console.log("empty file");
-  }
+uploadImage(file: File): void {
+  this.miscService.uploadImage(file).subscribe(response => {
+    console.log('File uploaded successfully:', response);
+    // Handle success, if needed
+  }, error => {
+    console.error('Error uploading file:', error);
+    // Handle error
+  });
 }
+
+
 }
 
 
