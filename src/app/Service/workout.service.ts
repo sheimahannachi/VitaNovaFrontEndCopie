@@ -8,7 +8,9 @@ import {UserRating} from "../Models/UserRating";
   providedIn: 'root'
 })
 export class WorkoutService {
+  //private baseUrl: string = 'https://096c-197-14-236-90.ngrok-free.app/RestController';
   private baseUrl: string = 'http://localhost:8081/RestController';
+ //private baseUrl: string = 'https://70b2-197-14-236-90.ngrok-free.app.ngrok.io/RestController';
 
 
   constructor(private http: HttpClient) {
@@ -71,15 +73,31 @@ export class WorkoutService {
   getAverageRating(exerciseId: number): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/Rating/${exerciseId}`);
   }
-  searchExercises(bodyPart: string, searchText: string): Observable<Exercise[]> {
-    const params = {
-      bodyPart: bodyPart || '',
-      searchText: searchText || ''
-    };
+  searchExercises(bodyPart: string, searchText: string,page: number, size: number): Observable<Exercise[]> {
+      const params = new HttpParams()
+        .set('bodyPart', bodyPart || '')
+        .set('searchText', searchText || '')
+        .set('page', page.toString())
+        .set('size', size.toString());
     return this.http.get<Exercise[]>(`${this.baseUrl}/searchEx`, { params });
   }
   addPlan(workoutplan: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/addPlan`, workoutplan, {observe: 'response'});
+  }
+  getActiveExercisesFiltered(page: number, size: number, bodyParts: string[]): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('bodypart', bodyParts.join(',')); // Combine multiple body parts into one string
+
+    return this.http.get<any>(`${this.baseUrl}/filtered`, { params });
+  }
+  getExercisesSortedByRating(page: number, size: number): Observable<Exercise[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get<any>(`${this.baseUrl}/sorted-by-rating`,{ params });
   }
 
 }

@@ -6,8 +6,8 @@ export class Exercise {
   typeEx  !: string;
   bodypart!: string;
   intensity!: Intensity;
-  sets!: number;
-  reps!: number;
+  sets!: string;
+  reps!: string;
   picture!: string;
   archived!:boolean;
   rating!:number;

@@ -36,28 +36,48 @@ export class AddPlanComponent implements OnInit {
     this.getActiveExercises(0, 10);
   }
 
-  searchExercises(): void {
-    this.workoutService.searchExercises(this.selectedBodyParts.join(','), this.searchText)
-      .subscribe(
-        (exercises: Exercise[]) => {
-          this.filteredExercises = exercises;
-        },
-        (error) => {
-          console.error('Error searching exercises:', error);
-        }
-      );
-  }
 
   getActiveExercises(page: number, size: number): void {
-    this.workoutService.getActiveExercises(page, size)
-      .subscribe((pageData: any) => {
-        this.exercises = pageData.content;
-        this.totalElements = pageData.totalElements;
-        this.totalPages = pageData.totalPages;
-        this.currentPage = pageData.number;
-        this.searchExercises(); // Call searchExercises to filter based on search text
-      });
+    console.log('Selected Body Parts:', this.selectedBodyParts);
+    // Fetch exercises based on pagination and filtering by selected body parts
+    if (this.selectedBodyParts.length === 0) {
+      this.workoutService.getActiveExercises(page, size)
+        .subscribe((pageData: any) => {
+          this.handleExerciseResponse(pageData);
+        });
+    } else {
+      this.workoutService.getActiveExercisesFiltered(page, size, this.selectedBodyParts)
+        .subscribe((pageData: any) => {
+          this.handleExerciseResponse(pageData);
+        });
+    }
   }
+
+
+  handleExerciseResponse(pageData: any): void {
+    this.exercises = pageData.content;
+    this.totalElements = pageData.totalElements;
+    this.totalPages = pageData.totalPages;
+    this.currentPage = pageData.number;
+    this.searchExercises();
+  }
+
+  filterExercisesByBodyPart(): void {
+    // Fetch exercises based on pagination and filtering by selected body parts
+    this.currentPage = 0; // Reset to first page
+    const size = 10; // Assuming 10 exercises per page
+    this.getActiveExercises(0, size);
+  }
+  searchExercises(): void {
+    if (this.searchText.trim() !== '') {
+      this.filteredExercises = this.exercises.filter(exercise =>
+        exercise.title.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
+      this.filteredExercises = [...this.exercises];
+    }
+  }
+
 
   nextPage() {
     if (this.currentPage < this.totalPages - 1) {
@@ -67,7 +87,16 @@ export class AddPlanComponent implements OnInit {
       this.searchExercises();
     }
   }
+  /*filterExercisesByBodyPart(): void {
+    if (this.selectedBodyParts.length === 0) {
+      this.filteredExercises = [...this.exercises]; // Reset to show all exercises
+    } else {
+      this.filteredExercises = this.exercises.filter(exercise =>
+        this.selectedBodyParts.includes(exercise.bodypart)
+      );
+    }
 
+  }*/
   previousPage() {
     if (this.currentPage > 0) {
       const previousPage = this.currentPage - 1;

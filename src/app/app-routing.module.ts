@@ -16,7 +16,7 @@ import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component"
 import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
 
 const routes: Routes = [
-  { path: '', component: AllTemplateFrontComponent },
+  { path: '', component: AllTemplateFrontComponent},
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
 

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { WorkoutService } from "../Service/workout.service";
 import { Exercise } from "../Models/Exercise";
 import { MatDialog } from '@angular/material/dialog';
-import {ExerciseModalComponent} from "../exercise-modal/exercise-modal.component";
-import {UserRating} from "../Models/UserRating";
-import {ExerciseLinkModelComponent} from "../exercise-link-model/exercise-link-model.component";
-import {AddPlanComponent} from "../add-plan/add-plan.component";
+import { ExerciseModalComponent } from "../exercise-modal/exercise-modal.component";
+import { ExerciseLinkModelComponent } from "../exercise-link-model/exercise-link-model.component";
+import { AddPlanComponent } from "../add-plan/add-plan.component";
+import { UserRating } from "../Models/UserRating";
 
 @Component({
   selector: 'app-exercise-list-front',
@@ -17,27 +17,21 @@ export class ExerciseListFrontComponent implements OnInit {
   baseUrl: string = 'http://localhost:80/uploads/';
   selectedExercise: Exercise | null = null;
   userRating: UserRating = new UserRating();
-  exercise: Exercise | null = null; // Initialisez à null
   selectedRating: number = 0;
   totalElements = 0;
   totalPages = 0;
   currentPage = 0;
   selectedExerciseLink: string = ''; // Define selectedExerciseLink property
-
+  sortDirection: string = 'desc'; // Default to descending order
+  loading: boolean = false; // Loading flag
 
   constructor(private workoutService: WorkoutService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.getActiveExercises(0, 10);
-    console.log(this.selectedExercise);
+    this.getActiveExercises(0, 15);
   }
 
-  /*showExerciseDetails(exercise: Exercise): Exercise {
-    this.selectedExercise = exercise;
-    console.log(this.selectedExercise);
-    return this.selectedExercise;
-  }*/
   showExerciseDetails(exercise: Exercise): void {
     const dialogRef = this.dialog.open(ExerciseModalComponent, {
       width: '80%',
@@ -49,39 +43,87 @@ export class ExerciseListFrontComponent implements OnInit {
     this.selectedExercise = null;
   }
 
+  // Define a map to store fetched exercises for each page
+  cachedExercises: Map<number, Exercise[]> = new Map<number, Exercise[]>();
+
+  // Define a map to store fetched exercises for each page
+
+
+// Define an array to store fetched exercises history for navigation
+  exercisesHistory: Exercise[][] = [];
+
   getActiveExercises(page: number, size: number): void {
-    this.workoutService.getActiveExercises(page, size).subscribe((pageData: any) => {
-      this.exercises = pageData.content; // Extracting content from the paginated response
-      this.totalElements = pageData.totalElements;
-      this.totalPages = pageData.totalPages;
-      this.currentPage = pageData.number;
+    this.loading = true; // Set loading to true when fetching data
 
-      // Iterate through each exercise to fetch the average rating
-      this.exercises.forEach(exercise => {
-        exercise.picture = this.baseUrl + exercise.picture;
+    // Check if exercises for the current page are already cached
+    if (this.cachedExercises.has(page)) {
+      // If cached, retrieve exercises from the cache
+      this.exercises = this.cachedExercises.get(page) || [];
+      this.loading = false; // Set loading to false
+    } else {
+      // If not cached, fetch exercises from the server
+      this.workoutService.getActiveExercises(page, size).subscribe((pageData: any) => {
+        const fetchedExercises: Exercise[] = pageData.content;
+        this.totalElements = pageData.totalElements;
+        this.totalPages = pageData.totalPages;
+        this.currentPage = pageData.number;
 
-        // Fetch the average rating for the current exercise
-        this.workoutService.getAverageRating(exercise.id).subscribe((rating: number) => {
-          exercise.rating = rating; // Assign the fetched rating to the exercise
+        fetchedExercises.forEach(exercise => {
+          exercise.picture = this.baseUrl + exercise.picture;
+
+          this.workoutService.getAverageRating(exercise.id).subscribe((rating: number) => {
+            exercise.rating = rating;
+          });
         });
-      });
-    });
-  }
 
+        // Cache fetched exercises for the current page
+        this.cachedExercises.set(page, fetchedExercises);
+        // Add fetched exercises to the exercises history
+        this.exercisesHistory[page] = fetchedExercises;
+
+        // Set the exercises array to the fetched exercises
+        this.exercises = fetchedExercises;
+
+        this.loading = false; // Set loading to false
+      });
+    }
+  }
 
   nextPage() {
     if (this.currentPage < this.totalPages - 1) {
       const nextPage = this.currentPage + 1;
-      const size = 10; // Page size
-      this.getActiveExercises(nextPage, size);
+      const size = 15; // Page size
+      this.currentPage = nextPage;
+      if (this.sortDirection == 'asc') {
+        // Toggle sort direction before navigating
+        this.toggleSortDirection();
+      }
+      if (this.exercisesHistory[nextPage]) {
+        // If exercises for the next page are available in history, retrieve them from history
+        this.exercises = this.exercisesHistory[nextPage];
+      } else {
+        // Otherwise, fetch exercises for the next page
+        this.getActiveExercises(nextPage, size);
+      }
     }
   }
 
   previousPage() {
     if (this.currentPage > 0) {
       const previousPage = this.currentPage - 1;
-      const size = 10; // Page size
-      this.getActiveExercises(previousPage, size);
+      const size = 15; // Page size
+      this.currentPage = previousPage;
+      if (this.sortDirection == 'asc') {
+        // Toggle sort direction before navigating
+        this.toggleSortDirection();
+      }
+      if (this.exercisesHistory[previousPage]) {
+        // If exercises for the previous page are available in history, retrieve them from history
+        this.exercises = this.exercisesHistory[previousPage];
+      } else {
+        // Otherwise, fetch exercises for the previous page
+        this.getActiveExercises(previousPage, size);
+      }
     }
   }
 
@@ -92,7 +134,6 @@ export class ExerciseListFrontComponent implements OnInit {
     } else {
       this.selectedExercise = exercise;
     }
-    console.log(this.selectedExercise); // Ensure that the selectedExercise is correctly assigned
   }
 
   rateExercise(exerciseId: number, rating: number): void {
@@ -117,7 +158,6 @@ export class ExerciseListFrontComponent implements OnInit {
     this.dialog.open(ExerciseLinkModelComponent, {
       data: {exerciseLink: this.selectedExerciseLink},
       width: '80%',
-
     });
   }
 
@@ -127,5 +167,34 @@ export class ExerciseListFrontComponent implements OnInit {
       // Optionally pass data to the dialog if needed
       // data: { /* your data */ }
     });
+  }
+
+  // Function to sort exercises by rating
+
+
+  // Function to toggle sort direction and re-sort exercises
+  toggleSortDirection(): void {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.sortExercises(); // Call the method to sort the exercises
+  }
+
+  private sortExercises(): void {
+    // Call your backend service to fetch sorted exercises based on current sort direction
+    this.workoutService.getExercisesSortedByRating(this.currentPage, 15)
+      .subscribe((pageData: any) => {
+        const fetchedExercises: Exercise[] = pageData.content;
+
+        this.totalElements = pageData.totalElements;
+        this.totalPages = pageData.totalPages;
+        this.currentPage = pageData.number;
+
+        this.exercises = fetchedExercises.map(exercise => {
+          exercise.picture = this.baseUrl + exercise.picture;
+          this.workoutService.getAverageRating(exercise.id).subscribe((rating: number) => {
+            exercise.rating = rating;
+          });
+          return exercise;
+        });
+      });
   }
 }

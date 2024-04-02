@@ -1,21 +1,23 @@
 <div class="dialog-container">
   <h2>Create Workout Plan</h2>
+  <div class="search-container">
+    <input type="text" placeholder="Search exercises..." [(ngModel)]="searchText">
+    <button (click)="searchExercises()">search</button>
+  </div>
+    <div class="body-part-filter">
+  <label>Select Body Parts:</label>
+  <select [(ngModel)]="selectedBodyParts" multiple>
+    <option *ngFor="let part of bodyParts" [value]="part">{{ part }}</option>
+  </select>
+  <button (click)="filterExercisesByBodyPart()">Filter</button>
+</div>
   <form [formGroup]="workoutForm" (ngSubmit)="confirmSelection()">
       <div class="form-group">
-        <input type="text" id="title" formControlName="title" class="form-control border-input"
-               placeholder="Enter title">
-      </div>
-    <div class="form-group">
-      <label>Body Parts:</label>
-      <select multiple class="form-control" [(ngModel)]="selectedBodyParts">
-        <option *ngFor="let bodyPart of bodyParts" [ngValue]="bodyPart">{{ bodyPart }}</option>
-      </select>
+        <input type="text" id="title" formControlName="title" class="form-control border-input">
+
     </div>
-    <div class="form-group">
-      <label for="searchText">Search Exercises:</label>
-      <input type="text" id="searchText" [(ngModel)]="searchText" class="form-control">
-      <button class="btn btn-primary" (click)="searchExercises()">Search</button>
-    </div>
+
+
     <div class="exercise-list">
       <div class="exercise-item" *ngFor="let exercise of exercises">
         <label for="{{ exercise.id }}">
