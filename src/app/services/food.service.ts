@@ -27,9 +27,7 @@ export class FoodService {
   }
 
 
-  getImage(url: String) : any{
-    return this.http.get("this.newFood.foodPic", {responseType: "arraybuffer"});
-  }
+
   getFoodById(id: number):Observable<Food>{
     return this.http.get<Food>(`${this.baseUrl}/getFood/${id}`);
   }

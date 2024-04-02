@@ -35,6 +35,10 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 
+import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,13 +60,14 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
-
-
+    FooterComponent,
     FoodComponent,
     FoodListComponent,
     FoodCardComponent,
     FoodDetailsComponent,
     FoodDetailsDialogComponent,
+
+    ProductDetailsDialogComponent,
 
 
     ],
@@ -75,10 +80,13 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
     CommonModule,
     RouterModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+
+
 
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

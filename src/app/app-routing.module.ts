@@ -15,12 +15,14 @@ import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-fr
 import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component";
 import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
 
+
 const routes: Routes = [
   { path: '', component: AllTemplateFrontComponent },
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
 
   {path:"foodFront",component:FoodCardComponent},
+
   { path: 'foodDetails/:id', component: FoodDetailsComponent },
 {path:'admin',component:AllTemplateBackComponent, children: [
     {

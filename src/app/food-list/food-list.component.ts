@@ -49,9 +49,9 @@ export class FoodListComponent implements OnInit {
       this.totalPages = pageData.totalPages;
       this.currentPage = pageData.number;
       this.foods = pageData.content;
-    /*  this.foods.forEach(foods => {
+      this.foods.forEach(foods => {
         foods.foodPic = this.baseUrl + foods.foodPic;
-      });*/
+      });
     });
   }
   nextPage() {
