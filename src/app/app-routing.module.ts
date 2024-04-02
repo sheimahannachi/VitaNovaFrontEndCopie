@@ -32,6 +32,10 @@ import { ShowProductUserComponent } from './show-product-user/show-product-user.
 
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+//sheima
+import { PeriodTrackerComponent } from './period-tracker/period-tracker.component';
+import {ShowPeriodComponent}from './show-period/show-period.component'
+import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -54,7 +58,14 @@ const routes: Routes = [
 
       //aziz
       {path:"showProductUser",
-        component: ShowProductUserComponent},]},
+        component: ShowProductUserComponent},
+      //sheima
+      {path:"PeriodInformation",
+        component:PeriodTrackerComponent},
+      {path:"ShowPeriodInformation",
+        component:ShowPeriodComponent},
+      { path: 'PeriodInformation/:idPeriod', component: PeriodTrackerComponent },
+      {path:'PeriodInsights',component:PeriodInsightsComponent},]},
 //amine
 
   { path: 'signup', component: RegisterComponent } ,
@@ -94,6 +105,7 @@ const routes: Routes = [
       { path: 'updateProduct/:id',
         component: UpdateProductComponent },]},
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes),BrowserModule, FormsModule],
   exports: [RouterModule]

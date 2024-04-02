@@ -1,0 +1,174 @@
+<body>
+    <div class="container">
+      <div class="row">
+            <div class="box">
+
+                <div class="card">
+                    <button class="mail">
+                      <svg
+                        class="lucide lucide-mail"
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        height="24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                      </svg>
+                    </button>
+                    <div class="profile-pic"></div>
+                    <div class="bottom">
+                      <div class="content">
+                        <br>
+                        <br>
+                        <br>
+                        <span class="about-me">
+                          You are in your <B>{{cyclePhase}}</B> in your cycle
+                        </span>
+                      </div>
+                      <div class="bottom-bottom">
+                        <div class="social-links-container">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="ovulation-container">
+
+                  <div class="ovulation">
+                    <div class="iconn">
+
+                    </div>
+                    <strong> Next Ovulation Date:
+                    </strong>
+                    <div class="ovulation__body">
+
+                    </div>
+                    <span><h2>{{ nextOvulationDate }}</h2></span>
+                </div>
+
+                <div class="ovulation">
+                  <div class="iconn">
+
+                  </div>
+                  <strong> Next Period Date:
+                  </strong>
+                  <div class="ovulation_body">
+
+                  </div>
+                  <span><h2>{{ nextPeriodDate }}</h2></span>
+              </div>
+
+            </div>
+
+<br>
+<br>
+
+
+
+
+
+
+            <div class="card_exercise">
+              <div class="contentt">
+                <div class="back">
+                  <div class="back-content">
+                    <strong>Recommended exercises</strong>
+                    <h2>Low Intensity</h2>
+                  </div>
+                </div>
+                <div class="front">
+                  <div class="img">
+                    <div class="circle_exercise"></div>
+                    <div class="circle_exercise" id="right"></div>
+                    <div class="circle_exercise" id="bottom"></div>
+                  </div>
+                  <div class="front-content">
+                    <ul class="exercise-list">
+                      <li *ngFor="let exercise of exercises">
+                        <div class="title_exercise">
+                          <p>{{ exercise.title }}</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card_exercise">
+              <div class="contentt">
+                <div class="back">
+                  <div class="back-content">
+                    <strong>Recommended foods</strong>
+                  </div>
+                </div>
+                <div class="front">
+                  <div class="img">
+                    <div class="circle_exercise"></div>
+                    <div class="circle_exercise" id="right"></div>
+                    <div class="circle_exercise" id="bottom"></div>
+                  </div>
+                  <div class="front-content">
+                    <ul class="exercise-list">
+                      <li *ngFor="let food of foods">
+                        <div class="title_exercise">
+                          <p>Title: {{ food.title }} [
+                          Vitamin C: {{ food.vitaminC }}
+                          Vitamin B6: {{ food.vitaminB6 }}
+                          Vitamin E: {{ food.vitaminE }}
+                          Calcium: {{ food.calcium }}  ]</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            </div>
+            <div class="chatbot-container">
+
+            <div id="chatWindowContainer" style="display: none;">
+              <div class="card_chat">
+                <div class="chat-header">Chat</div>
+                <div class="chat-window">
+                  <ul class="message-list">
+                    <li *ngFor="let message of chatHistory">{{ message }}</li>
+                  </ul>
+                </div>
+                <div class="chat-input">
+                  <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="userQuestion">
+                  <button class="send-button" (click)="sendMessage()">Send</button>
+                </div>
+              </div>
+            </div>
+            <img src="../../assets/images/chat-bot.png" alt="Chatbot" class="chatbot-img" >
+            <div class="item-hints">
+              <div class="hint" data-position="4">
+                <span class="hint-radius"></span>
+                <span class="hint-dot">🌟 Tip</span>
+               <div class="hint-content do--split-children custom-color">
+               <h3>"Our chatbot is here to help you navigate through your period journey with ease and confidence. Happy chatting! 🌸"</h3>
+    </div>
+              </div>
+            </div>
+</div>
+
+
+        </div>
+
+    </div>
+
+
+
+  </body>

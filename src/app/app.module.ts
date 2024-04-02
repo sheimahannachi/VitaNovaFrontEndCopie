@@ -1,6 +1,4 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './front-office/navbar/navbar.component';
@@ -57,6 +55,14 @@ import { ShowProductComponent } from './show-product/show-product.component';
 import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
 import { CartComponent } from './cart/cart.component';
 
+//sheima
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PeriodTrackerComponent } from './period-tracker/period-tracker.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ShowPeriodComponent } from './show-period/show-period.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,12 +104,21 @@ import { CartComponent } from './cart/cart.component';
     ShowProductComponent,
     ShowProductUserComponent,
     CartComponent,
+    //sheima
+    NavBarBackComponent,
+    AllTemplateBackComponent,
+    FooterBackComponent,
+    PeriodTrackerComponent,
+    ShowPeriodComponent,
+    CalendarComponent,
+    PeriodInsightsComponent,
 
 
 
 
     ],
     entryComponents:[AddChallengeComponent],
+
 
   imports: [
     BrowserModule,
@@ -121,12 +136,18 @@ import { CartComponent } from './cart/cart.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    //sheima
     CommonModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
 
   ],
   exports:[MatDialogModule,],
   providers: [],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
