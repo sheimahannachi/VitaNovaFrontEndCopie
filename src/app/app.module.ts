@@ -8,7 +8,7 @@ import { AllTemplateFrontComponent } from './front-office/all-template-front/all
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
 
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from './front-office/user/login/login.component';
 import { NavBarBackComponent } from './back-office/nav-bar-back/nav-bar-back.component';
@@ -34,7 +34,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 //firas
-import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { AddCommunityComponent } from './add-community/add-community.component';
@@ -45,6 +44,7 @@ import { UpdateCommunityComponent } from './update-community/update-community.co
 //Amine
 import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
+
 
 
 import { UpdateProductComponent } from './update-product/update-product.component';
@@ -63,6 +63,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ShowPeriodComponent } from './show-period/show-period.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +117,7 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
 
 
 
+
     ],
     entryComponents:[AddChallengeComponent],
 
@@ -127,6 +129,7 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
+
 //yoser
     CommonModule,
     MatDialogModule,
@@ -148,6 +151,10 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
   exports:[MatDialogModule,],
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
+
+  
+
+ 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -23,8 +23,9 @@ export class UserService {
   }
 
   updateUser(user: UserModule): Observable<UserModule> {
-    return this.http.put<UserModule>(`${this.baseAdminUrl}/UpdateUser`, user);
+    return this.http.put<UserModule>(`${this.baseAdminUrl}/UpdateUser`, user, { withCredentials: true });
   }
+  
   resetPassword(email:string,password:string,phone:string): Observable<void>{
     let payload = {
       email,

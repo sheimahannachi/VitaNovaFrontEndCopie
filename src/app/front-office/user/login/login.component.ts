@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginRequest } from './LoginRequest';
 import { AuthService } from 'src/app/Service/auth.service';
@@ -35,6 +35,31 @@ export class LoginComponent {
  loginAttempt=true;
 loginAttempts:number=0;
   constructor( private OpencvService:OpenCvService, private authService: AuthService,private router: Router,private emailService:EmailService,private userService:UserService, private smsService:SMSService) { }
+  
+  @HostListener('window:beforeunload', ['$event']) beforeUnloadHander($event: any) { 
+    if (this.showResetPasswordForm) 
+    { $event.returnValue = 'You will lose your progress. Are you sure you want to leave this page?'; } 
+  }
+  
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: any): void {
+    if (this.showResetPasswordForm ) {
+      if (!confirm('You will lose your progress. Are you sure you want to leave this page?')) {
+        history.pushState(null, document.title, window.location.href);
+        event.preventDefault();
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   getButtonLabel() {
     return this.showResetPasswordForm ? "Password Reset" : "Login";
 }
@@ -42,36 +67,46 @@ loginAttempts:number=0;
   onSubmit(): void {
       this.authService.authenticateAndGetToken(this.authRequest)
       .subscribe(response => {
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("username",response.username);
+        sessionStorage.setItem("email",response.email);
+        sessionStorage.setItem("role",response.role);
+        sessionStorage.setItem("token",response.token);
+        sessionStorage.setItem("role",JSON.stringify(response.role));
         console.log('Login successful!', response);
         this.authService.setJwtCookie(response.token);
         if(response.role=='USER')
         this.router.navigate(['/profile']); 
       else if(response.role=="ADMIN")
       this.router.navigate(['/admin/users']); 
-
+      
       }, error => {  
-        if(this.loginAttempts>2){this.OpencvService.captureAndSaveImage().subscribe(
-          () => {
-            console.log('Image captured and saved successfully');
-          },
-          error => {
-            console.error('Error occurred while capturing and saving image:', error);
-          }
-        );
-        console.log("username : " , this.authRequest.username)
         this.userService.getUserByUsername(this.authRequest.username)
         .subscribe(
           (user: UserModule) => {
             console.log("User details: ", user);
-            this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account","")
+            if(this.loginAttempts>2){this.OpencvService.captureAndSaveImage().subscribe(
+              () => {
+                this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account , if it's not you , please consider resetting your password","")
+
+                console.log('Image captured and saved successfully');
+                
+              },
+              error => {
+                console.error('Error occurred while capturing and saving image:', error);
+              }
+            );
+            console.log("username : " , this.authRequest.username)
+            
+    
+         // this.emailService.sendLoginImage()
+          }
           },
           (error) => {
             console.error("Error fetching user details: ", error);
           }
         ); 
-
-     // this.emailService.sendLoginImage()
-      }
+       
         this.loginAttempt=false;
         this.loginAttempts=this.loginAttempts+1;
 console.log(this.loginAttempts);
@@ -130,8 +165,7 @@ if(this.generatedCode==this.verificationCode){
     }, 1000);
   }
   
-  reloadPage() {
-    location.reload(); // This line reloads the page
-  }
+  goback() {
+    this.showResetPasswordForm=false;  }
 
 }

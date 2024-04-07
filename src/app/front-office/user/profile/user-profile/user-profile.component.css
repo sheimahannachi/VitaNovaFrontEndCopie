@@ -1,9 +1,19 @@
-body{
-  margin-top:20px;
+body,html,footer{
+  
   color: #1a202c;
   text-align: left;
   background-color: #e2e8f0;    
+height: auto;
 }
+
+.container{
+  color: #1a202c;
+  text-align: left;
+  background-color: #e2e8f0;    
+  top: 20%;
+  margin-top: 90px;
+}
+
 .main-body {
   padding: 15px;
 }
@@ -20,7 +30,6 @@ body{
   background-color: #fff;
   background-clip: border-box;
   border: 0 solid rgba(0,0,0,.125);
-  border-radius: .25rem;
 }
 
 .card-body {
@@ -50,4 +59,12 @@ body{
 }
 .shadow-none {
   box-shadow: none!important;
+}
+
+#linkEdit,#linkEdit2{
+
+  cursor: pointer;
+}
+.ProfileImg{
+  border-radius: 40%;
 }

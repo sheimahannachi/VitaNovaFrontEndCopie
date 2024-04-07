@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { TmplAstRecursiveVisitor } from '@angular/compiler';
-import { Component ,NgZone} from '@angular/core';
-import { FormBuilder, FormGroup,Validators } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Component ,HostListener,NgZone} from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Observable, catchError, of, throwError } from 'rxjs';
 import { UserService } from 'src/app/Service/user.service';
+import { MiscService } from 'src/app/Service/misc.service';
 
 @Component({
   selector: 'app-register',
@@ -56,14 +55,38 @@ roleError:boolean=false;
 genderError:boolean=false;
 DateError:boolean=false;
 strengthText: string = '';
+captcha:string="";
+
+resolved(captchaResponse:string){
+  
+  this.captcha=captchaResponse;
+  console.log('resolved captcha ' + this.captcha);
+  }
+
+
+@HostListener('window:beforeunload', ['$event']) beforeUnloadHander($event: any) { 
+  if (this.registerSection > 0) 
+  { $event.returnValue = 'You will lose your progress. Are you sure you want to leave this page?'; } 
+}
+
+@HostListener('window:popstate', ['$event'])
+onPopState(event: any): void {
+  if (this.registerSection > 0) {
+    if (!confirm('You will lose your progress. Are you sure you want to leave this page?')) {
+      history.pushState(null, document.title, window.location.href);
+      event.preventDefault();
+    }
+  }
+}
 
 
 
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
+  constructor(private miscService:MiscService, private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
     this.selectedFileName = this.selectedFile?.name ?? '';
     this.generatedCode=this.generateVerificationCode();
-
+   
+  
   }
   switchModes(){
   if(this.theme=="dark"){
@@ -113,40 +136,62 @@ strengthText: string = '';
 
   save()
   {
-    this.ValidateAll()
-
+    console.log("save")
    
-    if (this.validateFields() && this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false ) {
-      this.copyFileToXAMPP();
-
-    let bodyData = {
-      "username" : this.username,
-      "email" : this.email,
-      "password" : this.password,
-      "role": this.role,
-      "picture":this.selectedFileName,
-      "gender":this.gender,
-      "height":this.height,
-      "weight":this.weight,
-      "dateOfBirth":this.dateOfBirth,
-      "firstName":this.firstName,
-      "lastName":this.lastName,
-      "verified":this.verified,
-      "phone":this.phoneNumber
-    };
 
     
-    if(this.verified==true){
 
-    this.http.post("http://localhost:8081/api/signup",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
-    {
+    
+    this.ValidateAll()
+    console.log("verified " , this.verified)
+    console.log("this.validateFields() " , this.validateFields())
+    console.log(" lkol " , this.validateEmail(this.email)&&this.DateError==false&&this.genderError==false&&this.roleError==false&&this.phoneError==false)
 
-        console.log(bodyData);
-        alert(" Registered Successfully");
-        this.router.navigate(['/login']); 
-    });
-  }
-  }}
+   
+    if (this.validateFields() && this.validateEmail(this.email) && !this.DateError && !this.genderError && !this.roleError && !this.phoneError) {
+      // Check if a file is selected
+      if (this.selectedFile) {
+        this.uploadImage(this.selectedFile);
+        // Create FormData object
+        const formData = new FormData();
+        // Append form fields
+        formData.append('username', this.username);
+        formData.append('email', this.email);
+        formData.append('password', this.password);
+        formData.append('role', this.role);
+        formData.append('gender', this.gender);
+        formData.append('height', String(this.height));
+        formData.append('weight', String(this.weight));
+        
+        // Convert date to ISO string
+        const isoDate = new Date(this.dateOfBirth).toISOString();
+        formData.append('dateOfBirth', isoDate); 
+    console.log(isoDate)
+        formData.append('firstName', this.firstName);
+        formData.append('lastName', this.lastName);
+        formData.append('verified', String(this.verified));
+        formData.append('phone', this.phoneNumber);
+        
+        // Append the selected file
+        formData.append('file', this.selectedFile); // Include file name
+        
+        // Send HTTP POST request
+        this.http.post("http://localhost:8081/api/signup", formData).subscribe(
+          (resultData: any) => {
+            console.log(resultData);
+            alert("Registered Successfully");
+            this.router.navigate(['/login']);
+          },
+          (error) => {
+            console.error('Error registering user:', error);
+            // Handle error if needed
+          }
+        );
+      } else {
+        console.error('No file selected.');
+        // Handle case where no file is selected
+      }
+    }}
 
  verifyEmail() {
     if (this.verificationCode === this.generatedCode) {
@@ -280,20 +325,24 @@ this.showVerificationCodeInput=true;
 
 
 
-
-
-
-
   onFileChanged(event: any): void {
-    this.selectedFile = event.target.files[0];
-    this.selectedFileName = this.selectedFile?.name ?? '';
-
+    const files: FileList = event.target.files;
+    if (files && files.length > 0) {
+      this.selectedFile = files[0];
+      this.selectedFileName=this.selectedFile.name;
+    }
+    console.log(this.selectedFile)
   }
-  getImageUrl(file: File): string {
-    return URL.createObjectURL(file);
-}
 
-
+  
+  getImageUrl(file: File | null): string {
+    if (file) {
+      return URL.createObjectURL(file);
+    } else {
+      return ''; // 
+    }
+  }
+  
   getSelectedFileName(): string | null {
     if (this.selectedFile) {
       return this.selectedFile.name;
@@ -301,7 +350,7 @@ this.showVerificationCodeInput=true;
       return null;
     }
   }
-  copyFileToXAMPP(): void {
+  /*copyFileToXAMPP(): void {
     if (this.selectedFile) {
       console.log("in copyfiletoxamp function " + this.selectedFile);
   
@@ -323,7 +372,7 @@ this.showVerificationCodeInput=true;
     } else {
       console.log("empty file");
     }
-  }
+  }*/
 
 
 
@@ -353,7 +402,7 @@ this.showVerificationCodeInput=true;
         this.dateOfBirth 
     );
 
-    if ((areAllFieldsValid)&&this.roleError==false&&this.phoneError==false)return true;
+    if ((areAllFieldsValid))return true;
     else return false;
 }
 
@@ -393,16 +442,29 @@ if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameEx
 else
 if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&!this.verified) alert("Email verification is required");
 if((this.validateEmail(this.email))&&(this.EmailExists==false)&&(this.UsernameExists==false)&&this.verified&&!this.termsChecked){this.termsError=true;}else this.termsError=false;
-this.registerSection=this.registerSection+1
 }
   
 
 next2(){
  
 if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password==this.passwordConfirm&&(this.strengthText=="Moderate"||this.strengthText=="Strong"))this.registerSection=this.registerSection+1;
-this.registerSection=this.registerSection+1
 }
 
 
 
+uploadImage(file: File): void {
+  this.miscService.uploadImage(file).subscribe(response => {
+    console.log('File uploaded successfully:', response);
+    // Handle success, if needed
+  }, error => {
+    console.error('Error uploading file:', error);
+    // Handle error
+  });
 }
+
+
+}
+
+
+
+
