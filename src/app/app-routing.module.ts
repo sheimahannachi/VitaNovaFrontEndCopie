@@ -44,6 +44,7 @@ const routes: Routes = [
   { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
+      {path: "profile", component: UserProfileComponent},
       //firas
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
@@ -91,8 +92,7 @@ const routes: Routes = [
       {path:"communities",component:AllCommunitiesBackComponent},
       {path:"chalenges", component:AllChallengesBackComponent},
       //amine
-      {path: "profile", component: UserProfileComponent
-      },
+      
       {
         path: "users",
         component: UsersBackComponent

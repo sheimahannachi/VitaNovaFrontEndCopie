@@ -76,7 +76,7 @@ loginAttempts:number=0;
         console.log('Login successful!', response);
         this.authService.setJwtCookie(response.token);
         if(response.role=='USER')
-        this.router.navigate(['/profile']); 
+        this.router.navigate(['vitaNova/profile']); 
       else if(response.role=="ADMIN")
       this.router.navigate(['/admin/users']); 
       

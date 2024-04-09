@@ -38,7 +38,6 @@ export class UserProfileComponent {
       (response: UserModule) => {
         this.userProfile = response;
         console.log(this.userProfile.picture)
-        this.downloadImage(this.userProfile.picture);
       },
       error => {
         console.error('Error fetching user information:', error);
@@ -122,15 +121,7 @@ this.editMode2=false;
 }}
 
 
-downloadImage(filename: string): void {
-  this.miscservice.downloadImage(filename).subscribe((blob: Blob) => {
-    const url = window.URL.createObjectURL(blob);
-    this.profilePictureUrl=url;
-  }, error => {
-    console.error('Error downloading image:', error);
-    // Handle error
-  });
-}
+
 
 
 }
