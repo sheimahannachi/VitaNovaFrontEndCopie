@@ -63,6 +63,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ShowPeriodComponent } from './show-period/show-period.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
+import { DialogVerificationComponent } from './front-office/user/dialog-verification/dialog-verification.component';
+import { DialogSuccessComponent } from './front-office/user/dialog-success/dialog-success.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
     ShowPeriodComponent,
     CalendarComponent,
     PeriodInsightsComponent,
+    DialogVerificationComponent,
+    DialogSuccessComponent,
 
 
 

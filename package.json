@@ -29,6 +29,7 @@
     "bootstrap-icons": "^1.11.3",
     "common-utils": "^0.0.2",
     "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
     "jquery": "^3.7.1",
     "net": "^1.0.2",
     "ngx-bootstrap": "^12.0.0",
