@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <div class="commName">
-                    <h1 class="CName"style="color:#b3d821c5; ">{{community.communityName}} </h1>
+                    <h1 class="CName"style="color:#b3d821c5; "*ngIf="community!=null">{{community.communityName}} </h1>
                 </div>
                 </tr>
                 <tr>
@@ -58,9 +58,14 @@
         -->
         <br><br><br>
 
-        <div *ngIf="divTest">
-   <app-communication [idFromParent]="communityId" [communityMembers]="members"></app-communication>
+        <div class="communication">
+        <div *ngIf="divTest==0">
+   <app-communication [idFromParent]="communityId" [communityMembers]="members" (messageEvent)="goToOne($event)"></app-communication>
         </div>
+        <div *ngIf="divTest!=0">
+            <app-one-to-one-com [userId]="divTest"></app-one-to-one-com>
+        </div>
+    </div>
 
 
     <div class="button-container">
