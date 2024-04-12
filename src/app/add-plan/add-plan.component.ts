@@ -153,4 +153,14 @@ export class AddPlanComponent implements OnInit {
       return null;
     }
   }
+  isBodyPartSelected(part: string): boolean {
+    return this.selectedBodyParts.includes(part);
+  }
+  toggleBodyPart(part: string) {
+    if (this.isBodyPartSelected(part)) {
+      this.selectedBodyParts = this.selectedBodyParts.filter(p => p !== part);
+    } else {
+      this.selectedBodyParts.push(part);
+    }
+  }
 }

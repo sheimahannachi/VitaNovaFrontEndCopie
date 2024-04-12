@@ -1,42 +1,49 @@
 .dialog-container {
-  position: fixed;
-  top: calc(50% + 40px); /* Adjusted to position below a header with a height of 60px */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 100%;
+  overflow-y: auto;
+  background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 1000px; /* Adjust width as needed */
-  max-width: 90%; /* Ensure the dialog doesn't exceed the viewport width */
-  max-height: 90%; /* Ensure the dialog doesn't exceed the viewport height */
-  overflow: auto; /* Add overflow property for scrolling */
+
 }
 
-.dialog-container h2 {
+.filter-container {
+  flex: 0 0 auto;
+  width: 35%; /* Adjust width as needed */
+}
+
+.content-container {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 700px;
+  width: 700px;/* Add vertical scrolling */
+}
+
+.filter-container h2,
+.content-container h2 {
   font-size: 24px;
   color: #333;
   margin-bottom: 20px;
 }
 
-.form-group {
+.filter-container .form-group {
   margin-bottom: 20px;
 }
 
-.form-group label {
-  font-weight: bold;
-  color: #555;
+.filter-container .search-container {
+  margin-bottom: 20px;
+  overflow-y: auto;
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+.filter-container .search-container input[type="text"],
+.filter-container .body-part-filter select {
+  width: calc(100% - 80px); /* Adjust width as needed */
 }
 
-.btn {
+.filter-container .button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -44,14 +51,26 @@
   font-size: 16px;
 }
 
-.btn-primary {
+.filter-container .btn-primary {
   background-color: #4CAF50;
   color: white;
 }
 
-.btn-secondary {
+.filter-container .btn-secondary {
   background-color: #ccc;
   color: #333;
+}
+
+.content-container .form-group {
+  margin-bottom: 20px;
+}
+
+.content-container .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .exercise-list {
@@ -76,8 +95,6 @@
   justify-content: space-between;
 }
 
-
-
 .form-group {
   margin-bottom: 20px;
 }
@@ -92,9 +109,4 @@
 
 .exercise-item {
   margin-bottom: 10px;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-between;
 }

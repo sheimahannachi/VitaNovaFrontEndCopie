@@ -25,7 +25,7 @@ export class ExerciseLinkModelComponent implements OnInit {
     const exerciseId = this.exerciseLink.split('/').pop();
 
     // Construct the ngrok URL with the exercise ID
-    const ngrokUrl = 'https://a65e-197-14-236-90.ngrok-free.app/';
+    const ngrokUrl = ' https://9b52-196-203-207-178.ngrok-free.app/';
     // Replace with your ngrok URL
     const exerciseUrl = `${ngrokUrl}exercises/${exerciseId}`;
     console.log('Exercise URL:', exerciseUrl);

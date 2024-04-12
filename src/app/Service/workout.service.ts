@@ -88,7 +88,7 @@ export class WorkoutService {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
-      .set('bodypart', bodyParts.join(',')); // Combine multiple body parts into one string
+      .set('bodyPart', bodyParts.join(',')); // Combine multiple body parts into one string
 
     return this.http.get<any>(`${this.baseUrl}/filtered`, { params });
   }
