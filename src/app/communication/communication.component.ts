@@ -6,10 +6,10 @@ import { CommunicationServiceService } from '../Services/communication-service.s
 import { Subscription } from 'rxjs';
 import { Communication } from '../Model/Communication';
 import { ERole, Gender, UserModule } from '../Model/user/user.module';
-import { DateAdapter } from '@angular/material/core';
+
 import { Community } from '../Model/Community';
 import { CommunityServiceService } from '../Services/community-service.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -69,10 +69,7 @@ goToOne:number;
 
 constructor(private service:CommunicationServiceService,private comService:CommunityServiceService ){
 
-    this.subscription=this.service.fonctionAppelee.subscribe((comunication:Communication)=>{
-      this.handleMessage(comunication);
-      
-    })
+    
 
     this.page=0;
     this.members=[];
@@ -122,6 +119,13 @@ ngOnInit(){
   this.connect();
   this.getAllCommunicationByCommunity();
   this.getMembres();
+  this.subscription=this.service.fonctionAppelee.subscribe((comunication:Communication)=>{
+    console.log(comunication)
+    if(comunication.community!=null&&comunication.community.id==this.communityId){
+    this.handleMessage(comunication);
+  }
+    
+  })
   
   
 }
@@ -135,6 +139,7 @@ ngOnInit(){
     this.service.findByCommunity(this.communityId,this.page).subscribe(response=>{
       if(this.messages.length==0){
       this.messages=response.content.reverse();
+      
       setTimeout(() => {
         this.scrollToBottom();
       }, 10);
@@ -169,7 +174,7 @@ ngOnInit(){
   sendMessage(){
     var com:Communication=new Communication();
     com.sender=this.current;
-    com.sentDate= new Date();
+    
     com.message=this.message;
     com.community=this.community;
     
@@ -254,7 +259,10 @@ ngOnInit(){
     }
 
     seenMessages(){
-      this.service.seenComunication(this.communityId,this.current.idUser).subscribe();
+      
+      this.service.seenComunication(this.communityId,this.current.idUser).subscribe(res=>{
+        console.log(this.communityId,this.current.idUser)
+      });
 
       this.messages.forEach(communication=>{
         if(communication.sender.idUser!=this.current.idUser){

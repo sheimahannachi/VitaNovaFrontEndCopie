@@ -22,6 +22,7 @@ export class CommunicationServiceService {
   findBySenderAndRecieverUrl="/findBySenderAndReciever";
   findByCommunityUrl="/getCommbyCommunityFirst";
   seenUrl="/seenComunications";
+  seenOneToOneUrl="/setSeenToComOneToOne"
 
 
 
@@ -30,12 +31,12 @@ export class CommunicationServiceService {
     return this.http.get<Communication>(this.URL+this.findCommunicationById+"/"+id);
   }
 
-  findBysenderAndReciever(sender:number, reciever:number,page:number):Observable<Communication>{
+  findBysenderAndReciever(sender:number, reciever:number,page:number):Observable<any>{
     var params=new HttpParams()
     .set('sender',sender)
     .set('reciever',reciever)
     .set('page',page);
-    return this.http.get<Communication>(this.URL+this.findBySenderAndRecieverUrl,{params});
+    return this.http.get<any>(this.URL+this.findBySenderAndRecieverUrl,{params});
   }
 
 
@@ -57,11 +58,20 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
       return this.http.put<Communication>(this.URL+this.updateUrl+"/"+id,communication);
   } 
 
-  seenComunication(communityId:number,senderId:number){
-    var params=new HttpParams()
-  .set('comunityId',communityId)
+  seenComunication(comunityId:number,senderId:number):Observable<any>{
+    const params=new HttpParams()
+  .set('comunityId',comunityId)
   .set('senderId',senderId);
-    return this.http.put<any>(this.URL+this.seenUrl,{params});
+  
+    return this.http.put<any>(this.URL+this.seenUrl,params,{withCredentials:true});
+  }
+
+  setSeenCommunicationOneToOne(senderId:number,recieverId:number):Observable<any>{
+    const params=new HttpParams()
+  .set('senderId',senderId)
+  .set('recieverId',recieverId);
+  
+    return this.http.put<any>(this.URL+this.seenOneToOneUrl,params,{withCredentials:true});
   }
 
                       //Delete

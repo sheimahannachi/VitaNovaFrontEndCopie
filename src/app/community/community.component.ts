@@ -100,7 +100,7 @@ increment(value:number){
 
 
 goToOne(userId: number) {
-  throw new Error('Method not implemented.');
+  this.divTest=userId;
   }
 
 
