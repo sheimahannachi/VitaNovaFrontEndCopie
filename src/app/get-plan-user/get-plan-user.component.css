@@ -1,0 +1,16 @@
+/* get-plan-user.component.css */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.workout-card {
+  width: 200px; /* Adjust card width as needed */
+  margin: 10px; /* Add margin between cards */
+}
+
+.card-image {
+  width: 100%; /* Adjust image width to fit the card */
+  height: 150px; /* Adjust image height as needed */
+  object-fit: cover; /* Ensure the image covers the entire space */
+}

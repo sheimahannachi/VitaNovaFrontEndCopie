@@ -34,6 +34,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 
 import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
+import { GetPlanUserComponent } from './get-plan-user/get-plan-user.component';
+import {MatCardModule} from "@angular/material/card";
+import { TimerPageComponent } from './timer-page/timer-page.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,8 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
     FoodCardComponent,
     FoodDetailsComponent,
     FoodDetailsDialogComponent,
+    GetPlanUserComponent,
+    TimerPageComponent,
 
 
     ],
@@ -75,7 +80,8 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
     CommonModule,
     RouterModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
 
   ],
   providers: [],

@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Exercise} from "../Models/Exercise";
 import {UserRating} from "../Models/UserRating";
+import {WorkoutPlan} from "../Models/WorkoutPlan";
 
 @Injectable({
   providedIn: 'root'
@@ -99,5 +100,13 @@ export class WorkoutService {
 
     return this.http.get<any>(`${this.baseUrl}/sorted-by-rating`,{ params });
   }
+  getWorkoutPlan(page:number,size:number): Observable<WorkoutPlan[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<WorkoutPlan[]>(`${this.baseUrl}/GetPlan`,{params});}
 
+  getWorkoutPlanById(workoutId: number): Observable<WorkoutPlan> {
+    return this.http.get<WorkoutPlan>(`${this.baseUrl}/getPlan/${workoutId}`);
+  }
 }

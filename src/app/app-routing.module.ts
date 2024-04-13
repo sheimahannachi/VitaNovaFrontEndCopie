@@ -14,6 +14,8 @@ import {FoodDetailsComponent} from "./food-details/food-details.component";
 import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-front.component";
 import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component";
 import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
+import {GetPlanUserComponent} from "./get-plan-user/get-plan-user.component";
+import {TimerPageComponent} from "./timer-page/timer-page.component";
 
 const routes: Routes = [
   { path: '', component: AllTemplateFrontComponent},
@@ -49,7 +51,11 @@ const routes: Routes = [
   ]},
   {path: "exerciseworkout",component:ExerciseListFrontComponent},
   {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+  {path:"workoutplan",component:GetPlanUserComponent},
+  { path: 'timer/:id', component: TimerPageComponent },
+
 ];
+
 
 
 
