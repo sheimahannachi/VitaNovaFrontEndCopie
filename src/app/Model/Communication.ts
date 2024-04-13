@@ -5,7 +5,7 @@ import { UserModule } from "./user/user.module";
 
 export class Communication{
 
-    id!:Number;
+    id!:number;
 
     message!:string;
 

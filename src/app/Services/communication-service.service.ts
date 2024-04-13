@@ -21,6 +21,8 @@ export class CommunicationServiceService {
   findCommunicationById="/findCommunication";
   findBySenderAndRecieverUrl="/findBySenderAndReciever";
   findByCommunityUrl="/getCommbyCommunityFirst";
+  seenUrl="/seenComunications";
+  seenOneToOneUrl="/setSeenToComOneToOne"
 
 
 
@@ -28,11 +30,15 @@ export class CommunicationServiceService {
   findyId(id:Number):Observable<Communication>{
     return this.http.get<Communication>(this.URL+this.findCommunicationById+"/"+id);
   }
-/*
-  findysenderAndReciever(sender:User, reciever:User):Observable<Communication>{
-    return this.http.get<Communication>(this.URL+this.findBySenderAndRecieverUrl,sender,reciever);
+
+  findBysenderAndReciever(sender:number, reciever:number,page:number):Observable<any>{
+    var params=new HttpParams()
+    .set('sender',sender)
+    .set('reciever',reciever)
+    .set('page',page);
+    return this.http.get<any>(this.URL+this.findBySenderAndRecieverUrl,{params});
   }
-*/
+
 
 findByCommunity(communityId:number,page:number):Observable<any>{
   var params=new HttpParams()
@@ -48,13 +54,29 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
 
 
                       //Update
-  updateCommunication(communication:Communication,id:Number):Observable<Communication>{
-      return this.http.put<Communication>(this.URL+this.updateCommunication+"/"+id,communication);
+  updateCommunication(communication:Communication,id:number):Observable<Communication>{
+      return this.http.put<Communication>(this.URL+this.updateUrl+"/"+id,communication);
   } 
+
+  seenComunication(comunityId:number,senderId:number):Observable<any>{
+    const params=new HttpParams()
+  .set('comunityId',comunityId)
+  .set('senderId',senderId);
+  
+    return this.http.put<any>(this.URL+this.seenUrl,params,{withCredentials:true});
+  }
+
+  setSeenCommunicationOneToOne(senderId:number,recieverId:number):Observable<any>{
+    const params=new HttpParams()
+  .set('senderId',senderId)
+  .set('recieverId',recieverId);
+  
+    return this.http.put<any>(this.URL+this.seenOneToOneUrl,params,{withCredentials:true});
+  }
 
                       //Delete
   deleteCommunication(id:Number):Observable<Communication>{
-        return this.http.delete<Communication>(this.URL+this.updateCommunication+"/"+id,);
+        return this.http.delete<Communication>(this.URL+this.deleteUrl+"/"+id,);
     }
   
 
@@ -62,7 +84,8 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
 
            ////////Web socket Messaging 
 
-           communityId:Number=0;
+           myChannel:string='';
+           otherChannel:string='';
            webSocketEndPoint: string = 'http://localhost:8081/ws';
            topic:string="/topic/";
            sendMessage:string="/app/chat.sendMessage/"
@@ -72,7 +95,7 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
          
            _connect() {
              console.log("Initialize WebSocket Connection");
-             console.log("soket houna"+this.communityId);
+             
              let ws = new SockJS(this.webSocketEndPoint);
              this.stompClient = Stomp.over(ws);
              const _this = this;
@@ -82,11 +105,11 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
          
          
           onConnected=()=> {
-           console.log(this.communityId);
+           console.log("Subscribed to the channel:: "+this.myChannel);
          
            //////////////////////////////////////////////////////////////////////////////////////////////////
            // Subscribe to the community Topic
-           this.stompClient.subscribe(this.topic+this.communityId, this.onMessageReceived);
+           this.stompClient.subscribe(this.topic+this.myChannel, this.onMessageReceived);
            
          
            
@@ -111,11 +134,11 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
          _send(message:Communication) {
            console.log("calling logout api via web socket");
          
-           this.stompClient.send(this.sendMessage+this.communityId, {}, JSON.stringify(message));
+           this.stompClient.send(this.sendMessage+this.otherChannel, {}, JSON.stringify(message));
          
          }
          
-         comm!:Communication;
+         
          onMessageReceived=(payload)=> {
           var message:Communication=JSON.parse(payload.body);
            console.log("Message Recieved from Server :: " + message.message +" "+message.sentDate+" "+message.sender.idUser);

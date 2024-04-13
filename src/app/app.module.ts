@@ -63,6 +63,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ShowPeriodComponent } from './show-period/show-period.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
+import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
     ShowPeriodComponent,
     CalendarComponent,
     PeriodInsightsComponent,
+    OneToOneComComponent,
 
 
 

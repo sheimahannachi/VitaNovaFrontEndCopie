@@ -12,8 +12,9 @@ import { UserModule } from '../Model/user/user.module';
   styleUrls: ['./community.component.css']
 })
 export class CommunityComponent {
+
   communityId:number;
-  divTest:boolean;
+  divTest:number;
   community:Community;
   currentUser:UserModule;
   creatorName:string;
@@ -26,7 +27,7 @@ export class CommunityComponent {
   constructor(private service:CommunityServiceService,private router:Router)
   {
     this.communityId=1;
-    this.divTest=true;
+    this.divTest=0;
     this.topThree=[];
     this.currentUser=new UserModule();
     this.currentUser.communities=new Community();
@@ -90,13 +91,17 @@ fetchTopThree(){
 
 leaveCommunity(){
 
-
   this.router.navigateByUrl("");
 }
 
 increment(value:number){
   return value+1;
 }
+
+
+goToOne(userId: number) {
+  this.divTest=userId;
+  }
 
 
 
