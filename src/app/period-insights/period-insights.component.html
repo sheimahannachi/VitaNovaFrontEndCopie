@@ -130,7 +130,8 @@
                 </div>
               </div>
             </div>
-        
+            <button class="recipes" (click)="getRecipes()">Get Recipes</button>
+
 
 
 
@@ -138,21 +139,24 @@
 
             </div>
             <div class="chatbot-container">
-
-            <div id="chatWindowContainer" style="display: none;">
-              <div class="card_chat">
-                <div class="chat-header">Chat</div>
-                <div class="chat-window">
-                  <ul class="message-list">
-                    <li *ngFor="let message of chatHistory">{{ message }}</li>
-                  </ul>
-                </div>
-                <div class="chat-input">
-                  <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="userQuestion">
-                  <button class="send-button" (click)="sendMessage()">Send</button>
+              <div id="chatWindowContainer">
+                <div class="card_chat">
+                  <div class="chat-header">Chat</div>
+                  <div class="chat-window">
+                    <ul class="message-list">
+                      <li *ngFor="let message of chatHistory; let i = index"
+                          [ngClass]="{'message-box user': i % 2 === 0, 'message-box bot': i % 2 !== 0}">
+                        {{ message }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="chat-input">
+                    <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="userQuestion">
+                    <button class="send-button" (click)="sendMessage()">Send</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            
             <img src="../../assets/images/chat-bot.png" alt="Chatbot" class="chatbot-img" >
             <div class="item-hints">
               <div class="hint" data-position="4">
@@ -160,9 +164,12 @@
                 <span class="hint-dot">🌟 Tip</span>
                <div class="hint-content do--split-children custom-color">
                <h3>"Our chatbot is here to help you navigate through your period journey with ease and confidence. Happy chatting! 🌸"</h3>
-    </div>
+    </div>              
+
               </div>
+
             </div>
+
 </div>
 
             

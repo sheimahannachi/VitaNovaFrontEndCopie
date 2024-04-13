@@ -45,7 +45,7 @@ body {
   
   .container .box {
     width: 25em;
-    height: 70em;
+    height: 80em;
     padding: 1rem;
     background-color: rgba(11, 10, 10, 0.63);
     border: 1px solid rgba(255, 255, 255, 0.222);
@@ -365,17 +365,19 @@ body {
 
   .card_chat {
     width: 260px;
-    background-color: #000000cf;
+    background-color: #6a6d6aeb;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 11px;
+
   }
   
   .chat-header {
     background-color: #333;
     color: #fff;
     padding: 10px;
-    font-size: 12px;
+    font-size: 16px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
@@ -385,6 +387,22 @@ body {
     overflow-y: scroll;
   }
   
+
+  .message-box.user {
+    background-color: #edf3ed; /* Green background for user messages */
+    color: #fefdfd;
+    align-self: flex-start;
+    font-size: 12px;
+
+  }
+  
+  .message-box.bot {
+    background-color: #454544; /* Blue background for chatbot messages */
+    color: #fff;
+    align-self: flex-end;
+    font-size: 12px;
+
+  }
   .message-list {
     list-style: none;
     margin: 0;
@@ -403,7 +421,7 @@ body {
     border: none;
     outline: none;
     padding: 5px;
-    font-size: 12px;
+    font-size: 11px;
   }
   
   .send-button {
@@ -437,6 +455,7 @@ body {
     top: 60%; /* Center vertically */
     /* Add pointer cursor to indicate interactivity */
   }
+
 
 
 
@@ -754,6 +773,63 @@ body {
     left: 50%;
     margin-left: 56px;
   }
+  .recipes {
+    text-decoration: none;
+    position: relative;
+    border: none;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    color: #fff;
+    width: 9em;
+    height: 3em;
+    line-height: 2em;
+    text-align: center;
+    background: linear-gradient(90deg, #4d8809, #e4ef84, #ffeb3b, #1c3210);
+    background-size: 300%;
+    border-radius: 30px;
+    z-index: 1;
+    margin-top: 40px;
+    margin-left: 110px;
+  }
+  
+ .recipes:hover {
+    animation: ani 8s linear infinite;
+    border: none;
+  }
+  
+  @keyframes ani {
+    0% {
+      background-position: 0%;
+    }
+  
+    100% {
+      background-position: 400%;
+    }
+  }
+  
+   .recipes:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background: linear-gradient(90deg, #76b80d, #99c908, #ffeb3b, #e2b856);
+    background-size: 400%;
+    border-radius: 35px;
+    transition: 1s;
+  }
+  
+   .recipes:hover::before {
+    filter: blur(20px);
+  }
+  
+   .recipes:active {
+    background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  }
+  
   
   
   
