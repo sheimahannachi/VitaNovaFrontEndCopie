@@ -112,7 +112,7 @@ ngOnInit(){
 
   this.communityId=this.idFromParent;
   this.service.myChannel="C"+this.communityId;
-  this.service.otherChannel="C"+this.communityId;
+  
   this.community.id=this.communityId;
 
  

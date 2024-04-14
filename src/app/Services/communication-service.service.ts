@@ -85,7 +85,7 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
            ////////Web socket Messaging 
 
            myChannel:string='';
-           otherChannel:string='';
+           
            webSocketEndPoint: string = 'http://localhost:8081/ws';
            topic:string="/topic/";
            sendMessage:string="/app/chat.sendMessage/"
@@ -134,7 +134,7 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
          _send(message:Communication) {
            console.log("calling logout api via web socket");
          
-           this.stompClient.send(this.sendMessage+this.otherChannel, {}, JSON.stringify(message));
+           this.stompClient.send(this.sendMessage+this.myChannel, {}, JSON.stringify(message));
          
          }
          
