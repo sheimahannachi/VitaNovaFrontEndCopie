@@ -9,7 +9,8 @@ import { Food } from '../Models/Food';
 @Component({
   selector: 'app-period-insights',
   templateUrl: './period-insights.component.html',
-  styleUrls: ['./period-insights.component.css']
+  styleUrls: ['./period-insights.component.css'],
+
 })
 export class PeriodInsightsComponent {
   periodTrackers: PeriodTracker[] = [];
@@ -151,7 +152,7 @@ fetchCyclePhase(idPeriod: number) {
   }
   getRecipes(): void {
       // Navigate to PeriodInsightsComponent with the period ID as a query parameter
-      this.router.navigate(['/PeriodRecipes']);
+      this.router.navigate(['vitaNova/PeriodRecipes']);
     }
   
 

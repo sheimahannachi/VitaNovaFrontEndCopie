@@ -454,6 +454,8 @@ body {
     cursor: pointer;
     top: 60%; /* Center vertically */
     /* Add pointer cursor to indicate interactivity */
+    z-index: 1;
+
   }
 
 
@@ -791,6 +793,8 @@ body {
     z-index: 1;
     margin-top: 40px;
     margin-left: 110px;
+    z-index: 2;
+
   }
   
  .recipes:hover {
