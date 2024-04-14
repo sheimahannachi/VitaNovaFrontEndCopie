@@ -21,12 +21,13 @@ export class PeriodInsightsComponent {
   chatHistory: string[] = [];
   exercises: Exercise[]= [];
   foods: Food[]= []; // Define an array to store fetched foods
+  
 
 
 
 
 
-  constructor(private route: ActivatedRoute, private periodTrackerService: PeriodTrackerServiceService) { }
+  constructor(private route: ActivatedRoute, private periodTrackerService: PeriodTrackerServiceService,private router: Router) { }
 
     
 
@@ -148,6 +149,11 @@ fetchCyclePhase(idPeriod: number) {
     this.periodTrackerService.getPeriodFood()
       .subscribe(foods => this.foods = foods);
   }
+  getRecipes(): void {
+      // Navigate to PeriodInsightsComponent with the period ID as a query parameter
+      this.router.navigate(['/PeriodRecipes']);
+    }
+  
 
 
 

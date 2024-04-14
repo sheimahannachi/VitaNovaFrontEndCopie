@@ -64,7 +64,7 @@ import { ShowPeriodComponent } from './show-period/show-period.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component';
-
+import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,6 +115,7 @@ import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component'
     CalendarComponent,
     PeriodInsightsComponent,
     OneToOneComComponent,
+    PeriodRecipesComponent,
 
 
 
@@ -122,8 +123,6 @@ import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component'
 
     ],
     entryComponents:[AddChallengeComponent],
-
-
   imports: [
     BrowserModule,
     AppRoutingModule,

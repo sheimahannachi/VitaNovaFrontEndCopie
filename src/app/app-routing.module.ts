@@ -36,6 +36,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PeriodTrackerComponent } from './period-tracker/period-tracker.component';
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
+import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -65,7 +66,9 @@ const routes: Routes = [
       {path:"ShowPeriodInformation",
         component:ShowPeriodComponent},
       { path: 'PeriodInformation/:idPeriod', component: PeriodTrackerComponent },
-      {path:'PeriodInsights',component:PeriodInsightsComponent},]},
+      {path:'PeriodInsights',component:PeriodInsightsComponent},
+      {path:'PeriodRecipes', component:PeriodRecipesComponent}
+    ]},
 //amine
 
   { path: 'signup', component: RegisterComponent } ,
