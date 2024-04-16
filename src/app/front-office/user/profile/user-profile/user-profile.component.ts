@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 import { UserService } from 'src/app/Service/user.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialogPersonalGoalsComponent } from '../../dialog-personal-goals/dialog-personal-goals.component';
+import { Plan } from 'src/app/Models/user.module';
+import { DialogPlanComponent } from '../../dialog-plan/dialog-plan.component';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -20,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   editField: string = ''; // Tracks which field is being edited
   profilePictureUrl: string = "";
 
-  constructor(private authService: AuthService, private userService: UserService, private http: HttpClient) {
+  constructor(private dialog: MatDialog,private authService: AuthService, private userService: UserService, private http: HttpClient) {
     this.userProfile = new UserModule(); // Initialize userProfile here
   }
 
@@ -99,5 +101,38 @@ export class UserProfileComponent implements OnInit {
         console.error('error', error);
       });
     }
+  }
+
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
+      width: '800px', 
+      height:'800px',
+      data: { userProfile: this.userProfile } 
+
+    });
+  
+    // Handle the dialog result if needed
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed with result:', result);
+      // Add any further processing here if needed
+    });
+  }
+
+
+  openDialogPlan() {
+    const dialogRef = this.dialog.open(DialogPlanComponent, {
+      width: '800px', 
+      height:'315px',
+      data: { userProfile: this.userProfile } 
+
+    });
+  
+    // Handle the dialog result if needed
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed with result:', result);
+      // Add any further processing here if needed
+    });
   }
 }

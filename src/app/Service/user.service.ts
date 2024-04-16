@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import{UserModule} from '../Models/user.module'
 import { ResetPasswordRequest } from '../front-office/user/login/UserInfoResponse';
 @Injectable({
@@ -21,9 +21,20 @@ export class UserService {
   ActivateUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseAdminUrl}/ActivateUser/${id}`);
   }
-
   updateUser(user: UserModule): Observable<UserModule> {
-    return this.http.put<UserModule>(`${this.baseAdminUrl}/UpdateUser`, user, { withCredentials: true });
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    console.log(headers)
+    return this.http.put<UserModule>(`${this.baseAdminUrl}/UpdateUser`, user, { headers, withCredentials: true })
+      .pipe(
+        catchError(error => {
+          console.error('Error updating user:', error);
+          // You can handle error here, such as showing an error message
+          return throwError(error);
+        })
+      );
   }
   
   resetPassword(email:string,password:string,phone:string): Observable<void>{

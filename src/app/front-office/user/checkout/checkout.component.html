@@ -1,0 +1,19 @@
+<form [formGroup]="stripeTest" (ngSubmit)="submitPayment()">
+    <label for="name">Name on Card</label>
+    <input type="text" formControlName="name" id="name" required>
+  
+    <div ngxStripeCardGroup>
+        <label for="cardNumber">Card Number</label>
+        <ngx-stripe-card-number #cardNumber></ngx-stripe-card-number>
+    </div>
+  
+    <div ngxStripeCardGroup>
+        <label for="expDate">Expiration Date (MM/YYYY)</label>
+        <input type="text" formControlName="expDate" id="expDate" required placeholder="MM/YY">
+    </div>
+  
+    <label for="cvc">CVC</label>
+    <input type="text" formControlName="cvc" id="cvc" required>
+  
+    <button type="submit" >Pay</button>
+</form>

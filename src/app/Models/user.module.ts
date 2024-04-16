@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PersonalGoalsModule } from './personal-goals.module';
+import { Community } from '../Model/Community';
+import { Food } from './Food';
 export enum Gender {
   MALE = 'MAN',
   FEMALE = 'WOMAN'
@@ -9,6 +12,12 @@ export enum ERole {
   ROLE_USER = 'ROLE_USER',
   ROLE_ADMIN = 'ROLE_ADMIN'
 }
+export enum Plan {
+  FREE = 'FREE',
+  PREMIUM = 'PREMIUM'
+}
+
+
 
 
 @NgModule({
@@ -35,13 +44,14 @@ export class UserModule {
   verified!: boolean ;
   score!:number;
   phone!: string ;
-
-  // personalGoals: PersonalGoals = new PersonalGoals(); // Example initial value
+  facebook!:string;
+   personalGoals: PersonalGoalsModule = null; // Example initial value
   // periodTracker: PeriodTracker = new PeriodTracker(); // Example initial value
   // cart: Cart = new Cart(); // Example initial value
-  // foods: Food[] = [];
-//  communities: Community[] = [];
+   foods: Food[] = [];
+  communities: Community[] = [];
   role!: ERole ; // Example initial value
+  plan!: Plan ; // Example initial value
 
   constructor() {
     

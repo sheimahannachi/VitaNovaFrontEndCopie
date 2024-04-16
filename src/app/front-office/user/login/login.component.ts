@@ -23,6 +23,8 @@ export class LoginComponent {
     username: '',
     password: ''
   };
+
+  
   // The error message
   errorMessage!: string;
   verificationCode: string = '';
@@ -46,6 +48,8 @@ loginAttempts:number=0;
             this.openSuccessDialog();
         }
     });
+    
+    
 }
 
 openSuccessDialog(): void {
@@ -96,6 +100,7 @@ openSuccessDialog(): void {
 
           sessionStorage.setItem("loggedIn", "true");
           sessionStorage.setItem("username",response.username);
+          sessionStorage.setItem("id",response.idUser.toString());
           sessionStorage.setItem("email",response.email);
           sessionStorage.setItem("role",response.role);
           sessionStorage.setItem("token",response.token);
@@ -225,6 +230,8 @@ openDialog(): void {
     console.log('The dialog was closed');
   });
 }
+
+
 
 
 
