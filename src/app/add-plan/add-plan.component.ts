@@ -4,6 +4,7 @@ import { Exercise } from '../Models/Exercise';
 import { WorkoutService } from '../Service/workout.service';
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import {MatDialogRef} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-plan',
@@ -22,10 +23,11 @@ export class AddPlanComponent implements OnInit {
   totalPages = 0;
   currentPage = 0;
   selectedFile: File | null = null;
-
+  alertMessage: string | null = null;
+  alertType: string | null = null;
   constructor(private formBuilder: FormBuilder,
               private workoutService: WorkoutService,public dialogRef: MatDialogRef<AddPlanComponent>,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,private router:Router) {
     this.workoutForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(20)]],
       image: ['', [Validators.required, Validators.maxLength(300)]],
@@ -49,7 +51,7 @@ export class AddPlanComponent implements OnInit {
       this.workoutService.getActiveExercisesFiltered(page, size, this.selectedBodyParts)
         .subscribe((pageData: any) => {
           this.handleExerciseResponse(pageData);
-        });
+        })    ;
     }
   }
 
@@ -127,11 +129,26 @@ export class AddPlanComponent implements OnInit {
       this.workoutService.addPlan(formData).subscribe(() => {
         this.workoutForm.reset();
         this.selectedFile = null;
+
+        // Show success message
+        this.showAlert('Workout plan added successfully.', 'alert-success');
       });
     } else {
       console.error('Please select an image file.');
     }
   }
+
+  showAlert(message: string, alertType: string): void {
+    this.alertMessage = message;
+    this.alertType = alertType;
+
+    // Clear the alert after a certain period (e.g., 5 seconds)
+    setTimeout(() => {
+      this.alertMessage = null;
+      this.alertType = null;
+    }, 5000); // 5000 milliseconds = 5 seconds
+  }
+
 
   cancel(): void {
     this.dialogRef.close();

@@ -14,3 +14,35 @@
   height: 150px; /* Adjust image height as needed */
   object-fit: cover; /* Ensure the image covers the entire space */
 }
+.workoutplan{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px;
+  width: 100%;
+  background-color: black;
+  padding-bottom: 200px  /* Add padding at the bottom to prevent overlap with footer */
+
+}
+.footer-workout {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 30px 0px;
+  background: black;
+  margin: 0;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+.btncardclass{
+  background-color: transparent;
+  border: 0;
+}
