@@ -1,0 +1,29 @@
+<div>
+  <app-navbar></app-navbar>
+</div>
+<div class="bodytimer">
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h2>Timer</h2>
+      <div class="timer-circle">{{ remainingTime | date: 'HH:mm:ss' }}</div>
+      <button class="start-button" (click)="startTimer()">Start</button>
+      <button class="stop-button" (click)="stopTimer()">Stop</button>
+
+      <h2>{{ workoutPlan?.title }}</h2>
+
+    <div class="card-body">
+      <div class="exercise-details">
+        <div class="card exercise-card" *ngFor="let exercise of workoutPlan?.exercises">
+          <div class="card-body">
+            <h5 class="card-title">{{ exercise.title }}</h5>
+            <!-- Add more exercise details here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<app-footer></app-footer>

@@ -3,7 +3,7 @@ import { PeriodTracker } from '../Models/PeriodTracker';
 import { PeriodTrackerServiceService } from '../Service/period-tracker-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../Models/Exercise';
-import { Food } from '../Models/Food';
+import { Food } from '../Models/Foods';
 
 
 @Component({

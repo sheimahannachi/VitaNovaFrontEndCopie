@@ -1,0 +1,78 @@
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 150px;
+  margin-right: 50px; /* Adjust as needed */
+}
+
+.timer {
+  font-size: 36px; /* Adjust font size as needed */
+  font-weight: bold;
+  color: #333;
+  margin-left: 20px; /* Adjust as needed */
+}
+
+.timer-circle {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin-left: 150px;/* Adjust font size as needed */
+}
+
+.bodytimer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px; /* Adjust as needed to create space below the fixed navbar and button */
+  width: 100%;
+  background-color: black;
+}
+
+.start-button, .stop-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.start-button:hover, .stop-button:hover {
+  background-color: #45a049;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navbar {
+  background-color: #333;
+  padding: 10px;
+  color: white;
+}
+
+.footer {
+  background-color: #333;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}

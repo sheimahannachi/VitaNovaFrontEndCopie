@@ -1,0 +1,11 @@
+<!-- get-plan-user.component.html -->
+<div>
+  <div class="card-container">
+    <mat-card *ngFor="let plan of workoutPlan" (click)="openTimer(plan)" class="workout-card">
+      <img mat-card-image src="{{ plan.image }}" alt="{{ plan.title }}" class="card-image">
+      <mat-card-content>
+        <h2>{{ plan.title }}</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
