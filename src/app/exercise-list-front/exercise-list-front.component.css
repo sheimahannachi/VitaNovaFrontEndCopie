@@ -1,9 +1,9 @@
 /* Reset default styles */
 body {
-  margin: 0;
-  padding: 0;
+  background: black;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-
 /* Page container */
 .container-frontex {
   position: relative; /* Position relative for absolute positioning of button */
@@ -11,14 +11,14 @@ body {
 }
 
 /* Fixed navbar */
-.navbarfront {
+/*.navbarfront {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #333; /* Navbar background color */
-  color: #fff; /* Text color */
-  padding: 10px 0; /* Adjust padding as needed */
-}
+  background-color: #333;
+  color: #fff; 
+  padding: 10px 0; 
+}*/
 
 /* Create Workout button */
 .create-workout-button {
@@ -79,7 +79,6 @@ body {
 .exercise-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding-top: 150px; /* Adjust as needed to create space below the fixed navbar and button */
   width: 100%;
   background-color: black;
@@ -88,7 +87,7 @@ body {
 /* Exercise card */
 .exercise-card {
   cursor: pointer;
-  width: 80%;
+  width: 100%;
   margin-bottom: 20px;
   border: 1px solid black;
   border-radius: 10px;
