@@ -27,6 +27,8 @@
     "angular-calendar": "^0.31.0",
     "axios": "^1.6.8",
     "common-utils": "^0.0.2",
+    "@flxng/circle-timer": "^1.1.5",
+    "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",

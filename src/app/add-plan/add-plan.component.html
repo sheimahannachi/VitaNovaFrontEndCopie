@@ -51,5 +51,9 @@
       <img *ngIf="selectedFile" [src]="getSelectedFileUrl()" alt="Selected Image" class="img-fluid mt-3">
       <small *ngIf="!selectedFile && workoutForm.get('image')?.invalid && workoutForm.get('image')?.touched" class="text-danger">Please choose an image file.</small>
     </div>
+    <div *ngIf="alertMessage" [ngClass]="'alert ' + alertType" role="alert">
+      {{ alertMessage }}
+    </div>
+
   </div>
 </div>

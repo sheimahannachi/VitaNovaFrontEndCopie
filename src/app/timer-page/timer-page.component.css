@@ -1,52 +1,10 @@
-.timer-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-bottom: 150px;
-  margin-right: 50px; /* Adjust as needed */
-}
-
-.timer {
-  font-size: 36px; /* Adjust font size as needed */
-  font-weight: bold;
-  color: #333;
-  margin-left: 20px; /* Adjust as needed */
-}
-
-.timer-circle {
-  width: 100px; /* Adjust size as needed */
-  height: 100px; /* Adjust size as needed */
-  border-radius: 50%;
-  background-color: #4CAF50;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  margin-left: 150px;/* Adjust font size as needed */
-}
-
 .bodytimer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 150px; /* Adjust as needed to create space below the fixed navbar and button */
+  padding-top: 150px;
   width: 100%;
   background-color: black;
-}
-
-.start-button, .stop-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.start-button:hover, .stop-button:hover {
-  background-color: #45a049;
 }
 
 .card {
@@ -59,9 +17,96 @@
   padding: 20px;
 }
 
-.card-title {
+.workout-title {
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 20px;
+  align-self: flex-start;
+}
+
+.timer-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.base-timer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+  color: orange;
+}
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.timer-content {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.timer-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.start-button, .stop-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.start-button:hover, .stop-button:hover {
+  background-color: #45a049;
 }
 
 .navbar {
@@ -70,9 +115,37 @@
   color: white;
 }
 
-.footer {
+.footer-workout {
   background-color: #333;
   padding: 20px;
   color: white;
   text-align: center;
+}
+
+.exercise-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%; /* Ensure images take full width of container */
+}
+
+.exercise-image img {
+  max-width: 300px; /* Set maximum width for images */
+  max-height: 300px; /* Set maximum height for images */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+.info {
+  background-color: green;
+}
+
+.warning {
+  background-color: orange;
+}
+
+.alert {
+  background-color: red;
 }

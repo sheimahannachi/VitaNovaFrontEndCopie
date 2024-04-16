@@ -109,4 +109,8 @@ export class WorkoutService {
   getWorkoutPlanById(workoutId: number): Observable<WorkoutPlan> {
     return this.http.get<WorkoutPlan>(`${this.baseUrl}/getPlan/${workoutId}`);
   }
+  deleteWorkout(WorkoutId: number): Observable<void> {
+    const url = `${this.baseUrl}/ArchiverPlan/${WorkoutId}`;
+    return this.http.delete<void>(url);
+  }
 }
