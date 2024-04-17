@@ -66,6 +66,13 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component';
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
+import { DialogVerificationComponent } from './front-office/user/dialog-verification/dialog-verification.component';
+import { DialogSuccessComponent } from './front-office/user/dialog-success/dialog-success.component';
+import { DialogPersonalGoalsComponent } from './front-office/user/dialog-personal-goals/dialog-personal-goals.component';
+import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +133,14 @@ import { PeriodRecipesComponent } from './period-recipes/period-recipes.componen
     OneToOneComComponent,
     PeriodRecipesComponent,
   
+    DialogVerificationComponent,
+    DialogSuccessComponent,
+    DialogPersonalGoalsComponent,
+    DialogPlanComponent,
+    CheckoutComponent,
+
+
+
 
 
     ],
@@ -153,7 +168,11 @@ import { PeriodRecipesComponent } from './period-recipes/period-recipes.componen
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    //AmineV2
+    NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
+    ReactiveFormsModule, // Add this line
+
 
   ],
   exports:[MatDialogModule,],

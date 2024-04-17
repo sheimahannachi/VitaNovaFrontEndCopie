@@ -151,7 +151,6 @@ onPopState(event: any): void {
     if (this.validateFields() && this.validateEmail(this.email) && !this.DateError && !this.genderError && !this.roleError && !this.phoneError) {
       // Check if a file is selected
       if (this.selectedFile) {
-        this.uploadImage(this.selectedFile);
         // Create FormData object
         const formData = new FormData();
         // Append form fields
@@ -452,15 +451,7 @@ if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password
 
 
 
-uploadImage(file: File): void {
-  this.miscService.uploadImage(file).subscribe(response => {
-    console.log('File uploaded successfully:', response);
-    // Handle success, if needed
-  }, error => {
-    console.error('Error uploading file:', error);
-    // Handle error
-  });
-}
+
 
 
 }
