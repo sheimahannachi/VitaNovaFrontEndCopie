@@ -20,11 +20,13 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
+    "@stripe/stripe-js": "^3.3.0",
     "axios": "^1.6.7",
     "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
     "jquery": "^3.7.1",
     "ngx-bootstrap": "^12.0.0",
+    "ngx-stripe": "^15.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

@@ -29,6 +29,16 @@ import { ShowProductComponent } from './show-product/show-product.component';
 import { CommonModule } from '@angular/common';
 import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
 import { CartComponent } from './cart/cart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -51,7 +61,11 @@ import { CartComponent } from './cart/cart.component';
     ShowProductComponent,
     ShowProductUserComponent,
     CartComponent,
-   
+    SidebarComponent,
+    StripeComponent,
+    
+    
+    
   
 
 
@@ -64,10 +78,16 @@ import { CartComponent } from './cart/cart.component';
     RouterModule,
     FormsModule,
     CommonModule,
+    MatDialogModule,
+    MatSliderModule,
+
+    
 
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+  
 })
 export class AppModule { }

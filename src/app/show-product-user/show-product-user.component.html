@@ -16,6 +16,45 @@
     </div>
   </div>
   
+  <div>
+    <!-- Cart icon with click event to toggle sidebar -->
+    <!-- Cart Icon -->
+    <a (click)="openSideBar()" class="cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="badge badge-pill badge-primary">{{ numberOfCommandelines }}</span>
+    </a>
+
+    <div *ngIf="showSidebar" class="off-canvas position-right">
+      <div class="cart">
+          <h3 class="cart__title">Shopping Cart</h3>
+          <div class="cart__content">
+              <ul class="cart__list">
+                  <li *ngFor="let commandeline of commandelines" class="cart__item">
+                      <div class="cart__item-container">
+                          <div class="cart__img-wrap">
+                              <img [src]="getImageUrl(commandeline.product.picturePr)" alt="Product Image"
+                                  class="cart__item-img">
+                          </div>
+                          <div class="cart__item-details">
+                              <p class="cart__item-title">{{ commandeline.product.namePr }}</p>
+                              <p class="cart__item-price">Price: {{ commandeline.product.pricePr }}</p>
+                              <p class="cart__item-quantity">Quantity: {{ commandeline.quantity }}</p>
+                          </div>
+                         
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </div>
+    
+  
+   
+
+  
+  <!-- Include the sidebar component -->
+  
+  
 <!-- Affichage des produits -->
 <!-- Template HTML pour afficher les produits avec le bouton Like -->
 <div id="container">    
@@ -49,13 +88,15 @@
       <p class="Product Details"> {{ product.descriptionPr }}</p>
 
       <div class="control">
-          <button class="btn">
+    <button class="btn" (click)="addProductToCart(product.idPr)">
               <span class="price">Price : {{ product.pricePr }}</span>
               <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-              <span class="buy">Buy Now</span>
+              <span class="buy">Add to Cart</span>
           </button>
       </div>
   </div>
+  
+
   <!-- End Product details and image -->
 </div>
 
