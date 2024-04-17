@@ -100,7 +100,6 @@ openSuccessDialog(): void {
 
           sessionStorage.setItem("loggedIn", "true");
           sessionStorage.setItem("username",response.username);
-          sessionStorage.setItem("id",response.idUser.toString());
           sessionStorage.setItem("email",response.email);
           sessionStorage.setItem("role",response.role);
           sessionStorage.setItem("token",response.token);

@@ -27,13 +27,11 @@ togglePaymentForm(amount:number) {
   this.showPaymentForm = !this.showPaymentForm;
   if (this.showPaymentForm) {
     this.dialog.closeAll();
-    // Open the CheckoutComponent as a new dialog
     const dialogRef = this.dialog.open(CheckoutComponent, {
-      width: '500px', // Set the width and other configurations as needed
+      width: '500px', 
       data: { amount:amount }
     });
 
-    // Close the current dialog when the new dialog is opened
     dialogRef.afterOpened().subscribe(() => {
     });
   }

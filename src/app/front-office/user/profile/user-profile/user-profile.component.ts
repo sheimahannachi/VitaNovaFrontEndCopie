@@ -107,8 +107,8 @@ export class UserProfileComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
-      width: '800px', 
-      height:'800px',
+      width: '400px', 
+      height:'388px',
       data: { userProfile: this.userProfile } 
 
     });
