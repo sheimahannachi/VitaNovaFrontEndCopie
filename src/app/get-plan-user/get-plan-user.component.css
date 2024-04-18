@@ -4,9 +4,10 @@
   flex-wrap: wrap;
 }
 
-.workout-card {
-  width: 200px; /* Adjust card width as needed */
-  margin: 10px; /* Add margin between cards */
+body {
+  background:  black;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .card-image {

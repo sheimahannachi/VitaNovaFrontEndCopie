@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Food } from '../models/food';
-import { FoodService } from '../services/food.service';
+import { Food } from '../Models/Foods';
+import { FoodService } from '../Service/food.service';
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

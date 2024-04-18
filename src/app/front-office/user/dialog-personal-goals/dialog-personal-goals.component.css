@@ -1,0 +1,44 @@
+/* Style for form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto; /* Center align horizontally */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Center align form elements */
+  .form-group {
+    text-align: center;
+  }
+  
+  /* Style for form labels */
+  .col-form-label {
+    text-align: left; /* Align labels to the left */
+  }
+  
+  /* Style for form inputs */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style for button */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
