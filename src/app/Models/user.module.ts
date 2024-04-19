@@ -55,6 +55,7 @@ export class UserModule {
    foods: Food[] = [];
   communities: Community[] = [];
   plan!: Plan ; // Example initial value
+  role!: ERole ; // Example initial value
 
   constructor() {
     
