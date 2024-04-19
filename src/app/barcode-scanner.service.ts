@@ -10,7 +10,7 @@ import{ProductDetailsDialogComponent} from "./product-details-dialog/product-det
 export class BarcodeScannerService {
   private apiUrl = 'http://localhost:8081/RestController/lookup';
 
-  // private apiUrl = 'https://api.upcitemdb.com/prod/trial/lookup';
+
 
   private scanner: BrowserBarcodeReader;
 

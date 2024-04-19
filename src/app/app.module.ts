@@ -36,6 +36,7 @@ import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 
 import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
+import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 
 
 
@@ -68,6 +69,7 @@ import { ProductDetailsDialogComponent } from './product-details-dialog/product-
     FoodDetailsDialogComponent,
 
     ProductDetailsDialogComponent,
+      FoodlistaddedComponent,
 
 
     ],
