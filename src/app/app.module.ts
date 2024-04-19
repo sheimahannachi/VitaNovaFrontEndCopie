@@ -72,6 +72,7 @@ import { DialogPersonalGoalsComponent } from './front-office/user/dialog-persona
 import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -158,20 +159,14 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     MatDialogModule,
     MatIconModule,
 //firas
-    MatDialogModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
     //sheima
-    CommonModule,
     BrowserAnimationsModule,
-    FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
-    ReactiveFormsModule, // Add this line
+    MatSelectModule,
 
 
   ],

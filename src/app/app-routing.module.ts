@@ -65,9 +65,10 @@ const routes: Routes = [
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
       {path:"workoutplan",component:GetPlanUserComponent},
-      { path: 'timer/:id', component: TimerPageComponent },
       {path:"foodFront",component:FoodCardComponent},
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
+      { path: 'Timer/:id', component: TimerPageComponent },
+
 
       //aziz
       {path:"showProductUser",
