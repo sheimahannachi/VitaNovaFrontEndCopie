@@ -12,14 +12,26 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<UserModule[]> {
-    return this.http.get<UserModule[]>(`${this.baseAdminUrl}/AllUsers`);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<UserModule[]>(`${this.baseAdminUrl}/AllUsers`,{ headers, withCredentials: true });
 
   }
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseAdminUrl}/DeleteUser/${id}`);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.baseAdminUrl}/DeleteUser/${id}`,{ headers, withCredentials: true });
   }
   ActivateUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseAdminUrl}/ActivateUser/${id}`);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.baseAdminUrl}/ActivateUser/${id}`,{ headers, withCredentials: true });
   }
   updateUser(user: UserModule): Observable<UserModule> {
     const token = sessionStorage.getItem('token');
