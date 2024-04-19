@@ -30,7 +30,7 @@ export enum Plan {
     CommonModule
   ]
 })
-export class UserModule { 
+export class UserModule {
   [key: string]: any; // Index signature allowing any string key with any value
 
   idUser!: number;  // Example initial value
@@ -54,10 +54,11 @@ export class UserModule {
   // cart: Cart = new Cart(); // Example initial value
    foods: Food[] = [];
   communities: Community[] = [];
-  plan!: Plan ; // Example initial value
+  plan!: Plan ;
+  role!:ERole;// Example initial value
 
   constructor() {
-    
+
   }
 
 }

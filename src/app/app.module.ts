@@ -47,9 +47,9 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+//import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-//Aziz 
+//Aziz
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
@@ -114,7 +114,7 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     FindCommunityComponent,
     UpdateCommunityComponent,
 //Amine
-    UsersBackComponent,
+   // UsersBackComponent,
     UserProfileComponent,
 
     UpdateProductComponent,
@@ -132,7 +132,7 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     PeriodInsightsComponent,
     OneToOneComComponent,
     PeriodRecipesComponent,
-  
+
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
@@ -179,9 +179,9 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
 
-  
 
- 
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

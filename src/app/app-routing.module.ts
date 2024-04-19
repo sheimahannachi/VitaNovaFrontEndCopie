@@ -30,7 +30,7 @@ import { FindCommunityComponent } from './find-community/find-community.componen
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+//import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
 import { AddProductComponent } from './add-product/add-product.component';
@@ -98,7 +98,7 @@ const routes: Routes = [
         path: 'addFood/:id',
         component: FoodComponent // or whichever component you want to navigate to
       },
-  
+
       {
         path:"getFoods",
         component:FoodListComponent,
@@ -106,22 +106,22 @@ const routes: Routes = [
       {
         path: "listex",
         component: ExerciseListComponent,
-  
+
       },
       {
         path: "exercise",
         component: AddexerciseComponent,
       },
-  
+
       //firas
       {path:"communities",component:AllCommunitiesBackComponent},
       {path:"chalenges", component:AllChallengesBackComponent},
       //amine
-      
-      {
+
+    /*  {
         path: "users",
         component: UsersBackComponent
-      },
+      },*/
       //aziz
       {path:"addProduct",
         component: AddProductComponent},
