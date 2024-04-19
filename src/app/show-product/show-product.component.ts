@@ -7,12 +7,18 @@ import { ProductService } from '../ServiceProduct/product.service';
 import axios from 'axios';
 
 
+
+
+
+
 @Component({
   selector: 'app-show-product',
   templateUrl: './show-product.component.html',
   styleUrls: ['./show-product.component.css']
 })
 export class ShowProductComponent implements OnInit {
+  
+
 
   listeProduits: Product[] = [];
   searchTerm: string = ''; // Attribut pour stocker le terme de recherche

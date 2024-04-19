@@ -22,6 +22,7 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 
+
 //yoser+Ons
 import { FoodCardComponent } from './food-card/food-card.component';
 import { FoodDetailsComponent } from './food-details/food-details.component';
@@ -30,7 +31,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import { ExerciseListFrontComponent } from './exercise-list-front/exercise-list-front.component';
 import { ExerciseModalComponent } from './exercise-modal/exercise-modal.component';
-import {MatDialogModule} from "@angular/material/dialog";
 import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { GetPlanUserComponent } from './get-plan-user/get-plan-user.component';
@@ -55,6 +55,16 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
 import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
 import { CartComponent } from './cart/cart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
+
+
+
+
 
 //sheima
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -120,7 +130,6 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     UpdateProductComponent,
     AddProductComponent,
     ShowProductComponent,
-    ShowProductUserComponent,
     CartComponent,
     //sheima
     NavBarBackComponent,
@@ -132,14 +141,18 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     PeriodInsightsComponent,
     OneToOneComComponent,
     PeriodRecipesComponent,
+    SidebarComponent,
+    StripeComponent,
+    
+    
+    
   
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
     DialogPlanComponent,
     CheckoutComponent,
-
-
+    ShowProductUserComponent,
 
 
 
@@ -172,6 +185,10 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
     ReactiveFormsModule, // Add this line
+    MatDialogModule,
+    MatSliderModule,
+
+    
 
 
   ],

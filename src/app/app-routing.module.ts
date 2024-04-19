@@ -45,6 +45,8 @@ import { PeriodTrackerComponent } from './period-tracker/period-tracker.componen
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
+
+import { CartComponent } from './cart/cart.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -72,6 +74,8 @@ const routes: Routes = [
       //aziz
       {path:"showProductUser",
         component: ShowProductUserComponent},
+        {path:"Cart",
+               component: CartComponent},
       //sheima
       {path:"PeriodInformation",
         component:PeriodTrackerComponent},
