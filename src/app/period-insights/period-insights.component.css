@@ -1,6 +1,6 @@
 body {
     background:  url('../../assets/images/periodd.jpeg');
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
   }
   
@@ -11,8 +11,7 @@ body {
     position: relative; /* Maintain relative positioning */
     padding: 150px;
     top: 150; /* Adjust the value to move the container up or down */
-    right : 150px;
-    padding-left: 540px;
+    left : 300px;
     
   }
   
@@ -55,7 +54,6 @@ body {
     transition: all ease 0.3s;
     right:50px;
     overflow: hidden;
-    margin-top: 20px;
   
   }
   
@@ -440,26 +438,18 @@ body {
     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
   }
 
-
   .chatbot-container {
-    position: fixed;
-    right: 20px; /* Adjust this value to control the distance from the right side */
-    top: 60%; /* Center vertically */
-    transform: translateY(-50%);
+    position: absolute;
+    top: 130px; /* Adjust the distance from the top as needed */
+    left: 400px; /* Adjust the distance from the right as needed */
   }
   
   .chatbot-img {
     width: 50px; /* Adjust the width as needed */
     height: 50px; /* Adjust the height as needed */
     cursor: pointer;
-    top: 60%; /* Center vertically */
     /* Add pointer cursor to indicate interactivity */
-    z-index: 1;
-
   }
-
-
-
 
 
   .card_exercise {
@@ -771,9 +761,7 @@ body {
     visibility: visible;
   }
   .item-hints .hint[data-position="4"] .hint-content {
-    bottom: 80px;
-    left: 50%;
-    margin-left: 56px;
+    bottom: 20px;
   }
   .recipes {
     text-decoration: none;
@@ -793,7 +781,6 @@ body {
     z-index: 1;
     margin-top: 40px;
     margin-left: 110px;
-    z-index: 2;
 
   }
   
