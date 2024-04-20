@@ -12,11 +12,60 @@
     <label for="height" class="col-sm-3 col-form-label">Height(CM)</label>
     <div class="col-sm-9">
         <input type="number" class="form-control" id="heightEdit" name="height" [(ngModel)]="data.userProfile.height" value="{{data.userProfile.height}}">
+    
     </div>
+
+
+
+
+    
     <button  (click)="UpdateUser()" >Continue</button>
 </div>
 </div>
-<div class="form-container" *ngIf="step==2" >
-    <h2>Now let's set your goal</h2>
+
+
+<div class="form-container" *ngIf="step==2">
+    <h5 class="heading">Current State</h5>
+    <div class="info">
+      Your
+      <div class="tooltip-container">
+      
+        <span class="tooltip">Body mass index</span> 
+        <span class="text">BMI</span>
+      </div>
+      is
+        <span class="bmi">{{calculateBMI(data.userProfile.weight, data.userProfile.height)}}</span>
+        <p class="interpretation">({{interpretBMI(calculateBMI(data.userProfile.weight, data.userProfile.height))}})</p>
+      </div>
+      
+  
+    <div class="gender-info">
+      <p>For a <span class="gender">{{data.userProfile.gender === 'MAN' ? 'man' : 'woman'}}</span> with a height of <span class="height">{{data.userProfile.height}}</span> cm</p>
+    </div>
+  
+    <p>The ideal weight is <span class="ideal-weight">{{ data.userProfile.gender === 'MAN' ? calculateIdealWeightForMen(data.userProfile.height) : calculateIdealWeightForWomen(data.userProfile.height) }}</span> kg</p>
+   
+      <div class="Question">Do you wanna use it as your goal weight?</div>
+
+      <div class="radio">
+        <input label="Yes" type="radio" checked="" id="yes" name="idealWeight" [(ngModel)]="useIdealWeight" (change)="toggleWeightInput(true)">
+        <input label="No" type="radio" id="female" name="idealWeight" value="female" [(ngModel)]="useIdealWeight" (change)="toggleWeightInput(false)"/>
+      </div>
+      
+      
+      <div *ngIf="useIdealWeight; else weightInput">
+        Ideal Weight: {{ IdealWeight }}
+      </div>
+      
+      <ng-template #weightInput>
+        <input type="number" [(ngModel)]="IdealWeight" placeholder="Enter your ideal weight" />
+      </ng-template>
+      
+      <div>
+        <label for="weeks">Number of weeks to achieve goal:</label>
+        <input type="number" id="weeks" [(ngModel)]="numberOfWeeks" placeholder="Enter number of weeks" />
+      </div>
 
 </div>
+  
+  
