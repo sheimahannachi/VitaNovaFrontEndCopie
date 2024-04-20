@@ -22,7 +22,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img [src]="profilePictureUrl" alt="" class="ProfileImg" width="150">
+                                <img [src]="'http://localhost/cats/'+ userProfile.picture" alt="" class="ProfileImg" width="150">
                                 <div class="mt-3">
                                     <h2>{{ userProfile.username }} </h2>
                                     <p class="text-secondary mb-1">{{userProfile.role}}</p>

@@ -333,3 +333,13 @@ body, html, footer {
 
   align-items: center;
 }
+
+
+.ProfileImg {
+  width: 150px; /* Adjust the width and height as needed */
+  height: 150px;
+  border-radius: 50%; /* Makes the image round */
+  border: 2px solid #fff; /* Adds a white border around the image */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow effect */
+  object-fit: cover; /* Ensures the image covers the entire container */
+}
