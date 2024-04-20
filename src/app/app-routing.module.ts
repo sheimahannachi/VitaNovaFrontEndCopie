@@ -18,6 +18,10 @@ import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component"
 import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
 import {GetPlanUserComponent} from "./get-plan-user/get-plan-user.component";
 import {TimerPageComponent} from "./timer-page/timer-page.component";
+//ons
+import {FoodlistaddedComponent} from "./foodlistadded/foodlistadded.component";
+
+ 
 
 //firas
 import { CommunityComponent } from './community/community.component';
@@ -56,6 +60,10 @@ const routes: Routes = [
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
       {path: "profile", component: UserProfileComponent},
+      //ons
+      {path:"foodFront",component:FoodCardComponent},
+
+  { path: 'foodDetails/:id', component: FoodDetailsComponent },
       //firas
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
@@ -93,6 +101,35 @@ const routes: Routes = [
 
 //Admin
   { path:'admin',component:AllTemplateBackComponent, children: [
+    //ons
+    {
+      path:"addFood",
+      component:FoodComponent,
+    },
+    {
+      path: 'addFood/:id',
+      component: FoodComponent // or whichever component you want to navigate to
+    },
+
+    {
+      path:"getFoods",
+      component:FoodListComponent,
+    },
+    {
+      path: "listex",
+      component: ExerciseListComponent,
+
+    },
+    {
+      path: "exercise",
+      component: AddexerciseComponent,
+    },
+  {path: "exerciseworkout",component:ExerciseListFrontComponent},
+  {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+    {
+        path:"list-of-foods",
+        component:FoodlistaddedComponent,
+    },
       //yoser
       {
         path:"addFood",
@@ -133,7 +170,8 @@ const routes: Routes = [
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
         component: UpdateProductComponent },]},
-];
+      ];
+      
 
 
 @NgModule({

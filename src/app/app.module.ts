@@ -83,6 +83,11 @@ import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
 
+import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
+import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,6 +113,9 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
+ 
+//ons
+    FooterComponent,
     FoodComponent,
     FoodListComponent,
     FoodCardComponent,
@@ -155,6 +163,9 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     ShowProductUserComponent,
 
 
+    ProductDetailsDialogComponent,
+      FoodlistaddedComponent,
+
 
     ],
     entryComponents:[AddChallengeComponent],
@@ -196,9 +207,7 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
 
-  
 
- 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

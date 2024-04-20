@@ -1,0 +1,82 @@
+
+
+
+
+
+.food-actions {
+  display: flex;
+  align-items: center;
+}
+
+.food-actions button {
+  margin-left: 5px;
+}
+.contentFood {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding-top: 150px; /* Adjust as needed to create space below the fixed navbar and button */
+  width: 100%;
+}
+
+.svg-icon,
+.svg-icon1 {
+  width: 20px; /* Ajuster la taille des icônes */
+  height: 20px; /* Ajuster la taille des icônes */
+  fill: currentColor; /* Utiliser la couleur actuelle pour les icônes */
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #57B922;
+}
+
+.svg-icon circle {
+  stroke: #57B922;
+  stroke-width: 1;
+}
+
+.svg-icon1 path,
+.svg-icon1 polygon,
+.svg-icon1 rect {
+  fill: #DD0B0B;
+}
+
+.svg-icon1 circle {
+  stroke: #DD0B0B;
+  stroke-width: 1;
+}
+.btnfoodaction{
+  background-color: transparent;
+  border:0;
+  padding: 5px; /* Adjust the padding to make the buttons smaller */
+
+}
+.btndeletefood{
+  background-color: transparent;
+  border:0;
+  padding: 5px; /* Adjust the padding to make the buttons smaller */
+
+}
+.food-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.food-table th, .food-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.food-table th:last-child, .food-table td:last-child {
+  text-align: center;
+  text-decoration-color: antiquewhite;
+}
+
+.food-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+

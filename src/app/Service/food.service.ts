@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Food} from "../Models/Foods";
+import { FoodCard } from '../models/FoodCard';
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +28,40 @@ export class FoodService {
   }
 
 
-  getImage(url: String) : any{
-    return this.http.get("this.newFood.foodPic", {responseType: "arraybuffer"});
-  }
+
   getFoodById(id: number):Observable<Food>{
     return this.http.get<Food>(`${this.baseUrl}/getFood/${id}`);
   }
+    addFoodCards(foods: Food[], quantity: number): Observable<any> {
+        const url = `${this.baseUrl}/ListTracker`;
 
+        // Construct query parameters
+        let params = new HttpParams();
+        foods.forEach(food => {
+            params = params.append('foods', food.id); // Assuming 'id' is the property you want to send
+        });
+        params = params.append('quantity', quantity.toString());
+
+        return this.http.post<any>(url, {}, { params: params });
+    }
+    getListEaten(): Observable<FoodCard[]> {
+        return this.http.get<FoodCard[]>(`${this.baseUrl}/get-food-cards`);
+    }
+  deleteFoodCard(foodCard: FoodCard): Observable<any> {
+    const url = `${this.baseUrl}/deleteFoodCard`;
+    return this.http.delete(url, { body: foodCard });
+  }
+  updateFoodCards(foods: Food[], quantity: number): Observable<any> {
+    const url = `${this.baseUrl}/updateFoodCard/{id}`;
+
+    // Construct query parameters
+    let params = new HttpParams();
+    foods.forEach(food => {
+      params = params.append('foods', food.id); // Assuming 'id' is the property you want to send
+    });
+    params = params.append('quantity', quantity.toString());
+
+    return this.http.put<any>(url, {}, { params: params });
+  }
 
 }

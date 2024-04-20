@@ -1,0 +1,19 @@
+<!-- product-details-dialog.component.html -->
+
+<div class="product-details-dialog">
+  <h2>{{ data.title }}</h2>
+  <div class="details-container">
+    <div class="image-container">
+      <img src="{{ data.images[0] }}" alt="Product Image" width="50px">
+    </div>
+    <div class="info-container">
+      <p><strong>Brand:</strong> {{ data.brand }}</p>
+      <p><strong>Model:</strong> {{ data.model }}</p>
+      <p><strong>UPC:</strong> {{ data.upc }}</p>
+      <p><strong>Description:</strong> {{ data.description }}</p>
+      <p><strong>Price:</strong> {{ data.offers[0].price }}</p>
+      <p><strong>Merchant:</strong> {{ data.offers[0].merchant }}</p>
+    </div>
+  </div>
+</div>
+
