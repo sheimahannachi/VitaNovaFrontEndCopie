@@ -25,6 +25,7 @@ export class CommunicationComponent implements AfterViewInit {
   @Input() idFromParent:number;
   @Input() communityMembers:UserModule[];
   @Output() messageEvent = new EventEmitter<number>();
+  @Output() event=new EventEmitter<string>();
   
   user:UserModule = {
     idUser: 1,
@@ -67,6 +68,11 @@ communityId:number;
 community:Community=new Community();
 goToOne:number;
 
+//videChat variable
+chatUrl:string;
+video: boolean;
+
+
 constructor(private service:CommunicationServiceService,private comService:CommunityServiceService ){
 
     
@@ -74,6 +80,7 @@ constructor(private service:CommunicationServiceService,private comService:Commu
     this.page=0;
     this.members=[];
     this.goToOne=0;
+    this.video=false;
     
    
 
@@ -153,13 +160,17 @@ ngOnInit(){
 
 
   handleMessage(communication:Communication) {
-    console.log("reee:: "+communication.message)
+    console.log("reee:: "+communication.message+"length"+communication.message.length)
+
     this.messages.push(communication);
+    
+
     console.log(this.messages)
     setTimeout(() => {
       this.scrollToBottom();
     }, 10);
   }
+ 
 
   connect(){
     this.service._connect();
@@ -174,6 +185,7 @@ ngOnInit(){
   sendMessage(){
     var com:Communication=new Communication();
     com.sender=this.current;
+    
     
     com.message=this.message;
     com.community=this.community;
@@ -285,5 +297,14 @@ ngOnInit(){
       this.disconnect();
       }
 
+
+      goToVideoChat(){
+        this.chatUrl=window.location.origin +window.location.pathname +'/videoChat'+'?roomID=' +this.communityId;
+        this.message="a video call message";
+        this.sendMessage()
+        this.event.emit(this.chatUrl);
+        
+        
+      }
 
 }

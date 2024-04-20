@@ -24,6 +24,7 @@
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@splinetool/viewer": "^1.0.75",
+    "@zegocloud/zego-uikit-prebuilt": "^2.0.1",
     "angular-calendar": "^0.31.0",
     "axios": "^1.6.8",
     "bootstrap-icons": "^1.11.3",

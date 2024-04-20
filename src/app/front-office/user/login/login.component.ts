@@ -77,6 +77,7 @@ loginAttempts:number=0;
         this.authService.setJwtCookie(response.token);
         if(response.role=='USER')
         this.router.navigate(['/profile']); 
+        
       else if(response.role=="ADMIN")
       this.router.navigate(['/admin/users']); 
       

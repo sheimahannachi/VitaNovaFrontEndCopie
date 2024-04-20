@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommunicationServiceService } from '../Services/communication-service.service';
-import { ERole, UserModule } from '../Model/user/user.module';
+import { ERole, Gender, UserModule } from '../Model/user/user.module';
 import { Communication } from '../Model/Communication';
 import { Subscription } from 'rxjs';
 
@@ -35,17 +35,23 @@ export class OneToOneComComponent {
 
     console.log(this.userId);
     this.getCurrentUser();
-    //this.other.idUser=this.userId;
-    this.service.myChannel="U"+(this.current.idUser*this.userId+(this.current.dateOfBirth.getDay()*this.other.dateOfBirth.getDay())).toString();
+    this.other=this.user2;
+    
+    console.log("aaaaaaaaaaaaaaaaaaaaaa"+this.userId);
+    this.service.myChannel="U"+(this.current.idUser*this.userId/*+(this.current.dateOfBirth.getDay()*this.other.dateOfBirth.getDay())).toString()*/);
     this.connect();
  
-  console.log("subscriber  to "+this.service.myChannel);
+   console.log("subscribed  to "+this.service.myChannel);
+   this.getCommunicationsByUsers();
 
   this.subscription=this.service.fonctionAppelee.subscribe((comunication:Communication)=>{
+    
     if(comunication.sender!=null && comunication.reciever!=null){
       if((comunication.sender.idUser==this.current.idUser&&comunication.reciever.idUser==this.other.idUser)
-        ||(comunication.reciever.idUser==this.current.idUser&&comunication.sender.idUser==this.other.idUser))
+        ||(comunication.reciever.idUser==this.current.idUser&&comunication.sender.idUser==this.other.idUser)){
+      console.log("got heeereeee aaaaaaaaaa")
     this.handleMessage(comunication);
+        }
   }
     
   })
@@ -65,13 +71,21 @@ export class OneToOneComComponent {
 
   }
 
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   getCommunicationsByUsers(){
-    this.service.findBysenderAndReciever(this.current.idUser,this.other.idUser,this.page).subscribe(response=>{
+    this.service.findBysenderAndReciever(this.current.idUser,this.userId,this.page).subscribe(response=>{
       if(this.messages.length==0){
         this.messages=response.content.reverse();
-        /*setTimeout(() => {
+        setTimeout(() => {
           this.scrollToBottom();
-        }, 10);*/
+        }, 10);
       }
       else{
         this.messages=response.content.reverse().concat(this.messages)
@@ -86,25 +100,26 @@ export class OneToOneComComponent {
     this.getCommunicationsByUsers();
   }
 
-  /*
+  
   scrollToBottom(){
     const element = this.htmlMessages.nativeElement;
     element.scrollTop=element.scrollHeight;
 }
-*/
+
 
 handleMessage(communication:Communication) {
   console.log("reee:: "+communication.message)
   this.messages.push(communication);
   console.log(this.messages)
-  /*setTimeout(() => {
+  setTimeout(() => {
     this.scrollToBottom();
-  }, 10);*/
+  }, 10);
 }
 
 sendMessage(){
   var  com:Communication=new Communication();
   com.sender=this.current;
+
   com.reciever=this.other;
   
   
@@ -120,9 +135,19 @@ sendMessage(){
   
 }
 
+
+
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 seenMessages(){
       
-  this.service.setSeenCommunicationOneToOne(this.other.idUser,this.current.idUser).subscribe(res=>{
+  this.service.setSeenCommunicationOneToOne(this.userId,this.current.idUser).subscribe(res=>{
     console.log("Server response to Seen:: "+res)
   });
 
@@ -256,9 +281,9 @@ goToCommunityChat() {
       weight: 0,
       height: 0,
       password: "",
-      username: '',
+      username: 'BenTestTest',
       dateOfBirth: undefined,
-      gender: null,
+      gender: Gender.MALE,
       archive: false,
       picture: '',
       role:ERole.ROLE_USER,

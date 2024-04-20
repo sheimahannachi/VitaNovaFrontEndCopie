@@ -64,6 +64,7 @@ import { ShowPeriodComponent } from './show-period/show-period.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component'
     CalendarComponent,
     PeriodInsightsComponent,
     OneToOneComComponent,
+    VideoChatComponent,
 
 
 

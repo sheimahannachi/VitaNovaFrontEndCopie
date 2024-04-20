@@ -5,6 +5,11 @@
     width: 900px;
     
 }
+.otherInfo{
+    background-color:#b3d821b7; 
+    box-shadow: 0 1px 2px 3px rgba(255, 254, 254, 0.893);
+
+}
 .chat-app .chat-list:hover {
     background-color:  #b3d821c5;
   }

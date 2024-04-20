@@ -39,22 +39,38 @@
                         </div>
                                     
                         <ul class="m-b-0" *ngFor="let i of messages">
+
+
+
+
                             
                             <li class="clearfix" *ngIf="i.sender.idUser!=current.idUser">           
                                 <div class="message-data right-div text-right">
                                                                     <!-- {{i.sentDate}}-->
                                     <span class="message-data-time ">{{i.sentDate}}</span>
                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                                </div>                                      
-                                <div class="message my-message float-right "> {{i.message}} </div>
+                                </div>   
+                                                                  
+                                <div class="message my-message float-right " *ngIf="i.message!='a video call message'"> {{i.message}} </div>
+                                <div class=" float-right " *ngIf="i.message=='a video call message'"> <button type="button" class="btn btn-secondary btn-sm" (click)="goToVideoChat()">Join video Call</button></div>
                            
                             </li>       
+
+
+
+
+
+
+
+
+
+
                             <li class="clearfix" *ngIf="i.sender.idUser==current.idUser" >
                                 <div id="forBut" *ngIf=" updateCom!=i.id">
                                 <div class="message-data">          
                                     <span class="message-data-time">{{i.sentDate}}</span>
                                 </div>                          
-                                <div class="message my-message" >{{i.message}}
+                                <div class="message my-message" *ngIf="i.message!='a video call message'" >{{i.message}}
                                   
                                     <div class="buttons">
                                         
@@ -63,6 +79,9 @@
                                         
                                     </div>    
                                 </div>
+                                <div class=" float-right " *ngIf="i.message=='a video call message'"> <button class="btn btn-secondary btn-sm" (click)="goToVideoChat()">Join video Call</button></div>
+
+
                                 <div class="seen" *ngIf="i.seen==true"><h6 class="hSeen">Seen</h6></div>
                             </div>
                             <div class="updateMessage" *ngIf="elToTextArea==true && updateCom==i.id">
@@ -92,7 +111,8 @@
 
 
                     <div class="chat-message clearfix" >
-                        <table style="margin-left: 30px;">
+                        <table style="margin-left: 00px;">
+                            
                             <tr>
                                 
                         <td>
@@ -106,11 +126,14 @@
                         </td>
                         <td>
                             
-                                <button class="btn bg-gradient-success" style="margin-left: 20px;
+                                <button class="btn bg-gradient-success" style="
                                 margin-top: 12px;" (click)="sendMessage();activeSeen()">Send</button>
                             
                             
                         </td>  
+                        <td>
+                            <button class="btn bg-gradient-success" style=" margin-top: 12px; margin-right: 10px;" (click)="goToVideoChat()">Call</button>
+                        </td>
                         </tr>
                         </table>
 

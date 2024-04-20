@@ -5,6 +5,7 @@ import { CommunityServiceService } from '../Services/community-service.service';
 import { Route, Router } from '@angular/router';
 import { Community } from '../Model/Community';
 import { UserModule } from '../Model/user/user.module';
+import { AuthService } from '../Service/auth.service';
 
 @Component({
   selector: 'app-community',
@@ -13,6 +14,10 @@ import { UserModule } from '../Model/user/user.module';
 })
 export class CommunityComponent {
 
+  
+  videoChat:boolean;
+  
+
   communityId:number;
   divTest:number;
   community:Community;
@@ -20,11 +25,11 @@ export class CommunityComponent {
   creatorName:string;
   topThree:UserModule[]
   amCreator:boolean;
-  test:number;
+  
   members:UserModule[];
 
 
-  constructor(private service:CommunityServiceService,private router:Router)
+  constructor(private service:CommunityServiceService,private router:Router,private userService:AuthService)
   {
     this.communityId=1;
     this.divTest=0;
@@ -33,8 +38,10 @@ export class CommunityComponent {
     this.currentUser.communities=new Community();
 
     //Initialised false get it from current if creator or not
-    this.amCreator=false;
-    this.test=0;
+    this.amCreator=true;
+    this.videoChat=false;
+    
+    
 
 
     // User Connected get Community
@@ -63,6 +70,7 @@ ngOnInit(){
   this.getThisCommunity();
 
   this.fetchTopThree();
+  this.getCurrentUser();
 
 
 }
@@ -78,7 +86,9 @@ getThisCommunity(){
 }
 
 getCurrentUser(){
-  //Call service for current user !!
+ this.userService.getUserInfoFromToken().subscribe(res=>{
+  console.log(res.firstName+" cureent aaaaaaaaaaaaa");
+ })
 }
 
 fetchTopThree(){
@@ -102,6 +112,19 @@ increment(value:number){
 goToOne(userId: number) {
   this.divTest=userId;
   }
+
+
+  chatUrl:string='';
+  goToVideoChat(url:string){
+    this.chatUrl=url;
+    console.log(this.chatUrl+" aaaaaaaaaaaa community")
+    this.videoChat=true;
+    
+    
+  }
+
+
+  
 
 
 

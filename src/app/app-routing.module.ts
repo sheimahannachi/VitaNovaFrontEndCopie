@@ -36,18 +36,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PeriodTrackerComponent } from './period-tracker/period-tracker.component';
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
   {path:"vitaNova",redirectTo:"/vitaNova/home",pathMatch:'full'},
 
+  {path:"videoChat?roomID=**",component:VideoChatComponent},
   { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
       //firas
+
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
         ]},
+        {path:"vitaNova/community/videoChat?roomID=**",component:VideoChatComponent},
       {path:"addCommunity",component:AddCommunityComponent},
       {path:"findCommunity",component:FindCommunityComponent},
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
@@ -70,6 +74,7 @@ const routes: Routes = [
 
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+  {path: "profile", component: UserProfileComponent},
 
 
 //Admin
@@ -91,8 +96,7 @@ const routes: Routes = [
       {path:"communities",component:AllCommunitiesBackComponent},
       {path:"chalenges", component:AllChallengesBackComponent},
       //amine
-      {path: "profile", component: UserProfileComponent
-      },
+      
       {
         path: "users",
         component: UsersBackComponent
