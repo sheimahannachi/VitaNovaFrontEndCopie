@@ -1,15 +1,13 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './front-office/navbar/navbar.component';
 import { FooterComponent } from './front-office/footer/footer.component';
 import { AllTemplateFrontComponent } from './front-office/all-template-front/all-template-front.component';
-
 import { UserComponent } from './front-office/user/user.component';
 import { RegisterComponent } from './front-office/user/register/register.component';
-
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-
 import { LoginComponent } from './front-office/user/login/login.component';
 import { NavBarBackComponent } from './back-office/nav-bar-back/nav-bar-back.component';
 import { AllTemplateBackComponent } from './back-office/all-template-back/all-template-back.component';
@@ -18,21 +16,28 @@ import { SideBarBackComponent } from './back-office/side-bar-back/side-bar-back.
 import { CommunicationComponent } from './communication/communication.component';
 import { CommunityComponent } from './community/community.component';
 import { ChallengeComponent } from './challenge/challenge.component';
-
 import { AddexerciseComponent } from './addExercise/addexercise.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 
-//yoser
+//yoser+Ons
+import { FoodCardComponent } from './food-card/food-card.component';
+import { FoodDetailsComponent } from './food-details/food-details.component';
+import { FoodDetailsDialogComponent } from './food-details-dialog/food-details-dialog.component';
+import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import { ExerciseListFrontComponent } from './exercise-list-front/exercise-list-front.component';
 import { ExerciseModalComponent } from './exercise-modal/exercise-modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { MatIconModule } from '@angular/material/icon';
 import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
+import { GetPlanUserComponent } from './get-plan-user/get-plan-user.component';
+import {MatCardModule} from "@angular/material/card";
+import { TimerPageComponent } from './timer-page/timer-page.component';
+import { FoodComponent } from './food/food.component';
+import { FoodListComponent } from './food-list/food-list.component';
 //firas
 import { HomeComponent } from './home/home.component';
 import { AddChallengeComponent } from './add-challenge/add-challenge.component';
@@ -44,14 +49,10 @@ import { UpdateCommunityComponent } from './update-community/update-community.co
 //Amine
 import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-
-
-
+//Aziz 
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
-
-
 import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
 import { CartComponent } from './cart/cart.component';
 
@@ -64,7 +65,13 @@ import { ShowPeriodComponent } from './show-period/show-period.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { OneToOneComComponent } from './one-to-one-com/one-to-one-com.component';
-import { VideoChatComponent } from './video-chat/video-chat.component';
+import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
+import { DialogVerificationComponent } from './front-office/user/dialog-verification/dialog-verification.component';
+import { DialogSuccessComponent } from './front-office/user/dialog-success/dialog-success.component';
+import { DialogPersonalGoalsComponent } from './front-office/user/dialog-personal-goals/dialog-personal-goals.component';
+import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +82,7 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     NavbarComponent,
     FooterComponent,
     AllTemplateFrontComponent,
+
     UserComponent,
     RegisterComponent,
     LoginComponent,
@@ -90,6 +98,13 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
+    FoodComponent,
+    FoodListComponent,
+    FoodCardComponent,
+    FoodDetailsComponent,
+    FoodDetailsDialogComponent,
+    GetPlanUserComponent,
+    TimerPageComponent,
 //firas
     HomeComponent,
     AddChallengeComponent,
@@ -116,7 +131,13 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     CalendarComponent,
     PeriodInsightsComponent,
     OneToOneComComponent,
-    VideoChatComponent,
+    PeriodRecipesComponent,
+  
+    DialogVerificationComponent,
+    DialogSuccessComponent,
+    DialogPersonalGoalsComponent,
+    DialogPlanComponent,
+    CheckoutComponent,
 
 
 
@@ -124,18 +145,16 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
 
     ],
     entryComponents:[AddChallengeComponent],
-
-
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule,
     FormsModule,
 
 //yoser
     CommonModule,
+    RouterModule,
     MatDialogModule,
     MatIconModule,
 //firas
@@ -149,6 +168,10 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    //AmineV2
+    NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
+    ReactiveFormsModule, // Add this line
 
 
   ],

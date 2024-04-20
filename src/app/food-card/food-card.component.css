@@ -1,0 +1,82 @@
+/* Navbar styling */
+.navbar {
+  background-color: black;
+  color: white;
+  padding: 35px;
+}
+
+/* Content styling */
+.content {
+  display: flex;
+  margin-top: 20px;
+}
+
+/* Sidebar styling */
+.sidebar {
+  flex: 0 0 25%;
+  padding: 20px;
+}
+
+.search-filter {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.search-filter input[type="text"] {
+  width: 100%;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Espacement égal entre les cartes */
+  gap: 20px; /* Ajouter un espacement entre les cartes */
+}
+
+
+.card {
+  width: calc(25% - 20px); /* Définir une largeur fixe pour chaque carte */
+  height: 250px; /* Définir une hauteur fixe pour chaque carte */
+  margin: 0 auto 20px; /* Centrer la carte horizontalement et ajouter de la marge en bas */
+}
+
+.card-body {
+  display: flex; /* Utiliser flexbox pour aligner les éléments verticalement */
+  flex-direction: column; /* Aligner les éléments verticalement */
+  align-items: center; /* Centrer les éléments verticalement */
+  justify-content: center; /* Centrer les éléments horizontalement */
+  padding: 10px; /* Ajouter un peu de rembourrage */
+}
+
+
+
+
+.card-title {
+  font-size: 1rem; /* Réduire la taille du titre */
+}
+
+.card-image {
+  width: 100px; /* Ajustez la taille de l'image */
+  height: 100px; /* Ajustez la taille de l'image */
+  border-radius: 50%; /* Rend l'image circulaire */
+  overflow: hidden; /* Cache tout ce qui dépasse du cercle */
+}
+
+.card-image img {
+  width: 100%; /* Ajustez la taille de l'image pour remplir le cercle */
+  height: 100%; /* Ajustez la taille de l'image pour remplir le cercle */
+  object-fit: cover; /* Garantit que l'image couvre entièrement le conteneur circulaire */
+}
+
+.btn-orange {
+  background-color: orange !important; /* !important pour s'assurer que la couleur est appliquée même si elle est écrasée par d'autres styles */
+  border-color: orange !important;
+}
+
+.btn-orange:hover {
+  background-color: darkorange !important; /* Changer la couleur au survol */
+  border-color: darkorange !important;
+}
+
+

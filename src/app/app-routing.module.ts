@@ -4,12 +4,20 @@ import { AllTemplateFrontComponent } from './front-office/all-template-front/all
 import { RegisterComponent } from './front-office/user/register/register.component';
 import { LoginComponent } from './front-office/user/login/login.component';
 import { AllTemplateBackComponent } from './back-office/all-template-back/all-template-back.component';
+import {FoodComponent} from "./food/food.component";
+import {FoodListComponent} from "./food-list/food-list.component";
+
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
 //yoser
+
+import {FoodCardComponent} from "./food-card/food-card.component";
+import {FoodDetailsComponent} from "./food-details/food-details.component";
 import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-front.component";
 import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component";
 import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
+import {GetPlanUserComponent} from "./get-plan-user/get-plan-user.component";
+import {TimerPageComponent} from "./timer-page/timer-page.component";
 
 //firas
 import { CommunityComponent } from './community/community.component';
@@ -36,6 +44,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PeriodTrackerComponent } from './period-tracker/period-tracker.component';
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
+import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
 import { VideoChatComponent } from './video-chat/video-chat.component';
 const routes: Routes = [
 
@@ -46,6 +55,7 @@ const routes: Routes = [
   { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
+      {path: "profile", component: UserProfileComponent},
       //firas
 
       {path:"community", component:CommunityComponent,children:[
@@ -57,8 +67,11 @@ const routes: Routes = [
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
       //yoser
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
-
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+      {path:"workoutplan",component:GetPlanUserComponent},
+      { path: 'timer/:id', component: TimerPageComponent },
+      {path:"foodFront",component:FoodCardComponent},
+      { path: 'foodDetails/:id', component: FoodDetailsComponent },
 
       //aziz
       {path:"showProductUser",
@@ -69,7 +82,9 @@ const routes: Routes = [
       {path:"ShowPeriodInformation",
         component:ShowPeriodComponent},
       { path: 'PeriodInformation/:idPeriod', component: PeriodTrackerComponent },
-      {path:'PeriodInsights',component:PeriodInsightsComponent},]},
+      {path:'PeriodInsights',component:PeriodInsightsComponent},
+      {path:'PeriodRecipes', component:PeriodRecipesComponent}
+    ]},
 //amine
 
   { path: 'signup', component: RegisterComponent } ,
@@ -80,18 +95,29 @@ const routes: Routes = [
 //Admin
   { path:'admin',component:AllTemplateBackComponent, children: [
       //yoser
-      {path: "listex",
-        component: ExerciseListComponent,
-      },
-      {path: "exercise",
-        component: AddexerciseComponent,
+      {
+        path:"addFood",
+        component:FoodComponent,
       },
       {
-        path: "ListExercice",
-        component: ExerciseListComponent,
-
-
+        path: 'addFood/:id',
+        component: FoodComponent // or whichever component you want to navigate to
       },
+  
+      {
+        path:"getFoods",
+        component:FoodListComponent,
+      },
+      {
+        path: "listex",
+        component: ExerciseListComponent,
+  
+      },
+      {
+        path: "exercise",
+        component: AddexerciseComponent,
+      },
+  
       //firas
       {path:"communities",component:AllCommunitiesBackComponent},
       {path:"chalenges", component:AllChallengesBackComponent},
@@ -109,6 +135,7 @@ const routes: Routes = [
       { path: 'updateProduct/:id',
         component: UpdateProductComponent },]},
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),BrowserModule, FormsModule],

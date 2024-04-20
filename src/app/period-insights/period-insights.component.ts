@@ -3,13 +3,14 @@ import { PeriodTracker } from '../Models/PeriodTracker';
 import { PeriodTrackerServiceService } from '../Service/period-tracker-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../Models/Exercise';
-import { Food } from '../Models/Food';
+import { Food } from '../Models/Foods';
 
 
 @Component({
   selector: 'app-period-insights',
   templateUrl: './period-insights.component.html',
-  styleUrls: ['./period-insights.component.css']
+  styleUrls: ['./period-insights.component.css'],
+
 })
 export class PeriodInsightsComponent {
   periodTrackers: PeriodTracker[] = [];
@@ -21,12 +22,13 @@ export class PeriodInsightsComponent {
   chatHistory: string[] = [];
   exercises: Exercise[]= [];
   foods: Food[]= []; // Define an array to store fetched foods
+  
 
 
 
 
 
-  constructor(private route: ActivatedRoute, private periodTrackerService: PeriodTrackerServiceService) { }
+  constructor(private route: ActivatedRoute, private periodTrackerService: PeriodTrackerServiceService,private router: Router) { }
 
     
 
@@ -148,6 +150,11 @@ fetchCyclePhase(idPeriod: number) {
     this.periodTrackerService.getPeriodFood()
       .subscribe(foods => this.foods = foods);
   }
+  getRecipes(): void {
+      // Navigate to PeriodInsightsComponent with the period ID as a query parameter
+      this.router.navigate(['vitaNova/PeriodRecipes']);
+    }
+  
 
 
 

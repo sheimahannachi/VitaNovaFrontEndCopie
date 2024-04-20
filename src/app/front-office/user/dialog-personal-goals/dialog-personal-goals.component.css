@@ -1,0 +1,281 @@
+/* Style for form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto; /* Center align horizontally */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Center align form elements */
+  .form-group {
+    text-align: center;
+  }
+  
+  /* Style for form labels */
+  .col-form-label {
+    text-align: left; /* Align labels to the left */
+  }
+  
+  /* Style for form inputs */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style for button */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .heading {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+  
+  .info {
+    margin-bottom: 20px;
+    padding: 5px;
+
+  }
+  
+  .bmi {
+    font-weight: bold;
+    color: #007bff;
+    padding: 5px;
+
+  }
+  
+  .gender-info {
+    margin-bottom: 20px;
+  }
+  
+  .gender {
+    text-transform: capitalize;
+  }
+  
+  .height {
+    font-weight: bold;
+  }
+  
+  .ideal-weight {
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .info {
+   
+    margin-bottom: 20px;
+  }
+  
+  .bmi-info,
+  .interpretation {
+    display: inline-block;
+    margin: 0;
+    
+  }
+  
+  .bmi {
+    font-weight: bold;
+    color: #007bff;
+  }
+
+
+
+
+
+  .radio {
+    background: #454857;
+    padding: 4px;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 3px rgba(35, 33, 45, 0.3),
+      0 0 0 3px rgba(185, 185, 185, 0.3);
+    position: relative;
+    width: 40%;
+  }
+  
+  .radio input {
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 4px 8px;
+    background: #454857;
+    color: #bdbdbdbd;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    transition: all 100ms linear;
+  }
+  
+  .radio input:checked  {
+    background-image: linear-gradient(180deg, #95d891, #74bbad);
+    color: #fff;
+    box-shadow: 0 1px 1px #0000002e;
+    text-shadow: 0 1px 0px #79485f7a;
+    -webkit-animation: rubberBand 1s both;
+    animation: rubberBand 1s both;
+  }
+  .radio input:hover  {
+    background-image: linear-gradient(180deg, #95d891, #74bbad);
+    color: #fff;
+    box-shadow: 0 1px 1px #0000002e;
+    text-shadow: 0 1px 0px #79485f7a;
+    -webkit-animation: rubberBand 1s both;
+    animation: rubberBand 1s both;
+  }
+  
+  .radio input:before {
+    content: attr(label);
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+  
+  @-webkit-keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1);
+    }
+  
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1);
+    }
+  
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1);
+    }
+  
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  @keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1);
+    }
+  
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1);
+    }
+  
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1);
+    }
+  
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+
+
+  .info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .tooltip-container {
+    display: inline-block;
+    position: relative;
+    padding: 5px;
+
+  }
+  
+  .tooltip {
+    color: #00a36d;
+    position: absolute;
+    top: 100%; /* Move the tooltip below the text */
+    left: 0; /* Position it at the start of the container */
+    width: 350%; /* Make it span the entire width of the container */
+    padding: 0.3em 0; /* Adjust padding */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    border-radius: 50px;
+    padding: 5px;
+
+  }
+  
+  .tooltip::before {
+    background-color: #00a36d;
+    position: absolute;
+    content: "";
+    height: 0.6em;
+    width: 0.6em;
+    bottom: -0.2em;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+  }
+  
+  .tooltip-container:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+  }
+  
+  

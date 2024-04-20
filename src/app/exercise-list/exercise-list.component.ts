@@ -20,6 +20,11 @@ export class ExerciseListComponent implements OnInit {
   searching: boolean = false;
   searchTerm: string = '';
   filteredExercises: Exercise[] = [];
+  totalElements = 0;
+  totalPages = 0;
+  currentPage = 0;
+  selectedExerciseLink: string = ''; // Define selectedExerciseLink property
+
 
   constructor(private formBuilder: FormBuilder, private workoutService: WorkoutService, private sanitizer: DomSanitizer, private route: Router) {
     this.exerciseForm = this.formBuilder.group({
@@ -35,7 +40,7 @@ export class ExerciseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getExercises();
+    this.getExercises(0,10);
   }
   toggleSearch(): void {
     this.searching = !this.searching;
@@ -72,16 +77,20 @@ export class ExerciseListComponent implements OnInit {
     this.searchTerm = ''; // Clear search term
     this.filteredExercises = [...this.exercises]; // Reset filtered array
   }
-  getExercises(): void {
-    this.workoutService.getExercises()
-      .subscribe(data => {
-        this.exercises = data;
+  getExercises(page: number, size: number): void {
+    this.workoutService.getExercises(page, size)
+      .subscribe((pageData: any) => { // Added missing parentheses
+        this.exercises = pageData.content; // Extracting content from the paginated response
+        this.totalElements = pageData.totalElements;
+        this.totalPages = pageData.totalPages;
+        this.currentPage = pageData.number;
         // Sanitize image URLs
         this.exercises.forEach(exercise => {
           exercise.picture = this.baseUrl + exercise.picture;
         });
       });
   }
+
 
   deleteExercise(exercise: Exercise): void {
     const confirmationMessage = exercise.archived
@@ -154,7 +163,21 @@ export class ExerciseListComponent implements OnInit {
   editExercise(exercise: Exercise): void {
     this.router.navigate(['/admin/exercise'], { state:{exercise}}); // Inclure toutes les données de l'exercice dans le state
   }
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      const nextPage = this.currentPage + 1;
+      const size = 10; // Page size
+      this.getExercises(nextPage, size);
+    }
+  }
 
+  previousPage() {
+    if (this.currentPage > 0) {
+      const previousPage = this.currentPage - 1;
+      const size =10; // Page size
+      this.getExercises(previousPage, size);
+    }
+  }
 
 
 }

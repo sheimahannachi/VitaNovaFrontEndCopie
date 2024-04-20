@@ -1,8 +1,9 @@
 /* period-tracker.component.css */
 body {
   background:  url('../../assets/images/periodd.jpeg');
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
+  margin-top: 0%;
 }
 
 

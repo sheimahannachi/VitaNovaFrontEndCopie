@@ -5,7 +5,7 @@ import { PeriodTracker } from '../Models/PeriodTracker';
 import { map } from 'rxjs/operators';
 import { SymptomRating } from '../Models/PeriodTracker';
 import { Exercise } from '../Models/Exercise'; // Make sure to import the Exercise model
-import { Food } from '../Models/Food';
+import { Food } from '../Models/Foods';
 
 
 

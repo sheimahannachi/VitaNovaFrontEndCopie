@@ -4,8 +4,9 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
 import { CommunityServiceService } from '../Services/community-service.service';
 import { Route, Router } from '@angular/router';
 import { Community } from '../Model/Community';
-import { UserModule } from '../Model/user/user.module';
+
 import { AuthService } from '../Service/auth.service';
+import { UserModule } from '../Models/user.module';
 
 @Component({
   selector: 'app-community',
@@ -38,7 +39,7 @@ export class CommunityComponent {
     this.currentUser.communities=new Community();
 
     //Initialised false get it from current if creator or not
-    this.amCreator=true;
+    this.amCreator=false;
     this.videoChat=false;
     
     
@@ -87,7 +88,8 @@ getThisCommunity(){
 
 getCurrentUser(){
  this.userService.getUserInfoFromToken().subscribe(res=>{
-  console.log(res.firstName+" cureent aaaaaaaaaaaaa");
+  
+  console.log(res.firstName+" cureent aaaaaaaaaaaaa ");
  })
 }
 

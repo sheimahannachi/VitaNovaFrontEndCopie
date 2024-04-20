@@ -37,7 +37,8 @@
               "src/assets/css/templatemo-training-studio.css",
               "src/assets/back/css/nucleo-icons.css",
               "src/assets/back/css/nucleo-svg.css",
-              "src/assets/back/css/material-dashboard.css"
+              "src/assets/back/css/material-dashboard.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
 
 
 
@@ -117,6 +118,7 @@
   },
   "cli": {
     "analytics": false
+
 
   }
 }
