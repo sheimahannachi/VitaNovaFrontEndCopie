@@ -85,6 +85,7 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
 
 import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
+import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 
 
 
@@ -165,6 +166,7 @@ import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component'
 
     ProductDetailsDialogComponent,
       FoodlistaddedComponent,
+      PeriodRecommendationsComponent,
 
 
     ],

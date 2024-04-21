@@ -51,6 +51,7 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
 
 import { CartComponent } from './cart/cart.component';
+import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -91,7 +92,8 @@ const routes: Routes = [
         component:ShowPeriodComponent},
       { path: 'PeriodInformation/:idPeriod', component: PeriodTrackerComponent },
       {path:'PeriodInsights',component:PeriodInsightsComponent},
-      {path:'PeriodRecipes', component:PeriodRecipesComponent}
+      {path:'PeriodRecipes', component:PeriodRecipesComponent},
+      {path:'PeriodRecommendations', component:PeriodRecommendationsComponent},
     ]},
 //amine
 

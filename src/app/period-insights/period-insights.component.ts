@@ -22,7 +22,7 @@ export class PeriodInsightsComponent {
   chatHistory: string[] = [];
   exercises: Exercise[]= [];
   foods: Food[]= []; // Define an array to store fetched foods
-  
+  isChatOpen: boolean = false;
 
 
 
@@ -48,8 +48,7 @@ export class PeriodInsightsComponent {
         // Fetch next period date
         this.fetchNextPeriodDate(this.idPeriod);
         this.addChatbotClickListener();
-        this.getPeriodExercises();
-        this.fetchPeriodFoods();
+
       }
     });
   }
@@ -142,18 +141,7 @@ fetchCyclePhase(idPeriod: number) {
     );
   }
 
-  getPeriodExercises(): void {
-    this.periodTrackerService.getPeriodExercises()
-      .subscribe(exercises => this.exercises = exercises);
-  }
-  fetchPeriodFoods(): void {
-    this.periodTrackerService.getPeriodFood()
-      .subscribe(foods => this.foods = foods);
-  }
-  getRecipes(): void {
-      // Navigate to PeriodInsightsComponent with the period ID as a query parameter
-      this.router.navigate(['vitaNova/PeriodRecipes']);
-    }
+ 
   
 
 
