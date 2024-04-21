@@ -2,7 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Community } from '../Model/Community';
-import { UserModule } from '../Model/user/user.module';
+import { UserModule } from '../Models/user.module';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class CommunityServiceService {
   addMemberToCommunityURL='/addMemberToComunity';
   fetchTopThreeURL="/getTopThreeByCommunity";
   getCommunityMembersURL="/communityMembers";
+  getCommunitybyUser="/communityByUser";
 
 
   constructor(private http: HttpClient) { }
@@ -28,6 +30,10 @@ export class CommunityServiceService {
   getComunity(id:Number):Observable<Community>{
     return this.http.get<Community>(this.URL+this.findByIdUrl+"/"+id);
   }
+  getCommunityByUser(userId: number): Observable<Community> {
+    let params = new HttpParams().set('userId', userId);
+    return this.http.get<Community>(this.URL + this.getCommunityByUser, { params,withCredentials:true });
+}
 
   getAllComunity(page:number,size:number):Observable<any>{
     let params=new HttpParams().set('page',page).set('size',size);

@@ -72,6 +72,7 @@ import { DialogPersonalGoalsComponent } from './front-office/user/dialog-persona
 import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
+    VideoChatComponent,
 //Amine
     UsersBackComponent,
     UserProfileComponent,

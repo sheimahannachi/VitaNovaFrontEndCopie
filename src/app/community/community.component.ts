@@ -33,7 +33,7 @@ export class CommunityComponent {
   constructor(private service:CommunityServiceService,private router:Router,private userService:AuthService)
   {
     this.communityId=1;
-    this.divTest=0;
+    this.divTest=null;
     this.topThree=[];
     this.currentUser=new UserModule();
     this.currentUser.communities=new Community();
@@ -63,22 +63,25 @@ export class CommunityComponent {
 
 
 ngOnInit(){
-  //a revoir apres session...
+  
 
   this.currentUser.communities.id=this.communityId;
 
 
+  this.getCurrentUser();
   this.getThisCommunity();
 
   this.fetchTopThree();
-  this.getCurrentUser();
+  
 
 
 }
 
 
 getThisCommunity(){
-  this.service.getComunity(this.currentUser.communities.id).subscribe(response=>{
+ /* this.service.getComunity(this.communityId)*/
+ this.service.getCommunityByUser(this.currentUser.idUser).subscribe(response=>{
+  
     this.community=response;
 
     this.creatorName=this.community.creator.firstName+" "+this.community.creator.lastName;
@@ -88,8 +91,10 @@ getThisCommunity(){
 
 getCurrentUser(){
  this.userService.getUserInfoFromToken().subscribe(res=>{
+  this.currentUser=res;
   
-  console.log(res.firstName+" cureent aaaaaaaaaaaaa ");
+  console.log(this.currentUser.idUser+" cureent aaaaaaaaaaaaa ");
+  this.divTest=0;
  })
 }
 
@@ -110,16 +115,18 @@ increment(value:number){
   return value+1;
 }
 
+userToPass:UserModule=new UserModule();
+goToOne(user: UserModule) {
+  this.divTest=user.idUser;
+  this.userToPass=user;
 
-goToOne(userId: number) {
-  this.divTest=userId;
   }
 
 
   chatUrl:string='';
   goToVideoChat(url:string){
     this.chatUrl=url;
-    console.log(this.chatUrl+" aaaaaaaaaaaa community")
+    
     this.videoChat=true;
     
     

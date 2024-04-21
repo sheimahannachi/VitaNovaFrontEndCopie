@@ -1,5 +1,6 @@
 <div *ngIf="videoChat">
-    <app-video-chat [cummunityId]="communityId" [url]="chatUrl"></app-video-chat>
+    <app-video-chat [cummunityId]="communityId" [url]="chatUrl" [currentUserInfo]="{userName: currentUser.username, id: currentUser.idUser}"></app-video-chat>
+    
     
 </div>
 <div *ngIf="!videoChat">
@@ -64,11 +65,11 @@
         <br><br><br>
 
         <div class="communication">
-        <div *ngIf="divTest==0">
-   <app-communication [idFromParent]="communityId" [communityMembers]="members" (messageEvent)="goToOne($event)"(event)="goToVideoChat($event)"></app-communication>
+        <div *ngIf="divTest==0 ">
+   <app-communication [currentUser]="currentUser" [idFromParent]="communityId" [communityMembers]="members" (messageEvent)="goToOne($event)"(event)="goToVideoChat($event)"></app-communication>
         </div>
-        <div *ngIf="divTest!=0">
-            <app-one-to-one-com [userId]="divTest"></app-one-to-one-com>
+        <div *ngIf="divTest!=0 && divTest!=null">
+            <app-one-to-one-com [current]="currentUser" [otherUser]="userToPass"></app-one-to-one-com>
         </div>
     </div>
 

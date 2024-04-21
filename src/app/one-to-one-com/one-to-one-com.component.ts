@@ -1,8 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommunicationServiceService } from '../Services/communication-service.service';
-import { ERole, Gender, UserModule } from '../Model/user/user.module';
+
 import { Communication } from '../Model/Communication';
 import { Subscription } from 'rxjs';
+import { ERole, Gender, UserModule } from '../Models/user.module';
+import { PersonalGoalsModule } from '../Models/personal-goals.module';
 
 @Component({
   selector: 'app-one-to-one-com',
@@ -14,11 +16,14 @@ export class OneToOneComComponent {
 
 
   @ViewChild('messagesList') htmlMessages:ElementRef; 
-  @Input() userId:number;
+ 
+  @Input() current:UserModule;
+  @Input() otherUser:UserModule;
   @Output() messageEvent = new EventEmitter<number>();
   
-  current:UserModule;
-  other:UserModule;
+  
+  
+  
   page:number;
   messages:Communication[];
   subscription:Subscription;
@@ -33,12 +38,15 @@ export class OneToOneComComponent {
 
   ngOnInit(){
 
-    console.log(this.userId);
-    this.getCurrentUser();
-    this.other=this.user2;
+    console.log(this.otherUser.idUser);
     
-    console.log("aaaaaaaaaaaaaaaaaaaaaa"+this.userId);
-    this.service.myChannel="U"+(this.current.idUser*this.userId/*+(this.current.dateOfBirth.getDay()*this.other.dateOfBirth.getDay())).toString()*/);
+    
+    
+    if(this.current.idUser<this.otherUser.idUser){
+    this.service.myChannel="U"+this.current.idUser+"+U"+this.otherUser.idUser;
+    }else
+    this.service.myChannel="U"+this.otherUser.idUser+"+U"+this.current.idUser;
+    console.log("aaaaaaaaaaaaaaaaaaaaaa"+this.service.myChannel+" " +this.current.idUser+" "+this.otherUser.idUser);
     this.connect();
  
    console.log("subscribed  to "+this.service.myChannel);
@@ -47,8 +55,8 @@ export class OneToOneComComponent {
   this.subscription=this.service.fonctionAppelee.subscribe((comunication:Communication)=>{
     
     if(comunication.sender!=null && comunication.reciever!=null){
-      if((comunication.sender.idUser==this.current.idUser&&comunication.reciever.idUser==this.other.idUser)
-        ||(comunication.reciever.idUser==this.current.idUser&&comunication.sender.idUser==this.other.idUser)){
+      if((comunication.sender.idUser==this.current.idUser&&comunication.reciever.idUser==this.otherUser.idUser)
+        ||(comunication.reciever.idUser==this.current.idUser&&comunication.sender.idUser==this.otherUser.idUser)){
       console.log("got heeereeee aaaaaaaaaa")
     this.handleMessage(comunication);
         }
@@ -57,11 +65,7 @@ export class OneToOneComComponent {
   })
   }
 
-  getCurrentUser(){
-    //user method
-    this.current=this.user;
-    
-  }
+  
 
   connect(){
     this.service._connect();
@@ -80,7 +84,7 @@ export class OneToOneComComponent {
   //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   getCommunicationsByUsers(){
-    this.service.findBysenderAndReciever(this.current.idUser,this.userId,this.page).subscribe(response=>{
+    this.service.findBysenderAndReciever(this.current.idUser,this.otherUser.idUser,this.page).subscribe(response=>{
       if(this.messages.length==0){
         this.messages=response.content.reverse();
         setTimeout(() => {
@@ -120,7 +124,7 @@ sendMessage(){
   var  com:Communication=new Communication();
   com.sender=this.current;
 
-  com.reciever=this.other;
+  com.reciever=this.otherUser;
   
   
   com.message=this.message;
@@ -147,7 +151,7 @@ sendMessage(){
   //User///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 seenMessages(){
       
-  this.service.setSeenCommunicationOneToOne(this.userId,this.current.idUser).subscribe(res=>{
+  this.service.setSeenCommunicationOneToOne(this.otherUser.idUser,this.current.idUser).subscribe(res=>{
     console.log("Server response to Seen:: "+res)
   });
 
@@ -270,8 +274,15 @@ goToCommunityChat() {
       gender: null,
       archive: false,
       picture: '',
-      role:ERole.ROLE_USER,
-      communities:null
+      role: ERole.ROLE_USER,
+      communities: null,
+      verified: false,
+      score: 0,
+      phone: '',
+      facebook: '',
+      personalGoals: new PersonalGoalsModule,
+      foods: [],
+      plan:null
     };
     user2:UserModule = {
       idUser: 2,
@@ -286,8 +297,15 @@ goToCommunityChat() {
       gender: Gender.MALE,
       archive: false,
       picture: '',
-      role:ERole.ROLE_USER,
-      communities:null
+      role: ERole.ROLE_USER,
+      communities: null,
+      verified: false,
+      score: 0,
+      phone: '',
+      facebook: '',
+      personalGoals: new PersonalGoalsModule,
+      foods: [],
+      plan: null
     };
 
 }

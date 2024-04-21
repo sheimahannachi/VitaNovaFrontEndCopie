@@ -45,12 +45,16 @@ export class VideoChatComponent {
 
   @Input() cummunityId:number;
   @Input() url:string
+  @Input() currentUserInfo:{userName:string, id:number}
 
   chatUrl:string;
   ngAfterViewInit() {
+    
     const roomID = this.cummunityId.toString() ;//getUrlParams().get('roomID') || randomID(5);
-    const userID = randomID(5); //getUser from session
-    const userName = randomID(5);
+    const userID = this.currentUserInfo.id.toString() ;//randomID(5); getUser from session
+    const userName = this.currentUserInfo.userName//randomID(5);
+    
+
     // generate token
     const appID = 405543930;
     const serverSecret = "da89d4f1f1bcaea6fd808679e2fcf228";
