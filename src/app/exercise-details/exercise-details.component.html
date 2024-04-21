@@ -1,12 +1,16 @@
+
+<body class="exerciseDetails">
 <div *ngIf="exercise" class="exercise-details">
-  <h2>{{ exercise.title}}</h2>
+  <h2>{{ exercise.title }}</h2>
   <div class="exercise-image">
     <img [src]="exercise.picture" alt="Exercise Image">
   </div>
-  <p>Description: {{ exercise.description }}</p>
-  <p>Type: {{ exercise.typeEx }}</p>
-  <p>Body Part: {{ exercise.bodypart }}</p>
-  <p>Intensity: {{ exercise.intensity }}</p>
-  <p>Sets: {{ exercise.sets }}</p>
-  <p>Reps: {{ exercise.reps }}</p>
+  <p data-label="Description"> {{ exercise.description }}</p>
+  <p data-label="Type"> {{ exercise.typeEx }}</p>
+  <p data-label="Body Part"> {{ exercise.bodypart }}</p>
+  <p data-label="Intensity"> {{ exercise.intensity }}</p>
+  <p data-label="Sets"> {{ exercise.sets }}</p>
+  <p data-label="Reps"> {{ exercise.reps }}</p>
 </div>
+</body>
+

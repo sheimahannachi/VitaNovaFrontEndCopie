@@ -1,4 +1,4 @@
-import {Food} from "./food";
+import { Food } from '../Models/Foods';
 import {float} from "@zxing/library/es2015/customTypings";
 
 export class FoodCard {

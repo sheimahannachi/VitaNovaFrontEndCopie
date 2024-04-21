@@ -1,0 +1,116 @@
+<body>
+    <div class="container">
+      <div class="row">
+            <div class="box">
+
+                <div class="card">
+                    <button class="mail">
+                      <svg
+                        class="lucide lucide-mail"
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        height="24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                      </svg>
+                    </button>
+                    <div class="profile-pic"></div>
+                    <div class="bottom">
+                      <div class="content">
+                        <br>
+                        <br>
+                        <br>
+                        <span class="about-me">
+                          You are in your <B>{{cyclePhase}}</B> in your cycle
+                        </span>
+                      </div>
+                      <div class="bottom-bottom">
+                        <div class="social-links-container">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="ovulation-container">
+
+                  <div class="ovulation">
+                    <div class="iconn">
+
+                    </div>
+                    <strong> Next Ovulation Date:
+                    </strong>
+                    <div class="ovulation__body">
+
+                    </div>
+                    <span><h2>{{ nextOvulationDate }}</h2></span>
+                </div>
+
+                <div class="ovulation">
+                  <div class="iconn">
+
+                  </div>
+                  <strong> Next Period Date:
+                  </strong>
+                  <div class="ovulation_body">
+
+                  </div>
+                  <span><h2>{{ nextPeriodDate }}</h2></span>
+              </div>
+
+            </div>
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="chatbot-container"[ngClass]="{'open': isChatOpen}">
+              <div id="chatWindowContainer">
+                <div class="card_chat">
+                  <div class="chat-header">Chat</div>
+                  <div class="chat-window">
+                    <ul class="message-list">
+                      <li *ngFor="let message of chatHistory; let i = index"
+                          [ngClass]="{'message-box user': i % 2 === 0, 'message-box bot': i % 2 !== 0}">
+                        {{ message }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="chat-input">
+                    <input type="text" class="message-input" placeholder="Type your message here" [(ngModel)]="userQuestion">
+                    <button class="send-button" (click)="sendMessage()">Send</button>
+                  </div>
+                </div>
+              </div>
+            
+            <img src="../../assets/images/chat-bot.png" alt="Chatbot" class="chatbot-img" >
+                  
+
+              </div>
+
+            </div>
+
+</div>
+
+
+        
+
+
+
+
+  </body>

@@ -112,8 +112,11 @@ p {
 global styles
 ---------------------------------------------
 */
-
-
+html,
+body {
+  background: white;
+  font-family: 'Poppins', sans-serif;
+}
 ::selection {
   background: #B4D821 ;
   color: black;

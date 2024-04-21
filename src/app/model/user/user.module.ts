@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Community } from '../Community';
 export enum Gender {
   MALE = 'MAN',
   FEMALE = 'WOMAN'
 }
 
 export enum ERole {
-  ROLE_USER = 'ROLE_USER',
+  ROLE_USER = 'USER',
   ROLE_ADMIN = 'ROLE_ADMIN'
 }
 
@@ -30,11 +31,12 @@ export class UserModule {
   password!: string ;
   archive!: boolean ;
   picture!: string ;
+  
   // personalGoals: PersonalGoals = new PersonalGoals(); // Example initial value
   // periodTracker: PeriodTracker = new PeriodTracker(); // Example initial value
   // cart: Cart = new Cart(); // Example initial value
   // foods: Food[] = [];
-//  communities: Community[] = [];
+  communities: Community;
   role!: ERole ; // Example initial value
 
   constructor() {

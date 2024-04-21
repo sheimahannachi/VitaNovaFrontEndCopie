@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Food } from '../models/food';
+import { Food } from '../Models/Foods';
 import { Router } from '@angular/router'; // Import Router
-import { TrackerService } from "../services/tracker.service";
-import { FoodService } from "../services/food.service";
+import { TrackerService } from '../Service/tracker.service';
+import { FoodService } from '../Service/food.service';
 import { Tracker } from "../models/Tracker";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 

@@ -9,22 +9,15 @@
 }
 
 .exercise-image {
-  width: 100px; /* Fix the width */
-  height: 100px; /* Fix the height */
-  border-radius: 50%; /* Ensure circular shape */
-  object-fit: cover; /* Maintain aspect ratio */
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .no-exercises-message {
   margin-top: 20px;
   text-align: center;
-  color: #999;
-}
-
-/* Styles CSS */
-.btn-blue {
-  color: blue;
-  margin-right: 5px; /* Espacement entre les boutons */
 }
 
 .button-container {
@@ -58,50 +51,60 @@
 
 .exercise-row.non-archived {
   background-color: #defdef;
-  color: white;
+  color: black;
 }
 
-/* Adjust table layout and cell width */
 table {
   table-layout: fixed;
   width: 100%;
-  border-collapse: collapse; /* Ensure borders collapse properly */
+  border-collapse: collapse;
 }
 
 th, td {
   padding: 8px;
   border: 1px solid #ddd;
   text-align: left;
-  white-space: nowrap; /* Prevent text wrapping by default */
-  overflow: hidden; /* Hide overflow content */
+ ;
+}
+.descriptionExercise{
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
-  word-wrap: break-word; /* Add ellipsis for overflow content */
-}
-
-/* Allow table title to wrap onto multiple lines */
-th.title {
-  white-space: normal; /* Allow text to wrap */ /* Limit the maximum width */
   word-wrap: break-word;
-  width: 150px/* Enable word wrapping */ /* Allow overflow content to be visible */ /* Remove ellipsis */
+}
+.typeEx{
+  white-space: normal;
+  word-wrap: break-word;
+  width: 150px;
 }
 
-/* Pagination controls */
+.titleExercise {
+  white-space: normal;
+  word-wrap: break-word;
+  width: 150px;
+}
+
 .pagination-controls {
   margin-top: 20px;
-  text-align: center; /* Center align the pagination controls */
+  text-align: center;
 }
 
 .pagination-controls button,
 .pagination-controls span {
-  display: inline-block; /* Ensure buttons and page number are displayed inline */
-  vertical-align: middle; /* Align elements vertically */
-  margin: 0 5px; /* Add some spacing between elements */
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 5px;
+  color:deeppink;
 }
+
 .button-wrapper {
-  display: flex;
-  align-items: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
 .button-wrapper .btn {
   margin-right: 5px;
+  padding: 8px;
+
 }

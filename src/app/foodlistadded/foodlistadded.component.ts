@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodService } from "../services/food.service";
-import {FoodCard} from "../models/FoodCard";
+import { FoodService } from '../Service/food.service';
+import {FoodCard} from "../Models/FoodCard";
 import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
