@@ -21,7 +21,7 @@ import {TimerPageComponent} from "./timer-page/timer-page.component";
 //ons
 import {FoodlistaddedComponent} from "./foodlistadded/foodlistadded.component";
 
- 
+
 
 //firas
 import { CommunityComponent } from './community/community.component';
@@ -63,8 +63,12 @@ const routes: Routes = [
       {path: "profile", component: UserProfileComponent},
       //ons
       {path:"foodFront",component:FoodCardComponent},
+      {
+        path:"list-of-foods",
+        component:FoodlistaddedComponent,
+      },
 
-  { path: 'foodDetails/:id', component: FoodDetailsComponent },
+      { path: 'foodDetails/:id', component: FoodDetailsComponent },
       //firas
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
@@ -83,8 +87,8 @@ const routes: Routes = [
       //aziz
       {path:"showProductUser",
         component: ShowProductUserComponent},
-        {path:"Cart",
-               component: CartComponent},
+      {path:"Cart",
+        component: CartComponent},
       //sheima
       {path:"PeriodInformation",
         component:PeriodTrackerComponent},
@@ -94,6 +98,7 @@ const routes: Routes = [
       {path:'PeriodInsights',component:PeriodInsightsComponent},
       {path:'PeriodRecipes', component:PeriodRecipesComponent},
       {path:'PeriodRecommendations', component:PeriodRecommendationsComponent},
+
     ]},
 //amine
 
@@ -103,35 +108,32 @@ const routes: Routes = [
 
 //Admin
   { path:'admin',component:AllTemplateBackComponent, children: [
-    //ons
-    {
-      path:"addFood",
-      component:FoodComponent,
-    },
-    {
-      path: 'addFood/:id',
-      component: FoodComponent // or whichever component you want to navigate to
-    },
+      //ons
+      {
+        path:"addFood",
+        component:FoodComponent,
+      },
+      {
+        path: 'addFood/:id',
+        component: FoodComponent // or whichever component you want to navigate to
+      },
 
-    {
-      path:"getFoods",
-      component:FoodListComponent,
-    },
-    {
-      path: "listex",
-      component: ExerciseListComponent,
+      {
+        path:"getFoods",
+        component:FoodListComponent,
+      },
+      {
+        path: "listex",
+        component: ExerciseListComponent,
 
-    },
-    {
-      path: "exercise",
-      component: AddexerciseComponent,
-    },
-  {path: "exerciseworkout",component:ExerciseListFrontComponent},
-  {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
-    {
-        path:"list-of-foods",
-        component:FoodlistaddedComponent,
-    },
+      },
+      {
+        path: "exercise",
+        component: AddexerciseComponent,
+      },
+      {path: "exerciseworkout",component:ExerciseListFrontComponent},
+      {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+
       //yoser
       {
         path:"addFood",
@@ -141,7 +143,7 @@ const routes: Routes = [
         path: 'addFood/:id',
         component: FoodComponent // or whichever component you want to navigate to
       },
-  
+
       {
         path:"getFoods",
         component:FoodListComponent,
@@ -149,18 +151,18 @@ const routes: Routes = [
       {
         path: "listex",
         component: ExerciseListComponent,
-  
+
       },
       {
         path: "exercise",
         component: AddexerciseComponent,
       },
-  
+
       //firas
       {path:"communities",component:AllCommunitiesBackComponent},
       {path:"chalenges", component:AllChallengesBackComponent},
       //amine
-      
+
       {
         path: "users",
         component: UsersBackComponent
@@ -172,8 +174,8 @@ const routes: Routes = [
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
         component: UpdateProductComponent },]},
-      ];
-      
+];
+
 
 
 @NgModule({

@@ -5,9 +5,9 @@ import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-di
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
-    selector: 'app-foodlistadded',
-    templateUrl: './foodlistadded.component.html',
-    styleUrls: ['./foodlistadded.component.css']
+  selector: 'app-foodlistadded',
+  templateUrl: './foodlistadded.component.html',
+  styleUrls: ['./foodlistadded.component.css']
 })
 export class FoodlistaddedComponent implements OnInit {
 
@@ -57,13 +57,10 @@ export class FoodlistaddedComponent implements OnInit {
 
   calculateCalories(foodCard: FoodCard): void {
     foodCard.calcCalories = foodCard.food.calories * foodCard.quantity;
-
+    console.log("foodcard: " , foodCard)
     // Mettre à jour la quantité dans la liste des cartes alimentaires
-    const existingFoodCard = this.eatenFoodCards.find(card => card.foodId === foodCard.foodId);
-    if (existingFoodCard) {
-      existingFoodCard.quantity = foodCard.quantity;
-      // Enregistrer les modifications sur le serveur
-      this.foodService.updateFoodCards([existingFoodCard.food], existingFoodCard.quantity).subscribe(
+    if(foodCard){
+      this.foodService.updateFoodCards([foodCard.food], foodCard.quantity).subscribe(
         () => {
           console.log('Food card updated successfully');
         },
