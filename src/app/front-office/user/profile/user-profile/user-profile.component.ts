@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 import { UserService } from 'src/app/Service/user.service';
@@ -21,19 +21,26 @@ export class UserProfileComponent implements OnInit {
   confirmPassword: string = "";
   editField: string = ''; // Tracks which field is being edited
   profilePictureUrl: string = "";
-
+  weightGoal:number=0;
+daysleft!:number;
+startDate!:Date;
   constructor(private dialog: MatDialog,private authService: AuthService, private userService: UserService, private http: HttpClient) {
-    this.userProfile = new UserModule(); // Initialize userProfile here
+    this.userProfile = new UserModule(); 
   }
 
   ngOnInit(): void {
     this.getUserInfoFromToken();
+
   }
 
   getUserInfoFromToken(): void {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
         this.userProfile = response;
+        if(this.userProfile.personalGoals!=null){
+this.weightGoal=this.userProfile.personalGoals.weightGoal}
+this.profilePictureUrl=this.userProfile.picture
+this.startDate=this.userProfile.personalGoals.startDate;
       },
       error => {
         console.error('Error fetching user information:', error);
@@ -109,14 +116,22 @@ export class UserProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
       width: '400px', 
       height:'388px',
-      data: { userProfile: this.userProfile } 
+      data: { userProfile: this.userProfile }, 
+      disableClose: true 
 
     });
   
-    // Handle the dialog result if needed
     dialogRef.afterClosed().subscribe(result => {
+      this.achievementUnlocked("You Started the Journey! + 1 VCoin");
+
+      if(this.userProfile.personalGoals!=null){
+        this.userProfile.score++;
+        this.userService.updateUser(this.userProfile).subscribe(
+          
+        );
+
+      }
       console.log('Dialog closed with result:', result);
-      // Add any further processing here if needed
     });
   }
 
@@ -128,11 +143,60 @@ export class UserProfileComponent implements OnInit {
       data: { userProfile: this.userProfile } 
 
     });
-  
-    // Handle the dialog result if needed
+   
+    
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed with result:', result);
-      // Add any further processing here if needed
-    });
+         });
   }
+
+
+  @ViewChild('achievementBox') achievementBox: ElementRef;
+
+  achievementUnlocked(text: string) {
+    const hasClass = this.achievementBox.nativeElement.classList.contains('achieved');
+    if (hasClass) return;
+
+    this.achievementBox.nativeElement.querySelector('.title').textContent = "Achievement unlocked!";
+    this.achievementBox.nativeElement.querySelector('.detail').textContent = text;
+    this.achievementBox.nativeElement.classList.add("achieved");
+    setTimeout(() => {
+      this.achievementBox.nativeElement.classList.remove("achieved");
+    }, 5000);
+  }
+
+  calculateWidth(): number {
+    if (this.weightGoal !== 0 && this.userProfile.personalGoals.weightStart !== 0) {
+      this.daysleft=this.calculateDaysLeft();
+      const weightDifference = Math.abs(this.userProfile.personalGoals.weightStart - this.weightGoal);
+      const currentWeightDifference =Math.abs( this.userProfile.personalGoals.weightStart - this.userProfile.weight);
+     
+
+      const progressPercentage = (currentWeightDifference / weightDifference) * 100;
+      return Math.max(0, Math.min(100, progressPercentage));
+    } else {
+      return 0;
+    }
+  }
+
+calculateDaysLeft(): number {
+  if (this.userProfile.personalGoals.startDate && this.userProfile.personalGoals.dateGoal) {
+    const startDate = new Date(this.userProfile.personalGoals.startDate);
+    const dateGoal = new Date(this.userProfile.personalGoals.dateGoal);
+    
+    const differenceInMilliseconds = dateGoal.getTime() - startDate.getTime();
+    
+    
+    const daysLeft = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+    
+    return daysLeft;
+  } else {
+    return 0;
+  }
+}
+
+  
+
+
+
 }

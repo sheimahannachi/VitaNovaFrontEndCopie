@@ -22,7 +22,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img [src]="'http://localhost/cats/'+ userProfile.picture" alt="" class="ProfileImg" width="150">
+                                <img [src]="'http://localhost/cats/'+ profilePictureUrl" alt="" class="ProfileImg" width="150">
                                 <div class="mt-3">
                                     <h2>{{ userProfile.username }} </h2>
                                     <p class="text-secondary mb-1">{{userProfile.role}}</p>
@@ -279,39 +279,36 @@
             
         
     
-            <nav aria-label="breadcrumb" class="main-breadcrumb">
-              <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a >Personal goals</a></li>
-               
-              </ol>
-          </nav>
-            <div class="card-body" *ngIf="!userProfile.personalGoals==null"> 
-              
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                      <small></small>
-                      <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Personal Goals</small>
-                      <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>One Page</small>
-                      <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Mobile Template</small>
-                      <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                     
-                     
-          </div>
-          
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Personal goals</a></li>
+        </ol>
+    </nav>
+    
+    <div class="card-body" *ngIf="weightGoal !== 0">
+        <div class="progress-info">
+            <div class="goal">
+                <span>Personal Goals</span>
+                <span>Description : {{ userProfile.personalGoals.description }}</span>
+
+                <div class="progress mb-3">
+                    <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="calculateWidth()" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="progress-label">{{ calculateWidth() | number:'1.1-1' }}%</span>
+                <div class="goal-description">
+                    <span>Current Weight: {{ userProfile.weight }} kg</span>
+                    <span>Goal Weight: {{ userProfile.personalGoals.weightGoal }} kg</span>
+                    <span>Days Left: {{ daysleft }} days</span>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    
 
           <div class="card-body" > 
             <button (click)="openDialog()">Start</button>
-            
+
                             </div>
 
 
@@ -419,7 +416,14 @@
                             
                               
     </div>
-
+    <div class="achbox" #achievementBox>
+        <div class="icon"><i class="fa fa-flag" aria-hidden="true"></i></div>
+        <div class="text_wrap">
+          <p class="title">Cng</p>
+          <span class="detail">You clicked a button</span>
+        </div>
+      </div>
+  
   
 </body>
 

@@ -7,7 +7,7 @@
   <header class="header-area header-sticky">
       <div class="container">
           <div class="row">
-            <a routerLink="profile"> <img [src]="'http://localhost/cats/'+ userProfile.picture" alt="" class="ProfileImg" width="40"></a>
+            <a routerLink="profile" *ngIf="picture"> <img [src]="'http://localhost/cats/'+ picture" alt="" class="ProfileImg" width="40"></a>
 
               <div class="col-12">
 

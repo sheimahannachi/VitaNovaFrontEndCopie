@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import{UserModule} from '../Models/user.module'
 import { ResetPasswordRequest } from '../front-office/user/login/UserInfoResponse';
+import { PersonalGoalsModule } from '../Models/personal-goals.module';
 @Injectable({
   providedIn: 'root'
 })
@@ -82,4 +83,23 @@ export class UserService {
     return this.http.get<UserModule>(`${this.baseUrl}/user/GetUserByUsername?username=${username}`);
   }
 
+
+
+
+
+  addGoal(goal: PersonalGoalsModule, userId: number): Observable<UserModule> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const url = `${this.baseUrl}/goals/AddGoal`;
+
+    return this.http.post<UserModule>(url, goal, {
+      headers,
+      params: {
+        userId: userId.toString()
+      },
+      withCredentials: true
+    });
+  }
 }

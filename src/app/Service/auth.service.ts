@@ -31,13 +31,12 @@ export class AuthService {
     return this.http.get<UserModule>(`${this.baseUrl}/getuserfromtoken`, { headers, withCredentials: true }).pipe(
       catchError(error => {
         console.error('Error fetching user info from token:', error);
-        alert("Session expired ");
-        // Redirect to login
         this.router.navigate(['/login']);
         return throwError(error);
       })
     );
   }
+  
   logoutUser(): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({

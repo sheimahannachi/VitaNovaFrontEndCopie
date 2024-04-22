@@ -13,12 +13,14 @@ import { PeriodTracker } from './PeriodTracker';
 })
 export class PersonalGoalsModule {
 
-  idPG: number;
-  weightGoal: number;
-  dateGoal: Date;
-  description: string;
-  user?: UserModule; // Optional relationship with User model
-  //workoutProgramList?: WorkoutProgram[]; // Optional relationship with WorkoutProgram model
-  tracker?: PeriodTracker; // Optional relationship with Tracker model
+  idPG?: number;
+  weightGoal?: number;
+  weightStart?: number;
+  dateGoal?: Date;
+  startDate?: Date;
+  description?: string;
+  dailyNeededCalories?: number;
+  user?: UserModule; 
+  tracker?: PeriodTracker;
 
  }
