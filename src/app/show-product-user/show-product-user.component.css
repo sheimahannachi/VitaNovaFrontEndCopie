@@ -451,3 +451,20 @@ body {
 .delete-btn:hover i {
     color: #cc0000; /* Change the color of the trash icon on hover */
 }
+
+
+.cart-icon {
+  display: flex;
+  align-items: center; /* Alignement vertical */
+   /* Alignement à droite */
+  margin-left: 100px;
+}
+
+.cart-icon .badge {
+  margin-left: 5px; /* Espace entre l'icône du panier et le badge */
+}
+.qr-code {
+  float: right; /* Align the QR code to the right */
+  margin-left: 20px; /* Add some margin to separate it from other elements */
+}
+

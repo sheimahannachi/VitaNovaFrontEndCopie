@@ -45,11 +45,12 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="input-group mb-3">
-        <input type="range" class="form-range" min="0" max="100" [(ngModel)]="priceFilter" (change)="onPriceChange($event)">
-        <span>{{ priceFilter }}</span>
-      </div>
+      <!-- Filter by Price -->
+      <div for="priceFilter">
+      <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="sliderOptions" (valueChange)="onPriceChange($event)"></ng5-slider>
+      <span>Min: {{ minValue }} - Max: {{ maxValue }}</span>
     </div>
+    
    
    
     

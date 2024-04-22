@@ -3,8 +3,8 @@
 <br>
 <br>
 <div *ngIf="commandelines.length > 0; else noCommandelines">
-    <h2>Command Lines in Cart</h2>
-    <div class="container">
+  <h2 style="text-align: center;">Your Cart</h2>
+  <div class="container">
       <table id="cart" class="table table-hover table-condensed">
         <thead>
           <tr>
@@ -33,10 +33,42 @@
             <td data-th="Subtotal" class="text-center">{{ commandeline.product.pricePr * commandeline.quantity }}</td>
             <td class="actions" data-th="">
               <button class="btn btn-info btn-sm" (click)="updateQuantity(commandeline.idOrder, commandeline.quantity)"><i class="fa fa-refresh"></i></button>
-              <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+              <button class="btn btn-danger btn-sm" (click)="onDeleteCommandeline(userId,commandeline.product.idPr)">
+                <i class="fa fa-trash-o"></i>
+            </button>
+            
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr class="visible-xs">
+            <td class="text-center"><strong>Total  {{ getTotalPrice() }}</strong></td>
+          </tr>
+          <tr>
+            <td><a routerLink="../showProductUser" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+
+            <td colspan="2" class="hidden-xs"></td>
+            <td class="hidden-xs text-center"><strong>Total  {{ getTotalPrice() }}</strong></td>
+            <td><a  (click)="checkout(commandelines)" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  
+  <ng-template #noCommandelines>
+    <div class="container">
+      <table id="cart" class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th style="width:50%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:8%">Quantity</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:10%"></th>
+          </tr>
+        </thead>
+        
         <tfoot>
           <tr class="visible-xs">
             <td class="text-center"><strong>Total  {{ getTotalPrice() }}</strong></td>
@@ -51,12 +83,10 @@
         </tfoot>
       </table>
     </div>
-  </div>
   
-  <ng-template #noCommandelines>
-    <p>No command lines found in the cart.</p>
-  </ng-template>
-  
+</ng-template>
+
+
   
   
 <!--

@@ -20,9 +20,14 @@
     <!-- Cart icon with click event to toggle sidebar -->
     <!-- Cart Icon -->
     <a (click)="openSideBar()" class="cart-icon">
-        <i class="fa fa-shopping-cart"></i>
-        <span class="badge badge-pill badge-primary">{{ numberOfCommandelines }}</span>
-    </a>
+      <i class="fa fa-shopping-cart"></i>
+      <span class="badge badge-pill badge-primary">{{ numberOfCommandelines }}</span>
+      <a [routerLink]="'/Cart'">
+        <span style="margin-left: 10px;"> <i class="fa fa-eye"></i> <!-- Icône "œil" -->
+          Cart</span> <!-- Texte "Cart" avec un espace à gauche -->
+      </a>
+  </a>
+  
 
     <div *ngIf="showSidebar" class="off-canvas position-right">
       <div class="cart">
@@ -78,14 +83,25 @@
           </div>
       </div>
     
-      <div class="like-button">
-        <button (click)="addLikeToProduct(product.idPr)">
-            <span>{{ product.likeCount }}</span>
-            <i class="fa fa-heart" aria-hidden="true"></i>
-        </button>
+       <!-- Like button -->
+    <div class="like-button">
+      <button (click)="addLikeToProduct(product.idPr)">
+        <span>{{ product.likeCount }}</span>
+        <i class="fa fa-heart" aria-hidden="true"></i>
+      </button>
     </div>
+    
+    
+      
+    
     <h4>Description</h4>
       <p class="Product Details"> {{ product.descriptionPr }}</p>
+    
+      <!-- QR Code -->
+<div class="qr-code qr-code-right">
+  <img *ngIf="product.qrCodeUrl" [src]="product.qrCodeUrl" alt="QR Code" style="max-width: 100px; max-height: 100px;">
+</div>
+
 
       <div class="control">
     <button class="btn" (click)="addProductToCart(product.idPr)">
