@@ -1,3 +1,5 @@
+
+
 import { Component, HostListener } from '@angular/core';
 import { Product } from 'src/app/ModelProduct/Product';
 import { ProductService } from '../ServiceProduct/product.service';
@@ -29,8 +31,10 @@ export class ShowProductUserComponent {
   nombreLikes: number = 0;
   showDetails: boolean = false;
   numberOfCommandelines: number = 0;
-  cartId: number = 3;
+  cartId: number = 2;
   showSidebar: boolean = false;
+  qrCodeUrl!: string;
+  productId !: number ;
 
   constructor(private productService: ProductService , private authService: AuthService ,private router: Router, private cartService: CartService ,private dialog: MatDialog ) { 
  
@@ -67,6 +71,7 @@ this.productService.showProducts()
         archivePr: false,
         quantityPr: product.quantityPr,
         likeCount: product.likeCount ,
+        qrCodeUrl: product.qrCodeUrl
       }));
             
           console.log('Données récupérées du service:', this.listeProduits);
@@ -124,7 +129,8 @@ this.productService.showProducts()
               statusPr: product.statusPr,
               archivePr: false,
               quantityPr: product.quantityPr,
-              likeCount: product.likeCount || 0
+              likeCount: product.likeCount || 0,
+              qrCodeUrl: product.qrCodeUrl
             }));
           console.log('Résultats de la recherche :', this.listeProduits);
         },
@@ -164,7 +170,7 @@ this.productService.showProducts()
   
   
   fetchCommandelinesInCart(): void {
-    const cartId = 3; // Replace with the actual cart ID
+    const cartId = 2; // Replace with the actual cart ID
     this.cartService.getAllCommandelinesInCart(cartId).subscribe(
       commandelines => {
         this.commandelines = commandelines;
@@ -179,6 +185,7 @@ this.productService.showProducts()
   fetchNumberOfCommandelines(): void {
     this.cartService.getNumberOfCommandelinesInCart(this.cartId).subscribe(
       count => {
+        console.log("number " + count)
         this.numberOfCommandelines = count;
       },
       error => {
@@ -215,8 +222,43 @@ console.log(this.commandelines);
     }
   }
   
+  loadProducts(): void {
+    this.productService.showProducts().subscribe(
+      products => {
+        this.listeProduits = products;
   
-}
+        // Generate QR code for each product
+        this.listeProduits.forEach(product => {
+          this.generateQRCode(product.idPr);
+        });
+      },
+      error => {
+        console.error('Error loading products:', error);
+      }
+    );
+  }
+
+
+  generateQRCode(productId: number): void {
+    this.productService.generateQRCode(productId).subscribe(
+      (qrCodeUrl: string) => {
+        // Assign QR code URL to the corresponding product
+        const productIndex = this.listeProduits.findIndex(product => product.idPr === productId);
+        if (productIndex !== -1) {
+          this.listeProduits[productIndex].qrCodeUrl = qrCodeUrl;
+        }
+      },
+      error => {
+        console.error('Error fetching QR code URL for product ID:', productId, error);
+      }
+    );
+  }
+  
+    private imageBaseUrl2 = 'http://localhost:80/aziz/';
+    getImageUrl2(imagePath: string): string {
+      return this.imageBaseUrl2 + imagePath;
+    }
+  }
   /*
   expandCard(product: Product): void {
     this.selectedProduct = product;
@@ -241,3 +283,29 @@ console.log(this.commandelines);
   
   
   
+
+
+/*
+expandCard(product: Product): void {
+  this.selectedProduct = product;
+  this.isCardExpanded = false;
+}
+
+closeExpandedCard(): void {
+this.selectedProduct = null;
+    this.isCardExpanded = true;
+  
+}
+
+
+onDocumentClick(event: MouseEvent): void {
+  const clickedElement = event.target as HTMLElement;
+  const isExpandedCard = clickedElement.closest('.expanded-card');
+  if (!isExpandedCard && this.isCardExpanded) {
+    // Si l'élément cliqué n'est pas à l'intérieur de la carte agrandie et que la carte est agrandie
+    // alors réduire la carte agrandie
+    this.closeExpandedCard();
+  }*/
+
+
+

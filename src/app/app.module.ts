@@ -60,6 +60,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 
@@ -200,6 +201,7 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
+    Ng5SliderModule,
 
     
 

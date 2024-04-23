@@ -11,5 +11,6 @@ export class Product {
     picturePr!: string; 
     archivePr!: boolean;
    likeCount!: number ;
+   qrCodeUrl!: string;
 }
 
