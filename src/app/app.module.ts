@@ -23,6 +23,7 @@ import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 
 
+
 //yoser+Ons
 import { FoodCardComponent } from './food-card/food-card.component';
 import { FoodDetailsComponent } from './food-details/food-details.component';
@@ -86,6 +87,9 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
 import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 
 
 
@@ -195,6 +199,7 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    NgxChartsModule,
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
     ReactiveFormsModule, // Add this line
