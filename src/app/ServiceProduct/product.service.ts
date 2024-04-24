@@ -10,7 +10,7 @@ import { Product } from '../ModelProduct/Product';
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8082/Product';
+  private baseUrl = 'http://localhost:8081/Product';
   private imageBaseUrl = 'http://192.168.174.134/uploads/';
   private cartItems: Product[] = [];
   private idUser: number = 1; // Fixer idUser à 1
@@ -50,7 +50,6 @@ export class ProductService {
   addLike(/*idUser: number,*/ idPr: number): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/addLike/${idPr}`, {/*idUser,*/ idPr});
   }
- 
 
 
   addProductToCart(productId: number, idUser: number): Observable<any> {
@@ -103,21 +102,22 @@ export class ProductService {
 
 
 
-  
+
+
   filterProducts(categorie: string | null, price: number | null): Observable<Product[]> {
     // Créer les paramètres de la requête HTTP
     let params = new HttpParams();
-    
+
     // Si la catégorie est définie et n'est pas "ALL", ajouter le paramètre de catégorie à la requête
     if (categorie !== null && categorie !== 'ALL' && ['NUTRITION', 'Fitness_Equipement', 'Mentall_wellbeing'].includes(categorie)) {
       params = params.set('categoriePr', categorie); // Ajouter le paramètre 'categoriePr' avec la valeur de la catégorie à la requête
     }
-    
+
     // Ajouter le paramètre de prix à la requête si défini
     if (price !== null) {
       params = params.set('pricePr', price.toString()); // Ajouter le paramètre 'pricePr' avec la valeur du prix à la requête
     }
-  
+
     // Effectuer une requête HTTP GET avec les paramètres définis
     return this.http.get<Product[]>(`${this.baseUrl}/filter`, { params }).pipe(
       catchError(error => {
@@ -130,4 +130,4 @@ export class ProductService {
 
 }
 
- 
+

@@ -8,10 +8,10 @@ import { Commandeline } from '../ModelProduct/Commandeline';
 })
 export class CartService {
 
-  private apiUrl = 'http://localhost:8082/Cart'; // Replace with your Spring Boot backend URL
+  private apiUrl = 'http://localhost:8081/Cart'; // Replace with your Spring Boot backend URL
   private imageBaseUrl = 'http://192.168.174.134/uploads/';
-  private apiUrl2 = 'http://localhost:8082/Commandeline';
-  private apiUrl3 = 'http://localhost:8082/Product';
+  private apiUrl2 = 'http://localhost:8081/Commandeline';
+  private apiUrl3 = 'http://localhost:8081/Product';
   private numberOfCommandelinesSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public numberOfCommandelines$: Observable<number> = this.numberOfCommandelinesSubject.asObservable();
   private cartItemsSubject = new BehaviorSubject<Commandeline[]>([]);
@@ -20,7 +20,7 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   getAllCommandelinesInCart(cartId: number): Observable<Commandeline[]> {
-    return this.http.get<Commandeline[]>(`http://localhost:8082/Cart/commandelines/${cartId}`);
+    return this.http.get<Commandeline[]>(`http://localhost:8081/Cart/commandelines/${cartId}`);
   }
 
   getImageUrl(imagePath: string): string {
@@ -28,7 +28,7 @@ export class CartService {
   }
 
   getNumberOfCommandelinesInCart(cartId: number): Observable<number> {
-    return this.http.get<number>(`http://localhost:8082/Cart/count/${cartId}`);
+    return this.http.get<number>(`http://localhost:8081/Cart/count/${cartId}`);
   }
 
   getCartItems(): Commandeline[] {

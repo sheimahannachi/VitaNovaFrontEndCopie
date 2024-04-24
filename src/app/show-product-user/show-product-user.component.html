@@ -1,5 +1,4 @@
 
-<app-navbar></app-navbar>
 <br><br>
 <br>
 <br>
@@ -41,18 +40,17 @@
                                   class="cart__item-img">
                           </div>
                           <div class="cart__item-details">
-                            <p class="cart__item-title">{{ commandeline.product.namePr }}</p>
-                            <p class="cart__item-price">Price: {{ commandeline.product.pricePr }}</p>
-                            <p class="cart__item-quantity">Quantity: {{ commandeline.quantity }}</p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <!-- Display total price -->
-            <p class="cart__total-price">Total Price : {{ getTotalPrice() }} </p>
-        </div>
+                              <p class="cart__item-title">{{ commandeline.product.namePr }}</p>
+                              <p class="cart__item-price">Price: {{ commandeline.product.pricePr }}</p>
+                              <p class="cart__item-quantity">Quantity: {{ commandeline.quantity }}</p>
+                          </div>
+                         
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
     </div>
-  </div>
     
   
    
@@ -105,22 +103,14 @@
 
 
       <div class="control">
-        <a class="btn" [routerLink]="['/ProductDetails', product.idPr]">Details</a>
-
     <button class="btn" (click)="addProductToCart(product.idPr)">
               <span class="price">Price : {{ product.pricePr }}</span>
               <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
               <span class="buy">Add to Cart</span>
           </button>
-         
       </div>
   </div>
   
 
   <!-- End Product details and image -->
 </div>
-
-
-
-
-

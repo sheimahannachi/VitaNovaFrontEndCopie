@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-    private baseUrl = 'http://localhost:8082/Product';
+    private baseUrl = 'http://localhost:8081/Product';
     constructor(private http: HttpClient) {}
     editProduct(product: Product): Observable<any> {
     return this.http.put<any>(`/api/products/${product.idPr}`, product);

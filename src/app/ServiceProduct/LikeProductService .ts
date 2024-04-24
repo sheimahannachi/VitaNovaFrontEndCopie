@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LikeProductService {
 
-  private apiUrl = 'http://localhost:8082/LikeProduct/addLike';
+  private apiUrl = 'http://localhost:8081/LikeProduct/addLike';
 
   constructor(private http: HttpClient) { }
 

@@ -114,7 +114,7 @@ export class ShowProductComponent implements OnInit {
   
   
   archiverProduct(productId: number): void {
-    axios.put(`http://localhost:8082/Product/${productId}`)
+    axios.put(`http://localhost:8081/Product/${productId}`)
       .then(response => {
         console.log('Produit archivé avec succès :', response.data);
          this.filterProducts(); 

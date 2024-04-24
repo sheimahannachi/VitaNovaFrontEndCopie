@@ -12,11 +12,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AddexerciseComponent implements OnInit {
   exerciseForm: FormGroup;
-  intensity: string[] = ['HIGH', 'MEDIUM', 'LOW'];
+  intensity: string[] = ['HIGH', 'LOW', 'MEDIUM'];
   selectedFile: File | null = null;
   exercise: Exercise = new Exercise();
 
-  constructor(private formBuilder: FormBuilder, private sanitizer: DomSanitizer, private workoutService: WorkoutService, private route: ActivatedRoute) {
+      constructor(private formBuilder: FormBuilder, private sanitizer: DomSanitizer, private workoutService: WorkoutService, private route: ActivatedRoute) {
     this.exerciseForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.required, Validators.maxLength(300)]],
