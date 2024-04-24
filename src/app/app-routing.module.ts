@@ -13,6 +13,7 @@ import { ShowProductUserComponent } from './show-product-user/show-product-user.
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CartComponent } from './cart/cart.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 const routes: Routes = [
   { path: '', component: AllTemplateFrontComponent },
   { path: 'signup', component: RegisterComponent } ,
@@ -39,6 +40,9 @@ component: UpdateProductComponent },
 component: ShowProductUserComponent},
   {path:"Cart",
 component: CartComponent},
+  {path:"ProductDetails/:productId",
+  component: ProductDetailsComponent},
+
 ]
 
 @NgModule({

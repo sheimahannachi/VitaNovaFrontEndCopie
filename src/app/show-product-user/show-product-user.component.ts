@@ -208,6 +208,15 @@
   
         
       }
+
+      getTotalPrice(): number {
+        let totalPrice = 0;
+        for (const commandeline of this.commandelines) {
+          totalPrice += commandeline.product.pricePr * commandeline.quantity;
+        }
+        return totalPrice;
+      }
+      
       toggleSidebar(): void {
         this.showSidebar = !this.showSidebar;
       }
@@ -259,53 +268,7 @@
           return this.imageBaseUrl2 + imagePath;
         }
       }
-      /*
-      expandCard(product: Product): void {
-        this.selectedProduct = product;
-        this.isCardExpanded = false;
-      }
-  
-      closeExpandedCard(): void {
-      this.selectedProduct = null;
-          this.isCardExpanded = true;
-        
-      }
-  
-  
-      onDocumentClick(event: MouseEvent): void {
-        const clickedElement = event.target as HTMLElement;
-        const isExpandedCard = clickedElement.closest('.expanded-card');
-        if (!isExpandedCard && this.isCardExpanded) {
-          // Si l'élément cliqué n'est pas à l'intérieur de la carte agrandie et que la carte est agrandie
-          // alors réduire la carte agrandie
-          this.closeExpandedCard();
-        }*/
-      
-      
-      
-    
-  
-    /*
-    expandCard(product: Product): void {
-      this.selectedProduct = product;
-      this.isCardExpanded = false;
-    }
-
-    closeExpandedCard(): void {
-    this.selectedProduct = null;
-        this.isCardExpanded = true;
-      
-    }
-
-
-    onDocumentClick(event: MouseEvent): void {
-      const clickedElement = event.target as HTMLElement;
-      const isExpandedCard = clickedElement.closest('.expanded-card');
-      if (!isExpandedCard && this.isCardExpanded) {
-        // Si l'élément cliqué n'est pas à l'intérieur de la carte agrandie et que la carte est agrandie
-        // alors réduire la carte agrandie
-        this.closeExpandedCard();
-      }*/
+     
     
     
     

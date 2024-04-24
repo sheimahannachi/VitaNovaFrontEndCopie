@@ -35,6 +35,8 @@ import { StripeComponent } from './stripe/stripe.component'; // Import MatDialog
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Ng5SliderModule } from 'ng5-slider';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+
 
 
 
@@ -64,6 +66,7 @@ import { Ng5SliderModule } from 'ng5-slider';
     CartComponent,
     SidebarComponent,
     StripeComponent,
+    ProductDetailsComponent,
     
     
     
@@ -82,6 +85,7 @@ import { Ng5SliderModule } from 'ng5-slider';
     MatDialogModule,
     MatSliderModule,
     Ng5SliderModule,
+  
 
     
 

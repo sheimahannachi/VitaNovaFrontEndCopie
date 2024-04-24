@@ -28,11 +28,16 @@
             </td>
             <td data-th="Price">{{ commandeline.product.pricePr }}</td>
             <td data-th="Quantity">
-              <input type="number" class="form-control text-center" [(ngModel)]="commandeline.quantity" />
+              <input type="number" class="form-control text-center" 
+              [(ngModel)]="commandeline.quantity" 
+              [max]="commandeline.product.quantityPr" />
+       
             </td>
             <td data-th="Subtotal" class="text-center">{{ commandeline.product.pricePr * commandeline.quantity }}</td>
             <td class="actions" data-th="">
-              <button class="btn btn-info btn-sm" (click)="updateQuantity(commandeline.idOrder, commandeline.quantity)"><i class="fa fa-refresh"></i></button>
+              <button class="btn btn-info btn-sm" 
+              [disabled]="commandeline.quantity > commandeline.product.quantityPr"
+               (click)="updateQuantity(commandeline.idOrder, commandeline.quantity)"><i class="fa fa-refresh"></i></button>
               <button class="btn btn-danger btn-sm" (click)="onDeleteCommandeline(userId,commandeline.product.idPr)">
                 <i class="fa fa-trash-o"></i>
             </button>
@@ -49,8 +54,9 @@
 
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center"><strong>Total  {{ getTotalPrice() }}</strong></td>
-            <td><a  (click)="checkout(commandelines)" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <td><a  (click)="onCheckoutClicked()" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
           </tr>
+         
         </tfoot>
       </table>
     </div>

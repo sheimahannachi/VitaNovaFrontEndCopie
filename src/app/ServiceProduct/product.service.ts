@@ -61,10 +61,10 @@ export class ProductService {
     return this.http.post<any>(`${this.baseUrl}/addProductToCart/`, {}, { params });
   }
 
-  generateQRCode(productId: number): Observable<string> {
-    return this.http.get<string>(`${this.baseUrl}/${productId}/generate-qrcode`);
+  generateQRCode(productId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${productId}/generate-qrcode`);
   }
-
+ 
   getImageUrl2(imagePath: string): string {
     return this.imageBaseUrl2 + imagePath;
   }
