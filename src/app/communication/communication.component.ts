@@ -10,7 +10,8 @@ import { Communication } from '../Model/Communication';
 import { Community } from '../Model/Community';
 import { CommunityServiceService } from '../Services/community-service.service';
 import { ERole, Gender, UserModule } from '../Models/user.module';
-import { PersonalGoalsModule } from '../Models/personal-goals.module';
+import * as $ from 'jquery';
+
 
 
 
@@ -24,6 +25,10 @@ export class CommunicationComponent implements AfterViewInit {
 
 
   @ViewChild('messagesList') htmlMessages:ElementRef; 
+  @ViewChild('MessageInput') messageInput:ElementRef;
+
+
+
   @Input() idFromParent:number;
   @Input() communityMembers:UserModule[];
   @Input( ) currentUser:UserModule;
@@ -77,6 +82,10 @@ constructor(private service:CommunicationServiceService,private comService:Commu
   ngAfterViewInit(): void {
   
     this.scrollToBottom();
+    
+
+
+
   }
 
   scrollToBottom(){

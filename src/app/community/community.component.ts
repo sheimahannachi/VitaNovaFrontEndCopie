@@ -32,7 +32,7 @@ export class CommunityComponent {
 
   constructor(private service:CommunityServiceService,private router:Router,private userService:AuthService)
   {
-    this.communityId=1;
+    this.communityId=0;
     this.divTest=null;
     this.topThree=[];
     this.currentUser=new UserModule();
@@ -69,9 +69,9 @@ ngOnInit(){
 
 
   this.getCurrentUser();
-  this.getThisCommunity();
 
-  this.fetchTopThree();
+  
+  
   
 
 
@@ -83,9 +83,15 @@ getThisCommunity(){
  this.service.getCommunityByUser(this.currentUser.idUser).subscribe(response=>{
   
     this.community=response;
+    this.amCreator=this.currentUser.idUser==this.community.creator.idUser;
+    
 
     this.creatorName=this.community.creator.firstName+" "+this.community.creator.lastName;
-  })
+    this.fetchTopThree();
+  },
+error=>{
+  console.error(error);
+})
 
 }
 
@@ -93,22 +99,26 @@ getCurrentUser(){
  this.userService.getUserInfoFromToken().subscribe(res=>{
   this.currentUser=res;
   
-  console.log(this.currentUser.idUser+" cureent aaaaaaaaaaaaa ");
-  this.divTest=0;
+  
+  
+  this.getThisCommunity();
  })
 }
 
 fetchTopThree(){
-  this.service.getTopThreeByCommunity(this.communityId).subscribe(response=>{
+  this.service.getTopThreeByCommunity(this.community.id).subscribe(response=>{
     this.topThree=response;
-    console.log("top3"+response);
+    this.divTest=0;
   })
 }
 
 
 leaveCommunity(){
-
-  this.router.navigateByUrl("");
+  console.log(this.currentUser.idUser+"id id id")
+  this.service.userLeaveCommunity(this.currentUser.idUser,this.community.id).subscribe(res=>{
+    this.router.navigateByUrl("");
+  })
+  
 }
 
 increment(value:number){

@@ -21,7 +21,8 @@ export class CommunityServiceService {
   addMemberToCommunityURL='/addMemberToComunity';
   fetchTopThreeURL="/getTopThreeByCommunity";
   getCommunityMembersURL="/communityMembers";
-  getCommunitybyUser="/communityByUser";
+  getCommunitybyUserURL="/communityByUser";
+  userLeavesCommunityUrl="/leaveCommunity";
 
 
   constructor(private http: HttpClient) { }
@@ -31,8 +32,8 @@ export class CommunityServiceService {
     return this.http.get<Community>(this.URL+this.findByIdUrl+"/"+id);
   }
   getCommunityByUser(userId: number): Observable<Community> {
-    let params = new HttpParams().set('userId', userId);
-    return this.http.get<Community>(this.URL + this.getCommunityByUser, { params,withCredentials:true });
+    //let params = new HttpParams().set('userId', userId);
+    return this.http.get<Community>(this.URL+this.getCommunitybyUserURL+"/"+userId.toString());
 }
 
   getAllComunity(page:number,size:number):Observable<any>{
@@ -76,9 +77,17 @@ export class CommunityServiceService {
 
  addMemberToCommunity(userId:number,communityId:number):Observable<boolean>{
   let params=new HttpParams()
-  .set('userId',userId)
-  .set('communityId',communityId);
+  .set('userId',userId.toString())
+  .set('communityId',communityId.toString());
   return this.http.put<boolean>(this.URL+this.addMemberToCommunityURL,{params});
+ }
+
+ userLeaveCommunity(userId:number,communityId:number){
+  console.log(userId+"aaaaaa "+communityId);
+  let params=new HttpParams()
+  .set('userId',userId)
+  
+  return this.http.put<boolean>(this.URL+this.userLeavesCommunityUrl+"/"+userId.toString(),{});
  }
 
  

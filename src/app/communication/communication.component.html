@@ -116,17 +116,17 @@
                             <tr>
                                 
                         <td>
-                            <input type="text" class="form-control custom-input" placeholder="Write your message..." [(ngModel)]="message" 
+                            <textarea #MessageInput type="text" class="form-control custom-input" placeholder="Write your message..." [(ngModel)]="message" 
                             style="width: 400px;
                             height: 45px;
                             background-color:#b3d821c5;
                             color: #000000;
                             "
-                            (keyup.enter)="sendMessage()" (click)="activeSeen()"> 
+                            (keyup.enter)="sendMessage()" (click)="activeSeen()"> </textarea>
                         </td>
                         <td>
                             
-                                <button class="btn bg-gradient-success" style="
+                                <button  class="btn bg-gradient-success" style="
                                 margin-top: 12px;" (click)="sendMessage();activeSeen()">Send</button>
                             
                             

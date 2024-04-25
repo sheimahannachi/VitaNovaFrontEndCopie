@@ -30,7 +30,7 @@ export class AddCommunityComponent {
 
   ngOnInit(){
     this.getCurrentUser();
-    this.userCommunity();
+    
 
 
 
@@ -99,8 +99,8 @@ export class AddCommunityComponent {
       this.userService.getUserInfoFromToken().subscribe(res=>{
        this.currentUser=res;
        
-       console.log(this.currentUser.idUser+" cureent aaaaaaaaaaaaa ");
        
+       this.userCommunity();
       })
      }
 
