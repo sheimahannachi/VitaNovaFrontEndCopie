@@ -1,103 +1,139 @@
 import { Component, OnInit } from '@angular/core';
+import { Food } from '../Models/Foods';
 import { FoodService } from '../Service/food.service';
-import {FoodCard} from "../Models/FoodCard";
-import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {Tracker} from "../Models/Tracker";
+import { Router } from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DomSanitizer} from "@angular/platform-browser";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 
 @Component({
-  selector: 'app-foodlistadded',
-  templateUrl: './foodlistadded.component.html',
-  styleUrls: ['./foodlistadded.component.css']
+  selector: 'app-food-list',
+  templateUrl: './food-list.component.html',
+  styleUrls: ['./food-list.component.css']
 })
-export class FoodlistaddedComponent implements OnInit {
+export class FoodListComponent implements OnInit {
+  foods: Food[] = [];
+  baseUrl: string = 'http://localhost:80/uploads/';
+  foodForm : FormGroup;
+  private router!: Router;
+  totalElements = 0;
+  totalPages = 0;
+  currentPage = 0;
+  constructor(private formBuilder: FormBuilder, private foodService: FoodService, private sanitizer: DomSanitizer, private route: Router) {
+    this.foodForm = this.formBuilder.group({
+      calories: ['', Validators.required], // Double attribute with required validator
+      glucides: ['', Validators.required], // Double attribute with required validator
+      protein: ['', Validators.required], // Double attribute with required validator
+      lipides: ['', Validators.required], // Double attribute with required validator
+      title: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
+      category: ['', [Validators.required, Validators.maxLength(20)]], // String attribute with required and max length validators
+      vitaminC: ['', Validators.required],
+      vitaminB6: ['', Validators.required],
+      vitaminE: ['', Validators.required],
+      calcium: ['', Validators.required]
+    });
 
-  eatenFoodCards: FoodCard[] = [];
-  loading = true;
-  error: string | null = null;
-  breakfast: FoodCard[]=[]; // Initialisation des listes
-  lunch: FoodCard[]=[];
-  dinner: FoodCard[]=[];
-  snacks: FoodCard[]=[];
-  tracker :Tracker;
-  constructor(private foodService: FoodService, private dialog: MatDialog) {
+    this.router = route;
   }
+
 
   ngOnInit(): void {
-    this.getEatenFoods();
+    this.getFoods(0,10);
   }
 
-  getEatenFoods(): void {
-    this.foodService.getListEaten().subscribe(
-      (foodCards: Array<FoodCard>) => { // Specify the type as Array<FoodCard>
-        this.eatenFoodCards = foodCards;
-        this.loading = false;
-      },
-      (error) => {
-        this.error = 'Error fetching eaten foods: ' + error;
-        this.loading = false;
+  getFoods(page:number,size:number): void {
+    this.foodService.getFoods(page,size) .subscribe((pageData: any)  => {
+      this.totalElements = pageData.totalElements;
+      this.totalPages = pageData.totalPages;
+      this.currentPage = pageData.number;
+      this.foods = pageData.content;
+      this.foods.forEach(foods => {
+        foods.foodPic = this.baseUrl + foods.foodPic;
+      });
+    });
+  }
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      let nextPage = this.currentPage + 1;
+      let size = 10; // Default size for pages greater than 1
+      if (nextPage === 1 || nextPage === 2) {
+        size = 10; // Size for the first two pages
       }
-    );
-  }
-
-  deleteFoodCard(foodCard: FoodCard): void {
-    const isConfirmed = window.confirm('Are you sure you want to delete this food card?');
-    if (isConfirmed) {
-      this.foodService.deleteFoodCard(foodCard).subscribe(
-        () => {
-          // Suppression réussie
-          // Mettre à jour la liste des cartes alimentaires si nécessaire
-          this.getEatenFoods();
-        },
-        (error) => {
-          console.error('Error deleting food card:', error);
-          // Gérer l'erreur ici
-        }
-      );
-    } else {
-      // Annulation de la suppression
-      console.log('Suppression annulée');
+      this.getFoods(nextPage, size);
     }
   }
 
-  calculateCalories(foodCard: FoodCard): void {
-    foodCard.calcCalories = foodCard.food.calories * foodCard.quantity;
-    console.log("foodcard: " , foodCard)
-    // Mettre à jour la quantité dans la liste des cartes alimentaires
-    if(foodCard){
-      this.foodService.updateFoodCards([foodCard.food], foodCard.quantity).subscribe(
-        () => {
-          console.log('Food card updated successfully');
-        },
-        (error) => {
-          console.error('Error updating food card:', error);
-        }
-      );
-    } else {
-      // Si le FoodCard n'existe pas encore dans la liste, l'ajouter
-      this.eatenFoodCards.push(foodCard);
-      // Enregistrer le nouveau FoodCard sur le serveur
-      this.foodService.updateFoodCards([foodCard.food], foodCard.quantity).subscribe(
-        () => {
-          console.log('New food card created successfully');
-        },
-        (error) => {
-          console.error('Error creating new food card:', error);
-        }
-      );
+  previousPage() {
+    if (this.currentPage > 0) {
+      let previousPage = this.currentPage - 1;
+      let size = 10; // Default size for pages greater than 0
+      if (previousPage === 0 || previousPage === 1) {
+        size = 10; // Size for the first two pages
+      } else {
+        size = 10; // Size for the rest of the pages
+      }
+      this.getFoods(previousPage, size);
     }
   }
-  saveTracker(): void {
-    this.foodService.addTracker(this.tracker).subscribe(
-      (response) => {
-        console.log('Tracker added successfully:', response);
 
-      },
-      (error) => {
-        console.error('Error adding tracker:', error);
-
-      }
-    );
+  archiveFood(food: Food): void {
+    if (confirm('Are you sure you want to delete this article?')) {
+        this.foodService.archiveFood(food.id)
+            .subscribe(() => {
+                this.foods = this.foods.filter(f => f.id !== food.id);
+                alert('Article deleted successfully.');
+                // Mettre à jour la liste des aliments après l'archivage// Assurez-vous d'avoir une méthode pour récupérer les aliments
+            }, error => {
+                console.error('Error deleting article:', error);
+                alert('Failed to delete article.');
+            });
+    }
   }
+    editFood(food: Food): void {
+        // Navigate to the "AddFood" page with the selected food details
+        this.router.navigate(['/admin/addFood'], { state:{food,foodId:food.id}});
+    }
+  goToAddFoodPage(): void {
+    this.router.navigate(['/admin/addFood']);
+  }
+
+    downloadExcel(): void {
+        // Filter out the specific columns you want to include in the Excel file
+        const excelData = this.foods.map(({  category,title, calories, glucides, protein, lipides, vitaminC,vitaminB6,
+        vitaminE,calcium }) => ({
+            category,
+            title,
+            calories,
+            glucides,
+            protein,
+            lipides,
+            vitaminC,
+            vitaminB6,
+            vitaminE,
+            calcium
+        }));
+
+        // Create a new instance of Workbook
+        const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+
+        // Create a worksheet with the filtered data
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(excelData);
+
+        // Add the worksheet to your workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Foods');
+
+        // Generate a blob from your workbook in Excel format
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+        // Create a blob from the Excel data array
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        // Download the Excel file
+        const fileName = 'food-list.xlsx';
+        saveAs(blob, fileName);
+    }
+
 
 }
