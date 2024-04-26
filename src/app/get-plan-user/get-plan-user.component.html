@@ -1,15 +1,17 @@
-<div class="filter-container">
-  <!-- Filter controls -->
-  <div class="filter-controls">
-    <!-- Muscle input -->
+<body>
+<div class="container">
+  <div class="container-workout">
+
+  <!--div class="filter-controls">
+
     <label for="muscle">Muscle:</label>
     <input type="text" id="muscle" [(ngModel)]="selectedMuscle">
 
-    <!-- Equipment input -->
+
     <label for="equipment">Equipment:</label>
     <input type="text" id="equipment" [(ngModel)]="selectedEquipment">
 
-    <!-- Intensity input -->
+
     <label for="intensity">Intensity:</label>
     <select id="intensity" [(ngModel)]="selectedIntensity">
       <option value="Beginner">Beginner</option>
@@ -17,29 +19,32 @@
       <option value="Expert">Expert</option>
     </select>
 
-    <!-- Button to apply filters -->
+
     <button (click)="applyFilters()">Apply Filters</button>
-  </div>
+  </div-->
 
   <!-- Loop through unique muscle categories -->
-  <div *ngFor="let category of uniqueMuscleCategories" class="category-container">
+  <div *ngFor="let category of uniqueMuscleCategories; let i = index" class="category-container">
     <h3>{{ category }}</h3>
     <!-- Filter workout plans by muscle category and display horizontally -->
     <div class="workout-scroll-container">
-      <div class="scroll-button scroll-left" (click)="scrollLeft()">&#8249;</div> <!-- Left scroll button -->
-      <div class="workout-card" *ngFor="let plan of filteredWorkoutPlans(category)" (click)="openTimer(plan)">
-        <div class="card-image-container">
-          <!-- Add image if available -->
+      <div class="scroll-button scroll-left" (click)="scrollPlans('left', i)">&#8249;</div>
+      <div class="workout-card-container">
+        <div *ngFor="let plan of filteredWorkoutPlans(category).slice(0, 30)" (click)="navigateToTimerPage(plan)" class="workout-card">
+          <div class="card-image-container">
+            <img [src]="plan.image" alt="Workout Plan Image">
+          </div>
+          <div class="card-title">{{ plan.title }}</div>
         </div>
-        <div class="card-title">{{ plan.workout }}</div>
       </div>
-      <div class="scroll-button scroll-right" (click)="scrollRight()">&#8250;</div> <!-- Right scroll button -->
+      <div class="scroll-button scroll-right" (click)="scrollPlans('right', i)">&#8250;</div>
     </div>
   </div>
 
   <!-- Your List section -->
   <div class="your-list">
     <h2>Your List</h2>
+    <div class="workout-card-container">
     <div class="card-container">
       <!-- Loop through user's workout plans -->
       <mat-card *ngFor="let plan of workoutPlan" (click)="openTimer(plan)" class="workout-card">
@@ -49,5 +54,8 @@
         <img mat-card-image [src]="plan.image" alt="{{ plan.title }}" class="card-image">
       </mat-card>
     </div>
+    </div>
   </div>
 </div>
+</div>
+</body>

@@ -49,6 +49,8 @@ import { UpdateCommunityComponent } from './update-community/update-community.co
 //Amine
 //import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
 //Aziz
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
@@ -73,6 +75,8 @@ import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
 import {MatSelectModule} from "@angular/material/select";
+import { TimerApiComponent } from './timer-api/timer-api.component';
+
 
 @NgModule({
   declarations: [
@@ -139,6 +143,7 @@ import {MatSelectModule} from "@angular/material/select";
     DialogPersonalGoalsComponent,
     DialogPlanComponent,
     CheckoutComponent,
+    TimerApiComponent,
 
 
 
@@ -152,6 +157,8 @@ import {MatSelectModule} from "@angular/material/select";
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
+
 
 //yoser
     CommonModule,

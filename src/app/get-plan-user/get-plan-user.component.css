@@ -3,26 +3,44 @@
   display: flex;
   flex-wrap: wrap;
 }
+.container-workout {
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px; /* Adjust as needed to create space below the fixed navbar and button */
+  width: 100%;
+}
 
 body {
-  background:  black;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: url('../../assets/BackgroundImages/OIP.jpeg');
+  background-size: 1800px 1800px;
+
+
+  height: 5000px;
+  /* Center content horizontally */
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5); /* Change the last value (0.5) to adjust opacity */
+  z-index: -1;
+}
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* Ensure the image is centered within the container */
 }
 
-.card-image {
-  width: 100%; /* Adjust image width to fit the card */
-  height: 150px; /* Adjust image height as needed */
-  object-fit: cover; /* Ensure the image covers the entire space */
-}
 .workoutplan{
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 150px;
   width: 100%;
   background-color: black;
-  padding-bottom: 200px  /* Add padding at the bottom to prevent overlap with footer */
 
 }
 .footer-workout {
@@ -48,7 +66,7 @@ body {
   border: 0;
 }
 
- /* Add custom CSS for horizontal scrolling */
+/* Add custom CSS for horizontal scrolling */
 .filter-container {
   margin-top: 150px;
 }
@@ -68,8 +86,8 @@ body {
 }
 
 .workout-card {
-  width: 150px; /* Adjust card width */
-  height: 150px; /* Adjust card height */
+  width: 200px; /* Increase the width of the card */
+  height: 200px; /* Increase the height of the card */
   margin-right: 10px;
   background-color: #f0f0f0;
   border-radius: 10px;
@@ -78,13 +96,14 @@ body {
   cursor: pointer;
 }
 
+
 .workout-card:last-child {
   margin-right: 0;
 }
 
 .card-image-container {
   width: 100%;
-  height: 50%;
+  height: 70%; /* Adjust the height of the image part */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   overflow: hidden;
@@ -123,4 +142,36 @@ body {
 
 .scroll-right {
   right: 0;
+}
+.workout-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow: hidden;
+
+}
+
+.workout-card-container {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.scroll-button:hover {
+  opacity: 1;
 }

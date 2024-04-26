@@ -24,18 +24,18 @@ export class MiscService {
 
 
   encrypt(value: string, key: string): string {
-    
+
     const keyWordArray = CryptoJS.enc.Utf8.parse(key);
-    
-   
+
+
     const encrypted = CryptoJS.TripleDES.encrypt(value, keyWordArray, {
-      mode: CryptoJS.mode.ECB, 
-      padding: CryptoJS.pad.Pkcs7 
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
     });
-    
-  
+
+
     const encryptedBase64 = CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
-    
+
     return encryptedBase64;
   }
 

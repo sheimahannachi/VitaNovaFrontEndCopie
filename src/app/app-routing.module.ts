@@ -10,7 +10,7 @@ import {FoodListComponent} from "./food-list/food-list.component";
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
 //yoser
-
+import {TimerApiComponent} from "./timer-api/timer-api.component";
 import {FoodCardComponent} from "./food-card/food-card.component";
 import {FoodDetailsComponent} from "./food-details/food-details.component";
 import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-front.component";
@@ -68,7 +68,7 @@ const routes: Routes = [
       {path:"foodFront",component:FoodCardComponent},
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
       { path: 'Timer/:id', component: TimerPageComponent },
-
+      { path: 'timer-api', component: TimerApiComponent },
 
       //aziz
       {path:"showProductUser",

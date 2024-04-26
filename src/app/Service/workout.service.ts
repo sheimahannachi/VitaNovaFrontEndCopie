@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Exercise} from "../Models/Exercise";
 import {UserRating} from "../Models/UserRating";
@@ -12,6 +12,8 @@ export class WorkoutService {
   //private baseUrl: string = 'https://096c-197-14-236-90.ngrok-free.app/RestController';
   private baseUrl: string = 'http://localhost:8081/RestController';
  //private baseUrl: string = 'https://70b2-197-14-236-90.ngrok-free.app.ngrok.io/RestController';
+  private readonly apiUrl = 'https://spotify-scraper.p.rapidapi.com/v1/track/download';
+
 
 
   constructor(private http: HttpClient) {
@@ -65,8 +67,8 @@ export class WorkoutService {
   rateExercise(exerciseId: number, rate: number) {
     return this.http.post(`${this.baseUrl}/rateExercise/${exerciseId}/${rate}`,{});
   }
-  saveUserExerciseRating(userExerciseRating:UserRating,idEx:number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/saveUserExerciseRating/${idEx}`, userExerciseRating);
+  saveUserExerciseRating(userExerciseRating: UserRating, idEx: number, idUser: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/saveUserExerciseRating/${idEx}/${idUser}`, userExerciseRating);
   }
   getExerciseById(exerciseId: number): Observable<Exercise> {
     return this.http.get<Exercise>(`${this.baseUrl}/getExerciseById/${exerciseId}`);
@@ -113,4 +115,6 @@ export class WorkoutService {
     const url = `${this.baseUrl}/ArchiverPlan/${WorkoutId}`;
     return this.http.delete<void>(url);
   }
+
 }
+
