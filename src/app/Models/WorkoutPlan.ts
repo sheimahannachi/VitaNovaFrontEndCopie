@@ -1,4 +1,5 @@
-// workout-program.model.ts
+// workout-program.mode
+
 import {Exercise} from "./Exercise";
 
 export class WorkoutPlan {

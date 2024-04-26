@@ -4,36 +4,90 @@ import {FoodService} from "../Service/food.service";
 import {Router} from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetailsDialogComponent } from '../food-details-dialog/food-details-dialog.component';
+import {BarcodeScannerService} from "../barcode-scanner.service";
 
 @Component({
-    selector: 'app-food-card',
-    templateUrl: './food-card.component.html',
-    styleUrls: ['./food-card.component.css']
+  selector: 'app-food-card',
+  templateUrl: './food-card.component.html',
+  styleUrls: ['./food-card.component.css']
 })
 export class FoodCardComponent implements OnInit {
-    foods: Food[] = [];
-    baseUrl: string = 'http://localhost:80/uploads/';
-    showDetailsMap: { [key: number]: boolean } = {};
-    filteredFoods: Food[] = [];
-    searchTitle: string = '';
-    searchCategory: string = '';
-    searchNutritionalValue: string = '';
-    selectedCategories: string[] = [];
-    fruitsSelected: boolean = false;
-    vegetablesSelected: boolean = false;
-    MeatSelected: boolean = false;
-    DairySelected: boolean = false;
-    PlantsSelected: boolean = false;
+  foods: Food[] = [];
+  baseUrl: string = 'http://localhost:80/uploads/';
+  filteredFoods: Food[] = [];
+  searchTitle: string = '';
+  selectedCategories: string[] = [];
+  totalElements = 0;
+  totalPages = 0;
+  currentPage = 0;
 
-    minCalories: number = 0;
-    maxCalories: number = 500;
-    ngOnInit() {
-        this.getFoods(1,10);
+  minCalories: string = "0";
+  maxCalories: string = "800";
+  scannedBarcode!: string;
+  productDetails: any;
+  ngOnInit() {
+    this.getFoods(1,10);
+    this.updateMaxCalories();
+    this.updateMinCalories();
+  }
+  updateMaxCalories() {
+
+
+    const minValue = parseFloat(this.minCalories);
+    const maxValue = parseFloat(this.maxCalories);
+
+    if (isNaN(minValue) || isNaN(maxValue)) {
+      console.error('Invalid calories value:', this.minCalories, this.maxCalories);
+      return;
     }
 
-    constructor(private foodService: FoodService,private router: Router,public dialog: MatDialog) {
-        this.selectedCategories = [];
+    const minPercent = (minValue / 800) * 100;
+    const maxPercent = (maxValue / 800) * 100;
+
+
+
+    if (maxValue <= minValue) {
+      this.maxCalories = (minValue + 1).toString();
     }
+
+    if (maxValue > 800) {
+      this.maxCalories = '800';
+    }
+
+
+    this.filter();
+  }
+
+
+  updateMinCalories() {
+
+
+    const minValue = parseFloat(this.minCalories);
+    const maxValue = parseFloat(this.maxCalories);
+
+    if (isNaN(minValue) || isNaN(maxValue)) {
+      console.error('Invalid calories value:', this.minCalories, this.maxCalories);
+      return;
+    }
+
+    const minPercent = (minValue / 800) * 100;
+    const maxPercent = (maxValue / 800) * 100;
+
+
+    if (minValue >= maxValue) {
+      this.minCalories = (maxValue - 1).toString();
+    }
+
+    if (minValue < 0) {
+      this.minCalories = '0';
+    }
+
+
+    this.filter();
+  }
+  constructor(private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService) {
+    this.selectedCategories = [];
+  }
   openFoodDetailsDialog(food: Food): void {
     const dialogRef = this.dialog.open(FoodDetailsDialogComponent, {
       data: food
@@ -43,64 +97,100 @@ export class FoodCardComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-    updateSelectedCategories(category: string, isChecked: boolean): void {
-        if (isChecked) {
-            // Add the category to the array if checked
-            this.selectedCategories.push(category);
+
+
+
+  filter(): void {
+
+    const minValue = parseFloat(this.minCalories);
+    const maxValue = parseFloat(this.maxCalories);
+
+    if (isNaN(minValue)) {
+      console.error('Invalid minimum calories value:', this.minCalories);
+      return;
+    }
+
+    if (this.maxCalories !== undefined) {
+      this.filteredFoods = this.foods.filter(food => {
+        return food.calories >= minValue && food.calories <= maxValue;
+      });
+    } else {
+      this.filteredFoods = this.foods.filter(food => {
+        return food.calories >= minValue;
+      });
+    }
+  }
+// retrieveFoodByCaloriesRange(): void {
+//     this.filteredFoods = this.foods.filter(food => {
+//         return food.calories >= this.minCalories && food.calories <= this.maxCalories;
+//     });
+// }
+
+  getFoods(page: number, size: number): void {
+    this.foodService.getFoods(page, size).subscribe(
+      (pageData: any) => {
+        if (Array.isArray(pageData.content)) {
+          this.totalElements = pageData.totalElements;
+          this.totalPages = pageData.totalPages;
+          this.currentPage = pageData.number;
+          this.foods = pageData.content;
+          this.filteredFoods = [...this.foods];
+          this.foods.forEach(food => {
+            food.foodPic = this.baseUrl + food.foodPic;
+          });
         } else {
-            // Remove the category from the array if unchecked
-            const index = this.selectedCategories.indexOf(category);
-            if (index !== -1) {
-                this.selectedCategories.splice(index, 1);
-            }
+          console.error('Expected an array of foods in pageData.content, but received:', pageData.content);
         }
+      },
+      error => {
+        console.error('Failed to fetch foods:', error);
+      }
+    );
+  }
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      let nextPage = this.currentPage + 1;
+      let size = 10; // Default size for pages greater than 1
+      if (nextPage === 1 || nextPage === 2) {
+        size = 10; // Size for the first two pages
+      }
+      this.getFoods(nextPage, size);
     }
+  }
 
-
-
-    retrieveFoodByCaloriesRange(): void {
-        this.filteredFoods = this.foods.filter(food => {
-            return food.calories >= this.minCalories && food.calories <= this.maxCalories;
-        });
+  previousPage() {
+    if (this.currentPage > 0) {
+      let previousPage = this.currentPage - 1;
+      let size = 10; // Default size for pages greater than 0
+      if (previousPage === 0 || previousPage === 1) {
+        size = 10; // Size for the first two pages
+      } else {
+        size = 10; // Size for the rest of the pages
+      }
+      this.getFoods(previousPage, size);
     }
+  }
 
-    filter(){
-        console.log(this.minCalories);
-        console.log(this.maxCalories);
-        console.log(this.selectedCategories);
 
-        this.retrieveFoodByCaloriesRange();
-        if (this.selectedCategories.length > 0) {
-            this.filteredFoods = this.filteredFoods.filter(food => {
-                // Check if the food's category is included in the selectedCategories array
-                return this.selectedCategories.includes(food.category);
-            });
-        }
-
-    }
-
-    getFoods(page:number,size:number): void {
-        this.foodService.getFoods(page,size).subscribe(foods => {
-            this.foods = foods;
-            this.filteredFoods = [...this.foods]; // Initialize filteredFoods with all foods
-            /*this.applyFilters(); // Apply filters initially*/
-            this.foods.forEach(foods => {
-                foods.foodPic = this.baseUrl + foods.foodPic;
-            });
-        });
-    }
-    toggleDetails(foodId: number): void {
-        this.showDetailsMap[foodId] = !this.showDetailsMap[foodId];
-    }
-
-    isDetailsVisible(foodId: number): boolean {
-        return this.showDetailsMap[foodId] || false;
-    }
   applyFilters(): void {
     this.filteredFoods = this.foods.filter(food => {
       // Filter by title
-      return food.title.toLowerCase().includes(this.searchTitle.toLowerCase());
+      const titleMatch = food.title.toLowerCase().includes(this.searchTitle.toLowerCase());
+
+      // Filter by calories
+      const caloriesMatch = this.minCalories === '' || this.maxCalories === '' ||
+        (food.calories >= parseFloat(this.minCalories) && food.calories <= parseFloat(this.maxCalories));
+
+      return titleMatch && caloriesMatch;
     });
+  }
+  async scanBarcode(): Promise<void> {
+    try {
+      this.productDetails = await this.barcodeScannerService.getProductDetailsFromScannedBarcode();
+      console.log(this.productDetails)
+    } catch (error) {
+      console.error('Error scanning barcode:', error);
+    }
   }
 
 
