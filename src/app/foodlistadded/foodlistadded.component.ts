@@ -3,6 +3,7 @@ import { FoodService } from '../Service/food.service';
 import {FoodCard} from "../Models/FoodCard";
 import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Tracker} from "../Models/Tracker";
 
 @Component({
   selector: 'app-foodlistadded',
@@ -14,7 +15,11 @@ export class FoodlistaddedComponent implements OnInit {
   eatenFoodCards: FoodCard[] = [];
   loading = true;
   error: string | null = null;
-
+  breakfast: FoodCard[]=[]; // Initialisation des listes
+  lunch: FoodCard[]=[];
+  dinner: FoodCard[]=[];
+  snacks: FoodCard[]=[];
+  tracker :Tracker;
   constructor(private foodService: FoodService, private dialog: MatDialog) {
   }
 
@@ -82,7 +87,17 @@ export class FoodlistaddedComponent implements OnInit {
       );
     }
   }
+  saveTracker(): void {
+    this.foodService.addTracker(this.tracker).subscribe(
+      (response) => {
+        console.log('Tracker added successfully:', response);
 
+      },
+      (error) => {
+        console.error('Error adding tracker:', error);
 
+      }
+    );
+  }
 
 }
