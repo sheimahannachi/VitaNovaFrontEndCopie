@@ -35,21 +35,21 @@ export class FoodDetailsDialogComponent {
     }
 
 
-    addFoodCards() {
-        const foods: Food[] = [this.data]; // Wrap the single food item in an array
-        const quantity: number = this.quantity;
-      const calcCalories: number = this.data.calories * quantity;
-        this.foodService.addFoodCards(foods, quantity).subscribe(
-            response => {
-                console.log('Food cards added successfully:', response);
-                // Navigate to the component where you display the list of added foods
-                this.router.navigate(['list-of-foods']);
-            },
-            error => {
-                console.error('Error adding food cards:', error);
-            }
-        );
-    }
+  addFoodCards() {
+    const foods: Food[] = [this.data]; // Wrap the single food item in an array
+    const quantity: number = this.quantity;
+    const calcCalories: number = this.data.calories * quantity;
+    this.foodService.addFoodCards(foods, quantity).subscribe(
+      response => {
+        console.log('Food cards added successfully:', response);
+        // Navigate to the component where you display the list of added foods
+        this.router.navigate(['vitaNova/list-of-foods']);
+      },
+      error => {
+        console.error('Error adding food cards:', error);
+      }
+    );
+  }
 
 
 
