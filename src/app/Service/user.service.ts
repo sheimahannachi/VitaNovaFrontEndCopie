@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import{UserModule} from '../Models/user.module'
 import { ResetPasswordRequest } from '../front-office/user/login/UserInfoResponse';
 import { PersonalGoalsModule } from '../Models/personal-goals.module';
@@ -101,5 +101,18 @@ export class UserService {
       },
       withCredentials: true
     });
+  }
+
+
+
+
+  private userSubject = new BehaviorSubject<UserModule>(null);
+
+  setUser(user: UserModule) {
+    this.userSubject.next(user);
+  }
+
+  getUser() {
+    return this.userSubject.asObservable();
   }
 }

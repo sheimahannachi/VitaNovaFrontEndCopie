@@ -30,6 +30,7 @@ export class RegisterComponent {
   generatedCode!: string;
   show_verification:boolean=false;
 textColor: string = '';
+selectedFileDataUrl: string | ArrayBuffer | null = null;
 
 selectedFileName!:string;
 passwordConfirm!:string;
@@ -329,6 +330,7 @@ this.showVerificationCodeInput=true;
     if (files && files.length > 0) {
       this.selectedFile = files[0];
       this.selectedFileName=this.selectedFile.name;
+      this.onFileSelected(event);
     }
     console.log(this.selectedFile)
   }
@@ -452,10 +454,19 @@ if(this.firstName!=null&&this.lastName!=null&&this.password!=null&&this.password
 
 
 
-
-
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    this.selectedFileName = file.name;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFileDataUrl = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
 }
 
+}
 
 
 

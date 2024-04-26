@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 import { UserService } from 'src/app/Service/user.service';
@@ -10,7 +10,8 @@ import { DialogPlanComponent } from '../../dialog-plan/dialog-plan.component';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
+
 })
 export class UserProfileComponent implements OnInit {
 
@@ -37,10 +38,11 @@ startDate!:Date;
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
         this.userProfile = response;
-        if(this.userProfile.personalGoals!=null){
-this.weightGoal=this.userProfile.personalGoals.weightGoal}
+        if(this.userProfile.personalGoals!=undefined){
+this.weightGoal=this.userProfile.personalGoals.weightGoal
+this.startDate=this.userProfile.personalGoals.startDate;}
 this.profilePictureUrl=this.userProfile.picture
-this.startDate=this.userProfile.personalGoals.startDate;
+
       },
       error => {
         console.error('Error fetching user information:', error);
@@ -114,10 +116,8 @@ this.startDate=this.userProfile.personalGoals.startDate;
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
-      width: '400px', 
-      height:'388px',
       data: { userProfile: this.userProfile }, 
-      disableClose: true 
+      disableClose: true ,
 
     });
   

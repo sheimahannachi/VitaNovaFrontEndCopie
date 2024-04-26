@@ -11,8 +11,9 @@ import { PersonalGoalsModule } from 'src/app/Models/personal-goals.module';
 export class DialogPersonalGoalsComponent {
   step: number = 1;
 IdealWeight!:number;
-useIdealWeight: boolean = true; // Variable to track whether to use ideal weight or not
-numberOfWeeks:number;
+dailyCalories:number=2800;
+useIdealWeight: boolean=true ; 
+numberOfWeeks:number=8;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService,private dialog: MatDialog) { }
 
   UpdateUser() {
@@ -113,7 +114,6 @@ calculateIdealWeight() {
   const age=this.calculateAge(this.data.userProfile.dateOfBirth);
   if (this.data.userProfile.gender === 'MAN') {
    
-  console.log(this.data.userProfile.gender)
       bmr = 88.362 + (13.397 * this.data.userProfile.weight) + (4.799 * this.data.userProfile.height) - (5.677 * age);
   } else {
       bmr = 447.593 + (9.247 * this.data.userProfile.weight) + (3.098 * this.data.userProfile.height) - (4.330 * age);
@@ -129,9 +129,10 @@ calculateIdealWeight() {
   const desiredWeightChange = this.data.userProfile.weight - this.IdealWeight;
   const desiredCalorieChangePerWeek = 7700 * (desiredWeightChange / totalWeeks); // 7700 calories ≈ 1 kg of body weight
   const dailyCalorieChange = desiredCalorieChangePerWeek / 7;
-  const dailyCalories = totalCalories + dailyCalorieChange;
-console.log(Math.round(dailyCalories));
-  return Math.round(dailyCalories); // Round to nearest integer
+  this.dailyCalories = totalCalories*1.2 + dailyCalorieChange;
+  if(  isNaN(  this.dailyCalories)||(  this.dailyCalories<0))  this.dailyCalories=2800;
+console.log(Math.round(  this.dailyCalories));
+  return Math.round(  this.dailyCalories); 
 }
 
 
@@ -157,7 +158,7 @@ console.log(this.data.userProfile.personalGoals)
     }
         
     let description: string;
-    if (isWeightLoss) {
+    if (!isWeightLoss) {
       description = `You're aiming to lose ${Math.abs(weightDifference).toFixed(2)} kg in ${weeksToGoal.toFixed(0)} week(s).`;
     } else {
       description = `You're aiming to gain ${Math.abs(weightDifference).toFixed(2)} kg in ${weeksToGoal.toFixed(0)} week(s).`;
@@ -171,11 +172,11 @@ console.log(this.data.userProfile.personalGoals)
       dailyNeededCalories: this.calculateDailyCalories(2), 
       weightStart:this.data.userProfile.weight
     };
-    console.log("newGoal : " , newGoal)
-console.log(this.data.userProfile.idUser)
+   
+
     this.userService.addGoal(newGoal,this.data.userProfile.idUser ).subscribe(
       (response) => {
-        
+        this.data.userProfile.score++;
         console.log('Goal added successfully:', response);
         this.dialog.closeAll();
 

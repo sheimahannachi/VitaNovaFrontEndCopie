@@ -72,6 +72,7 @@ import { DialogPersonalGoalsComponent } from './front-office/user/dialog-persona
 import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
+import { CheckoutDoneComponent } from './front-office/user/checkout-done/checkout-done.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { CheckoutComponent } from './front-office/user/checkout/checkout.compone
     DialogPersonalGoalsComponent,
     DialogPlanComponent,
     CheckoutComponent,
+    CheckoutDoneComponent,
 
 
 
