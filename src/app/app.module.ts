@@ -83,7 +83,6 @@ import { CheckoutDoneComponent } from './front-office/user/checkout-done/checkou
     NavbarComponent,
     FooterComponent,
     AllTemplateFrontComponent,
-
     UserComponent,
     RegisterComponent,
     LoginComponent,
