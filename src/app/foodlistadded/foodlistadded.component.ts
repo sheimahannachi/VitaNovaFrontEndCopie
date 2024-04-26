@@ -3,7 +3,7 @@ import { FoodService } from '../Service/food.service';
 import {FoodCard} from "../Models/FoodCard";
 import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {Tracker} from "../Models/Tracker";
+import {Tracker} from "../models/Tracker";
 
 @Component({
   selector: 'app-foodlistadded',

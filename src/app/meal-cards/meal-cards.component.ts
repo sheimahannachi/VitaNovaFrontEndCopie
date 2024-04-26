@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../Service/food.service';
 import { Router } from '@angular/router';
-import { MealType } from '../Models/MealType';
+import { MealType } from '../models/MealType';
 import { FoodCard } from '../Models/FoodCard';
-import {Tracker} from "../Models/Tracker";
+import {Tracker} from "../models/Tracker";
 
 @Component({
   selector: 'app-meal-cards',

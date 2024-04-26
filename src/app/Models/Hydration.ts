@@ -1,5 +1,4 @@
-import {Tracker} from "./Tracker";
-
+import {Tracker} from "../models/Tracker";
 
 export class Hydration {
   id!:number;

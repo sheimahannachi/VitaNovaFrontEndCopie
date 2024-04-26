@@ -1,8 +1,4 @@
 
-
-
-
-
 .food-actions {
   display: flex;
   align-items: center;
@@ -80,3 +76,15 @@
   justify-content: space-between;
 }
 
+.save-btn {
+  background-color: #57B922; /* Change the background color */
+  color: white; /* Change the text color */
+  border: none;
+  padding: 10px 20px; /* Adjust padding as needed */
+  margin-bottom: 20px; /* Add margin to separate from the table */
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #3f8e16; /* Change the background color on hover */
+}

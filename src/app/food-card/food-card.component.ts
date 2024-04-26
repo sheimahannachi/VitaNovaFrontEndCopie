@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetailsDialogComponent } from '../food-details-dialog/food-details-dialog.component';
 import {BarcodeScannerService} from "../barcode-scanner.service";
-import {MealType} from "../Models/MealType";
+import {MealType} from "../models/MealType";
 
 @Component({
   selector: 'app-food-card',

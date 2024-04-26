@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router'; // Import ActivatedRou
 import { TrackerService } from '../Service/tracker.service';
 import { FoodService } from '../Service/food.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MealType } from "../Models/MealType";
+import { MealType } from "../models/MealType";
 
 @Component({
   selector: 'app-food-details-dialog',
@@ -52,7 +52,7 @@ export class FoodDetailsDialogComponent {
     const mealType: MealType = this.mealType;
     const calcCalories: number = this.data.food.calories * quantity;
 
-    this.foodService.addFoodCards(foods, quantity, mealType).subscribe(
+    this.foodService.addFoodCards(foods, quantity,mealType).subscribe(
       response => {
         console.log('Food cards added successfully:', response);
         console.log(mealType);

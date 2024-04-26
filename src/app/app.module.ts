@@ -49,7 +49,7 @@ import { UpdateCommunityComponent } from './update-community/update-community.co
 //Amine
 import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-//Aziz 
+//Aziz
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
@@ -89,7 +89,7 @@ import { ProductDetailsDialogComponent } from './product-details-dialog/product-
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 
-
+import {MealCardsComponent} from "./meal-cards/meal-cards.component";
 
 @NgModule({
   declarations: [
@@ -115,7 +115,7 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
- 
+    MealCardsComponent,
 //ons
     FooterComponent,
     FoodComponent,
@@ -153,10 +153,10 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
     PeriodRecipesComponent,
     SidebarComponent,
     StripeComponent,
-    
-    
-    
-  
+
+
+
+
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
@@ -202,9 +202,9 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
-    
 
-    
+
+
 
 
   ],
