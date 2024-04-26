@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetailsDialogComponent } from '../food-details-dialog/food-details-dialog.component';
 import {BarcodeScannerService} from "../barcode-scanner.service";
+import {MealType} from "../Models/MealType";
 
 @Component({
   selector: 'app-food-card',
@@ -25,6 +26,8 @@ export class FoodCardComponent implements OnInit {
   maxCalories: string = "800";
   scannedBarcode!: string;
   productDetails: any;
+  selectedMealType: MealType;
+
   ngOnInit() {
     this.getFoods(1,10);
     this.updateMaxCalories();
@@ -90,13 +93,14 @@ export class FoodCardComponent implements OnInit {
   }
   openFoodDetailsDialog(food: Food): void {
     const dialogRef = this.dialog.open(FoodDetailsDialogComponent, {
-      data: food
+      data: { food: food, mealType: this.selectedMealType }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
+
 
 
 
