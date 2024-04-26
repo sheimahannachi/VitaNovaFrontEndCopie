@@ -76,10 +76,11 @@ export class CommunityServiceService {
 
 
  addMemberToCommunity(userId:number,communityId:number):Observable<boolean>{
-  let params=new HttpParams()
+ /* let params=new HttpParams()
   .set('userId',userId.toString())
-  .set('communityId',communityId.toString());
-  return this.http.put<boolean>(this.URL+this.addMemberToCommunityURL,{params});
+  .set('communityId',communityId.toString());*/
+  console.log(communityId)
+  return this.http.put<boolean>(this.URL+this.addMemberToCommunityURL+'?userId='+userId.toString()+'&communityId='+communityId.toString(),{});
  }
 
  userLeaveCommunity(userId:number,communityId:number){
@@ -95,8 +96,8 @@ export class CommunityServiceService {
 
             //Delete
 
-deleteComunity(id:Number):Observable<Community>{
-return this.http.delete<Community>(this.URL+this.deleteByIdUrl+"/"+id,{withCredentials:true});
+deleteComunity(id:Number):Observable<boolean>{
+return this.http.delete<boolean>(this.URL+this.deleteByIdUrl+"/"+id,{withCredentials:true});
 }
 
 }

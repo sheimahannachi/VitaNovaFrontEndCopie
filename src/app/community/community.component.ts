@@ -19,7 +19,7 @@ export class CommunityComponent {
   videoChat:boolean;
   
 
-  communityId:number;
+  
   divTest:number;
   community:Community;
   currentUser:UserModule;
@@ -32,7 +32,7 @@ export class CommunityComponent {
 
   constructor(private service:CommunityServiceService,private router:Router,private userService:AuthService)
   {
-    this.communityId=0;
+    
     this.divTest=null;
     this.topThree=[];
     this.currentUser=new UserModule();
@@ -49,7 +49,8 @@ export class CommunityComponent {
   }
 
   deleteCommunity() {
-   this.service.deleteComunity(this.communityId).subscribe(res=>{
+   this.service.deleteComunity(this.community.id).subscribe(res=>{
+    console.log(res+" Deleting ");
 
     this.router.navigateByUrl("");
    })
@@ -65,7 +66,7 @@ export class CommunityComponent {
 ngOnInit(){
   
 
-  this.currentUser.communities.id=this.communityId;
+  
 
 
   this.getCurrentUser();
@@ -81,13 +82,16 @@ ngOnInit(){
 getThisCommunity(){
  /* this.service.getComunity(this.communityId)*/
  this.service.getCommunityByUser(this.currentUser.idUser).subscribe(response=>{
-  
+  if(response!=null){
     this.community=response;
     this.amCreator=this.currentUser.idUser==this.community.creator.idUser;
     
 
     this.creatorName=this.community.creator.firstName+" "+this.community.creator.lastName;
     this.fetchTopThree();
+  }else {
+    this.router.navigateByUrl("/vitaNova/findCommunity");
+  }
   },
 error=>{
   console.error(error);
