@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -74,13 +73,10 @@
                                 </button>
                             </div>
                             <div class="down">
-                                <button class="card3">
-                                    <svg width="30" height="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                        class="whatsapp">
-                                        <path
-                                            d="M19.001 4.908A9.817 9.817 0 0 0 11.992 2C6.534 2 2.085 6.448 2.08 11.908c0 1.748.458 3.45 1.321 4.956L2 22l5.255-1.377a9.916 9.916 0 0 0 4.737 1.206h.005c5.46 0 9.908-4.448 9.913-9.913A9.872 9.872 0 0 0 19 4.908h.001ZM11.992 20.15A8.216 8.216 0 0 1 7.797 19l-.3-.18-3.117.818.833-3.041-.196-.314a8.2 8.2 0 0 1-1.258-4.381c0-4.533 3.696-8.23 8.239-8.23a8.2 8.2 0 0 1 5.825 2.413 8.196 8.196 0 0 1 2.41 5.825c-.006 4.55-3.702 8.24-8.24 8.24Zm4.52-6.167c-.247-.124-1.463-.723-1.692-.808-.228-.08-.394-.123-.556.124-.166.246-.641.808-.784.969-.143.166-.29.185-.537.062-.247-.125-1.045-.385-1.99-1.23-.738-.657-1.232-1.47-1.38-1.716-.142-.247-.013-.38.11-.504.11-.11.247-.29.37-.432.126-.143.167-.248.248-.413.082-.167.043-.31-.018-.433-.063-.124-.557-1.345-.765-1.838-.2-.486-.404-.419-.557-.425-.142-.009-.309-.009-.475-.009a.911.911 0 0 0-.661.31c-.228.247-.864.845-.864 2.067 0 1.22.888 2.395 1.013 2.56.122.167 1.742 2.666 4.229 3.74.587.257 1.05.408 1.41.523.595.19 1.13.162 1.558.1.475-.072 1.464-.6 1.673-1.178.205-.58.205-1.075.142-1.18-.061-.104-.227-.165-.475-.29Z">
-                                        </path>
-                                    </svg>
+                                <button class="card3" (click)="test()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="spotify" viewBox="0 0 16 16">
+                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288"/>
+                                      </svg>
                                 </button>
                                 <button class="card4">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24"
@@ -94,6 +90,8 @@
                         </div>
                     </div>
                 </div>
+                
+          
                 <div class="col-md-8">
                     <div class="card mb-3">
                         <div class="card-body">
@@ -163,7 +161,7 @@
                               <hr>
                               <div class="row">
                                 <div class="col-sm-12">
-                                  <button *ngIf="!editMode" class="btn btn-info"
+                                  <button *ngIf="!editMode" class="btn2"
                                     (click)="toggleEditMode()">Edit</button>
                                 </div>
                               </div>
@@ -233,8 +231,8 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-primary" (click)="saveEdits()">Save</button>
-                                    <button type="button" class="btn btn-secondary ml-2"
+                                    <button type="submit" class="btn2" (click)="saveEdits()">Save</button>
+                                    <button type="button" class="btn2"
                                         (click)="cancelEdit()">Cancel</button>
                                 </div>
                             </div>
@@ -296,8 +294,8 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary" (click)="saveEdits()">Save</button>
-                        <button type="button" class="btn btn-secondary ml-2" (click)="cancelEdit2()">Cancel</button>
+                        <button type="submit" class="btn2" (click)="saveEdits()">Save</button>
+                        <button type="button" class="btn2" (click)="cancelEdit2()">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -305,7 +303,62 @@
 
         <hr>
 
-
+        <div class="card mt-3" *ngIf="accessToken">
+            <div class="main" >
+      
+      <button class="button2" (click)="display()"> 
+        <svg viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>Spotify-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-200.000000, -460.000000)" fill="#ffffff"> <path d="M238.16,481.36 C230.48,476.8 217.64,476.32 210.32,478.6 C209.12,478.96 207.92,478.24 207.56,477.16 C207.2,475.96 207.92,474.76 209,474.4 C217.52,471.88 231.56,472.36 240.44,477.64 C241.52,478.24 241.88,479.68 241.28,480.76 C240.68,481.6 239.24,481.96 238.16,481.36 M237.92,488.08 C237.32,488.92 236.24,489.28 235.4,488.68 C228.92,484.72 219.08,483.52 211.52,485.92 C210.56,486.16 209.48,485.68 209.24,484.72 C209,483.76 209.48,482.68 210.44,482.44 C219.2,479.8 230,481.12 237.44,485.68 C238.16,486.04 238.52,487.24 237.92,488.08 M235.04,494.68 C234.56,495.4 233.72,495.64 233,495.16 C227.36,491.68 220.28,490.96 211.88,492.88 C211.04,493.12 210.32,492.52 210.08,491.8 C209.84,490.96 210.44,490.24 211.16,490 C220.28,487.96 228.2,488.8 234.44,492.64 C235.28,493 235.4,493.96 235.04,494.68 M224,460 C210.8,460 200,470.8 200,484 C200,497.2 210.8,508 224,508 C237.2,508 248,497.2 248,484 C248,470.8 237.32,460 224,460" id="Spotify"> </path> </g> </g> </g></svg>
+        Continue with Spotify 
+        </button>
+      <div id="embed-iframe"></div>             
+      <div class="searchSpotify" *ngIf="spotifyMode">
+        <form (ngSubmit)="search(searchQuery)">
+            <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Search for a song or playlist...">
+            <button type="submit">Search</button>
+        </form>
+        <div *ngIf="!searchResults">
+            <p>No results found.</p>
+        </div>
+    
+        <table *ngIf="searchResults">
+            <thead>
+                <tr>
+                    <th colspan="2">Tracks</th>
+                    <th colspan="2">Playlists</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <ul *ngIf="searchResults?.tracks">
+                            <li *ngFor="let track of searchResults.tracks.items">
+                                <button (click)="playTrack(track.uri)">{{ track.name }}</button> by {{ track.artists[0].name }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td colspan="2">
+                        <ul *ngIf="searchResults?.playlists">
+                            <li *ngFor="let playlist of searchResults.playlists.items">
+                                <button (click)="playPlaylist(playlist.uri)">{{ playlist.name }}</button> by {{ playlist.owner.display_name }}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+    
+            <iframe
+              title="Spotify Embed: Recommendation Playlist"
+              id="spotifyIframe"
+              src="about:blank"
+              width="100%"
+              height="360"
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe></div></div>
+          </div>
 
 
 
