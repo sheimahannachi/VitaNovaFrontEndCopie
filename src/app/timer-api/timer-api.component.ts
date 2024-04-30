@@ -3,6 +3,8 @@
   import {WorkoutService} from "../Service/workout.service";
   import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
   import axios from 'axios';
+  import {AuthService} from "../Service/auth.service";
+  import {UserModule} from "../Models/user.module";
 
 
   @Component({
@@ -25,10 +27,10 @@
     REST_DURATION = 1; // Duration of rest in seconds
     audioUrls: string[] = []; // Déclarez un tableau pour stocker les URLs audio
     youtubeAudioUrls: any[] = []; // Array to store YouTube audio URLs
-
+    intensity: string = '';
    // audioList: { downloadUrl: string }[] = []; // Array to store audio URLs
     mp3DownloadLink: string | null = null;
-
+    userId :UserModule
 
     COLOR_CODES = {
       info: {
@@ -44,13 +46,22 @@
       }
     };
 
-    constructor(private route: ActivatedRoute, private workoutService: WorkoutService, private http: HttpClient) {
+    constructor(private route: ActivatedRoute, private workoutService: WorkoutService, private http: HttpClient,private authService: AuthService) {
+      this.authService.getUserInfoFromToken().subscribe(userId => {
+        this.userId = userId;
+      });
     }
+
 
     ngOnInit(): void {
       this.workoutPlan = history.state.workoutPlan;
+      const navigation = window.history.state;
+      this.workoutPlan = navigation.workoutPlan;
+      this.intensity = navigation.workoutPlan.intensityLevel;
+      console.log('Received workout plan:', this.workoutPlan);
+      console.log('Received intensity:', this.intensity);
       //this.downloadTrackFromSpotify();
-      this.fetchMP3DownloadLink();
+     this.fetchMP3DownloadLink();
 
     }
 
@@ -61,9 +72,14 @@
       }
 
       const exerciseCount = this.workoutPlan.exercises.length;
+      this.addWorkoutSession();
 
       this.startNextSet();
+
+      // Start playing the audio when the timer starts
+      this.playAudio();
     }
+
 
     startNextSet(remainingTime?: number): void {
       if (this.workoutPlan && this.currentExerciseIndex < this.workoutPlan.exercises.length) {
@@ -239,6 +255,48 @@
         }
       } catch (error) {
         console.error('Error fetching MP3 download link:', error);
+      }
+    }
+    playAudio(): void {
+      const audioPlayer = document.getElementById('audioPlayer') as HTMLAudioElement;
+      if (audioPlayer) {
+        audioPlayer.play();
+      }
+    }
+
+    addWorkoutSession(): void {
+      // Map intensity levels
+      const intensityMap: { [key: string]: string } = {
+        'beginner': 'LOW',
+        'intermediate': 'MEDIUM',
+        'expert': 'HIGH'
+      };
+
+      // Convert received intensity level to lowercase
+      const receivedIntensityLowercase = this.workoutPlan.intensityLevel.toLowerCase();
+
+      // Check if the received intensity level exists in the intensityMap
+      if (receivedIntensityLowercase in intensityMap) {
+        // Prepare workout session data with mapped intensity level
+        const workoutSessionData = {
+          intensity: intensityMap[receivedIntensityLowercase], // Map intensity level
+          // Include relevant data for the workout session
+        };
+
+        // Call the addWorkoutSession method from the WorkoutService
+        this.workoutService.addWorkoutSession(workoutSessionData, this.userId.idUser).subscribe(
+          (response) => {
+            // Handle success response
+            console.log('Workout session added successfully:', response);
+          },
+          (error) => {
+            // Handle error response
+            console.error('Error adding workout session:', error);
+          }
+        );
+      } else {
+        // Handle case when the received intensity level is not recognized
+        console.error('Unrecognized intensity level:', this.intensity);
       }
     }
 

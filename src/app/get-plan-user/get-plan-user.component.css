@@ -11,13 +11,85 @@
 }
 
 body {
-  background: url('../../assets/BackgroundImages/OIP.jpeg');
-  background-size: 1800px 1800px;
-
-
-  height: 5000px;
-  /* Center content horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+  overflow: hidden;
 }
+
+/* Define the starry background */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  transform: rotate(-45deg);
+}
+.star {
+  --star-count: 50;
+  --star-color: var(--primary-color);
+  --star-tail-length: 6em;
+  --star-tail-height: 2px;
+  --fall-duration: 9s;
+  --tail-fade-duration: var(--fall-duration);
+
+  position: absolute;
+  top: var(--top-offset);
+  left: 0;
+  width: var(--star-tail-length);
+  height: var(--star-tail-height);
+  color: var(--star-color);
+  background: linear-gradient(45deg, var(--star-color), transparent);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px var(--star-color));
+  transform: translate3d(104em, 0, 0);
+  animation: fall var(--fall-duration) linear infinite, tail-fade var(--tail-fade-duration) ease-out infinite;
+
+  /* Mobile-specific layout adjustment */
+  @media screen and (max-width: 750px) {
+    animation: fall var(--fall-duration) linear infinite;
+  }
+
+  /* Loop through stars */
+  /* This part will need to be implemented in JavaScript or another preprocessor */
+}
+
+/* Define the fall animation */
+@keyframes fall {
+  to {
+    transform: translate3d(-30em, 0, 0);
+  }
+}
+
+/* Define the tail-fade animation */
+@keyframes tail-fade {
+  0%, 50% {
+    width: var(--star-tail-length);
+    opacity: 1;
+  }
+
+  70%, 80% {
+    width: 0;
+    opacity: 0.4;
+  }
+
+  100% {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+/* Define the blink animation */
+@keyframes blink {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Create a semi-transparent overlay */
 body::before {
   content: "";
   position: fixed;
@@ -25,7 +97,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5); /* Change the last value (0.5) to adjust opacity */
+  background: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the desired transparency */
   z-index: -1;
 }
 .card-image {
@@ -174,4 +246,7 @@ body::before {
 
 .scroll-button:hover {
   opacity: 1;
+}
+.category{
+  color: white;
 }

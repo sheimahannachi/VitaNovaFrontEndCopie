@@ -1,31 +1,20 @@
+
 <body>
+
+<div class="stars">
+  <!-- Add star divs here -->
+  <app-star count="50"></app-star>
+
+  <!-- Repeat as needed -->
+</div>
 <div class="container">
   <div class="container-workout">
 
-  <!--div class="filter-controls">
 
-    <label for="muscle">Muscle:</label>
-    <input type="text" id="muscle" [(ngModel)]="selectedMuscle">
-
-
-    <label for="equipment">Equipment:</label>
-    <input type="text" id="equipment" [(ngModel)]="selectedEquipment">
-
-
-    <label for="intensity">Intensity:</label>
-    <select id="intensity" [(ngModel)]="selectedIntensity">
-      <option value="Beginner">Beginner</option>
-      <option value="Intermediate">Intermediate</option>
-      <option value="Expert">Expert</option>
-    </select>
-
-
-    <button (click)="applyFilters()">Apply Filters</button>
-  </div-->
 
   <!-- Loop through unique muscle categories -->
   <div *ngFor="let category of uniqueMuscleCategories; let i = index" class="category-container">
-    <h3>{{ category }}</h3>
+    <h2 class="category">{{ category }}</h2>
     <!-- Filter workout plans by muscle category and display horizontally -->
     <div class="workout-scroll-container">
       <div class="scroll-button scroll-left" (click)="scrollPlans('left', i)">&#8249;</div>
@@ -35,6 +24,7 @@
             <img [src]="plan.image" alt="Workout Plan Image">
           </div>
           <div class="card-title">{{ plan.title }}</div>
+          <div class="intensity">{{plan.intensityLevel}}</div>
         </div>
       </div>
       <div class="scroll-button scroll-right" (click)="scrollPlans('right', i)">&#8250;</div>
@@ -43,7 +33,7 @@
 
   <!-- Your List section -->
   <div class="your-list">
-    <h2>Your List</h2>
+    <h2 class="category">Your List</h2>
     <div class="workout-card-container">
     <div class="card-container">
       <!-- Loop through user's workout plans -->
@@ -59,3 +49,4 @@
 </div>
 </div>
 </body>
+

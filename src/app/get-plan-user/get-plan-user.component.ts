@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { WorkoutPlan } from '../Models/WorkoutPlan';
@@ -29,6 +29,8 @@ export class GetPlanUserComponent {
   selectedMuscle: string = '';
   selectedEquipment: string = '';
   selectedIntensity: string = '';
+  @Input() count: number = 50; // Default to 50 stars
+  stars: number[] = Array(this.count).fill(0);
 
   isLoading: boolean = false;
   displayedColumns: string[] = ['workout'];
@@ -236,14 +238,19 @@ export class GetPlanUserComponent {
         const randomImageIndex = Math.floor(Math.random() * this.imagesList.length);
         const randomImage = this.imagesList[randomImageIndex];
 
+        // Assign intensity level to the workout plan based on a predetermined scheme
+        const intensityLevels =["Beginner", "Intermediate", "Expert"]; // Example intensity levels
+        const randomIntensityIndex = i % intensityLevels.length; // Cycle through intensity levels
+        const intensityLevel = intensityLevels[randomIntensityIndex];
+
         const workoutPlan = {
           id: uuidv4(),
           title: `Workout Plan ${i + 1}`, // Example title
           image: randomImage, // Assign the randomly selected image
+          intensityLevel: intensityLevel, // Assign intensity level to the workout plan
           exercises: workoutPlanExercises.map((exercise: any) => ({
             muscle: exercise.Muscles,
             workout: exercise.WorkOut,
-            intensityLevel: exercise.Intensity_Level,
             beginnerSets: exercise['Beginner Sets'],
             intermediateSets: exercise['Intermediate Sets'],
             expertSets: exercise['Expert Sets'],
@@ -275,15 +282,20 @@ export class GetPlanUserComponent {
             const randomImageIndex = Math.floor(Math.random() * this.imagesList.length);
             const randomImage = this.imagesList[randomImageIndex];
 
+            // Assign intensity level to the workout plan based on a predetermined scheme
+            const intensityLevels = ["Beginner", "Intermediate", "Expert "]; // Example intensity levels
+            const randomIntensityIndex = i % intensityLevels.length; // Cycle through intensity levels
+            const intensityLevel = intensityLevels[randomIntensityIndex];
+
             const workoutPlan = {
               id: uuidv4(),
               category: category,
               title: `Workout Plan ${i + 1} (${category})`, // Example title including category
               image: randomImage, // Assign the randomly selected image
+              intensityLevel: intensityLevel, // Assign intensity level to the workout plan
               exercises: workoutPlanExercises.map((exercise: any) => ({
                 muscle: exercise.Muscles,
                 workout: exercise.WorkOut,
-                intensityLevel: exercise.Intensity_Level,
                 beginnerSets: exercise['Beginner Sets'],
                 intermediateSets: exercise['Intermediate Sets'],
                 expertSets: exercise['Expert Sets'],
@@ -303,16 +315,14 @@ export class GetPlanUserComponent {
       }
       this.sessionStorage.store('workoutPlans', this.workoutPlans);
 
-      // Shuffle the list of exercises for generating workout plans with a variety of exercises
-
-
-
       console.log('Generated Workout Plans:', this.workoutPlans);
     } catch (error) {
       console.error('Error fetching workout plans:', error);
       this.workoutPlans = []; // Clear plans if an error occurs
     }
   }
+
+
 
 
 

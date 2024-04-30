@@ -45,6 +45,7 @@ import { PeriodTrackerComponent } from './period-tracker/period-tracker.componen
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
+import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -80,7 +81,8 @@ const routes: Routes = [
         component:ShowPeriodComponent},
       { path: 'PeriodInformation/:idPeriod', component: PeriodTrackerComponent },
       {path:'PeriodInsights',component:PeriodInsightsComponent},
-      {path:'PeriodRecipes', component:PeriodRecipesComponent}
+      {path:'PeriodRecipes', component:PeriodRecipesComponent},
+      {path: 'lowcarb',component: RecipiesLowCarbComponent},
     ]},
 //amine
 

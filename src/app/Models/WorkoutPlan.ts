@@ -1,11 +1,12 @@
 // workout-program.model.ts
 import {Exercise} from "./Exercise";
+import {Intensity} from "./Intensity";
 
 export class WorkoutPlan {
   id!: number;
   userId!: number; // Add user ID field
   title!: string;
-  intensity!: string; // You can define an enum in Angular for Intensity if needed
+  intensity!: Intensity; // You can define an enum in Angular for Intensity if needed
   duration!: string;
   restIntervals!: string;
   sportType!: string;

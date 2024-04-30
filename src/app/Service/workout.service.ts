@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Exercise} from "../Models/Exercise";
 import {UserRating} from "../Models/UserRating";
 import {WorkoutPlan} from "../Models/WorkoutPlan";
+import {Intensity} from "../Models/Intensity";
 
 @Injectable({
   providedIn: 'root'
@@ -115,6 +116,11 @@ export class WorkoutService {
     const url = `${this.baseUrl}/ArchiverPlan/${WorkoutId}`;
     return this.http.delete<void>(url);
   }
-
+  addWorkoutSession(workoutSession: any, userId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/addworkoutsession/${userId}`, workoutSession);
+  }
+  addSession(workoutSession: any, id: number, intensity: Intensity): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/addSession/${id}/${intensity}`, workoutSession);
+  }
 }
 

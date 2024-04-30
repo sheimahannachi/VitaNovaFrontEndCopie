@@ -76,6 +76,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
 import {MatSelectModule} from "@angular/material/select";
 import { TimerApiComponent } from './timer-api/timer-api.component';
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 
 
 @NgModule({
@@ -144,6 +145,7 @@ import { TimerApiComponent } from './timer-api/timer-api.component';
     DialogPlanComponent,
     CheckoutComponent,
     TimerApiComponent,
+    RecipiesLowCarbComponent,
 
 
 

@@ -5,7 +5,7 @@ body {
     display: flex;
     justify-content: center; /* Center content horizontally */
   }
-  
+
   .container {
     overflow-x: auto; /* Enable horizontal scrolling */
     display: flex;
@@ -14,13 +14,13 @@ body {
     margin: 0 auto;
     padding: 20px 0; /* Add padding for spacing */
   }
-  
+
   .recipes-container {
     display: flex;
     flex-wrap: nowrap; /* Prevent wrapping of cards */
     margin-top: 170px;
   }
-  
+
   .card {
     flex: 0 0 auto; /* Prevent card from shrinking */
     width: 300px; /* Adjust card width */
@@ -34,16 +34,16 @@ body {
     box-sizing: border-box;
     margin-right: 20px; /* Add spacing between cards */
   }
-  
+
   .card:last-child {
     margin-right: 0; /* Remove margin from last card to avoid extra space */
   }
-  
+
   .card:hover {
     transform: translateY(-10px);
     box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1), -4px -4px 12px rgba(0, 0, 0, 0.08);
   }
-  
+
   .card-image-container {
     width: 100%;
     height: 64%;
@@ -55,11 +55,11 @@ body {
     align-items: center;
     justify-content: center;
   }
-  
+
   .image-icon {
     font-size: 40px;
   }
-  
+
   .card-title {
     margin: 0;
     font-size: 17px;
@@ -73,7 +73,7 @@ body {
     -webkit-line-clamp: 1;
     line-clamp: 1;
   }
-  
+
   .card-des {
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -93,13 +93,12 @@ body {
     font-family: "Lucida Sans"
 
   }
-  
+
   .nutrients ul {
     padding-left: 20px;
   }
-  
+
   .nutrients ul li {
     list-style: disc;
     margin-bottom: 5px;
   }
-  
