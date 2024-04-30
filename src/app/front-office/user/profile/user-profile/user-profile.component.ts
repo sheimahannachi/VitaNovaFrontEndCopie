@@ -229,7 +229,10 @@ test(){
   this.display();
 }
 
-
+scrollToFooter() {
+  const footer = document.querySelector('.front-office-footer');
+  footer.scrollIntoView({ behavior: 'smooth' });
+}
 
 
 checkSpotify(): void {
@@ -278,6 +281,7 @@ playTrack(uri: string): void {
 }
 
 playPlaylist(uri: string): void {
+  this.scrollToFooter();
   this.selectedItemType = 'playlist';
   this.selectedItemURI = uri;
   this.updateIframeSrc();
