@@ -30,7 +30,7 @@ export enum Plan {
     CommonModule
   ]
 })
-export class UserModule { 
+export class UserModule {
   [key: string]: any; // Index signature allowing any string key with any value
 
   idUser!: number;
@@ -56,7 +56,7 @@ export class UserModule {
   role!: ERole;
 
   constructor() {
-    
+
   }
 
 }

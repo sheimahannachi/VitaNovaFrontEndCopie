@@ -47,9 +47,11 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+//import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-//Aziz 
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
+//Aziz
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
@@ -90,6 +92,9 @@ import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component'
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
 
+import {MatSelectModule} from "@angular/material/select";
+import { TimerApiComponent } from './timer-api/timer-api.component';
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 
 
 @NgModule({
@@ -135,7 +140,7 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
     FindCommunityComponent,
     UpdateCommunityComponent,
 //Amine
-    UsersBackComponent,
+   // UsersBackComponent,
     UserProfileComponent,
 
     UpdateProductComponent,
@@ -158,6 +163,7 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
     
     
   
+
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
@@ -165,6 +171,8 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
     CheckoutComponent,
     CheckoutDoneComponent,
     ShowProductUserComponent,
+    TimerApiComponent,
+    RecipiesLowCarbComponent,
 
 
     ProductDetailsDialogComponent,
@@ -181,6 +189,8 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
+
 
 //yoser
     CommonModule,
@@ -188,14 +198,8 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
     MatDialogModule,
     MatIconModule,
 //firas
-    MatDialogModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
     //sheima
-    CommonModule,
     BrowserAnimationsModule,
-    FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
@@ -207,12 +211,15 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
     
 
     
+    MatSelectModule,
 
 
   ],
   exports:[MatDialogModule,],
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
+
+
 
 
   bootstrap: [AppComponent]

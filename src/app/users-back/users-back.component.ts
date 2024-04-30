@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+/*import { Component } from '@angular/core';
 import { UserService } from '../Service/user.service';
 import { ERole, UserModule } from '../Models/user.module';
 import { formatDate } from '@angular/common';
@@ -69,10 +69,10 @@ export class UsersBackComponent {
     );
   }
   updateUserProperty(event: any, user: UserModule, property: string) {
-   
+
       // Get the new value from the input field
       let newValue = event.target.textContent.trim();
-  
+
       // Check if the property exists in the user object
       if (user.hasOwnProperty(property)) {
         // If the property is 'dateOfBirth', parse the new value to a Date object
@@ -83,7 +83,7 @@ export class UsersBackComponent {
             console.error('Empty date string received.');
             return;
           }
-        
+
           newValue = formatDate(newValue, 'yyyy-MM-dd', 'en');
           console.log(newValue);
 
@@ -91,9 +91,9 @@ export class UsersBackComponent {
           user.dateOfBirth = newValue;
 
           // Update the form group with the new value
-        
+
       }
-      
+
        else if (property === 'role'||property==='gender') {
           newValue = event.target.value; // For <select>, directly get the selected value
         } else {
@@ -127,7 +127,7 @@ export class UsersBackComponent {
 
   filterUsers() {
       this.filteredUsers = this.users.filter(user => {
-          const matchesSearch = !this.searchQuery || 
+          const matchesSearch = !this.searchQuery ||
                                 user.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                                 user.email.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                                 user.firstName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -138,9 +138,9 @@ export class UsersBackComponent {
           return matchesSearch && matchesRole;
       });
   }
-  }
-  
-  
+  }*/
+
+
 
 
 

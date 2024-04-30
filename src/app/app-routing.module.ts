@@ -10,7 +10,7 @@ import {FoodListComponent} from "./food-list/food-list.component";
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
 //yoser
-
+import {TimerApiComponent} from "./timer-api/timer-api.component";
 import {FoodCardComponent} from "./food-card/food-card.component";
 import {FoodDetailsComponent} from "./food-details/food-details.component";
 import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-front.component";
@@ -34,7 +34,7 @@ import { FindCommunityComponent } from './find-community/find-community.componen
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+//import { UsersBackComponent } from './users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
 import { AddProductComponent } from './add-product/add-product.component';
@@ -52,6 +52,7 @@ import { PeriodRecipesComponent } from './period-recipes/period-recipes.componen
 
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -80,9 +81,10 @@ const routes: Routes = [
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
       {path:"workoutplan",component:GetPlanUserComponent},
-      { path: 'timer/:id', component: TimerPageComponent },
       {path:"foodFront",component:FoodCardComponent},
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
+      { path: 'Timer/:id', component: TimerPageComponent },
+      { path: 'timer-api', component: TimerApiComponent },
 
       //aziz
       {path:"showProductUser",
@@ -99,6 +101,7 @@ const routes: Routes = [
       {path:'PeriodRecipes', component:PeriodRecipesComponent},
       {path:'PeriodRecommendations', component:PeriodRecommendationsComponent},
 
+      {path: 'lowcarb',component: RecipiesLowCarbComponent},
     ]},
 //amine
 
@@ -163,10 +166,7 @@ const routes: Routes = [
       {path:"chalenges", component:AllChallengesBackComponent},
       //amine
 
-      {
-        path: "users",
-        component: UsersBackComponent
-      },
+
       //aziz
       {path:"addProduct",
         component: AddProductComponent},
