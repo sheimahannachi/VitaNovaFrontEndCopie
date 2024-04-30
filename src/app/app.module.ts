@@ -90,6 +90,7 @@ import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component'
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 
 import {MealCardsComponent} from "./meal-cards/meal-cards.component";
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 
 @NgModule({
   declarations: [
@@ -169,6 +170,7 @@ import {MealCardsComponent} from "./meal-cards/meal-cards.component";
     ProductDetailsDialogComponent,
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
+      RecipiesLowCarbComponent,
 
 
     ],

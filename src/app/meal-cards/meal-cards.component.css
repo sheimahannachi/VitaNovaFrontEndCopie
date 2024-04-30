@@ -51,3 +51,101 @@
   height: 24px;
   fill: black;
 }
+.water-consumption {
+  text-align: center;
+}
+
+.water-buttons {
+  display: flex;
+  justify-content: space-between; /* Align buttons with space between */
+  align-items: center; /* Center align vertically */
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  margin-top: 20px;
+}
+.circle-button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.shape {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  margin: 10px; /* Add space between buttons */
+}
+
+.shape:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 3;
+}
+
+.wave {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: translate(-25%, 0);
+  background: #4973ff;
+  animation: fill-up 10s ease infinite;
+}
+
+@keyframes fill-up {
+  to {
+    top: -75%;
+  }
+}
+
+.wave:before,
+.wave:after {
+  content: '';
+  position: absolute;
+  width: 110%;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  background: #000;
+}
+
+.wave:before {
+  border-radius: 45%;
+  background: rgba(179, 241, 255, 1);
+  animation: animate 3s linear infinite;
+}
+
+.wave:after {
+  border-radius: 40%;
+  background: rgba(179, 241, 255, 0.5);
+  animation: animate 3s linear infinite;
+}
+.wave.filled {
+  animation: fill-up 10s ease infinite;
+}
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}
+
+
+
+
+
+

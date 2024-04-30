@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FoodDetailsDialogComponent } from '../food-details-dialog/food-details-dialog.component';
 import {BarcodeScannerService} from "../barcode-scanner.service";
 import {MealType} from "../models/MealType";
+import { MiscService } from '../Service/misc.service';
 
 @Component({
   selector: 'app-food-card',
@@ -88,8 +89,9 @@ export class FoodCardComponent implements OnInit {
 
     this.filter();
   }
-  constructor(private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService) {
+  constructor( private miscService:MiscService,private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService) {
     this.selectedCategories = [];
+
   }
   openFoodDetailsDialog(food: Food): void {
     const dialogRef = this.dialog.open(FoodDetailsDialogComponent, {
@@ -132,23 +134,23 @@ export class FoodCardComponent implements OnInit {
 
   getFoods(page: number, size: number): void {
     this.foodService.getFoods(page, size).subscribe(
-      (pageData: any) => {
-        if (Array.isArray(pageData.content)) {
-          this.totalElements = pageData.totalElements;
-          this.totalPages = pageData.totalPages;
-          this.currentPage = pageData.number;
-          this.foods = pageData.content;
-          this.filteredFoods = [...this.foods];
-          this.foods.forEach(food => {
-            food.foodPic = this.baseUrl + food.foodPic;
-          });
-        } else {
-          console.error('Expected an array of foods in pageData.content, but received:', pageData.content);
+        (pageData: any) => {
+          if (Array.isArray(pageData.content)) {
+            this.totalElements = pageData.totalElements;
+            this.totalPages = pageData.totalPages;
+            this.currentPage = pageData.number;
+            this.foods = pageData.content;
+            this.filteredFoods = [...this.foods];
+            this.foods.forEach(food => {
+              food.foodPic = this.baseUrl + food.foodPic;
+            });
+          } else {
+            console.error('Expected an array of foods in pageData.content, but received:', pageData.content);
+          }
+        },
+        error => {
+          console.error('Failed to fetch foods:', error);
         }
-      },
-      error => {
-        console.error('Failed to fetch foods:', error);
-      }
     );
   }
   nextPage() {
@@ -177,13 +179,14 @@ export class FoodCardComponent implements OnInit {
 
 
   applyFilters(): void {
+
     this.filteredFoods = this.foods.filter(food => {
       // Filter by title
       const titleMatch = food.title.toLowerCase().includes(this.searchTitle.toLowerCase());
 
       // Filter by calories
       const caloriesMatch = this.minCalories === '' || this.maxCalories === '' ||
-        (food.calories >= parseFloat(this.minCalories) && food.calories <= parseFloat(this.maxCalories));
+          (food.calories >= parseFloat(this.minCalories) && food.calories <= parseFloat(this.maxCalories));
 
       return titleMatch && caloriesMatch;
     });
@@ -196,6 +199,9 @@ export class FoodCardComponent implements OnInit {
       console.error('Error scanning barcode:', error);
     }
   }
+
+
+
 
 
 

@@ -24,19 +24,30 @@ export class MiscService {
 
 
   encrypt(value: string, key: string): string {
-    
+
     const keyWordArray = CryptoJS.enc.Utf8.parse(key);
-    
-   
+
+
     const encrypted = CryptoJS.TripleDES.encrypt(value, keyWordArray, {
-      mode: CryptoJS.mode.ECB, 
-      padding: CryptoJS.pad.Pkcs7 
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
     });
-    
-  
+
+
     const encryptedBase64 = CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
-    
+
     return encryptedBase64;
+  }
+  private apiUrl = 'http://localhost:8081/RestController/search-image'; // Assuming this is the relative path to your endpoint
+
+
+  searchImage(query: string, page: number = 1): Observable<{ url: string }> { // Specify the return type
+    const params = {
+      query: query,
+      page: page.toString()
+    };
+
+    return this.http.get<{ url: string }>(this.apiUrl, { params: params }); // Return type should match the expected response
   }
 
 }

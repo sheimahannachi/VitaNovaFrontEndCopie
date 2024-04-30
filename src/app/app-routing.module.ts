@@ -53,6 +53,7 @@ import { PeriodRecipesComponent } from './period-recipes/period-recipes.componen
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import {MealCardsComponent} from "./meal-cards/meal-cards.component";
+import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -85,6 +86,7 @@ const routes: Routes = [
       {path:"foodFront",component:FoodCardComponent},
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
       {path: 'mealCard',component: MealCardsComponent},
+          {path:'lowCarb',component: RecipiesLowCarbComponent},
 
       //aziz
       {path:"showProductUser",

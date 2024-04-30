@@ -17,6 +17,8 @@ export class MealCardsComponent implements OnInit {
   snacksFoodCards: FoodCard[] = [];
   mealtype: MealType;
   idtracker: number;
+  waterConsumed: number = 0;
+  isFilled: boolean[] = [false, false, false, false];
 
   constructor(private foodService: FoodService, private router: Router) {
   }
@@ -33,4 +35,13 @@ export class MealCardsComponent implements OnInit {
   }
 
   protected readonly MealType = MealType;
+
+
+
+
+  addWater(amount: number, index: number) {
+    this.isFilled[index] = true;
+    this.waterConsumed += amount;
+  }
 }
+
