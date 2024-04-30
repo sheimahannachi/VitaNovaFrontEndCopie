@@ -88,6 +88,7 @@ import { CheckoutDoneComponent } from './front-office/user/checkout-done/checkou
 import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
 
 
 
@@ -169,6 +170,7 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
     ProductDetailsDialogComponent,
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
+      DeleteAccountComponent,
 
 
     ],

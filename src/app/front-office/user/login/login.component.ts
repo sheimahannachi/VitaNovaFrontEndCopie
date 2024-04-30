@@ -105,11 +105,23 @@ openSuccessDialog(): void {
           sessionStorage.setItem("token",response.token);
           sessionStorage.setItem("role",JSON.stringify(response.role));
           console.log('Login successful!', response);
-          if(response.role=='USER')
-            this.router.navigate(['vitaNova/profile']); 
-          else if(response.role=="ADMIN")
-            this.router.navigate(['/admin/users']); 
+          if(response.role=='USER'){
+            this.userService.getUserByUsername(response.username).subscribe(
+            (user: UserModule) => {
+                if(user.archive==true){alert("account is deactivated");} 
+                else  this.router.navigate(['vitaNova/profile']); 
 
+            },
+            (error) => {
+                console.error('Error fetching user:', error);
+            }
+        );
+        
+          }
+          else if(response.role=="ADMIN")
+            this.router.navigate(['/admin/users']);
+         
+       
         } else {
           console.log('IP Address check failed');
           console.log(response.email)

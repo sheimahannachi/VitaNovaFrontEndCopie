@@ -9,6 +9,7 @@ import { Plan } from 'src/app/Models/user.module';
 import { DialogPlanComponent } from '../../dialog-plan/dialog-plan.component';
 import { MiscService } from 'src/app/Service/misc.service';
 import { SpotifyService } from './../../../../Service/spotify.service';
+import { DeleteAccountComponent } from 'src/app/front-office/delete-account/delete-account.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -66,13 +67,17 @@ display(){
   this.spotifyMode=!this.spotifyMode;
   this.checkSpotify();
 
-  this.spotifyService.searchTrack('runaway', 'kanye West',sessionStorage.getItem("accessToken")).subscribe(trackURI => {
+ /* this.spotifyService.searchTrack('runaway', 'kanye West',sessionStorage.getItem("accessToken")).subscribe(trackURI => {
     if (trackURI) {
       // Do something with the trackURI, like displaying the player
     } else {
       console.log('Track not found.');
     }
-  });
+  });*/
+  if(!sessionStorage.getItem("accessToken")){
+
+  this.miscService.loginSpotify();
+}
   //this.spotifyService.checkScope(sessionStorage.getItem("accessToken")).subscribe();
 
 }
@@ -302,6 +307,17 @@ updateIframeSrc(): void {
     this.searchResults=null;
   }
   document.getElementById('spotifyIframe')?.setAttribute('src', iframeSrc);
+}
+
+openDelete(){
+
+  const dialogRef = this.dialog.open(DeleteAccountComponent, {
+    data: { userProfile: this.userProfile }, 
+
+  });
+
+
+
 }
 
 
