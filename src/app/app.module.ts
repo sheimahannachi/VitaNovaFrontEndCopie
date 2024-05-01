@@ -95,7 +95,7 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
 import {MatSelectModule} from "@angular/material/select";
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
-
+import {Chart} from "chart.js";
 
 @NgModule({
   declarations: [
@@ -121,7 +121,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
- 
+
 //ons
     FooterComponent,
     FoodComponent,
@@ -139,6 +139,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
+
 //Amine
    // UsersBackComponent,
     UserProfileComponent,
@@ -159,10 +160,10 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     PeriodRecipesComponent,
     SidebarComponent,
     StripeComponent,
-    
-    
-    
-  
+
+
+
+
 
     DialogVerificationComponent,
     DialogSuccessComponent,
@@ -208,9 +209,9 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
-    
 
-    
+
+
     MatSelectModule,
 
 

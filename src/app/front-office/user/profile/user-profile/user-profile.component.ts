@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef,EventEmitter, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 import { UserService } from 'src/app/Service/user.service';
@@ -11,6 +12,8 @@ import { MiscService } from 'src/app/Service/misc.service';
 import { SpotifyService } from './../../../../Service/spotify.service';
 import { DeleteAccountComponent } from 'src/app/front-office/delete-account/delete-account.component';
 
+import { Chart } from 'chart.js';
+import {WorkoutService} from "../../../../Service/workout.service";
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -37,16 +40,34 @@ selectedItemType: string = '';
 selectedItemURI: string = '';
 selectedPlaylistId: string | null = null;
 accessToken:string=null;
-  constructor(private spotifyService:SpotifyService,private miscService:MiscService, private dialog: MatDialog,private authService: AuthService, private userService: UserService, private http: HttpClient) {
-    this.userProfile = new UserModule(); 
-  
+  userId: UserModule;
+  @ViewChild('chart', { static: true }) chartRef: ElementRef;
+  chart: any;
 
+
+
+
+  constructor(private spotifyService:SpotifyService,private miscService:MiscService, private dialog: MatDialog,private authService: AuthService, private userService: UserService, private http: HttpClient,private workoutService:WorkoutService) {
+    this.userProfile = new UserModule(); // Initialize userProfile here
+    this.authService.getUserInfoFromToken().subscribe(userId => {
+      this.userId = userId;
+    });
   }
 
   ngOnInit(): void {
     this.getUserInfoFromToken();
-  
+
+    this.workoutService.getUserTrainingStatistics(this.userId.idUser).subscribe(
+      (data) => {
+        //this.renderChart(data);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des statistiques de l\'utilisateur :', error);
+      }
+    );
   }
+
+
 
   getUserInfoFromToken(): void {
     this.authService.getUserInfoFromToken().subscribe(
@@ -148,18 +169,22 @@ display(){
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
-      data: { userProfile: this.userProfile }, 
+      width: '400px',
+      height:'388px',
+      data: { userProfile: this.userProfile },
       disableClose: true ,
 
     });
-  
+
+    // Handle the dialog result if needed
+
     dialogRef.afterClosed().subscribe(result => {
       this.achievementUnlocked("You Started the Journey! + 1 VCoin");
 
       if(this.userProfile.personalGoals!=null){
         this.userProfile.score++;
         this.userService.updateUser(this.userProfile).subscribe(
-          
+
         );
 
       }
@@ -170,13 +195,15 @@ display(){
 
   openDialogPlan() {
     const dialogRef = this.dialog.open(DialogPlanComponent, {
-      width: '800px', 
+      width: '800px',
       height:'315px',
-      data: { userProfile: this.userProfile } 
+      data: { userProfile: this.userProfile }
 
     });
-   
-    
+
+    // Handle the dialog result if needed
+
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed with result:', result);
          });
@@ -202,7 +229,7 @@ display(){
       this.daysleft=this.calculateDaysLeft();
       const weightDifference = Math.abs(this.userProfile.personalGoals.weightStart - this.weightGoal);
       const currentWeightDifference =Math.abs( this.userProfile.personalGoals.weightStart - this.userProfile.weight);
-     
+
 
       const progressPercentage = (currentWeightDifference / weightDifference) * 100;
       return Math.max(0, Math.min(100, progressPercentage));
@@ -215,19 +242,19 @@ calculateDaysLeft(): number {
   if (this.userProfile.personalGoals.startDate && this.userProfile.personalGoals.dateGoal) {
     const startDate = new Date(this.userProfile.personalGoals.startDate);
     const dateGoal = new Date(this.userProfile.personalGoals.dateGoal);
-    
+
     const differenceInMilliseconds = dateGoal.getTime() - startDate.getTime();
-    
-    
+
+
     const daysLeft = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-    
+
     return daysLeft;
   } else {
     return 0;
   }
 }
 
-  
+
 test(){
 
   this.miscService.loginSpotify();
@@ -295,13 +322,13 @@ updateIframeSrc(): void {
   let iframeSrc = '';
   console.log(this.selectedItemURI);
   let trackId = this.selectedItemURI.split(':')[2];
-  
+
   if (this.selectedItemType === 'track') {
     iframeSrc = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0`;
     this.searchResults=null;
 
   }else if (this.selectedItemType === 'playlist') {
-  
+
     let playlistId = this.selectedItemURI.split(':')[2]; // Splitting the URI and getting the third part after "spotify:playlist:"
     iframeSrc = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
     this.searchResults=null;
@@ -312,7 +339,7 @@ updateIframeSrc(): void {
 openDelete(){
 
   const dialogRef = this.dialog.open(DeleteAccountComponent, {
-    data: { userProfile: this.userProfile }, 
+    data: { userProfile: this.userProfile },
 
   });
 

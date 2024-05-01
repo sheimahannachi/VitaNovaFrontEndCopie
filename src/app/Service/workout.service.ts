@@ -122,5 +122,8 @@ export class WorkoutService {
   addSession(workoutSession: any, id: number, intensity: Intensity): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/addSession/${id}/${intensity}`, workoutSession);
   }
+  getUserTrainingStatistics(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/statistique/${userId}`);
+  }
 }
 
