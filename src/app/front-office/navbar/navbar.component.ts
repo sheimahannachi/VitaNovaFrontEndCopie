@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserModule } from 'src/app/Models/user.module';
+import { ERole, UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class NavbarComponent {
   picture!:string;
   signOut(): void {
     this.authService.logoutAndRedirect();
-    this.userProfile2 = new UserModule(); 
   }
 
  
@@ -24,12 +23,7 @@ export class NavbarComponent {
   
   
 
-  ngOnInit(): void {
-    this.getUserInfoFromToken();
-    if (this.userProfile2) {
-   
-    } else {
-    }
+  ngOnInit(): void {   
   }
 
 
@@ -44,7 +38,12 @@ export class NavbarComponent {
       (response: UserModule) => {
         this.userProfile2 = response;
         this.picture=this.userProfile2.picture;
-
+        if (this.userProfile2) {
+          if(this.userProfile2.role==ERole.ROLE_ADMIN){this.signOut();}
+          console.log(this.userProfile2)
+           } else {
+       
+           }
       },
       error => {
         console.error('Error fetching user information:', error);

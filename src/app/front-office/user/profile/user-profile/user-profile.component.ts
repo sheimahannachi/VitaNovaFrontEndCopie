@@ -271,8 +271,8 @@ display(){
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
-      width: '400px',
-      height:'388px',
+      width: 'fit-content',
+      height:'fit-content',
       data: { userProfile: this.userProfile },
       disableClose: true ,
 

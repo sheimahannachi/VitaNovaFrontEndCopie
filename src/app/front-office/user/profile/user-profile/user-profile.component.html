@@ -325,14 +325,22 @@
             </div>
 
 
-            <div class="card-body" *ngIf="weightGoal == 0">
-                <button (click)="openDialog()" class="StartBtn">  <span>Start</span>
+            <div class="card-body" *ngIf="weightGoal == 0" style=" display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;">
+                <button (click)="openDialog()" class="StartBtn" style="  display: inline-block;
+                text-align: center;
+                vertical-align: middle;
+                ">  <span>Start</span>
                 </button>
 
             </div>
         </div>
+        <div id="chart"></div>
 
 </div>
+
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -495,8 +503,7 @@
             </form>
         </div>
 
-        <div id="chart"></div>
-
+      
 
     </div>
     <div class="achbox" #achievementBox>
