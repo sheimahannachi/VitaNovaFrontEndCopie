@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {Exercise} from "../Models/Exercise";
 import {UserRating} from "../Models/UserRating";
 import {WorkoutPlan} from "../Models/WorkoutPlan";
@@ -122,5 +122,19 @@ export class WorkoutService {
   addSession(workoutSession: any, id: number, intensity: Intensity): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/addSession/${id}/${intensity}`, workoutSession);
   }
+  getUserTrainingStatistics(userId: number): Observable<any> {
+    const url = `${this.baseUrl}/statistique/${userId}`;
+    return this.http.get<any>(url).pipe(
+        catchError(error => {
+          console.error('Error fetching user training statistics:', error);
+          return throwError(error);
+        })
+    );
+  }
+  getAllWorkoutSessionData(): Observable<Object[]> {
+    const url = `${this.baseUrl}/statistics`;
+    return this.http.get<any>(url)
+  }
+
 }
 

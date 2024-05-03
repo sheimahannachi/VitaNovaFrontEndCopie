@@ -97,6 +97,7 @@ import { TimerApiComponent } from './timer-api/timer-api.component';
 import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 
+import {Chart} from "chart.js";
 
 @NgModule({
   declarations: [
@@ -122,7 +123,7 @@ import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.compo
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
- 
+
 //ons
     FooterComponent,
     FoodComponent,
@@ -140,6 +141,7 @@ import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.compo
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
+
 //Amine
    UsersBackComponent,
     UserProfileComponent,
@@ -160,10 +162,10 @@ import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.compo
     PeriodRecipesComponent,
     SidebarComponent,
     StripeComponent,
-    
-    
-    
-  
+
+
+
+
 
     DialogVerificationComponent,
     DialogSuccessComponent,
@@ -210,9 +212,9 @@ import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.compo
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
-    
 
-    
+
+
     MatSelectModule,
 
 

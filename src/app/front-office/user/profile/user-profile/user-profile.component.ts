@@ -1,23 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import * as Highcharts from 'highcharts';
 import { UserModule } from 'src/app/Models/user.module';
 import { AuthService } from 'src/app/Service/auth.service';
 import { UserService } from 'src/app/Service/user.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogPersonalGoalsComponent } from '../../dialog-personal-goals/dialog-personal-goals.component';
-import { Plan } from 'src/app/Models/user.module';
-import { DialogPlanComponent } from '../../dialog-plan/dialog-plan.component';
+import { WorkoutService } from '../../../../Service/workout.service';
 import { MiscService } from 'src/app/Service/misc.service';
 import { SpotifyService } from './../../../../Service/spotify.service';
-import { DeleteAccountComponent } from 'src/app/front-office/delete-account/delete-account.component';
+import { HttpClient } from '@angular/common/http';
+import {DialogPersonalGoalsComponent} from "../../dialog-personal-goals/dialog-personal-goals.component";
+import {DialogPlanComponent} from "../../dialog-plan/dialog-plan.component";
+import {DeleteAccountComponent} from "../../../delete-account/delete-account.component";
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css'],
-
+  styleUrls: ['./user-profile.component.css']
 })
-
 export class UserProfileComponent implements OnInit {
   userDetails: any = null;
   userProfile: UserModule;
@@ -27,28 +26,152 @@ export class UserProfileComponent implements OnInit {
   confirmPassword: string = "";
   editField: string = ''; // Tracks which field is being edited
   profilePictureUrl: string = "";
-  weightGoal:number=0;
-daysleft!:number;
-startDate!:Date;
-searchResults: any;
-spotifyMode:boolean=false;
-searchQuery = '';
-selectedItemType: string = '';
-selectedItemURI: string = '';
-selectedPlaylistId: string | null = null;
-accessToken:string=null;
-  constructor(private spotifyService:SpotifyService,private miscService:MiscService, private dialog: MatDialog,private authService: AuthService, private userService: UserService, private http: HttpClient) {
-    this.userProfile = new UserModule(); 
-  
+  weightGoal: number = 0;
+  daysleft!: number;
+  startDate!: Date;
+  searchResults: any;
+  spotifyMode: boolean = false;
+  searchQuery = '';
+  selectedItemType: string = '';
+  selectedItemURI: string = '';
+  selectedPlaylistId: string | null = null;
+  accessToken: string = null;
+  user: UserModule;
+  @ViewChild('chart', { static: true }) chartRef: ElementRef;
+  chart: Highcharts.Chart;
+  workoutSessionData: Object[] = [];
 
+  constructor(
+      private spotifyService: SpotifyService,
+      private miscService: MiscService,
+      private dialog: MatDialog,
+      private authService: AuthService,
+      private userService: UserService,
+      private http: HttpClient,
+      private workoutService: WorkoutService
+  ) {
+    this.userProfile = new UserModule();
   }
 
   ngOnInit(): void {
     this.getUserInfoFromToken();
-  
+    this.getWorkoutSessionData();
   }
 
-  getUserInfoFromToken(): void {
+  getWorkoutSessionData(): void {
+    this.workoutService.getAllWorkoutSessionData().subscribe(
+        (data: any[]) => {
+          this.workoutSessionData = data;
+          this.createChart();
+        },
+        error => {
+          console.error('Error fetching data:', error);
+        }
+    );
+  }
+
+  createChart(): void {
+    // Initialize an array to store the data points
+    const seriesData = [];
+
+    // Get the current date
+    const currentDate = new Date();
+
+    // Get the current month and year
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Get the number of days in the current month
+    const numDaysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    // Iterate over each day of the month
+    for (let day = 1; day <= numDaysInMonth; day++) {
+      // Create a date object for the current day
+      const date = new Date(currentYear, currentMonth, day);
+
+      // Find the workout session for the current day, if available
+      const workoutSession = this.workoutSessionData.find(session => {
+        const sessionDate = new Date(session[2]);
+        return sessionDate.getFullYear() === currentYear &&
+            sessionDate.getMonth() === currentMonth &&
+            sessionDate.getDate() === day;
+      });
+
+      // Set the intensity value based on the workout session, if available
+      let intensityValue = 0; // Default intensity value
+      if (workoutSession) {
+        intensityValue = this.mapIntensityToIntensityValue(workoutSession[1]);
+      }
+
+      // Create a data point with the date as the x-value and the intensity value
+      seriesData.push({
+        x: date.getTime(), // Use the timestamp of the date
+        y: intensityValue
+      });
+    }
+
+    const chartOptions: Highcharts.Options = {
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'Workout Session Intensity Over Time'
+      },
+      xAxis: {
+        type: 'datetime',
+        title: {
+          text: 'Date'
+        },
+        labels: {
+          formatter: function() {
+            return Highcharts.dateFormat('%e', Number(this.value)); // Convert this.value to a number
+          }
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Intensity'
+        }
+      },
+      series: [{
+        type: 'line',
+        name: 'Intensity',
+        data: seriesData
+      }]
+    };
+
+    // Ensure that the container element is available
+    const container = document.getElementById('chart');
+    if (container) {
+      this.chart = Highcharts.chart(container, chartOptions);
+    } else {
+      console.error('Container element for the chart not found.');
+    }
+  }
+
+
+
+
+  mapIntensityToIntensityValue(intensity: string): number {
+    switch (intensity.toUpperCase()) {
+      case 'LOW':
+        return 1;
+      case 'MEDIUM':
+        return 2;
+      case 'HIGH':
+        return 3;
+      default:
+        return 0; // Default value or handle invalid intensity values
+    }
+  }
+
+
+
+
+
+
+
+getUserInfoFromToken(): void {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
         this.userProfile = response;
@@ -148,18 +271,22 @@ display(){
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
-      data: { userProfile: this.userProfile }, 
+      width: '400px',
+      height:'388px',
+      data: { userProfile: this.userProfile },
       disableClose: true ,
 
     });
-  
+
+    // Handle the dialog result if needed
+
     dialogRef.afterClosed().subscribe(result => {
       this.achievementUnlocked("You Started the Journey! + 1 VCoin");
 
       if(this.userProfile.personalGoals!=null){
         this.userProfile.score++;
         this.userService.updateUser(this.userProfile).subscribe(
-          
+
         );
 
       }
@@ -170,13 +297,15 @@ display(){
 
   openDialogPlan() {
     const dialogRef = this.dialog.open(DialogPlanComponent, {
-      width: '800px', 
+      width: '800px',
       height:'315px',
-      data: { userProfile: this.userProfile } 
+      data: { userProfile: this.userProfile }
 
     });
-   
-    
+
+    // Handle the dialog result if needed
+
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed with result:', result);
          });
@@ -202,7 +331,7 @@ display(){
       this.daysleft=this.calculateDaysLeft();
       const weightDifference = Math.abs(this.userProfile.personalGoals.weightStart - this.weightGoal);
       const currentWeightDifference =Math.abs( this.userProfile.personalGoals.weightStart - this.userProfile.weight);
-     
+
 
       const progressPercentage = (currentWeightDifference / weightDifference) * 100;
       return Math.max(0, Math.min(100, progressPercentage));
@@ -215,19 +344,19 @@ calculateDaysLeft(): number {
   if (this.userProfile.personalGoals.startDate && this.userProfile.personalGoals.dateGoal) {
     const startDate = new Date(this.userProfile.personalGoals.startDate);
     const dateGoal = new Date(this.userProfile.personalGoals.dateGoal);
-    
+
     const differenceInMilliseconds = dateGoal.getTime() - startDate.getTime();
-    
-    
+
+
     const daysLeft = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-    
+
     return daysLeft;
   } else {
     return 0;
   }
 }
 
-  
+
 test(){
 
   this.miscService.loginSpotify();
@@ -295,13 +424,13 @@ updateIframeSrc(): void {
   let iframeSrc = '';
   console.log(this.selectedItemURI);
   let trackId = this.selectedItemURI.split(':')[2];
-  
+
   if (this.selectedItemType === 'track') {
     iframeSrc = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0`;
     this.searchResults=null;
 
   }else if (this.selectedItemType === 'playlist') {
-  
+
     let playlistId = this.selectedItemURI.split(':')[2]; // Splitting the URI and getting the third part after "spotify:playlist:"
     iframeSrc = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
     this.searchResults=null;
@@ -312,7 +441,7 @@ updateIframeSrc(): void {
 openDelete(){
 
   const dialogRef = this.dialog.open(DeleteAccountComponent, {
-    data: { userProfile: this.userProfile }, 
+    data: { userProfile: this.userProfile },
 
   });
 
