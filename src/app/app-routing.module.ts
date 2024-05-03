@@ -34,7 +34,7 @@ import { FindCommunityComponent } from './find-community/find-community.componen
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 
 //Amine
-//import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
 import { AddProductComponent } from './add-product/add-product.component';
@@ -53,6 +53,7 @@ import { PeriodRecipesComponent } from './period-recipes/period-recipes.componen
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -173,7 +174,13 @@ const routes: Routes = [
       {path:"showProduct",
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
-        component: UpdateProductComponent },]},
+        component: UpdateProductComponent },
+      
+        {path:"users",
+        component: UsersBackComponent},
+        {path:"goals",
+        component: PgoalsBackComponent},
+      ]},
 ];
 
 

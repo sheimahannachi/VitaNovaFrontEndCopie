@@ -47,7 +47,7 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 //Amine
-//import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
@@ -95,6 +95,7 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
 import {MatSelectModule} from "@angular/material/select";
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 
 
 @NgModule({
@@ -140,7 +141,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     FindCommunityComponent,
     UpdateCommunityComponent,
 //Amine
-   // UsersBackComponent,
+   UsersBackComponent,
     UserProfileComponent,
 
     UpdateProductComponent,
@@ -179,6 +180,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
       DeleteAccountComponent,
+      PgoalsBackComponent,
 
 
     ],
