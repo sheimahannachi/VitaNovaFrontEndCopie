@@ -89,7 +89,13 @@ console.log(personalG)
     }
   }
 
-
+  deletePg(user: UserModule) {
+    this.PgoalsService.DeletePgoal(user).subscribe(
+      () => {
+        this.users = this.users.filter(u => u.personalGoals !== user.personalGoals);
+      }
+    );
+  }
 
 
 

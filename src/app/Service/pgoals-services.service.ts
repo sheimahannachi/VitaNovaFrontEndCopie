@@ -46,4 +46,23 @@ export class PgoalsServicesService {
 
 
 
+  DeletePgoal(user:UserModule){
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    console.log(headers)
+    return this.http.put<UserModule>(`http://localhost:8081/api/user/admin/DeleteGoal`, user, { headers, withCredentials: true })
+      .pipe(
+        catchError(error => {
+          console.error('Error deleting the goal:', error);
+          // You can handle error here, such as showing an error message
+          return throwError(error);
+        })
+      );
+
+  }
+
+
+
 }
