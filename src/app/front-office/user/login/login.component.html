@@ -35,7 +35,11 @@
                 <a (click)="showResetPasswordForm = true">Forgot Password?</a><a routerLink="/signup">Create an account?</a>
             </div>
             <button type="submit" class="button">Login</button>
+           
         </form>
+        <div id="google-btn" style="margin-top: 2em;">
+
+        </div>
         <form *ngIf="showResetPasswordForm && !verified" (ngSubmit)="sendVerificationCode()">
             <div class="form-group2">
                 <div class="mydict">
@@ -89,5 +93,8 @@
     
     <p class="text-danger" *ngIf="errorMessage">{{errorMessage}}</p>
 </div>
+
 </body>
+
+
 </html>

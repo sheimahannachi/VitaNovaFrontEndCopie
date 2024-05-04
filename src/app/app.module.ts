@@ -98,7 +98,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 
 import {Chart} from "chart.js";
-
+import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
 @NgModule({
   declarations: [
     AppComponent,
@@ -166,7 +166,6 @@ import {Chart} from "chart.js";
 
 
 
-
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
@@ -193,6 +192,7 @@ import {Chart} from "chart.js";
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    SocialLoginModule,
     NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
 
 
@@ -220,8 +220,9 @@ import {Chart} from "chart.js";
 
   ],
   exports:[MatDialogModule,],
-  providers: [],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    
+  ],  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 
 
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoginRequest } from '../front-office/user/login/LoginRequest';
@@ -57,5 +57,12 @@ export class AuthService {
     }, error => {
       console.error('Logout failed!', error);
     });
+  }
+
+
+
+  authenticateAndGetTokenGOOGLE(email: string): Observable<UserInfoResponse> {
+    const params = new HttpParams().set('email', email);
+    return this.http.post<UserInfoResponse>(`${this.baseUrl}/LoginGoogle`, {}, { params });
   }
 }

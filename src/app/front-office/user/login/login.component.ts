@@ -1,3 +1,4 @@
+declare var google:any;
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from './LoginRequest';
@@ -9,10 +10,12 @@ import { OpenCvService } from 'src/app/Service/open-cv.service';
 import { UserModule } from 'src/app/Models/user.module';
 import { MiscService } from 'src/app/Service/misc.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, throwError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogVerificationComponent } from '../dialog-verification/dialog-verification.component';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -40,6 +43,8 @@ export class LoginComponent {
   countdown: number = 30;
  loginAttempt=true;
 loginAttempts:number=0;
+user: SocialUser;
+userProfile:UserModule;
   constructor(private route: ActivatedRoute ,public dialog: MatDialog ,private http: HttpClient, private miscService:MiscService ,private OpencvService:OpenCvService, private authService: AuthService,private router: Router,private emailService:EmailService,private userService:UserService, private smsService:SMSService) { }
   
   ngOnInit(): void {
@@ -49,8 +54,86 @@ loginAttempts:number=0;
         }
     });
     
-    
+
+    google.accounts.id.initialize({
+      client_id: '437770313790-12a57rcd8k8gmjp3o5enjf394ges5v8t.apps.googleusercontent.com',
+      callback: (resp: any)=> this.handleLogin(resp)
+    });
+
+    google.accounts.id.renderButton(document.getElementById("google-btn"), {
+      theme: 'filled_black',
+      size: 'large',
+      shape: 'pill',
+      width: 350
+    })
+  }    
+  private decodeToken(token: string){
+    return JSON.parse(atob(token.split(".")[1]));
+  }
+
+  handleLogin(response: any){
+    if(response) {
+      // Decode the token
+      const payLoad = this.decodeToken(response.credential);
+      // Store in session
+      sessionStorage.setItem("loggedInUser", JSON.stringify(payLoad));
+      const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+      console.log("response ", response)
+      
+      this.userService.checkEmail(loggedInUser.email).pipe(
+        switchMap((isEmailVerified: boolean) => {
+          if (isEmailVerified) {
+            return this.authService.authenticateAndGetTokenGOOGLE(loggedInUser.email);
+          } else {
+            // Handle the case where email is not verified
+            this.router.navigate(["signup"]);
+            return throwError('Error: Email is not verified');
+          }
+        })
+      ).subscribe(
+        (response: any) => {
+          if (response) {
+            sessionStorage.setItem("loggedIn", "true");
+            sessionStorage.setItem("username", response.username);
+            sessionStorage.setItem("email", response.email);
+            sessionStorage.setItem("role", response.role);
+            sessionStorage.setItem("token", response.token);
+            sessionStorage.setItem("role", JSON.stringify(response.role));
+            console.log('Login successful!', response);
+            if (response.role === 'USER') {
+              this.userService.getUserByUsername(response.username).subscribe(
+                (user: UserModule) => {
+                  if (user.archive === true) {
+                    alert("Account is deactivated");
+                  } else {
+                    this.router.navigate(['vitaNova/profile']);
+                  }
+                },
+                (error) => {
+                  console.error('Error fetching user:', error);
+                }
+              );
+            } else if (response.role === "ADMIN") {
+              this.router.navigate(['/admin/users']);
+            }
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    }
+  }
+  
+
+getEmailGoogle(){
+
+  
 }
+
+
+
+
 
 openSuccessDialog(): void {
   const dialogRef = this.dialog.open(DialogSuccessComponent, {
