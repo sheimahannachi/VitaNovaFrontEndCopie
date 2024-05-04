@@ -10,7 +10,8 @@ import { Communication } from '../Model/Communication';
 import { Community } from '../Model/Community';
 import { CommunityServiceService } from '../Services/community-service.service';
 import { ERole, Gender, UserModule } from '../Models/user.module';
-import * as $ from 'jquery';
+
+
 
 
 
@@ -65,6 +66,8 @@ goToOne:number;
 chatUrl:string;
 video: boolean;
 
+imagePath:string;
+imageFolder="http://localhost/CommunicationsImages/";
 
 constructor(private service:CommunicationServiceService,private comService:CommunityServiceService ){
 
@@ -74,6 +77,7 @@ constructor(private service:CommunicationServiceService,private comService:Commu
     this.members=[];
     this.goToOne=0;
     this.video=false;
+    this.imagePath=null;
     
     
    
@@ -189,14 +193,16 @@ console.log("cureent com "+this.currentUser.idUser+"current input "+this.current
     
     com.message=this.message;
     com.community=this.community;
+    com.imageSent=this.imagePath;
+
     
 
+    
     this.service._send(com);
     
     this.message="";
-    
-    
-    
+    this.imagePath=null;
+     
   }
 
 
@@ -306,5 +312,39 @@ console.log("cureent com "+this.currentUser.idUser+"current input "+this.current
         
         
       }
+
+
+
+      sendImage(event:any){
+        console.log(event.target.files[0])
+        this.service.uploadImage(event.target.files[0]).subscribe((path)=>{
+          console.log(path+" aaa le path ");
+          this.imagePath=path;
+          this.message="An image is Sent";
+          this.sendMessage();
+
+        })
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+    
+
+
+      
 
 }

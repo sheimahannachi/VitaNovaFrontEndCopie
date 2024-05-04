@@ -22,6 +22,12 @@
     top: 0;
 
 }
+/* Sélecteur pour cibler l'élément input de type file */
+input[type="file"]::placeholder {
+    /* Changer la couleur du texte */
+    color: white ; /* Vous pouvez changer "red" par n'importe quelle couleur que vous préférez */
+}
+
 
 #forBut{
     padding-right: 20px;

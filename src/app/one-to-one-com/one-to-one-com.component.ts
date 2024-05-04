@@ -27,9 +27,12 @@ export class OneToOneComComponent {
   page:number;
   messages:Communication[];
   subscription:Subscription;
+  imagePath:string;
+  imageFolder="http://localhost/CommunicationsImages/";
 
   message:string;
   constructor(private service:CommunicationServiceService){
+    this.imagePath=null;
     this.page=0;
     this.messages=[];
     this.message="";
@@ -128,16 +131,32 @@ sendMessage(){
   
   
   com.message=this.message;
+  com.imageSent=this.imagePath;
   
   
 
   this.service._send(com);
   
   this.message="";
+  this.imagePath=null;
+
   
   
   
 }
+
+
+sendImage(event:any){
+  console.log(event.target.files[0])
+  this.service.uploadImage(event.target.files[0]).subscribe((path)=>{
+    console.log(path+" aaa le path ");
+    this.imagePath=path;
+    this.message="An image is Sent";
+    this.sendMessage();
+
+  })
+}
+
 
 
 

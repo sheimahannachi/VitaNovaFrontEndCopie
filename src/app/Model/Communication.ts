@@ -19,6 +19,7 @@ export class Communication{
     reciever: UserModule;
 
     community :Community;
+    imageSent:string;
     
 
 }
