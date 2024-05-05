@@ -1,4 +1,5 @@
-import { UserModule } from "./user/user.module";
+import { UserModule } from "../Models/user.module";
+
 
 
 export class Community{

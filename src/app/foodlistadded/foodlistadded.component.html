@@ -1,9 +1,11 @@
 <div class="navbar-food">
-  <app-navbar></app-navbar>
 </div>
 
+
 <div class="contentFood">
+  <button class="btn save-btn" (click)="saveTracker()">Save Tracker</button>
   <table class="food-table">
+
     <thead>
     <tr>
       <th>Product</th>
@@ -13,10 +15,11 @@
     </tr>
     </thead>
     <tbody>
+
     <tr *ngFor="let f of eatenFoodCards" class="food-card">
       <td>{{ f.food.title }}</td>
       <td>
-        <input type="number" [(ngModel)]="f.quantity" (input)="calculateCalories(f)" min="1">
+        <input type="number" [(ngModel)]="f.quantity" (input)="calculateCalories(f)" >
       </td>
       <td>{{ f.calcCalories }}</td>
       <td class="food-actions">
@@ -42,4 +45,3 @@
   </table>
 </div>
 
-<app-footer></app-footer>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WorkoutService } from '../Service/workout.service';
 import { WorkoutPlan } from '../Models/WorkoutPlan';
+import {AuthService} from "../Service/auth.service";
+import {UserModule} from "../Models/user.module";
 
 @Component({
   selector: 'app-timer-page',
@@ -18,6 +20,7 @@ export class TimerPageComponent implements OnInit {
   currentExerciseImage: string | null = null;
   baseUrl: string = 'http://localhost:80/uploads/';
   timerClass: string = 'base-timer__path-remaining';
+  userId :UserModule
   COLOR_CODES = {
     info: {
       color: "green"
@@ -37,8 +40,13 @@ export class TimerPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private workoutService: WorkoutService
-  ) { }
+    private workoutService: WorkoutService,
+    private authService: AuthService
+  ) {
+    this.authService.getUserInfoFromToken().subscribe(userId => {
+      this.userId = userId;
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -75,6 +83,7 @@ export class TimerPageComponent implements OnInit {
         this.startNextSet();
       }
     }
+    this.addSession(); // Calling addSession method here
   }
 
   resetTimer(): void {
@@ -201,5 +210,21 @@ export class TimerPageComponent implements OnInit {
     } else {
       return 'info'; // Default color
     }
+  }
+  addSession(): void {
+    const workoutSessionData = {
+      // Map intensity level
+      // Include relevant data for the workout session
+    };
+
+    this.workoutService.addSession(workoutSessionData, this.userId.idUser,this.workoutPlan.intensity).subscribe(
+        (response) => {
+          console.log('Session added successfully:', response);
+          // Optionally, perform any additional actions after adding the session
+        },
+        (error) => {
+          console.error('Error adding session:', error);
+        }
+    );
   }
 }

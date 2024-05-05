@@ -78,7 +78,7 @@ export class UpdateCommunityComponent {
 
       this.service.updateCommunity(this.community,this.community.id).subscribe(result=>{
         this.myForm.reset();
-        this.router.navigateByUrl("");
+        this.router.navigateByUrl("/vitaNova/community");
       },
       error=>{
         console.error('BackEnd error while adding community:',error);
@@ -88,9 +88,7 @@ export class UpdateCommunityComponent {
           const secondError = Object.values(error.error)[1];
           this.error=secondError.toString();
           
-        } else {
-          console.log('Aucune deuxième erreur trouvée.');
-        }
+        } 
       }
       )
       }

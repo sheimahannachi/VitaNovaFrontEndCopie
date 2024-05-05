@@ -7,10 +7,14 @@
   <header class="header-area header-sticky">
       <div class="container">
           <div class="row">
+            <a routerLink="profile" *ngIf="picture"> <img [src]="'http://localhost/cats/'+ picture" alt="" class="ProfileImg" width="40"></a>
+
               <div class="col-12">
+
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="index.html" class="logo">Vita<em> Nova</em></a>
+
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
                       <ul class="nav">

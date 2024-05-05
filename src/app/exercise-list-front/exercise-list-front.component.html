@@ -1,6 +1,6 @@
 <body>
 <div class="container">
-    
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body class="exercise-front">
@@ -26,7 +26,7 @@
         <div class="exercise-actions">
           <div class="exercise-rating">
             <div *ngFor="let star of [1, 2, 3, 4, 5]" class="fa fa-star"
-                 (click)="rateExercise(exercise.id, star); $event.stopPropagation()"
+                 (click)="rateExercise(exercise.id,userId.idUser,star); $event.stopPropagation()"
                  [class.checked]="star <= exercise.rating">
             </div>
           </div>
@@ -58,3 +58,4 @@
 
 </div>
 </body>
+</div>

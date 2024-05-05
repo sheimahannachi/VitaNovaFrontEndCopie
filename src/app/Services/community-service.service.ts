@@ -2,7 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Community } from '../Model/Community';
-import { UserModule } from '../Model/user/user.module';
+import { UserModule } from '../Models/user.module';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,8 @@ export class CommunityServiceService {
   addMemberToCommunityURL='/addMemberToComunity';
   fetchTopThreeURL="/getTopThreeByCommunity";
   getCommunityMembersURL="/communityMembers";
+  getCommunitybyUserURL="/communityByUser";
+  userLeavesCommunityUrl="/leaveCommunity";
 
 
   constructor(private http: HttpClient) { }
@@ -28,6 +31,10 @@ export class CommunityServiceService {
   getComunity(id:Number):Observable<Community>{
     return this.http.get<Community>(this.URL+this.findByIdUrl+"/"+id);
   }
+  getCommunityByUser(userId: number): Observable<Community> {
+    //let params = new HttpParams().set('userId', userId);
+    return this.http.get<Community>(this.URL+this.getCommunitybyUserURL+"/"+userId.toString());
+}
 
   getAllComunity(page:number,size:number):Observable<any>{
     let params=new HttpParams().set('page',page).set('size',size);
@@ -69,10 +76,19 @@ export class CommunityServiceService {
 
 
  addMemberToCommunity(userId:number,communityId:number):Observable<boolean>{
+ /* let params=new HttpParams()
+  .set('userId',userId.toString())
+  .set('communityId',communityId.toString());*/
+  console.log(communityId)
+  return this.http.put<boolean>(this.URL+this.addMemberToCommunityURL+'?userId='+userId.toString()+'&communityId='+communityId.toString(),{});
+ }
+
+ userLeaveCommunity(userId:number,communityId:number){
+  console.log(userId+"aaaaaa "+communityId);
   let params=new HttpParams()
   .set('userId',userId)
-  .set('communityId',communityId);
-  return this.http.put<boolean>(this.URL+this.addMemberToCommunityURL,{params});
+  
+  return this.http.put<boolean>(this.URL+this.userLeavesCommunityUrl+"/"+userId.toString(),{});
  }
 
  
@@ -80,8 +96,8 @@ export class CommunityServiceService {
 
             //Delete
 
-deleteComunity(id:Number):Observable<Community>{
-return this.http.delete<Community>(this.URL+this.deleteByIdUrl+"/"+id,{withCredentials:true});
+deleteComunity(id:Number):Observable<boolean>{
+return this.http.delete<boolean>(this.URL+this.deleteByIdUrl+"/"+id,{withCredentials:true});
 }
 
 }

@@ -3,18 +3,23 @@ import { FoodService } from '../Service/food.service';
 import {FoodCard} from "../Models/FoodCard";
 import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Tracker} from "../models/Tracker";
 
 @Component({
-    selector: 'app-foodlistadded',
-    templateUrl: './foodlistadded.component.html',
-    styleUrls: ['./foodlistadded.component.css']
+  selector: 'app-foodlistadded',
+  templateUrl: './foodlistadded.component.html',
+  styleUrls: ['./foodlistadded.component.css']
 })
 export class FoodlistaddedComponent implements OnInit {
 
   eatenFoodCards: FoodCard[] = [];
   loading = true;
   error: string | null = null;
-
+  breakfast: FoodCard[]=[]; // Initialisation des listes
+  lunch: FoodCard[]=[];
+  dinner: FoodCard[]=[];
+  snacks: FoodCard[]=[];
+  tracker :Tracker;
   constructor(private foodService: FoodService, private dialog: MatDialog) {
   }
 
@@ -57,13 +62,10 @@ export class FoodlistaddedComponent implements OnInit {
 
   calculateCalories(foodCard: FoodCard): void {
     foodCard.calcCalories = foodCard.food.calories * foodCard.quantity;
-
+    console.log("foodcard: " , foodCard)
     // Mettre à jour la quantité dans la liste des cartes alimentaires
-    const existingFoodCard = this.eatenFoodCards.find(card => card.foodId === foodCard.foodId);
-    if (existingFoodCard) {
-      existingFoodCard.quantity = foodCard.quantity;
-      // Enregistrer les modifications sur le serveur
-      this.foodService.updateFoodCards([existingFoodCard.food], existingFoodCard.quantity).subscribe(
+    if(foodCard){
+      this.foodService.updateFoodCards([foodCard.food], foodCard.quantity).subscribe(
         () => {
           console.log('Food card updated successfully');
         },
@@ -85,7 +87,17 @@ export class FoodlistaddedComponent implements OnInit {
       );
     }
   }
+  saveTracker(): void {
+    this.foodService.addTracker(this.tracker).subscribe(
+      (response) => {
+        console.log('Tracker added successfully:', response);
 
+      },
+      (error) => {
+        console.error('Error adding tracker:', error);
 
+      }
+    );
+  }
 
 }

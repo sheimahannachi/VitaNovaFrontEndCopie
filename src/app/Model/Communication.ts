@@ -1,5 +1,6 @@
+import { UserModule } from "../Models/user.module";
 import { Community } from "./Community";
-import { UserModule } from "./user/user.module";
+
 
 
 
@@ -18,6 +19,7 @@ export class Communication{
     reciever: UserModule;
 
     community :Community;
+    imageSent:string;
     
 
 }

@@ -5,10 +5,14 @@ import { CommunicationServiceService } from '../Services/communication-service.s
 
 import { Subscription } from 'rxjs';
 import { Communication } from '../Model/Communication';
-import { ERole, Gender, UserModule } from '../Model/user/user.module';
+
 
 import { Community } from '../Model/Community';
 import { CommunityServiceService } from '../Services/community-service.service';
+import { ERole, Gender, UserModule } from '../Models/user.module';
+
+
+
 
 
 
@@ -22,26 +26,17 @@ export class CommunicationComponent implements AfterViewInit {
 
 
   @ViewChild('messagesList') htmlMessages:ElementRef; 
+  @ViewChild('MessageInput') messageInput:ElementRef;
+
+
+
   @Input() idFromParent:number;
   @Input() communityMembers:UserModule[];
-  @Output() messageEvent = new EventEmitter<number>();
+  @Input( ) currentUser:UserModule;
+  @Output() messageEvent = new EventEmitter<UserModule>();
+  @Output() event=new EventEmitter<string>();
   
-  user:UserModule = {
-    idUser: 1,
-    firstName: "firas",
-    lastName: "hanini",
-    email: "",
-    weight: 0,
-    height: 0,
-    password: "",
-    username: '',
-    dateOfBirth: undefined,
-    gender: Gender.MALE,
-    archive: false,
-    picture: '',
-    role:ERole.ROLE_USER,
-    communities:null
-  };
+ 
   
   
 
@@ -62,10 +57,17 @@ message:string="";
 
 //Message resieved 
 
-current=this.user; //this.user; //User
+
 communityId:number;
 community:Community=new Community();
 goToOne:number;
+
+//videChat variable
+chatUrl:string;
+video: boolean;
+
+imagePath:string;
+imageFolder="http://localhost/CommunicationsImages/";
 
 constructor(private service:CommunicationServiceService,private comService:CommunityServiceService ){
 
@@ -74,6 +76,9 @@ constructor(private service:CommunicationServiceService,private comService:Commu
     this.page=0;
     this.members=[];
     this.goToOne=0;
+    this.video=false;
+    this.imagePath=null;
+    
     
    
 
@@ -81,6 +86,10 @@ constructor(private service:CommunicationServiceService,private comService:Commu
   ngAfterViewInit(): void {
   
     this.scrollToBottom();
+    
+
+
+
   }
 
   scrollToBottom(){
@@ -88,8 +97,7 @@ constructor(private service:CommunicationServiceService,private comService:Commu
     
       const element = this.htmlMessages.nativeElement;
       element.scrollTop=element.scrollHeight;
-      
-      
+     
     
   }
 
@@ -109,6 +117,9 @@ constructor(private service:CommunicationServiceService,private comService:Commu
  
 
 ngOnInit(){
+  
+  
+console.log("cureent com "+this.currentUser.idUser+"current input "+this.currentUser.idUser)
 
   this.communityId=this.idFromParent;
   this.service.myChannel="C"+this.communityId;
@@ -153,13 +164,17 @@ ngOnInit(){
 
 
   handleMessage(communication:Communication) {
-    console.log("reee:: "+communication.message)
+    console.log("reee:: "+communication.message+"length"+communication.message.length)
+
     this.messages.push(communication);
+    
+
     console.log(this.messages)
     setTimeout(() => {
       this.scrollToBottom();
     }, 10);
   }
+ 
 
   connect(){
     this.service._connect();
@@ -173,18 +188,21 @@ ngOnInit(){
   
   sendMessage(){
     var com:Communication=new Communication();
-    com.sender=this.current;
+    com.sender=this.currentUser;
+    
     
     com.message=this.message;
     com.community=this.community;
+    com.imageSent=this.imagePath;
+
     
 
+    
     this.service._send(com);
     
     this.message="";
-    
-    
-    
+    this.imagePath=null;
+     
   }
 
 
@@ -260,12 +278,12 @@ ngOnInit(){
 
     seenMessages(){
       
-      this.service.seenComunication(this.communityId,this.current.idUser).subscribe(res=>{
-        console.log(this.communityId,this.current.idUser)
+      this.service.seenComunication(this.communityId,this.currentUser.idUser).subscribe(res=>{
+        console.log(this.communityId,this.currentUser.idUser)
       });
 
       this.messages.forEach(communication=>{
-        if(communication.sender.idUser!=this.current.idUser){
+        if(communication.sender.idUser!=this.currentUser.idUser){
         communication.seen=true;
         }
       })
@@ -280,10 +298,53 @@ ngOnInit(){
 
 
     
-    goToOneToOne(userId:number) {
-      this.messageEvent.emit(userId);
+    goToOneToOne(user:UserModule) {
+      this.messageEvent.emit(user);
       this.disconnect();
       }
 
+
+      goToVideoChat(){
+        this.chatUrl=window.location.origin +window.location.pathname +'/videoChat'+'?roomID=' +this.communityId;
+        this.message="a video call message";
+        this.sendMessage()
+        this.event.emit(this.chatUrl);
+        
+        
+      }
+
+
+
+      sendImage(event:any){
+        console.log(event.target.files[0])
+        this.service.uploadImage(event.target.files[0]).subscribe((path)=>{
+          console.log(path+" aaa le path ");
+          this.imagePath=path;
+          this.message="An image is Sent";
+          this.sendMessage();
+
+        })
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+    
+
+
+      
 
 }

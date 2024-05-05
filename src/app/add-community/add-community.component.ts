@@ -3,7 +3,9 @@ import { Community } from '../Model/Community';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunityServiceService } from '../Services/community-service.service';
 import { Router } from '@angular/router';
-import { UserModule } from '../Model/user/user.module';
+
+import { AuthService } from '../Service/auth.service';
+import { UserModule } from '../Models/user.module';
 
 @Component({
   selector: 'app-add-community',
@@ -12,13 +14,13 @@ import { UserModule } from '../Model/user/user.module';
 })
 
 export class AddCommunityComponent {
-  current:UserModule;
+  currentUser:UserModule;
   error:string;
 
-  constructor(private service:CommunityServiceService,private router:Router){
+  constructor(private service:CommunityServiceService,private router:Router,private userService:AuthService){
     this.router=router;
-    this.current=new UserModule();
-    this.current.idUser=2;
+    this.currentUser=new UserModule();
+    
     this.error="";
   }
 
@@ -27,6 +29,13 @@ export class AddCommunityComponent {
   myForm: FormGroup;
 
   ngOnInit(){
+    this.getCurrentUser();
+    
+
+
+
+
+
     this.myForm=new FormGroup({
 
         communityName: new FormControl('', [Validators.required]),
@@ -57,14 +66,14 @@ export class AddCommunityComponent {
       let community = new Community();
       community.communityName=this.communityName.value;
       community.description= this.description.value;
-      community.creator=this.current;
+      community.creator=this.currentUser;
       community.creationDate=new Date();
       community.status=true;
 
 
-      this.service.addCommunity(community,this.current.idUser).subscribe(response=>{
+      this.service.addCommunity(community,this.currentUser.idUser).subscribe(response=>{
         this.myForm.reset();
-        this.router.navigateByUrl("/vitaNova/home")
+        this.router.navigateByUrl("/vitaNova/community")
 
       },
       error=>{
@@ -85,5 +94,26 @@ export class AddCommunityComponent {
     clearError(){
       this.error="";
     }
+
+    getCurrentUser(){
+      this.userService.getUserInfoFromToken().subscribe(res=>{
+       this.currentUser=res;
+       
+       
+       this.userCommunity();
+      })
+     }
+
+    userCommunity(){
+      /* this.service.getComunity(this.communityId)*/
+      this.service.getCommunityByUser(this.currentUser.idUser).subscribe(response=>{
+        console.log("aaaaaaaaaaaa here")
+         if(response!=null || response!=undefined){
+          console.log("aaaaaaaaaaaa here")
+          this.router.navigateByUrl("/vitaNova/community")
+         }
+       })
+     
+     }
 
 }

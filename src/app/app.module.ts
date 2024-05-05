@@ -48,9 +48,11 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-//Aziz 
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
+//Aziz
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
@@ -62,6 +64,8 @@ import { StripeComponent } from './stripe/stripe.component'; // Import MatDialog
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Ng5SliderModule } from 'ng5-slider';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+
 
 
 
@@ -84,10 +88,15 @@ import { DialogPersonalGoalsComponent } from './front-office/user/dialog-persona
 import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
+import { CheckoutDoneComponent } from './front-office/user/checkout-done/checkout-done.component';
 
 import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
+import { TimerApiComponent } from './timer-api/timer-api.component';
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NotificationComponent } from './notification/notification.component';
 import { GymComponent } from './gym/gym.component';
@@ -95,7 +104,11 @@ import { HealthyComponent } from './healthy/healthy.component';
 
 
 
-
+import {Chart} from "chart.js";
+import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
+import { MatSelectModule } from '@angular/material/select';
+import {MealCardsComponent} from "./meal-cards/meal-cards.component";
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +119,6 @@ import { HealthyComponent } from './healthy/healthy.component';
     NavbarComponent,
     FooterComponent,
     AllTemplateFrontComponent,
-
     UserComponent,
     RegisterComponent,
     LoginComponent,
@@ -122,7 +134,8 @@ import { HealthyComponent } from './healthy/healthy.component';
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
- 
+
+    MealCardsComponent,
 //ons
     FooterComponent,
     FoodComponent,
@@ -141,7 +154,7 @@ import { HealthyComponent } from './healthy/healthy.component';
     FindCommunityComponent,
     UpdateCommunityComponent,
 //Amine
-    UsersBackComponent,
+   UsersBackComponent,
     UserProfileComponent,
 
     UpdateProductComponent,
@@ -160,6 +173,11 @@ import { HealthyComponent } from './healthy/healthy.component';
     PeriodRecipesComponent,
     SidebarComponent,
     StripeComponent,
+
+
+
+
+    ProductDetailsComponent,
     
     
     
@@ -169,7 +187,10 @@ import { HealthyComponent } from './healthy/healthy.component';
     DialogPersonalGoalsComponent,
     DialogPlanComponent,
     CheckoutComponent,
+    CheckoutDoneComponent,
     ShowProductUserComponent,
+    TimerApiComponent,
+    RecipiesLowCarbComponent,
 
 
     ProductDetailsDialogComponent,
@@ -178,6 +199,9 @@ import { HealthyComponent } from './healthy/healthy.component';
       NotificationComponent,
       GymComponent,
       HealthyComponent,
+      DeleteAccountComponent,
+      PgoalsBackComponent,
+      RecipiesLowCarbComponent,
 
 
     ],
@@ -188,6 +212,8 @@ import { HealthyComponent } from './healthy/healthy.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    SocialLoginModule,
+    NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
 
 //yoser
     CommonModule,
@@ -195,14 +221,8 @@ import { HealthyComponent } from './healthy/healthy.component';
     MatDialogModule,
     MatIconModule,
 //firas
-    MatDialogModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
     //sheima
-    CommonModule,
     BrowserAnimationsModule,
-    FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
@@ -213,14 +233,16 @@ import { HealthyComponent } from './healthy/healthy.component';
     MatDialogModule,
     MatSliderModule,
     Ng5SliderModule,
-
-    
+    MatSelectModule,
 
 
   ],
   exports:[MatDialogModule,],
-  providers: [],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    
+  ],  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+
+
 
 
   bootstrap: [AppComponent]
