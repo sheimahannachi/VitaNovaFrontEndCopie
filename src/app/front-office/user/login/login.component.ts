@@ -174,90 +174,100 @@ openSuccessDialog(): void {
 
 
   onSubmit(): void {
-
-    this.authService.authenticateAndGetToken(this.authRequest)
-      .subscribe(response => {
-        
-               
-    this.miscService.getWANIPAddress().subscribe(
-      (ip: string) => {
-        this.miscService.checkIpAddress(this.authRequest.username,ip).subscribe(
-          (result: boolean) => {
-            console.log("ip CHECK :" , ip)
-            if (result) {
-             
-              console.log('IP Address check passed');
-    
-    
-    
-              sessionStorage.setItem("loggedIn", "true");
-              sessionStorage.setItem("username",response.username);
-              sessionStorage.setItem("email",response.email);
-              sessionStorage.setItem("role",response.role);
-              sessionStorage.setItem("token",response.token);
-              sessionStorage.setItem("role",JSON.stringify(response.role));
-              console.log('Login successful!', response);
-              if(response.role=='USER'){
-                this.userService.getUserByUsername(response.username).subscribe(
-                (user: UserModule) => {
-                    if(user.archive==true){alert("account is deactivated");} 
-                    else  this.router.navigate(['vitaNova/profile']); 
-    
-                },
-                (error) => {
-                    console.error('Error fetching user:', error);
-                }
-            );
-            
-              }
-              else if(response.role=="ADMIN")
-                this.router.navigate(['/admin/users']);
-             
-           
-            } else {
-              console.log('IP Address check failed');
-              console.log(response.email)
-      this.generateAndSendLink(this.authRequest.username,response.email,ip)
-    
-    
-    this.openDialog();
-            }
-          }
-        );
-                
-                
-          }, error => {  
-            this.userService.getUserByUsername(this.authRequest.username)
-              .subscribe(
-                (user: UserModule) => {
-                  console.log("User details: ", user);
-                  if(this.loginAttempts>2){
-                    this.OpencvService.captureAndSaveImage().subscribe(
-                      () => {
-                        this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account , if it's not you , please consider resetting your password","");
-                        console.log('Image captured and saved successfully');
-                      },
-                      error => {
-                        console.error('Error occurred while capturing and saving image:', error);
-                      }
-                    );
-                    console.log("username : " , this.authRequest.username)
-                  }
-                },
-                (error) => {
-                  console.error("Error fetching user details: ", error);
-                }
-              ); 
-            this.loginAttempt=false;
-            this.loginAttempts=this.loginAttempts+1;
-            console.log(this.loginAttempts);
-            console.error('Login failed!', error);
-          });
-      }
-     
-    );
-  
+    this.authenticateAndGetToken();
   }
+  
+  private authenticateAndGetToken(): void {
+    this.userService.getUserByUsername(this.authRequest.username)
+    .subscribe(
+      (user: UserModule) => {
+        if(this.loginAttempts>2){
+          this.OpencvService.captureAndSaveImage().subscribe(
+            () => {
+              this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account , if it's not you , please consider resetting your password","");
+              console.log('Image captured and saved successfully');
+            },
+            error => {
+              console.error('Error occurred while capturing and saving image:', error);
+            }
+          );
+        }
+      },
+      (error) => {
+        
+        console.error("Error fetching user details: ", error);
+      }
+    ); 
+    this.authService.authenticateAndGetToken(this.authRequest)
+     .subscribe(response => {
+        this.handleAuthenticationResponse(response);
+      }, error => {
+        this.loginAttempt=false;
+this.loginAttempts=this.loginAttempts+1;
+console.log(this.loginAttempts);
+console.error('Login failed!');
+        console.error('Authentication failed:', error);
+      });
+  }
+  
+  private handleAuthenticationResponse(response: any): void {
+    this.miscService.getWANIPAddress()
+     .subscribe(ip => {
+        this.checkIpAddress(response, ip);
+      }, error => {
+        console.error('Failed to get WAN IP address:', error);
+      });
+  }
+  
+  private checkIpAddress(response: any, ip: string): void {
+    this.miscService.checkIpAddress(this.authRequest.username, ip)
+     .subscribe(result => {
+        if (result) {
+          this.handleSuccessfulLogin(response);
+        } else {
+          this.handleFailedLogin(response, ip);
+        }
+      }, error => {
+        console.error('Failed to check IP address:', error);
+      });
+  }
+  
+  private handleSuccessfulLogin(response: any): void {
+    this.storeLoginSession(response);
+    this.navigateToProfile(response.role);
+  }
+  
+  private handleFailedLogin(response: any, ip: string): void {
+    this.generateAndSendLink(this.authRequest.username, response.email, ip);
+    this.openDialog();
+  }
+  
+  private storeLoginSession(response: any): void {
+    sessionStorage.setItem("loggedIn", "true");
+    sessionStorage.setItem("username", response.username);
+    sessionStorage.setItem("email", response.email);
+    sessionStorage.setItem("role", response.role);
+    sessionStorage.setItem("token", response.token);
+    sessionStorage.setItem("role", JSON.stringify(response.role));
+  }
+  
+  private navigateToProfile(role: string): void {
+    if (role === 'USER') {
+      this.userService.getUserByUsername(this.authRequest.username)
+       .subscribe(user => {
+          if (user.archive) {
+            alert("account is deactivated");
+          } else {
+            this.router.navigate(['vitaNova/profile']);
+          }
+        }, error => {
+          console.error('Error fetching user:', error);
+        });
+    } else if (role === 'ADMIN') {
+      this.router.navigate(['/admin/users']);
+    }
+  }
+  
 
   sendVerificationCode() {
     this.isButtonDisabled = true;
