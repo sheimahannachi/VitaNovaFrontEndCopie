@@ -24,6 +24,7 @@ export class OneToOneComComponent {
   
   
   
+  
   page:number;
   messages:Communication[];
   subscription:Subscription;
@@ -252,6 +253,7 @@ goToCommunityChat() {
 
     }
 
+    
 
 
 
@@ -278,53 +280,6 @@ goToCommunityChat() {
 
 
 
-    //Testing 
 
-    user:UserModule = {
-      idUser: 1,
-      firstName: "firas",
-      lastName: "hanini",
-      email: "",
-      weight: 0,
-      height: 0,
-      password: "",
-      username: '',
-      dateOfBirth: undefined,
-      gender: null,
-      archive: false,
-      picture: '',
-      role: ERole.ROLE_USER,
-      communities: null,
-      verified: false,
-      score: 0,
-      phone: '',
-      facebook: '',
-      personalGoals: new PersonalGoalsModule,
-      foods: [],
-      plan:null
-    };
-    user2:UserModule = {
-      idUser: 2,
-      firstName: "test",
-      lastName: "benTest",
-      email: "",
-      weight: 0,
-      height: 0,
-      password: "",
-      username: 'BenTestTest',
-      dateOfBirth: undefined,
-      gender: Gender.MALE,
-      archive: false,
-      picture: '',
-      role: ERole.ROLE_USER,
-      communities: null,
-      verified: false,
-      score: 0,
-      phone: '',
-      facebook: '',
-      personalGoals: new PersonalGoalsModule,
-      foods: [],
-      plan: null
-    };
-
+    
 }

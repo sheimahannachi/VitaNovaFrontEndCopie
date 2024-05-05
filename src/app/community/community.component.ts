@@ -145,6 +145,10 @@ goToOne(user: UserModule) {
     
     
   }
+  BackToChat(num:number){
+    this.divTest=0;
+    this.userToPass=null;
+  }
 
 
   

@@ -69,7 +69,7 @@
    <app-communication [currentUser]="currentUser" [idFromParent]="community.id" [communityMembers]="members" (messageEvent)="goToOne($event)"(event)="goToVideoChat($event)"></app-communication>
         </div>
         <div *ngIf="divTest!=0 && divTest!=null">
-            <app-one-to-one-com [current]="currentUser" [otherUser]="userToPass"></app-one-to-one-com>
+            <app-one-to-one-com [current]="currentUser" [otherUser]="userToPass" (messageEvent)="BackToChat($event)"></app-one-to-one-com>
         </div>
     </div>
 
