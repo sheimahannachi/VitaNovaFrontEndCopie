@@ -92,12 +92,13 @@ import { PeriodRecommendationsComponent } from './period-recommendations/period-
 import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
 import { VideoChatComponent } from './video-chat/video-chat.component';
 import { TimerApiComponent } from './timer-api/timer-api.component';
-import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 
 import {Chart} from "chart.js";
 import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
 import { MatSelectModule } from '@angular/material/select';
+import {MealCardsComponent} from "./meal-cards/meal-cards.component";
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { MatSelectModule } from '@angular/material/select';
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
 
+    MealCardsComponent,
 //ons
     FooterComponent,
     FoodComponent,
@@ -181,6 +183,7 @@ import { MatSelectModule } from '@angular/material/select';
       PeriodRecommendationsComponent,
       DeleteAccountComponent,
       PgoalsBackComponent,
+      RecipiesLowCarbComponent,
 
 
     ],
