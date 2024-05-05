@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/ModelProduct/Product';
 import { ProductService } from '../ServiceProduct/product.service';
 import axios from 'axios';
+import { Options } from 'ng5-slider';
 
 
 
@@ -17,9 +18,15 @@ import axios from 'axios';
   styleUrls: ['./show-product.component.css']
 })
 export class ShowProductComponent implements OnInit {
+  minValue: number = 0;
+  maxValue: number = 200;
+  sliderOptions: Options = {
+    floor: 0,
+    ceil: 100
+    // Other options as needed
+  };
+
   
-
-
   listeProduits: Product[] = [];
   searchTerm: string = ''; // Attribut pour stocker le terme de recherche
   searchResults: Product[] = [];
@@ -57,6 +64,7 @@ export class ShowProductComponent implements OnInit {
           statusPr: product.statusPr,
           archivePr: false,
           likeCount: product.likeCount,
+          qrCodeUrl: product.qrCodeUrl
           
         }));
   
@@ -89,6 +97,7 @@ export class ShowProductComponent implements OnInit {
               archivePr: false,
               quantityPr: product.quantityPr,
               likeCount: product.likeCount,
+              qrCodeUrl: product.qrCodeUrl
             }));
           console.log('Résultats de la recherche :', this.listeProduits);
           this.showProducts();
@@ -105,7 +114,7 @@ export class ShowProductComponent implements OnInit {
   
   
   archiverProduct(productId: number): void {
-    axios.put(`http://localhost:8082/Product/${productId}`)
+    axios.put(`http://localhost:8081/Product/${productId}`)
       .then(response => {
         console.log('Produit archivé avec succès :', response.data);
          this.filterProducts(); 
@@ -125,20 +134,20 @@ export class ShowProductComponent implements OnInit {
         // Filtrer ensuite selon le prix et la catégorie si les filtres sont définis
         if (this.categoryFilter === 'ALL') {
           // Afficher tous les produits sans filtre de catégorie
-          if (this.priceFilter !== null) {
+          if (this.minValue !== null && this.maxValue !== null) {
             // Si un filtre de prix est défini, appliquer le filtre
             filteredProducts = filteredProducts.filter(product => {
-              // Vérifier que product.pricePr et this.priceFilter ne sont pas null avant de comparer
-              return product.pricePr !== null && product.pricePr <= this.priceFilter!;
+              // Vérifier que product.pricePr est compris entre minValue et maxValue
+              return product.pricePr !== null && product.pricePr >= this.minValue && product.pricePr <= this.maxValue;
             });
           }
         } else {
           // Filtrer par catégorie spécifiée
-          if (this.priceFilter !== null || this.categoryFilter !== '') {
+          if (this.minValue !== null && this.maxValue !== null || this.categoryFilter !== '') {
             // Appliquer les filtres de prix et de catégorie
             filteredProducts = filteredProducts.filter(product => {
               // Vérifier si le produit passe le filtre de prix
-              let passPriceFilter = this.priceFilter === null || (product.pricePr !== null && product.pricePr <= this.priceFilter!);
+              let passPriceFilter = (this.minValue === null || this.maxValue === null) || (product.pricePr !== null && product.pricePr >= this.minValue && product.pricePr <= this.maxValue);
               // Vérifier si le produit passe le filtre de catégorie
               let passCategoryFilter = this.categoryFilter === '' || product.categoriePr === this.categoryFilter;
               // Retourner vrai si le produit passe les deux filtres, faux sinon
@@ -149,14 +158,13 @@ export class ShowProductComponent implements OnInit {
         
         // Mettre à jour la liste des produits filtrés
         this.filteredProducts = filteredProducts;
-  
-        
       },
       (error) => {
         console.error('Erreur lors de la récupération des produits :', error);
       }
     );
   }
+  
   
 
 
@@ -170,10 +178,10 @@ onCategoryChange(event: any): void {
 }
 
 // Méthode appelée lorsqu'un prix est sélectionné
-onPriceChange(event: any): void {
-  // Convertir la valeur du prix en nombre
-  this.priceFilter = event.target.value !== '' ? parseFloat(event.target.value) : null;
-  // Appeler la méthode de filtrage pour mettre à jour la liste des produits filtrés
+onPriceChange(event: number): void {
+  // Update the price filter value
+  this.priceFilter = event;
+  // Call the filtering method to update the list of filtered products
   this.filterProducts();
 }
 

@@ -1,6 +1,14 @@
 <body>
+  
   <div class="container">
+
+    <button class="back" (click)="getBack()">
+      <a> Get back </a>
+  </button>
+
+
     <div class="recipes-container">
+     
       <div class="card" *ngFor="let recipe of recipes">
         <div class="card-image-container">
           <!-- Check if recipe has an image -->

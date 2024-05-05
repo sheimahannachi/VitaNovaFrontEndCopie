@@ -61,6 +61,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 
@@ -88,6 +89,9 @@ import { ProductDetailsDialogComponent } from './product-details-dialog/product-
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NotificationComponent } from './notification/notification.component';
+import { GymComponent } from './gym/gym.component';
+import { HealthyComponent } from './healthy/healthy.component';
 
 
 
@@ -171,6 +175,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ProductDetailsDialogComponent,
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
+      NotificationComponent,
+      GymComponent,
+      HealthyComponent,
 
 
     ],
@@ -205,6 +212,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
+    Ng5SliderModule,
 
     
 

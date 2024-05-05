@@ -4,6 +4,7 @@ import { CartService } from '../ServiceProduct/CarteService';
 import { Commandeline } from '../ModelProduct/Commandeline';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StripeComponent } from '../stripe/stripe.component';
+import { StripeService } from '../ServiceProduct/StripeService';
 
 @Component({
   selector: 'app-cart',
@@ -13,18 +14,21 @@ import { StripeComponent } from '../stripe/stripe.component';
 export class CartComponent implements OnInit {
   commandelines: Commandeline[] = [];
 totalPrice!: number ;
-  constructor(public cartService: CartService,private dialog: MatDialog 
+userId: number = 1;
+amount !: number ;
+currency !: string ;
+  constructor(public cartService: CartService,private dialog: MatDialog ,private stripeService: StripeService
   ) {
 
    }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.fetchCommandelinesInCart();
 
   }
 
   fetchCommandelinesInCart(): void {
-    const cartId = 3; // Replace with the actual cart ID
+    const cartId = 2; // Replace with the actual cart ID
     this.cartService.getAllCommandelinesInCart(cartId).subscribe(
       commandelines => {
         this.commandelines = commandelines;
@@ -73,7 +77,35 @@ totalPrice!: number ;
     }
   }
   
+  onDeleteCommandeline(userId: number, productId: number): void {
+    this.cartService.deleteCommandelineFromCart(userId, productId)
+      .subscribe(
+        () => {
+          console.log('Commandeline deleted successfully');
+          // Remove the deleted commandeline from the array
+          const index = this.commandelines.findIndex(cmd => cmd.product.idPr === productId);
+          if (index !== -1) {
+            this.commandelines.splice(index, 1);
+          }
+        },
+        error => {
+          console.error('Error deleting commandeline:', error);
+          // Handle error, display error message, etc.
+        }
+      );
+  }
   
+
+
+
+
+
+
+
+
+
+
+
 
 
   openStripeDialog(): void {
@@ -85,6 +117,53 @@ totalPrice!: number ;
     };
 
     this.dialog.open(StripeComponent, dialogConfig);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+initiateCheckout(amount: number, currency: string, commandelines: any[]) {
+  this.stripeService.createCharge(amount, currency, commandelines)
+    .subscribe(
+      (response) => {
+        // Handle success response
+        console.log('Charge created successfully:', response);
+        // Optionally, navigate to a confirmation page or show a success message
+      },
+      (error) => {
+        // Handle error response
+        console.error('Error creating charge:', error);
+        // Optionally, display an error message to the user
+      }
+    );
+}
+
+
+checkout(commandelines: any[]) {
+  this.stripeService.processCheckout(commandelines)
+    .subscribe(
+      response => {
+        console.log('Checkout successful:', response);
+        // Proceed with payment logic here if needed
+      },
+      error => {
+        console.error('Checkout error:', error);
+        // Handle error messages and display them to the user
+      }
+    );
 }
 
 }
