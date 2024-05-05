@@ -52,6 +52,8 @@ import { PeriodRecipesComponent } from './period-recipes/period-recipes.componen
 
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { PaymentsuccesComponent } from './paymentsucces/paymentsucces.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -83,8 +85,12 @@ const routes: Routes = [
       //aziz
       {path:"showProductUser",
         component: ShowProductUserComponent},
-        {path:"Cart",
-               component: CartComponent},
+
+    {path:"Cart",component: CartComponent},
+    {path:"PayementSuccess",component:PaymentsuccesComponent},
+ 
+    {path:"ProductDetails/:productId",
+  component: ProductDetailsComponent},
       //sheima
       {path:"PeriodInformation",
         component:PeriodTrackerComponent},
@@ -171,7 +177,12 @@ const routes: Routes = [
       {path:"showProduct",
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
-        component: UpdateProductComponent },]},
+        component: UpdateProductComponent },
+      ]},
+        
+
+
+  
       ];
       
 

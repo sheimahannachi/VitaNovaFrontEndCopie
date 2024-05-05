@@ -5,6 +5,9 @@ import { Commandeline } from '../ModelProduct/Commandeline';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StripeComponent } from '../stripe/stripe.component';
 import { StripeService } from '../ServiceProduct/StripeService';
+import { AuthService } from '../Service/auth.service';
+import { UserModule } from '../Models/user.module';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -15,22 +18,37 @@ export class CartComponent implements OnInit {
   commandelines: Commandeline[] = [];
   errorMessages: string[] = [];
 totalPrice!: number ;
-userId: number = 1;
-amount !: number ;
-currency !: string ;
-  constructor(public cartService: CartService,private dialog: MatDialog ,private stripeService: StripeService ,private productService: ProductService
+user: UserModule;
+currencyC : string ;
+userName: string;
+userId:number ;
+  constructor(public cartService: CartService,private dialog: MatDialog ,private stripeService: StripeService ,private productService: ProductService ,private authService: AuthService, 
+    private http: HttpClient
   ) {
 
    }
 
    ngOnInit(): void {
-    this.fetchCommandelinesInCart();
-
+    this.getUserInfoFromToken();
   }
 
+  getUserInfoFromToken(): void {
+    this.authService.getUserInfoFromToken().subscribe(
+      (response: UserModule) => {
+      this.user = response;
+      this.userId=this.user.idUser;
+      this.fetchCommandelinesInCart();
+
+      console.log('id user : ' , this.user.idUser);
+
+    }
+    );
+
+      }
   fetchCommandelinesInCart(): void {
-    const cartId = 2; // Replace with the actual cart ID
-    this.cartService.getAllCommandelinesInCart(cartId).subscribe(
+
+    // Replace with the actual cart ID
+    this.cartService.getAllCommandelinesInCart(this.userId).subscribe(
       commandelines => {
         this.commandelines = commandelines;
       },
@@ -78,8 +96,8 @@ currency !: string ;
     }
   }
   
-  onDeleteCommandeline(userId: number, productId: number): void {
-    this.cartService.deleteCommandelineFromCart(userId, productId)
+  onDeleteCommandeline(productId: number): void {
+    this.cartService.deleteCommandelineFromCart(this.userId, productId)
       .subscribe(
         () => {
           console.log('Commandeline deleted successfully');
@@ -96,104 +114,47 @@ currency !: string ;
       );
   }
   
-  onCheckoutClicked(): void {
-    let quantityExceedsStock = true; // Flag to track if any quantity exceeds available stock
-  
-    // Iterate through each command line
-    for (const commandeline of this.commandelines) {
-      // Fetch the product associated with the command line
-      this.productService.getProductById(commandeline.product.idPr).subscribe(
-        product => {
-          // Check if the quantity in the command line exceeds the available quantity of the product
-          if (commandeline.quantity > product.quantityPr) {
-            // Display error message
-            alert('Quantity exceeds available stock for product: ' + product.name);
-            // Set the flag to true if quantity exceeds stock
-            quantityExceedsStock = true;
-          }
-        },
-        error => {
-          console.error('Error fetching product details:', error);
-          // Handle error, e.g., show an error message
-        }
-      );
-    }
-  
-    // Check the flag before proceeding to checkout
-    if (!quantityExceedsStock) {
-      // Proceed with checkout process if all quantities are valid
-      console.log('Passing to Stripe for payment...');
-    }
+ 
+
+onCheckoutClicked(): void {
+  let data:any= {
+
+    "receiverWalletId": "663020aad65ce91d9ecb9ed9",
+    "token": "TND",
+    "amount": this.getTotalPrice()*1000,
+    "type": "immediate",
+    "description": "payment description",
+    "acceptedPaymentMethods": [
+      "wallet",
+      "bank_card",
+      "e-DINAR"
+    ],
+    "lifespan": 10,
+    "checkoutForm": true,
+    "addPaymentFeesToAmount": true,
+    "firstName": "aziz",
+    "lastName": "benslimene",
+    "phoneNumber": "20616308",
+    "email": "john.doe@gmail.com",
+    "orderId": "1234657",
+    "webhook": "https://merchant.tech/api/notification_payment",
+    "silentWebhook": true,
+    "successUrl": "http://localhost:4200/vitaNova/PayementSuccess",
+    "failUrl": "https://dev.konnect.network/gateway/payment-failure",
+    "theme": "light"
   }
-  
-  
+  //http post link https://api.preprod.konnect.network/api/v2/payments/init-payment with header x-api-key header and data body
+  this.http.post('https://api.preprod.konnect.network/api/v2/payments/init-payment', data, {
+    headers: {
+      'x-api-key': '663020aad65ce91d9ecb9ed5:S8rsq1bwkKSL9lpLpCb2zV9O'
+    }
+  }).subscribe((response) => {
+    console.log(response);
+    //redirect to the payment page from response the link is in response is payUrl external
 
-
-
-
-
-
-
-
-
-
-
-  openStripeDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    
-    dialogConfig.width = '500px'; // Set the width of the dialog
-    dialogConfig.data = {
-      totalPrice: this.getTotalPrice() // Pass the total price as data to the dialog
-    };
-
-    this.dialog.open(StripeComponent, dialogConfig);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-initiateCheckout(amount: number, currency: string, commandelines: any[]) {
-  this.stripeService.createCharge(amount, currency, commandelines)
-    .subscribe(
-      (response) => {
-        // Handle success response
-        console.log('Charge created successfully:', response);
-        // Optionally, navigate to a confirmation page or show a success message
-      },
-      (error) => {
-        // Handle error response
-        console.error('Error creating charge:', error);
-        // Optionally, display an error message to the user
-      }
-    );
-}
-
-
-checkout(commandelines: any[]) {
-  this.stripeService.processCheckout(commandelines)
-    .subscribe(
-      response => {
-        console.log('Checkout successful:', response);
-        // Proceed with payment logic here if needed
-      },
-      error => {
-        console.error('Checkout error:', error);
-        // Handle error messages and display them to the user
-      }
-    );
-}
+    window.location.href = response['payUrl'];
+  });
 
 }
+}
+

@@ -1,85 +1,89 @@
+body{
+    background-image: url('file:C:/Users/ASUS/Desktop/gg.jpg'); /* Set the background image */
+    background-size: 100% 100%; /* Enlarge the background image to cover the entire container */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+
+}
 .container {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 900px;
-    height: 600px;
-    background: #fff;
-    margin: 20px;
-}
-
-.container .imgBx {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 100%;
-    background: #212121;
-    transition: .3s linear;
+    height: 700px;
+    width: 1000px;
+    background-color: rgba(242, 242, 242, 0.3); /* Couleur de fond transparente */
+    backdrop-filter: blur(10px); /* Ajouter un flou */
 }
 
-.container .imgBx img {
-    position: relative;
-    width: 700px;
   
-    left: -50px;
-    transition: .9s linear;
-}
-
-.container .details {
+  .product-details {
     display: flex;
+    justify-content: space-between;
+    width: 900px; /* Largeur automatique */
+    height: 700px;
+    
+
+    align-items: center; /* Centrer verticalement le contenu */
+
+  }
+  
+
+  .product-info {
+    flex: 1;
+    border: 2px solid #ccc;
+    padding: 20px;
+    width: 900px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 40px;
-}
+    align-items: center; /* Centrer horizontalement le contenu */
+    background-color: white;
+  }
+  .product-info h1 {
+    font-size: 24px; /* Agrandir la taille de police */
+    color: black; /* Changer la couleur du texte en noir */
+  }
+  .product-info h2 {
+    font-size: 50px; /* Agrandir la taille de police */
+    color: black; /* Changer la couleur du texte en noir */
+  }
+  
+  .product-info p {
+    font-size: 18px; /* Agrandir la taille de police */
+    color: black; /* Changer la couleur du texte en noir */
+    font-weight: bold; /* Mettre le prix en gras */
+    margin-bottom: 10px; /* Ajouter un espace en bas */
+  }
+  
+  .product-image {
+    margin-right: 10px; /* Ajoute un espace entre les deux cadres */
+    background-color: #e1e3e5;
+    flex: 1; /* Les deux cadres occupent la même largeur */
+    border: 2px solid #ccc;
+    padding: 20px;
+    width: 150%; /* Largeur à 100% */
+    height: 700px; /* Hauteur fixe */
 
-.container .details h2{
-    margin: 0;
-    padding: 0;
-    font-size: 2.4em;
-    line-height: 1em;
-    color: #444;
 }
+  
+  .product-image img {
+    width: 100%;
+    height: 600px;
+  }
 
-.container .details h2 span {
-    font-size: 0.4em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #999;
-}
-
-.container .details p {
-    max-width: 85%;
-    margin-left: 15%;
-    color: #333;
-    font-size: 15px;
-    margin-bottom: 36px;
-}
-
-.container .details h3 {
-    margin: 0;
-    padding: 0;
-    font-size: 2.5em;
-    color: #a2a2a2;
-    float: left;
-}
-
-.container .details button {
-    background: #000;
-    color: #fff;
+  .back-to-shop-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    outline: none;
-    padding: 15px 20px;
-    margin-top: 5px;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-    border-radius: 40px;
-    float: right;
+    position: absolute;
+    top: 610px;
+    right: 180px;
+}
+
+.back-to-shop-btn:hover {
+    background-color: #0056b3;
 }
