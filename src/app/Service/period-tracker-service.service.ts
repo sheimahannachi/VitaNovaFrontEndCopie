@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { SymptomRating } from '../Models/PeriodTracker';
 import { Exercise } from '../Models/Exercise'; // Make sure to import the Exercise model
 import { Food } from '../Models/Foods';
+import { JournalEntry } from '../Models/JournalEntry';
 
 
 
@@ -84,6 +85,13 @@ getPeriodFood(): Observable<Food[]> {
   return this.http.get<Food[]>(`${this.baseUrl}period-food`);
 }
 
+
+getFertileWindow(idPeriod: number): Observable<Date[]> {
+  return this.http.get<Date[]>(`${this.baseUrl}fertile-window/${idPeriod}`);
+}
+addJournalEntry(journalEntry: JournalEntry): Observable<JournalEntry> {
+  return this.http.post<JournalEntry>(`${this.baseUrl}AddJournal`, journalEntry);
+}
 }
 
 

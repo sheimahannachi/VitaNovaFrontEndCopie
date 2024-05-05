@@ -44,9 +44,9 @@ body {
   
   .container .box {
     width: 25em;
-    height: 80em;
+    height: 85em;
     padding: 1rem;
-    background-color: rgba(11, 10, 10, 0.63);
+    background-color: rgba(206, 202, 202, 0.238);
     border: 1px solid rgba(255, 255, 255, 0.222);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
@@ -492,4 +492,344 @@ body {
     padding: 5px 10px;
     cursor: pointer;
   }
+  
+
+
+
+  .cardFertile{
+    position: relative;
+    width: 300px;
+    aspect-ratio: 16/9;
+    background-color: #e6e6cb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    perspective: 1000px;
+    box-shadow: 0 0 0 5px #ffffff80;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    top: 40px;
+    left:30px;
+  }
+  
+  .cardFertile svg {
+    width: 48px;
+    fill: #333;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .cardFertile__image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .cardFertile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+  }
+  
+  .card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f7f7ef;
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .cardFertile:hover .card__content {
+    transform: rotateX(0deg);
+  }
+  
+  .card__title {
+    margin: 0;
+    font-size: 40px;
+    color: #66ab0c;
+    font-weight: 700;
+  }
+  
+  .cardFertile:hover svg {
+    scale: 0;
+  }
+  
+  .card__description {
+    margin: 10px 0 10px;
+    font-size: 12px;
+    color: #b0b318;
+    line-height: 1.4;
+  }
+  
+  .cardFertile__button {
+    padding: 15px;
+    border-radius: 8px;
+    background: #777;
+    border: none;
+    color: white;
+  }
+  
+  .secondary {
+    background: transparent;
+    color: #777;
+    border: 1px solid #777;
+  }
+
+  
+  .cardFertile ul li {
+    display: inline;
+  }
+  ngx-charts-line-chart {
+    display: block;
+    width: 100%;
+    height: 400px;
+  }
+  ::ng-deep ngx-charts-axis-label text {
+    fill: #ffffff !important;
+  }
+
+
+  .form-container {
+    width: 330px;
+    height: 220px;
+    background: linear-gradient(#f7f6e7, #7a8f05) padding-box,
+                linear-gradient(145deg, transparent 35%,#9fc40b, #eeefc0) border-box;
+    border: 2px solid transparent;
+    padding: 32px 24px;
+    font-size: 14px;
+    font-family: inherit;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    margin-left: 20px;
+  }
+  
+  .form-container button:active {
+    scale: 0.95;
+  }
+  
+  .form-container .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-container .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .form-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #717171;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  
+  .form-container .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #000000;
+    font-family: inherit;
+    background-color: transparent;
+    border: 1px solid #414141;
+  }
+  
+  .form-container .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    resize: none;
+    color: #fff;
+    height: 96px;
+    border: 1px solid #414141;
+    background-color: transparent;
+    font-family: inherit;
+  }
+
+  .form-container .form-group input::placeholder {
+    opacity: 0.5;
+  }
+  
+  .form-container .form-group input:focus {
+    outline: none;
+    border-color: #6aac0f;
+  }
+  
+  .form-container .form-group textarea:focus {
+    outline: none;
+    border-color: #566605;
+  }
+  
+  .form-container .form-submit-btn {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: flex-start;
+    font-family: inherit;
+    color: #717171;
+    font-weight: 600;
+    width: 40%;
+    background: #313131;
+    border: 1px solid #414141;
+    padding: 12px 16px;
+    font-size: inherit;
+    gap: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  
+  .form-container .form-submit-btn:hover {
+    background-color: #fff;
+    border-color: #fff;
+  }
+  
+
+
+
+
+
+  .main {
+    background-color: white;
+    padding: 1em;
+    padding-bottom: 1.1em;
+    border-radius: 15px;
+    margin: 1em;
+    width: 390px;
+    height: 350px;
+    position: fixed;
+    top: 100px; /* Adjust the distance from the top as needed */
+    left: 20px; /* Adjust the distance from the right as needed */
+    z-index: 2000;
+    
+     /* Add this line to float the card to the left */
+  }
+  
+  .loader {
+    display: flex;
+    flex-direction: row;
+    height: 4em;
+    padding-left: 1em;
+    padding-right: 1em;
+    transform: rotate(180deg);
+    justify-content: right;
+    border-radius: 10px;
+    transition: .4s ease-in-out;
+  }
+  
+  .loader:hover {
+    cursor: pointer;
+    background-color: lightgray;
+  }
+  
+  .currentplaying {
+    display: flex;
+    margin: 1em;
+  }
+  
+  .spotify {
+    width: 50px;
+    height: 50px;
+    margin-right: 0.6em;
+  }
+  
+  .heading {
+    color: black;
+    font-size: 1.1em;
+    font-weight: bold;
+    align-self: center;
+  }
+  
+  .loading {
+    display: flex;
+    margin-top: 1em;
+    margin-left: 0.3em;
+  }
+  
+  .load {
+    width: 2px;
+    height: 33px;
+    background-color: limegreen;
+    animation: 1s move6 infinite;
+    border-radius: 5px;
+    margin: 0.1em;
+  }
+  
+  .load:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  
+  .load:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  
+  .load:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  
+  .play {
+    position: relative;
+    left: 0.35em;
+    height: 1.6em;
+    width: 1.6em;
+    clip-path: polygon(50% 50%, 100% 50%, 75% 6.6%);
+    background-color: black;
+    transform: rotate(-90deg);
+    align-self: center;
+    margin-top: 0.7em;
+    justify-self: center;
+  }
+  
+  .albumcover {
+    position: relative;
+    margin-right: 1em;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(233, 232, 232);
+    align-self: center;
+    border-radius: 5px;
+  }
+  
+  .song {
+    position: relative;
+    transform: rotate(180deg);
+    margin-right: 1em;
+    color: black;
+    align-self: center;
+  }
+  
+  .artist {
+    font-size: 0.6em;
+  }
+  
+  @keyframes move6 {
+    0% {
+      height: 0.2em;
+    }
+  
+    25% {
+      height: 0.7em;
+    }
+  
+    50% {
+      height: 1.5em;
+    }
+  
+    100% {
+      height: 0.2em;
+    }
+  }
+  
+  
   

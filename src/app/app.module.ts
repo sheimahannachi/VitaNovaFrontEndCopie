@@ -23,6 +23,7 @@ import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 
 
+
 //yoser+Ons
 import { FoodCardComponent } from './food-card/food-card.component';
 import { FoodDetailsComponent } from './food-details/food-details.component';
@@ -96,6 +97,9 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
 import { VideoChatComponent } from './video-chat/video-chat.component';
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 
 import {Chart} from "chart.js";
 import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
@@ -216,6 +220,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    NgxChartsModule,
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
     ReactiveFormsModule, // Add this line
