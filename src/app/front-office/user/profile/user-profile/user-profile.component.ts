@@ -58,6 +58,9 @@ export class UserProfileComponent implements OnInit {
     this.getWorkoutSessionData();
   }
 
+
+
+
   getWorkoutSessionData(): void {
     this.workoutService.getAllWorkoutSessionData().subscribe(
         (data: any[]) => {
@@ -169,8 +172,6 @@ export class UserProfileComponent implements OnInit {
 
 
 
-
-
 getUserInfoFromToken(): void {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
@@ -180,6 +181,7 @@ this.weightGoal=this.userProfile.personalGoals.weightGoal
 this.startDate=this.userProfile.personalGoals.startDate;}
 this.profilePictureUrl=this.userProfile.picture;
 this.accessToken=sessionStorage.getItem("accessToken");
+
       },
       error => {
         console.error('Error fetching user information:', error);

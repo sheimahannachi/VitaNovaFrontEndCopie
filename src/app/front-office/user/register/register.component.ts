@@ -144,10 +144,10 @@ this.picture=loggedInUser.picture;
 this.verified=true;
 this.gender=Gender.MALE;
 this.dateOfBirth = new Date('2000-04-06');
-this.password=this.username;
+this.password=null;
 this.phoneNumber="00000000";
 console.log(loggedInUser);
-
+console.log("password : ", this.password)
 this.authService.googleSignup(this.username, this.email,this.password , 'USER', 'MAN', '2000-04-06', this.firstName, this.lastName, this.phoneNumber, this.picture)
       .subscribe(
         response => {
