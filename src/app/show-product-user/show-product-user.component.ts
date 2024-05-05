@@ -306,6 +306,3 @@ onDocumentClick(event: MouseEvent): void {
     // alors réduire la carte agrandie
     this.closeExpandedCard();
   }*/
-
-
-

@@ -61,6 +61,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
 import { MatSliderModule } from '@angular/material/slider';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Ng5SliderModule } from 'ng5-slider';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 
@@ -167,6 +170,11 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
 
 
 
+    ProductDetailsComponent,
+    
+    
+    
+  
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
@@ -213,6 +221,8 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
+    Ng5SliderModule,
+  
 
 
 

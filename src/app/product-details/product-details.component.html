@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+<br><br>
+<br>
+<br>
+<div *ngIf="product" class="product-page">
+    <div class="container">
+        <div class="imgBx">
+            <img [src]="productService.getImageUrl(product.picturePr)" alt="Product Image">
+        </div>
+        <div class="details">
+            <div class="content">
+                <h2>{{ product.namePr }} <br>
+                    <span>Running Collection</span>
+                </h2>
+                <p>
+                    {{ product.descriptionPr }}
+                </p>
+                <h3>Price: {{ product.pricePr }}</h3>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+  

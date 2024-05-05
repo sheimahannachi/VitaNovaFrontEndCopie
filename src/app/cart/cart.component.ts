@@ -13,11 +13,12 @@ import { StripeService } from '../ServiceProduct/StripeService';
 })
 export class CartComponent implements OnInit {
   commandelines: Commandeline[] = [];
+  errorMessages: string[] = [];
 totalPrice!: number ;
 userId: number = 1;
 amount !: number ;
 currency !: string ;
-  constructor(public cartService: CartService,private dialog: MatDialog ,private stripeService: StripeService
+  constructor(public cartService: CartService,private dialog: MatDialog ,private stripeService: StripeService ,private productService: ProductService
   ) {
 
    }
@@ -95,8 +96,37 @@ currency !: string ;
       );
   }
   
-
-
+  onCheckoutClicked(): void {
+    let quantityExceedsStock = true; // Flag to track if any quantity exceeds available stock
+  
+    // Iterate through each command line
+    for (const commandeline of this.commandelines) {
+      // Fetch the product associated with the command line
+      this.productService.getProductById(commandeline.product.idPr).subscribe(
+        product => {
+          // Check if the quantity in the command line exceeds the available quantity of the product
+          if (commandeline.quantity > product.quantityPr) {
+            // Display error message
+            alert('Quantity exceeds available stock for product: ' + product.name);
+            // Set the flag to true if quantity exceeds stock
+            quantityExceedsStock = true;
+          }
+        },
+        error => {
+          console.error('Error fetching product details:', error);
+          // Handle error, e.g., show an error message
+        }
+      );
+    }
+  
+    // Check the flag before proceeding to checkout
+    if (!quantityExceedsStock) {
+      // Proceed with checkout process if all quantities are valid
+      console.log('Passing to Stripe for payment...');
+    }
+  }
+  
+  
 
 
 
