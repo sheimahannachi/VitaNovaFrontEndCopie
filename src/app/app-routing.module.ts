@@ -32,6 +32,7 @@ import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
 
 //Amine
 import { UsersBackComponent } from './back-office/users-back/users-back.component';
@@ -49,7 +50,6 @@ import { PeriodTrackerComponent } from './period-tracker/period-tracker.componen
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
-
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
@@ -59,6 +59,7 @@ const routes: Routes = [
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
   {path:"vitaNova",redirectTo:"/vitaNova/home",pathMatch:'full'},
 
+  {path:"videoChat?roomID=**",component:VideoChatComponent},
   { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
@@ -72,9 +73,11 @@ const routes: Routes = [
 
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
       //firas
+
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
         ]},
+        {path:"vitaNova/community/videoChat?roomID=**",component:VideoChatComponent},
       {path:"addCommunity",component:AddCommunityComponent},
       {path:"findCommunity",component:FindCommunityComponent},
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
@@ -108,6 +111,7 @@ const routes: Routes = [
 
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+  {path: "profile", component: UserProfileComponent},
 
 
 //Admin

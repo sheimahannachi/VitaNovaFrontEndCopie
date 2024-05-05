@@ -78,10 +78,10 @@ export class AddChallengeComponent {
     else{
       challenge.compare=ChallengeCompare.MORE;
     }
-    this.service.addChallenge(challenge,1).subscribe(res=>{this.router.navigateByUrl('/vitaNova/community')},
+    this.service.addChallenge(challenge,this.communityId).subscribe(res=>{this.router.navigateByUrl('/vitaNova/community')},
     error=>{
       console.error('BackEnd error while adding challenge:',error);
     });
   }
-  //this.communityId
+  
 }

@@ -61,8 +61,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
 import { MatSliderModule } from '@angular/material/slider';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Ng5SliderModule } from 'ng5-slider';
+
 
 
 
@@ -91,14 +90,15 @@ import { ProductDetailsDialogComponent } from './product-details-dialog/product-
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
-
-import {MatSelectModule} from "@angular/material/select";
+import { VideoChatComponent } from './video-chat/video-chat.component';
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 
 import {Chart} from "chart.js";
 import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,7 +141,6 @@ import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "an
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
-
 //Amine
    UsersBackComponent,
     UserProfileComponent,
@@ -194,7 +193,6 @@ import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "an
     FormsModule,
     SocialLoginModule,
     NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
-
 
 //yoser
     CommonModule,

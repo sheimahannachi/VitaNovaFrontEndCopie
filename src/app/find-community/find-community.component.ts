@@ -3,7 +3,9 @@ import { Community } from '../Model/Community';
 import { CommunityServiceService } from '../Services/community-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserModule } from '../Model/user/user.module';
+
+import { AuthService } from '../Service/auth.service';
+import { UserModule } from '../Models/user.module';
 
 @Component({
   selector: 'app-find-community',
@@ -20,7 +22,7 @@ test:number;
 current:UserModule;
 errorMessage:string;
 
-constructor(private service:CommunityServiceService,private router:Router){
+constructor(private service:CommunityServiceService,private router:Router,private userService:AuthService){
   this.page=0;
   this.communities=[];
   this.test=0;
@@ -29,6 +31,7 @@ constructor(private service:CommunityServiceService,private router:Router){
 }
 
 ngOnInit(){
+  this.getCurrentUser();
   this.myForm=new FormGroup({
     
       communityName: new FormControl('', []),
@@ -117,13 +120,20 @@ joinCommunity(communityId:number) {
     this.errorMessage="You can't join multiple community at once...";
   }else{
   this.service.addMemberToCommunity(this.current.idUser,communityId).subscribe(res=>{
-    this.router.navigateByUrl("/app/community");
+    if(res)
+      this.router.navigateByUrl("/vitaNova/community");
   })
 }
   }
 
   getCurrentUser(){
     //cal user service get the user connected
+    this.userService.getUserInfoFromToken().subscribe(res=>{
+      this.current=res;
+    });
+      
+      
+      
   }
 
 }

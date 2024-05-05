@@ -33,27 +33,29 @@ export enum Plan {
 export class UserModule {
   [key: string]: any; // Index signature allowing any string key with any value
 
-  idUser!: number;
-  username!: string;
-  firstName!: string;
-  lastName!: string;
-  dateOfBirth!: Date;
-  gender!: Gender;
-  email!: string;
-  weight!: number;
-  height!: number;
-  password!: string;
-  archive!: boolean;
-  picture!: string;
-  verified!: boolean;
-  score!: number;
-  phone!: string;
-  facebook!: string;
-  personalGoals!: PersonalGoalsModule;
-  foods!: Food[];
-  communities!: Community[];
-  plan!: Plan;
-  role!: ERole;
+  idUser!: number;  
+  username!: string ;
+  firstName!: string ;
+  lastName!: string ;
+  dateOfBirth!: Date ; 
+  gender!: Gender ; 
+  email!: string ;
+  weight!: number ; 
+  height!: number ; 
+  password!: string ;
+  archive!: boolean ;
+  picture!: string ;
+  verified!: boolean ;
+  score!:number;
+  phone!: string ;
+  facebook!:string;
+   personalGoals: PersonalGoalsModule = null; 
+  // periodTracker: PeriodTracker = new PeriodTracker(); // Example initial value
+  // cart: Cart = new Cart(); // Example initial value
+   foods: Food[] = [];
+  communities: Community;
+  plan!: Plan ; 
+  role!: ERole ; 
 
   constructor() {
 
