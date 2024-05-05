@@ -11,7 +11,7 @@ export class Food {
   vitaminC!: number ; // Default value for vitaminC
   vitaminB6!: number; // Default value for vitaminB6
   vitaminE!: number; // Default value for vitaminE
-  calcium!: number; // Default value for calcium
+  calcium!  : number; // Default value for calcium
 
 
 }

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import{UserModule} from '../Models/user.module'
 import { ResetPasswordRequest } from '../front-office/user/login/UserInfoResponse';
+import { PersonalGoalsModule } from '../Models/personal-goals.module';
 @Injectable({
   providedIn: 'root'
 })
@@ -82,4 +83,43 @@ export class UserService {
     return this.http.get<UserModule>(`${this.baseUrl}/user/GetUserByUsername?username=${username}`);
   }
 
+  
+  getUserByEmail(email: string): Observable<UserModule> {
+    return this.http.get<UserModule>(`${this.baseUrl}/user/GetUserByEmail?email=${email}`);
+  }
+
+
+
+
+  addGoal(goal: PersonalGoalsModule, userId: number): Observable<UserModule> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const url = `${this.baseUrl}/goals/AddGoal`;
+
+    return this.http.post<UserModule>(url, goal, {
+      headers,
+      params: {
+        userId: userId.toString()
+      },
+      withCredentials: true
+    });
+  }
+
+
+
+
+  private userSubject = new BehaviorSubject<UserModule>(null);
+
+  setUser(user: UserModule) {
+    this.userSubject.next(user);
+  }
+
+  getUser() {
+    return this.userSubject.asObservable();
+  }
+
+
+  
 }

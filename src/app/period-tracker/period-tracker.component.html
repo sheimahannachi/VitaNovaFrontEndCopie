@@ -323,64 +323,91 @@
         </div>
 
 
-        <div class="wrapper" >
-          <div class="optionet">
-            <input value="Oral Contraceptive Pills" name="medication" type="radio" class="input"
-                   (click)="onMedicationSelect('Oral Contraceptive Pills')" />
-            <div class="btn">
-              <span class="span">Oral Contraceptive Pills</span>
+          <div class="customCheckBoxHolder">
+            <div class="optionet">
+                <input id="cCB1" value="Oral Contraceptive Pills" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Oral Contraceptive Pills')" />
+                <label class="customCheckBoxWrapper" for="cCB1">
+                    <div class="customCheckBox">
+                        <div class="inner">Oral Contraceptive Pills</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input value="Aspirin" name="medication" type="radio" class="input"
-            (click)="onMedicationSelect('Aspirin')" />
-            <div class="btn">
-              <span class="span">Aspirin</span>
+            <div class="optionet">
+                <input id="cCB2" value="Aspirin" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Aspirin')" />
+                <label class="customCheckBoxWrapper" for="cCB2">
+                    <div class="customCheckBox">
+                        <div class="inner">Aspirin</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input value="Ibuprofen" name="medication" type="radio" class="input"(click)="onMedicationSelect('Ibuprofen')"/>
-            <div class="btn">
-              <span class="span">Ibuprofen</span>
+            <div class="optionet">
+                <input id="cCB3" value="Ibuprofen" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Ibuprofen')" />
+                <label class="customCheckBoxWrapper" for="cCB3">
+                    <div class="customCheckBox">
+                        <div class="inner">Ibuprofen</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input checked="" value="Anti Depressant Medication" name="medication" type="radio" class="input"(click)="onMedicationSelect('Anti Depressant Medication')" />
-            <div class="btn">
-              <span class="span">Anti Depressant Medication</span>
+            <div class="optionet">
+                <input id="cCB4" value="Anti Depressant Medication" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Anti Depressant Medication')" />
+                <label class="customCheckBoxWrapper" for="cCB4">
+                    <div class="customCheckBox">
+                        <div class="inner">Anti Depressant Medication</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input checked="" value="Weight loss medication" name="medication" type="radio" class="input"(click)="onMedicationSelect('Weight loss medication')" />
-            <div class="btn">
-              <span class="span">Weight loss medication</span>
+            <div class="optionet">
+                <input id="cCB5" value="Weight loss medication" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Weight loss medication')" />
+                <label class="customCheckBoxWrapper" for="cCB5">
+                    <div class="customCheckBox">
+                        <div class="inner">Weight loss medication</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input checked="" value="Chemo therapy" name="btn" type="radio" class="input" (click)="onMedicationSelect('Chemo therapy')"/>
-            <div class="btn">
-              <span class="span">Chemo therapy</span>
+            <div class="optionet">
+                <input id="cCB6" value="Chemo therapy" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Chemo therapy')" />
+                <label class="customCheckBoxWrapper" for="cCB6">
+                    <div class="customCheckBox">
+                        <div class="inner">Chemo therapy</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input checked="" value="Steroids" name="medication" type="radio" class="input" (click)="onMedicationSelect(' Steroids')"/>
-            <div class="btn">
-              <span class="span">Steroids</span>
+            <div class="optionet">
+                <input id="cCB7" value="Steroids" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Steroids')" />
+                <label class="customCheckBoxWrapper" for="cCB7">
+                    <div class="customCheckBox">
+                        <div class="inner">Steroids</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input checked="" value="Other Forms of contraceptive" name="medication" type="radio" class="input"(click)="onMedicationSelect('Other Forms of contraceptive')" />
-            <div class="btn">
-              <span class="span">Other Forms of contraceptive </span>
+            <div class="optionet">
+                <input id="cCB8" value="Other Forms of contraceptive" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Other Forms of contraceptive')" />
+                <label class="customCheckBoxWrapper" for="cCB8">
+                    <div class="customCheckBox">
+                        <div class="inner">Other Forms of contraceptive</div>
+                    </div>
+                </label>
             </div>
-          </div>
-          <div class="optionet">
-            <input checked="" value="Any" name="medication" type="radio" class="input" (click)="onMedicationSelect('Any')"/>
-            <div class="btn">
-              <span class="span">Any</span>
+            <div class="optionet">
+                <input id="cCB9" value="Any" name="medication" type="radio" class="customCheckBoxInput input"
+                       (click)="onMedicationSelect('Any')" />
+                <label class="customCheckBoxWrapper" for="cCB9">
+                    <div class="customCheckBox">
+                        <div class="inner">Any</div>
+                    </div>
+                </label>
             </div>
-          </div>
+        </div>
 
+        <div class="wrapper" >
 
           <div class="paginate left">
             <div class="arroww">

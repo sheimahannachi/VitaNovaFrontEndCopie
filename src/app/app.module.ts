@@ -22,6 +22,7 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 
+
 //yoser+Ons
 import { FoodCardComponent } from './food-card/food-card.component';
 import { FoodDetailsComponent } from './food-details/food-details.component';
@@ -30,7 +31,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import { ExerciseListFrontComponent } from './exercise-list-front/exercise-list-front.component';
 import { ExerciseModalComponent } from './exercise-modal/exercise-modal.component';
-import {MatDialogModule} from "@angular/material/dialog";
 import { ExerciseLinkModelComponent } from './exercise-link-model/exercise-link-model.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { GetPlanUserComponent } from './get-plan-user/get-plan-user.component';
@@ -47,14 +47,26 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
-//Aziz 
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
+//Aziz
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
 import { ShowProductUserComponent } from './show-product-user/show-product-user.component';
 import { CartComponent } from './cart/cart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { StripeComponent } from './stripe/stripe.component'; // Import MatDialogModule
+import { MatSliderModule } from '@angular/material/slider';
+
+
+
+
+
+
 
 //sheima
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -72,7 +84,20 @@ import { DialogPersonalGoalsComponent } from './front-office/user/dialog-persona
 import { DialogPlanComponent } from './front-office/user/dialog-plan/dialog-plan.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './front-office/user/checkout/checkout.component';
+import { CheckoutDoneComponent } from './front-office/user/checkout-done/checkout-done.component';
+
+import { ProductDetailsDialogComponent } from './product-details-dialog/product-details-dialog.component';
+import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
+import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
 import { VideoChatComponent } from './video-chat/video-chat.component';
+import { TimerApiComponent } from './timer-api/timer-api.component';
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
+
+import {Chart} from "chart.js";
+import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -83,7 +108,6 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     NavbarComponent,
     FooterComponent,
     AllTemplateFrontComponent,
-
     UserComponent,
     RegisterComponent,
     LoginComponent,
@@ -99,6 +123,9 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     ExerciseModalComponent,
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
+
+//ons
+    FooterComponent,
     FoodComponent,
     FoodListComponent,
     FoodCardComponent,
@@ -114,15 +141,13 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
-    VideoChatComponent,
 //Amine
-    UsersBackComponent,
+   UsersBackComponent,
     UserProfileComponent,
 
     UpdateProductComponent,
     AddProductComponent,
     ShowProductComponent,
-    ShowProductUserComponent,
     CartComponent,
     //sheima
     NavBarBackComponent,
@@ -134,15 +159,28 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     PeriodInsightsComponent,
     OneToOneComComponent,
     PeriodRecipesComponent,
-  
+    SidebarComponent,
+    StripeComponent,
+
+
+
+
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
     DialogPlanComponent,
     CheckoutComponent,
+    CheckoutDoneComponent,
+    ShowProductUserComponent,
+    TimerApiComponent,
+    RecipiesLowCarbComponent,
 
 
-
+    ProductDetailsDialogComponent,
+      FoodlistaddedComponent,
+      PeriodRecommendationsComponent,
+      DeleteAccountComponent,
+      PgoalsBackComponent,
 
 
     ],
@@ -153,6 +191,8 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    SocialLoginModule,
+    NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
 
 //yoser
     CommonModule,
@@ -160,30 +200,31 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
     MatDialogModule,
     MatIconModule,
 //firas
-    MatDialogModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
     //sheima
-    CommonModule,
     BrowserAnimationsModule,
-    FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
     ReactiveFormsModule, // Add this line
+    MatDialogModule,
+    MatSliderModule,
+
+
+
+    MatSelectModule,
 
 
   ],
   exports:[MatDialogModule,],
-  providers: [],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    
+  ],  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 
-  
 
- 
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

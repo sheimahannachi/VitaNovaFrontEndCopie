@@ -126,6 +126,9 @@ export class AddPlanComponent implements OnInit {
       this.selectedExercises.forEach(exercise => {
         formData.append('selectedExerciseIds', exercise.id.toString());
       });
+      const intensity = this.selectedExercises.length >= 10 ? 'MEDIUM' : 'LOW';
+      formData.append('intensity', intensity);
+
       this.workoutService.addPlan(formData).subscribe(() => {
         this.workoutForm.reset();
         this.selectedFile = null;

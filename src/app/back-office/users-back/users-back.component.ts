@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserService } from '../Service/user.service';
-import { ERole, UserModule } from '../Models/user.module';
+import { UserService } from 'src/app/Service/user.service';
+import { UserModule } from 'src/app/Models/user.module';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -141,7 +141,3 @@ export class UsersBackComponent {
   }
   
   
-
-
-
-

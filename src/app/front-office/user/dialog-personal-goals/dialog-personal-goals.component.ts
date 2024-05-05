@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UserService } from './../../../Service/user.service';
+import { PersonalGoalsModule } from 'src/app/Models/personal-goals.module';
 
 @Component({
   selector: 'app-dialog-personal-goals',
@@ -10,9 +11,10 @@ import { UserService } from './../../../Service/user.service';
 export class DialogPersonalGoalsComponent {
   step: number = 1;
 IdealWeight!:number;
-useIdealWeight: boolean = true; // Variable to track whether to use ideal weight or not
-numberOfWeeks:number;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { }
+dailyCalories:number=2800;
+useIdealWeight: boolean=true ; 
+numberOfWeeks:number=8;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService,private dialog: MatDialog) { }
 
   UpdateUser() {
     // Create a new object with updated weight and height
@@ -37,10 +39,7 @@ numberOfWeeks:number;
 
 
 
-perfectWeight(){
 
-  
-}
 
 
 calculateBMI(weightKg: number, heightCm: number): number {
@@ -106,4 +105,120 @@ calculateIdealWeight() {
   }
 }
 
+
+
+
+ calculateDailyCalories( activityLevel: number): number {
+  // Calculate Basal Metabolic Rate (BMR)
+  let bmr: number;
+  const age=this.calculateAge(this.data.userProfile.dateOfBirth);
+  if (this.data.userProfile.gender === 'MAN') {
+   
+      bmr = 88.362 + (13.397 * this.data.userProfile.weight) + (4.799 * this.data.userProfile.height) - (5.677 * age);
+  } else {
+      bmr = 447.593 + (9.247 * this.data.userProfile.weight) + (3.098 * this.data.userProfile.height) - (4.330 * age);
+  }
+
+  // Adjust for activity level
+  const activityFactors = [1.2, 1.375, 1.55, 1.725, 1.9]; // Sedentary, Lightly active, Moderately active, Very active, Extra active
+  const activityFactor = activityFactors[activityLevel];
+  const totalCalories = bmr * activityFactor;
+
+  // Calculate calorie deficit/surplus based on weight change goal and time frame
+  const totalWeeks = this.numberOfWeeks;
+  const desiredWeightChange = this.data.userProfile.weight - this.IdealWeight;
+  const desiredCalorieChangePerWeek = 7700 * (desiredWeightChange / totalWeeks); // 7700 calories ≈ 1 kg of body weight
+  const dailyCalorieChange = desiredCalorieChangePerWeek / 7;
+  this.dailyCalories = totalCalories*1.2 + dailyCalorieChange;
+  if(  isNaN(  this.dailyCalories)||(  this.dailyCalories<0))  this.dailyCalories=2800;
+console.log(Math.round(  this.dailyCalories));
+  return Math.round(  this.dailyCalories); 
 }
+
+
+  setGoal(){
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + this.numberOfWeeks * 7); 
+    console.log(targetDate);
+    const weightDifference = this.IdealWeight - this.data.userProfile.weight;
+
+    
+    const isWeightLoss = weightDifference > 0;
+    
+    let weeksToGoal: number;
+console.log(this.data.userProfile.personalGoals)
+    if (this.data.userProfile.personalGoals === null) {
+      weeksToGoal = this.numberOfWeeks; // Use default number of weeks
+    } else {
+      const startDate: Date = new Date(this.data.userProfile.personalGoals.StartDate);
+      const currentDate: Date = new Date();
+      const millisecondsPerWeek: number = 7 * 24 * 60 * 60 * 1000; // Milliseconds in a week
+    
+      weeksToGoal = Math.ceil(Math.abs(currentDate.getTime() - startDate.getTime()) / millisecondsPerWeek);
+    }
+        
+    let description: string;
+    if (!isWeightLoss) {
+      description = `You're aiming to lose ${Math.abs(weightDifference).toFixed(2)} kg in ${weeksToGoal.toFixed(0)} week(s).`;
+    } else {
+      description = `You're aiming to gain ${Math.abs(weightDifference).toFixed(2)} kg in ${weeksToGoal.toFixed(0)} week(s).`;
+    }
+    
+    
+    const newGoal: PersonalGoalsModule = {
+      weightGoal: this.IdealWeight,
+      dateGoal: targetDate,
+      description: description, 
+      dailyNeededCalories: this.calculateDailyCalories(2), 
+      weightStart:this.data.userProfile.weight
+    };
+   
+
+    this.userService.addGoal(newGoal,this.data.userProfile.idUser ).subscribe(
+      (response) => {
+        this.data.userProfile.score++;
+        console.log('Goal added successfully:', response);
+        this.dialog.closeAll();
+
+        
+    },
+      (error) => {
+        console.error('Error adding goal:', error);
+      }
+    );
+  }
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+  calculateAge(dateOfBirth: string): number {
+    const dob = new Date(dateOfBirth);
+    const today = new Date();
+
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+
+    // If the birth month is after the current month or birth month is the same but birth day is after current day,
+    // subtract 1 from age
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    return age;
+}
+
+}
+
+  
+
+
+

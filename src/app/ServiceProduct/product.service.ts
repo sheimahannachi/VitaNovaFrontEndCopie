@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { Product } from '../ModelProduct/Product';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +12,10 @@ export class ProductService {
 
   private baseUrl = 'http://localhost:8081/Product';
   private imageBaseUrl = 'http://192.168.174.134/uploads/';
+  private cartItems: Product[] = [];
+  private idUser: number = 1; // Fixer idUser à 1
+  private imageBaseUrl2 = 'http://localhost:80/aziz/';
+
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +23,7 @@ export class ProductService {
     return this.http.post<any>(`${this.baseUrl}/addProduct`, produit, { observe: 'response' });
   }
 
-  showProducts(): Observable<Product[]> {
+  showProducts(): Observable<Product[]> { //  encapsuler les résultats de requêtes HTTP,
     return this.http.get<Product[]>(`${this.baseUrl}/getProducts`);
   }
 
@@ -45,6 +50,53 @@ export class ProductService {
   addLike(/*idUser: number,*/ idPr: number): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/addLike/${idPr}`, {/*idUser,*/ idPr});
   }
+
+
+  addProductToCart(productId: number, idUser: number): Observable<any> {
+    const params = new HttpParams()
+      .set('idPr', productId.toString())
+      .set('idUser', idUser.toString());
+
+    return this.http.post<any>(`${this.baseUrl}/addProductToCart/`, {}, { params });
+  }
+
+  generateQRCode(productId: number): Observable<string> {
+    return this.http.get<string>(`${this.baseUrl}/${productId}/generate-qrcode`);
+  }
+
+  getImageUrl2(imagePath: string): string {
+    return this.imageBaseUrl2 + imagePath;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

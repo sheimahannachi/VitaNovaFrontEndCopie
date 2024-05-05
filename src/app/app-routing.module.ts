@@ -10,7 +10,7 @@ import {FoodListComponent} from "./food-list/food-list.component";
 import {AddexerciseComponent} from "./addExercise/addexercise.component";
 import {ExerciseListComponent} from "./exercise-list/exercise-list.component";
 //yoser
-
+import {TimerApiComponent} from "./timer-api/timer-api.component";
 import {FoodCardComponent} from "./food-card/food-card.component";
 import {FoodDetailsComponent} from "./food-details/food-details.component";
 import {ExerciseListFrontComponent} from "./exercise-list-front/exercise-list-front.component";
@@ -18,6 +18,10 @@ import {ExerciseModalComponent} from "./exercise-modal/exercise-modal.component"
 import {ExerciseDetailsComponent} from "./exercise-details/exercise-details.component";
 import {GetPlanUserComponent} from "./get-plan-user/get-plan-user.component";
 import {TimerPageComponent} from "./timer-page/timer-page.component";
+//ons
+import {FoodlistaddedComponent} from "./foodlistadded/foodlistadded.component";
+
+
 
 //firas
 import { CommunityComponent } from './community/community.component';
@@ -28,9 +32,10 @@ import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
 
 //Amine
-import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
 import { AddProductComponent } from './add-product/add-product.component';
@@ -45,7 +50,10 @@ import { PeriodTrackerComponent } from './period-tracker/period-tracker.componen
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
-import { VideoChatComponent } from './video-chat/video-chat.component';
+import { CartComponent } from './cart/cart.component';
+import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -56,6 +64,14 @@ const routes: Routes = [
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
       {path: "profile", component: UserProfileComponent},
+      //ons
+      {path:"foodFront",component:FoodCardComponent},
+      {
+        path:"list-of-foods",
+        component:FoodlistaddedComponent,
+      },
+
+      { path: 'foodDetails/:id', component: FoodDetailsComponent },
       //firas
 
       {path:"community", component:CommunityComponent,children:[
@@ -69,13 +85,16 @@ const routes: Routes = [
       {path: "exerciseworkout",component:ExerciseListFrontComponent},
       {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
       {path:"workoutplan",component:GetPlanUserComponent},
-      { path: 'timer/:id', component: TimerPageComponent },
       {path:"foodFront",component:FoodCardComponent},
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
+      { path: 'Timer/:id', component: TimerPageComponent },
+      { path: 'timer-api', component: TimerApiComponent },
 
       //aziz
       {path:"showProductUser",
         component: ShowProductUserComponent},
+      {path:"Cart",
+        component: CartComponent},
       //sheima
       {path:"PeriodInformation",
         component:PeriodTrackerComponent},
@@ -83,7 +102,10 @@ const routes: Routes = [
         component:ShowPeriodComponent},
       { path: 'PeriodInformation/:idPeriod', component: PeriodTrackerComponent },
       {path:'PeriodInsights',component:PeriodInsightsComponent},
-      {path:'PeriodRecipes', component:PeriodRecipesComponent}
+      {path:'PeriodRecipes', component:PeriodRecipesComponent},
+      {path:'PeriodRecommendations', component:PeriodRecommendationsComponent},
+
+      {path: 'lowcarb',component: RecipiesLowCarbComponent},
     ]},
 //amine
 
@@ -94,6 +116,32 @@ const routes: Routes = [
 
 //Admin
   { path:'admin',component:AllTemplateBackComponent, children: [
+      //ons
+      {
+        path:"addFood",
+        component:FoodComponent,
+      },
+      {
+        path: 'addFood/:id',
+        component: FoodComponent // or whichever component you want to navigate to
+      },
+
+      {
+        path:"getFoods",
+        component:FoodListComponent,
+      },
+      {
+        path: "listex",
+        component: ExerciseListComponent,
+
+      },
+      {
+        path: "exercise",
+        component: AddexerciseComponent,
+      },
+      {path: "exerciseworkout",component:ExerciseListFrontComponent},
+      {path:"exercises/:exerciseId",component:ExerciseDetailsComponent},
+
       //yoser
       {
         path:"addFood",
@@ -103,7 +151,7 @@ const routes: Routes = [
         path: 'addFood/:id',
         component: FoodComponent // or whichever component you want to navigate to
       },
-  
+
       {
         path:"getFoods",
         component:FoodListComponent,
@@ -111,30 +159,34 @@ const routes: Routes = [
       {
         path: "listex",
         component: ExerciseListComponent,
-  
+
       },
       {
         path: "exercise",
         component: AddexerciseComponent,
       },
-  
+
       //firas
       {path:"communities",component:AllCommunitiesBackComponent},
       {path:"chalenges", component:AllChallengesBackComponent},
       //amine
-      
-      {
-        path: "users",
-        component: UsersBackComponent
-      },
+
+
       //aziz
       {path:"addProduct",
         component: AddProductComponent},
       {path:"showProduct",
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
-        component: UpdateProductComponent },]},
+        component: UpdateProductComponent },
+      
+        {path:"users",
+        component: UsersBackComponent},
+        {path:"goals",
+        component: PgoalsBackComponent},
+      ]},
 ];
+
 
 
 @NgModule({

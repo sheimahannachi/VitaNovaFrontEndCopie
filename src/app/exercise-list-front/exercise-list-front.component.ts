@@ -6,6 +6,8 @@ import { ExerciseModalComponent } from "../exercise-modal/exercise-modal.compone
 import { ExerciseLinkModelComponent } from "../exercise-link-model/exercise-link-model.component";
 import { AddPlanComponent } from "../add-plan/add-plan.component";
 import { UserRating } from "../Models/UserRating";
+import {UserModule} from "../Models/user.module";
+import {AuthService} from "../Service/auth.service";
 
 @Component({
   selector: 'app-exercise-list-front',
@@ -24,8 +26,17 @@ export class ExerciseListFrontComponent implements OnInit {
   selectedExerciseLink: string = ''; // Define selectedExerciseLink property
   sortDirection: string = 'desc'; // Default to descending order
   loading: boolean = false; // Loading flag
+  userId :UserModule // Initialize userId variable
 
-  constructor(private workoutService: WorkoutService, private dialog: MatDialog) {
+  constructor(
+    private workoutService: WorkoutService,
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) {
+    // Retrieve userId from AuthService as an Observable
+    this.authService.getUserInfoFromToken().subscribe(userId => {
+      this.userId = userId;
+    });
   }
 
   ngOnInit() {
@@ -136,10 +147,17 @@ export class ExerciseListFrontComponent implements OnInit {
     }
   }
 
-  rateExercise(exerciseId: number, rating: number): void {
-    this.userRating.rate = rating;
-    this.userRating.exerciseId = exerciseId;
-    this.workoutService.saveUserExerciseRating(this.userRating, exerciseId).subscribe(
+  rateExercise(userId: number, exerciseId: number, rating: number): void {
+    // Create a new instance of UserRating
+    const userRating = new UserRating();
+    userRating.rate = rating;
+    userRating.iduser = new UserModule(); // Initialize iduser with a new instance of UserModule
+    userRating.iduser.idUser = userId; // Set the userId
+    userRating.exerciseId = new Exercise(); // Initialize exerciseId with a new instance of Exercise
+    userRating.exerciseId.id = exerciseId; // Set the exerciseId
+
+    // Call the service method with the new userRating object
+    this.workoutService.saveUserExerciseRating(userRating, exerciseId, userId).subscribe(
       response => {
         console.log('Évaluation sauvegardée avec succès', response);
         // Mettez à jour la liste des exercices si nécessaire
@@ -149,6 +167,7 @@ export class ExerciseListFrontComponent implements OnInit {
       }
     );
   }
+
 
   copyExerciseLink(exerciseId: number): void {
     // Set selected exercise link

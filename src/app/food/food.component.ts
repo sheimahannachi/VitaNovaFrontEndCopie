@@ -31,13 +31,13 @@ export class FoodComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*const foodData: Food | null = history.state.food;
+    const foodData: Food | null = history.state.food;
     if (foodData) {
       this.newFood = foodData;
       this.populateFormWithFoodData();
     } else {
       console.error("Food data is not present in the state.");
-    }*/
+    }
   }
 
   onSubmit(): void {
@@ -127,7 +127,7 @@ export class FoodComponent implements OnInit {
 
 
 
- /* populateFormWithFoodData(): void {
+  populateFormWithFoodData(): void {
     this.foodForm.patchValue({
       category: this.newFood.category,
       title: this.newFood.title,
@@ -141,5 +141,5 @@ export class FoodComponent implements OnInit {
       vitaminE: this.newFood.vitaminE
 
     });
-  }*/
+  }
 }

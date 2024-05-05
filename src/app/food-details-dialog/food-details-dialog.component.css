@@ -42,18 +42,23 @@
 .mat-dialog-actions button:hover {
   background-color: #c62828; /* Couleur de fond du bouton au survol */
 }
-.mat-dialog-action button {
-  color: #000000; /* Couleur du texte du bouton */
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.mat-dialog-action button:hover {
-  background-color: #539E2B; /* Couleur de fond du bouton au survol */
-}
 .mat-dialog-action {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 15px; /* Marge en bas du bouton */
+}
+.svg-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: black;
+}
+
+.svg-icon circle {
+  stroke: black;
+  stroke-width: 1;
 }
