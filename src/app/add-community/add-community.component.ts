@@ -73,7 +73,7 @@ export class AddCommunityComponent {
 
       this.service.addCommunity(community,this.currentUser.idUser).subscribe(response=>{
         this.myForm.reset();
-        this.router.navigateByUrl("/vitaNova/home")
+        this.router.navigateByUrl("/vitaNova/community")
 
       },
       error=>{
