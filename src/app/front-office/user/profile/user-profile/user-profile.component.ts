@@ -181,7 +181,7 @@ this.weightGoal=this.userProfile.personalGoals.weightGoal
 this.startDate=this.userProfile.personalGoals.startDate;}
 this.profilePictureUrl=this.userProfile.picture;
 this.accessToken=sessionStorage.getItem("accessToken");
-
+console.log(this.userProfile.personalGoals)
       },
       error => {
         console.error('Error fetching user information:', error);
@@ -189,6 +189,7 @@ this.accessToken=sessionStorage.getItem("accessToken");
     );
   }
 display(){
+
   this.spotifyMode=!this.spotifyMode;
   this.checkSpotify();
 
@@ -206,6 +207,7 @@ display(){
   //this.spotifyService.checkScope(sessionStorage.getItem("accessToken")).subscribe();
 
 }
+
 
   toggleEditMode(): void {
     console.log("Session name : ", sessionStorage.getItem("username"))

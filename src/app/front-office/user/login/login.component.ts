@@ -28,7 +28,7 @@ export class LoginComponent {
   };
 
   
-  // The error message
+ipadress:string;
   errorMessage!: string;
   verificationCode: string = '';
   generatedCode:string = this.emailService.generateVerificationCode();
@@ -45,13 +45,18 @@ export class LoginComponent {
 loginAttempts:number=0;
 user: SocialUser;
 userProfile:UserModule;
-  constructor(private route: ActivatedRoute ,public dialog: MatDialog ,private http: HttpClient, private miscService:MiscService ,private OpencvService:OpenCvService, private authService: AuthService,private router: Router,private emailService:EmailService,private userService:UserService, private smsService:SMSService) { }
+  constructor(private route: ActivatedRoute ,public dialog: MatDialog ,private http: HttpClient, private miscService:MiscService ,private OpencvService:OpenCvService, private authService: AuthService,private router: Router,private emailService:EmailService,private userService:UserService, private smsService:SMSService) {
+   
+   }
   
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
         if (params['verificationLinkClicked'] === 'true') {
             this.openSuccessDialog();
         }
+        this.miscService.getWANIPAddress().subscribe(
+          ip=>this.ipadress
+        )
     });
     
 
@@ -173,75 +178,85 @@ openSuccessDialog(): void {
     this.authService.authenticateAndGetToken(this.authRequest)
       .subscribe(response => {
         
-              
-    this.miscService.checkIpAddress(this.authRequest.username).subscribe(
-      (result: boolean) => {
-        if (result) {
-          console.log('IP Address check passed');
-
-
-
-          sessionStorage.setItem("loggedIn", "true");
-          sessionStorage.setItem("username",response.username);
-          sessionStorage.setItem("email",response.email);
-          sessionStorage.setItem("role",response.role);
-          sessionStorage.setItem("token",response.token);
-          sessionStorage.setItem("role",JSON.stringify(response.role));
-          console.log('Login successful!', response);
-          if(response.role=='USER'){
-            this.userService.getUserByUsername(response.username).subscribe(
-            (user: UserModule) => {
-                if(user.archive==true){alert("account is deactivated");} 
-                else  this.router.navigate(['vitaNova/profile']); 
-
-            },
-            (error) => {
-                console.error('Error fetching user:', error);
-            }
-        );
-        
-          }
-          else if(response.role=="ADMIN")
-            this.router.navigate(['/admin/users']);
-         
-       
-        } else {
-          console.log('IP Address check failed');
-          console.log(response.email)
-this.generateAndSendLink(this.authRequest.username,response.email)
-this.openDialog();
-        }
-      }
-    );
+               
+    this.miscService.getWANIPAddress().subscribe(
+      (ip: string) => {
+        this.miscService.checkIpAddress(this.authRequest.username,ip).subscribe(
+          (result: boolean) => {
+            console.log("ip CHECK :" , ip)
+            if (result) {
+             
+              console.log('IP Address check passed');
+    
+    
+    
+              sessionStorage.setItem("loggedIn", "true");
+              sessionStorage.setItem("username",response.username);
+              sessionStorage.setItem("email",response.email);
+              sessionStorage.setItem("role",response.role);
+              sessionStorage.setItem("token",response.token);
+              sessionStorage.setItem("role",JSON.stringify(response.role));
+              console.log('Login successful!', response);
+              if(response.role=='USER'){
+                this.userService.getUserByUsername(response.username).subscribe(
+                (user: UserModule) => {
+                    if(user.archive==true){alert("account is deactivated");} 
+                    else  this.router.navigate(['vitaNova/profile']); 
+    
+                },
+                (error) => {
+                    console.error('Error fetching user:', error);
+                }
+            );
             
-            
-      }, error => {  
-        this.userService.getUserByUsername(this.authRequest.username)
-          .subscribe(
-            (user: UserModule) => {
-              console.log("User details: ", user);
-              if(this.loginAttempts>2){
-                this.OpencvService.captureAndSaveImage().subscribe(
-                  () => {
-                    this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account , if it's not you , please consider resetting your password","");
-                    console.log('Image captured and saved successfully');
-                  },
-                  error => {
-                    console.error('Error occurred while capturing and saving image:', error);
-                  }
-                );
-                console.log("username : " , this.authRequest.username)
               }
-            },
-            (error) => {
-              console.error("Error fetching user details: ", error);
+              else if(response.role=="ADMIN")
+                this.router.navigate(['/admin/users']);
+             
+           
+            } else {
+              console.log('IP Address check failed');
+              console.log(response.email)
+      this.generateAndSendLink(this.authRequest.username,response.email,ip)
+    
+    
+    this.openDialog();
             }
-          ); 
-        this.loginAttempt=false;
-        this.loginAttempts=this.loginAttempts+1;
-        console.log(this.loginAttempts);
-        console.error('Login failed!', error);
-      });
+          }
+        );
+                
+                
+          }, error => {  
+            this.userService.getUserByUsername(this.authRequest.username)
+              .subscribe(
+                (user: UserModule) => {
+                  console.log("User details: ", user);
+                  if(this.loginAttempts>2){
+                    this.OpencvService.captureAndSaveImage().subscribe(
+                      () => {
+                        this.emailService.sendLoginImage(user.email,"LOGIN ALERT","Someone tried to login to your account , if it's not you , please consider resetting your password","");
+                        console.log('Image captured and saved successfully');
+                      },
+                      error => {
+                        console.error('Error occurred while capturing and saving image:', error);
+                      }
+                    );
+                    console.log("username : " , this.authRequest.username)
+                  }
+                },
+                (error) => {
+                  console.error("Error fetching user details: ", error);
+                }
+              ); 
+            this.loginAttempt=false;
+            this.loginAttempts=this.loginAttempts+1;
+            console.log(this.loginAttempts);
+            console.error('Login failed!', error);
+          });
+      }
+     
+    );
+  
   }
 
   sendVerificationCode() {
@@ -295,10 +310,10 @@ this.openDialog();
 
 //****LinkGeneration
 
-generateAndSendLink(username: string, email: string) {
+generateAndSendLink(username: string, email: string, ip:string) {
   const randomString = this.generateRandomString(40);
   const encryptedUsername = this.miscService.encrypt(username, 'VitaNovaVitaNovaVitaNova');
-  const url = `http://localhost:8081/api/AddIpAddress?qcxBb0ipkpAM=${encryptedUsername}&token=${randomString}`;
+  const url = `http://localhost:8081/api/AddIpAddress?qcxBb0ipkpAM=${encryptedUsername}&token=${randomString}&ipAdress=${ip}`;
   this.emailService.sendVerificationCode(email, "New IP ADDRESS", "A suspicious login attempt has been detected, if it's you, please click the following link: " + url);
 }
 
