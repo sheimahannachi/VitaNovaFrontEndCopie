@@ -156,6 +156,8 @@ import { HydrationComponent } from './hydration/hydration.component';
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
+    VideoChatComponent,
+    
 //Amine
    UsersBackComponent,
     UserProfileComponent,
