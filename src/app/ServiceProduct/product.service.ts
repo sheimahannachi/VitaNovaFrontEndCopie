@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Product } from '../ModelProduct/Product';
 
 
@@ -13,7 +13,6 @@ export class ProductService {
   private baseUrl = 'http://localhost:8081/Product';
   private imageBaseUrl = 'http://192.168.174.134/uploads/';
   private cartItems: Product[] = [];
-  private idUser: number = 1; // Fixer idUser à 1
   private imageBaseUrl2 = 'http://localhost:80/aziz/';
 
 
@@ -47,8 +46,10 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.baseUrl}/search?term=${searchTerm}`);
   }
 
-  addLike(/*idUser: number,*/ idPr: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/addLike/${idPr}`, {/*idUser,*/ idPr});
+  addLike(idUser: number, idPr: number): Observable<any> {
+    const params = new HttpParams()
+    .set('idUser', idUser.toString());
+    return this.http.post<any>(`${this.baseUrl}/addLike/${idPr}`, params);
   }
 
 
@@ -66,6 +67,10 @@ export class ProductService {
  
   getImageUrl2(imagePath: string): string {
     return this.imageBaseUrl2 + imagePath;
+  }
+  getInvoiceDetails( userId: number): Observable<any> {
+    const url = `${this.baseUrl}/details/${userId}`;
+    return this.http.get<any>(url);
   }
 
 

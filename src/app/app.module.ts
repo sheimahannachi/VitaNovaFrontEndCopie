@@ -98,6 +98,8 @@ import { VideoChatComponent } from './video-chat/video-chat.component';
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PaymentsuccesComponent } from './paymentsucces/paymentsucces.component';
+import { FactureComponent } from './facture/facture.component';
 
 
 
@@ -196,6 +198,8 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
       DeleteAccountComponent,
       PgoalsBackComponent,
       RecipiesLowCarbComponent,
+      PaymentsuccesComponent,
+      FactureComponent,
 
 
     ],

@@ -7,12 +7,12 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class StripeService {
-  private stripeApiKey = 'sk_test_51P6CjQRozZ5IzKXIPsbKKfqSHLiyUbr98MgfQpqwxoiULglTxHru0QyeYKArfHE2bvYgSRMKZUnsDRpNisbHymdi00V6duA7cE'; // Ajoute ta clé publique Stripe ici
-  private baseUrl = 'http://localhost:8082'; // Replace with your Spring Boot backend URL
+
+  private baseUrl = 'http://localhost:8081/Payment'; // Replace with your Spring Boot backend URL
 
   constructor(private http: HttpClient) { }
 
-  createCharge(amount: number, currency: string, commandelines: any[]): Observable<any> {
+  /*createCharge(amount: number, currency: string, commandelines: any[]): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/charge`, { amount, currency, commandelines });
   }
 
@@ -31,5 +31,9 @@ export class StripeService {
     } else {
       return throwError('An error occurred during checkout');
     }
+  }*/
+
+ processPayment(paymentData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/charge`, paymentData);
   }
 }
