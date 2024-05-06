@@ -8,11 +8,14 @@
 
 
       <p>Filter by calories range:</p>
-      <div class="slider-container">
-        <input type="range" id="minSlider" min="0" [max]="maxCalories" class="slider" [(ngModel)]="minCalories" (ngModelChange)="updateMinCalories()">
-        <input type="range" id="maxSlider" [min]="minCalories" max="800" class="slider" [(ngModel)]="maxCalories" (ngModelChange)="updateMaxCalories()">
+      <div class="price-range-slider">
+
+        <p class="range-value">
+          <input type="text" id="amount" readonly>
+        </p>
+        <div id="slider-range" class="range-bar"></div>
+
       </div>
-      <p>{{ minCalories }} - {{ maxCalories }}</p>
 
     </div>
 

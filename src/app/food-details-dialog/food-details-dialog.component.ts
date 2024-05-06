@@ -6,6 +6,8 @@ import { TrackerService } from '../Service/tracker.service';
 import { FoodService } from '../Service/food.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MealType } from "../models/MealType";
+import {UserModule} from "../Models/user.module";
+import {AuthService} from "../Service/auth.service";
 
 @Component({
   selector: 'app-food-details-dialog',
@@ -16,6 +18,7 @@ export class FoodDetailsDialogComponent {
   quantity!: number;
   mealType: MealType;
   foodForm: FormGroup;
+  userId:UserModule
 
   constructor(
     public dialogRef: MatDialogRef<FoodDetailsDialogComponent>,
@@ -24,16 +27,21 @@ export class FoodDetailsDialogComponent {
     private foodService: FoodService,
     private router: Router,
     private route: ActivatedRoute, // Inject ActivatedRoute
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {
     this.foodForm = this.formBuilder.group({
       quantity: ['', Validators.required],
-      mealType: ['', Validators.required]
+      mealType: ['', Validators.required],
+
     });
 
     // Retrieve mealType from URL parameters
     this.route.queryParams.subscribe(params => {
       this.mealType = params['mealType'];
+    });
+    this.authService.getUserInfoFromToken().subscribe(userId => {
+      this.userId = userId;
     });
   }
 
@@ -52,7 +60,7 @@ export class FoodDetailsDialogComponent {
     const mealType: MealType = this.mealType;
     const calcCalories: number = this.data.food.calories * quantity;
 
-    this.foodService.addFoodCards(foods, quantity,mealType).subscribe(
+    this.foodService.addFoodCards(foods, quantity,mealType,this.userId.idUser).subscribe(
       response => {
         console.log('Food cards added successfully:', response);
         console.log(mealType);
