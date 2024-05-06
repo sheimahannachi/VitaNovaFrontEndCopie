@@ -111,6 +111,7 @@ import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "an
 import { MatSelectModule } from '@angular/material/select';
 import {MealCardsComponent} from "./meal-cards/meal-cards.component";
 import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
+import { HydrationComponent } from './hydration/hydration.component';
 
 @NgModule({
   declarations: [
@@ -206,6 +207,7 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
       RecipiesLowCarbComponent,
       PaymentsuccesComponent,
       FactureComponent,
+      HydrationComponent,
 
 
     ],

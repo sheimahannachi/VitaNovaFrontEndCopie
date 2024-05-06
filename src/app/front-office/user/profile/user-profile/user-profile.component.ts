@@ -62,15 +62,19 @@ export class UserProfileComponent implements OnInit {
 
 
   getWorkoutSessionData(): void {
-    this.workoutService.getAllWorkoutSessionData().subscribe(
+    this.authService.getUserInfoFromToken().subscribe(userId => {
+      this.user = userId;
+      this.workoutService.getAllWorkoutSessionData(this.user.idUser).subscribe(
         (data: any[]) => {
           this.workoutSessionData = data;
           this.createChart();
         },
+
         error => {
           console.error('Error fetching data:', error);
         }
-    );
+      );
+    },);
   }
 
   createChart(): void {
@@ -118,12 +122,12 @@ export class UserProfileComponent implements OnInit {
         type: 'line'
       },
       title: {
-        text: 'Workout Session Intensity Over Time'
+        text: 'Workout Session tracking'
       },
       xAxis: {
         type: 'datetime',
         title: {
-          text: 'Date'
+          text: 'Days of the month'
         },
         labels: {
           formatter: function() {

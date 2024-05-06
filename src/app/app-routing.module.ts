@@ -61,6 +61,7 @@ import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.compo
 import {MealCardsComponent} from "./meal-cards/meal-cards.component";
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { PaymentsuccesComponent } from './paymentsucces/paymentsucces.component';
+import {HydrationComponent} from "./hydration/hydration.component";
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
@@ -98,11 +99,9 @@ const routes: Routes = [
       { path: 'timer-api', component: TimerApiComponent },
       {path: 'mealCard',component: MealCardsComponent},
       {path:'lowCarb',component: RecipiesLowCarbComponent},
-
-      //aziz
-      {path:"showProductUser",
-        component: ShowProductUserComponent},
-   
+      {path: 'hydration',component: HydrationComponent},
+{path:"showProductUser",
+component: ShowProductUserComponent},   
 
     {path:"Cart",component: CartComponent},
     {path:"PayementSuccess",component:PaymentsuccesComponent},

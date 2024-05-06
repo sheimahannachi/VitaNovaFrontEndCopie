@@ -37,21 +37,32 @@ export class RecipiesLowCarbComponent implements AfterViewInit {
 
       // Extract desired information for each recipe
       const formattedRecipes = recipes.map(recipe => {
-        const { image, name, nutrients } = recipe;
+        const { image, name, nutrients, ingredients, steps } = recipe;
         // Choose the specific nutrients you want to include
         const selectedNutrients = {
           caloriesKCal: nutrients.caloriesKCal,
           totalCarbs: nutrients.totalCarbs,
           protein: nutrients.protein,
           fat: nutrients.fat,
-          sugar:nutrients.sugar
+          sugar: nutrients.sugar
           // Add more keys as needed
         };
         // Return formatted recipe object
+        const selectedIngredients = ingredients.map(ingredient => ({
+          name: ingredient.name,
+          servingSize: ingredient.servingSize,
+          grams: ingredient.grams
+        }));
+        // Extract steps
+        const selectedSteps = steps.map(step => step);
+
+        // Return formatted recipe object including ingredients and steps
         return {
           image,
           name,
-          selectedNutrients
+          selectedNutrients,
+          ingredients: selectedIngredients,
+          steps: selectedSteps
         };
       });
 
@@ -61,9 +72,18 @@ export class RecipiesLowCarbComponent implements AfterViewInit {
       return []; // Return an empty array if an error occurs
     }
   }
-
+  flipCard(recipe: any): void {
+    recipe.flipped = !recipe.flipped;
+  }
+  toggleCardFlip(event: MouseEvent) {
+    const card = (event.target as HTMLElement).closest('.recipe-card');
+    if (card) {
+      card.classList.toggle('is-flipped');
+    }
+  }
   async displayRecipes() {
-    this.recipes = await this.fetchRecipes(); // Assign fetched recipes to component property
+    this.recipes = await this.fetchRecipes();
+    this.recipes.forEach(recipe => recipe.flipped = false);// Assign fetched recipes to component property
   }
 
   // Method to scroll left

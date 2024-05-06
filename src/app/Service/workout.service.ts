@@ -131,8 +131,8 @@ export class WorkoutService {
         })
     );
   }
-  getAllWorkoutSessionData(): Observable<Object[]> {
-    const url = `${this.baseUrl}/statistics`;
+  getAllWorkoutSessionData(id:number): Observable<Object[]> {
+    const url = `${this.baseUrl}/statistics/${id}`;
     return this.http.get<any>(url)
   }
 

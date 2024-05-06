@@ -23,14 +23,19 @@
     baseUrl: string = 'http://localhost:80/uploads/';
     timerClass: string = 'base-timer__path-remaining';
     youtubeVideo: any = null; //
-    EXERCISE_DURATION = 2; // Duration of exercise in seconds
-    REST_DURATION = 1; // Duration of rest in seconds
+    EXERCISE_DURATION = 45; // Duration of exercise in seconds
+    REST_DURATION = 20; // Duration of rest in seconds
     audioUrls: string[] = []; // Déclarez un tableau pour stocker les URLs audio
     youtubeAudioUrls: any[] = []; // Array to store YouTube audio URLs
     intensity: string = '';
    // audioList: { downloadUrl: string }[] = []; // Array to store audio URLs
     mp3DownloadLink: string | null = null;
     userId :UserModule
+    searchAPIKey: string = '32432b1541mshac8dc8f263e0326p1e4655jsnb818df6122e0';
+    searchAPIHost: string = 'real-time-image-search.p.rapidapi.com';
+    searchAPIURL: string = 'https://real-time-image-search.p.rapidapi.com/search';
+    exerciseImages: string[] = [];
+
 
     COLOR_CODES = {
       info: {
@@ -60,77 +65,125 @@
       this.intensity = navigation.workoutPlan.intensityLevel;
       console.log('Received workout plan:', this.workoutPlan);
       console.log('Received intensity:', this.intensity);
-      //this.downloadTrackFromSpotify();
-     this.fetchMP3DownloadLink();
-
     }
+
+    fetchExerciseImages(): void {
+      this.workoutPlan.exercises.forEach((exercise: any) => {
+        this.searchExerciseImage(exercise.workout);
+      });
+    }
+
+    searchExerciseImage(query: string): void {
+      const options = {
+        method: 'GET',
+        url: this.searchAPIURL,
+        params: {
+          query: query,
+          file_type: "gif"
+        },
+        headers: {
+          'X-RapidAPI-Key': this.searchAPIKey,
+          'X-RapidAPI-Host': this.searchAPIHost
+        }
+      };
+
+      axios.request(options).then((response: any) => {
+        if (response.data && response.data.data && response.data.data.length > 0) {
+          // Update currentExerciseImage with the URL from the first item in the data array
+          this.currentExerciseImage = response.data.data[0].url;
+        } else {
+          // If no image found, set currentExerciseImage to null
+          this.currentExerciseImage = null;
+        }
+      }).catch((error: any) => {
+        console.error('Error searching image:', error);
+        // If an error occurs, set currentExerciseImage to null
+        this.currentExerciseImage = null;
+      });
+    }
+
 
     startTimer(): void {
-      if (!this.workoutPlan || this.currentExerciseIndex >= this.workoutPlan.exercises.length) {
-        console.log('No workout plan or all exercises completed.');
-        return;
+      // Check if a workout plan exists and there are exercises to perform
+      if (this.workoutPlan && this.workoutPlan.exercises.length > 0) {
+        // Fetch image for the first exercise
+        const firstExercise = this.workoutPlan.exercises[0];
+        this.searchExerciseImage(firstExercise.workout);
+
+        // Add workout session
+        this.addWorkoutSession();
+
+        // Start the timer with the second exercise
+        this.currentExerciseIndex = 1; // Start with the second exercise
+        this.startNextSet(); // Start the timer
+        this.playAudio();
+      } else {
+        console.log('No workout plan or exercises to perform.');
       }
-
-      const exerciseCount = this.workoutPlan.exercises.length;
-      this.addWorkoutSession();
-
-      this.startNextSet();
-
-      // Start playing the audio when the timer starts
-      this.playAudio();
     }
-
 
     startNextSet(remainingTime?: number): void {
       if (this.workoutPlan && this.currentExerciseIndex < this.workoutPlan.exercises.length) {
         const currentExercise = this.workoutPlan.exercises[this.currentExerciseIndex];
         const totalSets = 4;
 
-        if (this.currentSet < totalSets) {
-          const duration = this.currentInterval === 'exercise' ? this.EXERCISE_DURATION : this.REST_DURATION;
-          this.remainingTime = remainingTime !== undefined ? remainingTime : duration;
+        const duration = this.currentInterval === 'exercise' ? this.EXERCISE_DURATION : this.REST_DURATION;
+        this.remainingTime = remainingTime !== undefined ? remainingTime : duration;
 
-          this.timerInterval = setInterval(() => {
-            if (this.remainingTime && this.remainingTime > 0) {
-              this.remainingTime--;
-              this.getTimerClass();
+        // Check if this is the first exercise
+        const isFirstExercise = this.currentSet === 0 && this.currentInterval === 'exercise';
 
-            } else {
-              clearInterval(this.timerInterval);
-              this.currentInterval = this.currentInterval === 'exercise' ? 'rest' : 'exercise';
+        this.timerInterval = setInterval(() => {
+          if (this.remainingTime && this.remainingTime > 0) {
+            this.remainingTime--;
+            this.getTimerClass();
+          } else {
+            clearInterval(this.timerInterval);
+            this.currentInterval = this.currentInterval === 'exercise' ? 'rest' : 'exercise';
 
-              if (this.currentInterval === 'exercise') {
-                this.currentSet++;
+            // Check if the interval is an exercise
+            if (this.currentInterval === 'exercise') {
+              // Increment set count for exercise
+              this.currentSet++;
+
+              // Check if all sets for the current exercise are completed
+              if (this.currentSet === totalSets) {
+                // Reset set count
+                this.currentSet = 0;
+                this.searchExerciseImage(currentExercise.workout);
+
+                // Move to the next exercise
+                this.currentExerciseIndex++;
+
+                // Print the name of the exercise if available
+                if (currentExercise && currentExercise.workout && !isFirstExercise) {
+                  console.log(`Starting next exercise: ${currentExercise.workout}`);
+                }
+
+                // Fetch image for the next exercise
+                if (this.currentExerciseIndex < this.workoutPlan.exercises.length) {
+                  const nextExercise = this.workoutPlan.exercises[this.currentExerciseIndex];
+                  //this.searchExerciseImage(nextExercise.workout);
+                }
               } else {
-                if (this.currentSet === totalSets) {
-                  // If all sets in current exercise are completed, move to the next exercise
-                  this.currentSet = 0;
-                  this.currentExerciseIndex++;
+                // Display the first exercise when starting the timer
+                if (isFirstExercise && currentExercise && currentExercise.workout) {
+                  console.log(`Starting first exercise: ${currentExercise.workout}`);
+                  //this.searchExerciseImage(currentExercise.workout);
                 }
               }
-
-              const nextDuration = this.currentInterval === 'exercise' ? this.EXERCISE_DURATION : this.REST_DURATION;
-              this.startNextSet(nextDuration);
             }
-          }, 1000);
-        } else {
-          // If all sets in current exercise are completed, move to the next exercise
-          this.currentSet = 0;
-          this.currentExerciseIndex++;
 
-          // Reset interval and start next exercise if available
-          clearInterval(this.timerInterval);
-          this.startNextExercise();
-        }
-      }
-    }
-
-    startNextExercise(): void {
-      if (this.currentExerciseIndex < this.workoutPlan.exercises.length) {
-        // Start the timer for the next exercise
-        this.startNextSet(this.REST_DURATION);
-      } else {
-        console.log('Workout plan completed');
+            // Check if all exercises are completed
+            if (this.currentExerciseIndex < this.workoutPlan.exercises.length) {
+              const nextDuration = this.currentInterval === 'exercise' ? this.EXERCISE_DURATION : this.REST_DURATION;
+              this.startNextSet(nextDuration); // Start next set
+            } else {
+              // If all exercises are completed, stop the timer
+              console.log('Workout plan completed');
+            }
+          }
+        }, 1000);
       }
     }
 
@@ -141,7 +194,7 @@
 
     getTimerClass(): void {
       if (this.remainingTime !== null) {
-        const {alert, warning} = this.COLOR_CODES;
+        const { alert, warning } = this.COLOR_CODES;
         let remainingPathColor = 'green'; // Default color if not in the alert or warning zone
 
         if (this.remainingTime <= alert.threshold) {
@@ -170,93 +223,6 @@
       return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
 
-    /*async downloadTrackFromSpotify(): Promise<void> {
-      try {
-        const headers = new HttpHeaders({
-          'X-RapidAPI-Key': '2acd7d6738mshdd85e14333aac07p11cf80jsn94660876c278',
-          'X-RapidAPI-Host': 'spotify-scraper.p.rapidapi.com'
-        });
-
-        const params = new HttpParams()
-          .set('track', 'workout'); // Replace 'sports' with your desired track name or ID
-
-        const response = await this.http.get<any>('https://spotify-scraper.p.rapidapi.com/v1/track/download', { headers, params }).toPromise();
-
-        if (response && response.status && response.youtubeVideo) {
-          const youtubeVideo = response.youtubeVideo;
-          // Check if the response contains the required YouTube video data
-          if (youtubeVideo && youtubeVideo.id && youtubeVideo.title) {
-            // Extract the audio URLs from the YouTube video data
-            this.youtubeAudioUrls = youtubeVideo.audio.map((audio: any) => audio.url);
-            console.log(this.youtubeAudioUrls)
-          } else {
-            console.error('YouTube video data is incomplete.');
-          }
-        } else {
-          console.error('Error downloading track:', response);
-        }
-      } catch (error) {
-        console.error('Error downloading track:', error);
-      }
-    }*/
-
-    /*async fetchAudioUrl(): Promise<void> {
-      const options = {
-        method: 'POST',
-        url: 'https://youtube-to-mp315.p.rapidapi.com/download',
-        params: {
-          url: 'https://www.youtube.com/watch?v=kTb2F45USZk',
-          format: 'mp3'
-        },
-        headers: {
-          'content-type': 'application/json',
-          'X-RapidAPI-Key': '4002e99e48msh7d45dac1329dfd6p1b38d3jsn9832ed5a9017',
-          'X-RapidAPI-Host': 'youtube-to-mp315.p.rapidapi.com'
-        },
-        data: {}
-      };
-
-      try {
-        const response = await axios.request(options);
-        console.log(response.data);
-
-        if (response.data && response.data.status === 'CONVERTING') {
-          this.audioList = [{downloadUrl: response.data.downloadUrl}];
-          console.log(this.audioList);
-        } else {
-          console.error('Error fetching audio URL:', response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching audio URL:', error);
-      }
-    }*/
-
-    async fetchMP3DownloadLink(): Promise<void> {
-      const options = {
-        method: 'GET',
-        url: 'https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/custom/',
-        params: {
-          url: 'https://www.youtube.com/watch?v=iuCUQQksqkw',
-          quality: '64'
-        },
-        headers: {
-          'X-RapidAPI-Key': '2acd7d6738mshdd85e14333aac07p11cf80jsn94660876c278',
-          'X-RapidAPI-Host': 'youtube-mp3-downloader2.p.rapidapi.com'
-        }
-      };
-
-      try {
-        const response = await axios.request(options);
-        const data = response.data;
-        if (data && data.status === 'finished') {
-          this.mp3DownloadLink = data.dlink;
-        } else {
-          console.error('Error: Invalid response from the API');
-        }
-      } catch (error) {
-        console.error('Error fetching MP3 download link:', error);
-      }
-    }
     playAudio(): void {
       const audioPlayer = document.getElementById('audioPlayer') as HTMLAudioElement;
       if (audioPlayer) {
@@ -299,5 +265,4 @@
         console.error('Unrecognized intensity level:', this.intensity);
       }
     }
-
   }
