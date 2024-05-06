@@ -52,16 +52,13 @@ import { PeriodInsightsComponent } from './period-insights/period-insights.compo
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
-<<<<<<< HEAD
 import { NotificationComponent } from './notification/notification.component';
 import { GymComponent } from './gym/gym.component';
 import { HealthyComponent } from './healthy/healthy.component';
 
-=======
 import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
 import {MealCardsComponent} from "./meal-cards/meal-cards.component";
->>>>>>> 9313ddb750ef45ad64cb68d94426cdbb69e81a5d
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
