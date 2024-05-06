@@ -97,9 +97,12 @@ import { DeleteAccountComponent } from './front-office/delete-account/delete-acc
 import { VideoChatComponent } from './video-chat/video-chat.component';
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+//import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PaymentsuccesComponent } from './paymentsucces/paymentsucces.component';
 import { FactureComponent } from './facture/facture.component';
+import { NotificationComponent } from './notification/notification.component';
+import { GymComponent } from './gym/gym.component';
+import { HealthyComponent } from './healthy/healthy.component';
 
 
 
@@ -195,6 +198,9 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     ProductDetailsDialogComponent,
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
+      NotificationComponent,
+      GymComponent,
+      HealthyComponent,
       DeleteAccountComponent,
       PgoalsBackComponent,
       RecipiesLowCarbComponent,
@@ -224,17 +230,13 @@ import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    NgxChartsModule,
+   // NgxChartsModule,
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
     Ng5SliderModule,
-  
-
-
-
     MatSelectModule,
 
 

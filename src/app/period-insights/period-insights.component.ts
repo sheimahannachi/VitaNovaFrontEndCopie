@@ -338,6 +338,33 @@ async fetchSpotifySuggestions(): Promise<void> {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+getRecommendations(): void {
+  // Navigate to PeriodInsightsComponent with the period ID as a query parameter
+  this.router.navigate(['vitaNova/PeriodRecommendations']);
+}
+
+
 }
 
 
