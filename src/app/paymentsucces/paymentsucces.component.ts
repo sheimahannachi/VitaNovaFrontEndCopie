@@ -5,6 +5,8 @@ import { ProductService } from '../ServiceProduct/product.service';
 import { AuthService } from '../Service/auth.service';
 import { UserModule } from '../Models/user.module';
 import { jsPDF } from 'jspdf';
+import * as emailjs from '@emailjs/browser';
+
 
 
 @Component({
@@ -15,21 +17,40 @@ import { jsPDF } from 'jspdf';
 export class PaymentsuccesComponent implements OnInit {
   idUser: number ; 
   user : UserModule;
-  email = sessionStorage.getItem('email');
+  username: string;
+  email: string;
   constructor(private http: HttpClient ,private productService: ProductService,  private authService: AuthService){}
 
-  sendmail( ){
-     let Subject="paymentsucces";
-     let  Object="aaaaa";
-     this.http.post(`http://localhost:8081/sendmail/${this.email}/${Subject}/${Object}`,null ).subscribe(r=>{
-      console.log(r);
-     })
+  sendEmail() {
+    const templateParams = {
+      to_name: this.username,
+      from_name: 'Vita Nova Payment ',
+
+      message: 'Congratulations! Your payment was successful.',
+      to_email: this.email // Replace with the recipient's email address
+    };
+
+    emailjs
+      .send('service_0hvizcq', 'template_1hc0cgn', templateParams,"G5Jr_rOhta32F_Vog")
+      .then(
+        response => {
+          console.log('SUCCESS!', response.status, response.text);
+        },
+        err => {
+          console.error('FAILED...', err);
+        }
+      );
   }
   ngOnInit(): void {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
       this.user = response;
       this.idUser=this.user.idUser;
+      this.username= sessionStorage.getItem('username');
+      this.email= sessionStorage.getItem('email');
+      console.log(this.username);
+      console.log(this.email);
+      this.sendEmail();
     
    // this.sendmail();
   }
