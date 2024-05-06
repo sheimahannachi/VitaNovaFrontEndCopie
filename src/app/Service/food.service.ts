@@ -38,8 +38,8 @@ export class FoodService {
     return this.http.get<Food>(`${this.baseUrl}/getFood/${id}`);
   }
 
-  addFoodCards(foods: Food[], quantity: number, mealType: MealType): Observable<any> {
-    const url = `${this.baseUrl}/ListTracker`;
+  addFoodCards(foods: Food[], quantity: number, mealType: MealType, userId: number): Observable<any> {
+    const url = `${this.baseUrl}/ListTracker/${userId}`; // Include userId as a path variable
 
     // Construct query parameters
     let params = new HttpParams();
@@ -58,6 +58,7 @@ export class FoodService {
       })
     );
   }
+
   getListEaten(): Observable<FoodCard[]> {
     return this.http.get<FoodCard[]>(`${this.baseUrl}/get-food-cards`);
   }
@@ -80,7 +81,19 @@ export class FoodService {
     return this.http.put<any>(url, {}, {params: params});
   }
 
-  addTracker(trackers:Tracker): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/addTracker`, trackers);
+  addTracker(trackers:Tracker,iduser:number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/addTracker/${iduser}`, trackers);
   }
+  addHydration(userId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/addHydration/${userId}`, null);
+  }
+  getHydrationForToday(userId: number): Observable<any> {
+    const url = `${this.baseUrl}/getHydration/${userId}`;
+    return this.http.get<any>(url);
+  }
+  unfillCup(userId: number): Observable<any> {
+    // Assuming you make a PUT request to your backend API to unfill the cup
+    return this.http.put<any>(`${this.baseUrl}/hydration/${userId}`, {});
+  }
+
 }

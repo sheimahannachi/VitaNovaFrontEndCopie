@@ -1,4 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit,AfterViewInit, ElementRef} from '@angular/core';
+import * as $ from 'jquery';
+import 'jquery-ui-dist/jquery-ui';
+
 import { Food } from '../Models/Foods';
 import {FoodService} from "../Service/food.service";
 import {Router} from "@angular/router";
@@ -31,65 +34,44 @@ export class FoodCardComponent implements OnInit {
 
   ngOnInit() {
     this.getFoods(1,10);
-    this.updateMaxCalories();
-    this.updateMinCalories();
-  }
-  updateMaxCalories() {
-
-
-    const minValue = parseFloat(this.minCalories);
-    const maxValue = parseFloat(this.maxCalories);
-
-    if (isNaN(minValue) || isNaN(maxValue)) {
-      console.error('Invalid calories value:', this.minCalories, this.maxCalories);
-      return;
-    }
-
-    const minPercent = (minValue / 800) * 100;
-    const maxPercent = (maxValue / 800) * 100;
-
-
-
-    if (maxValue <= minValue) {
-      this.maxCalories = (minValue + 1).toString();
-    }
-
-    if (maxValue > 800) {
-      this.maxCalories = '800';
-    }
-
-
-    this.filter();
+    /*this.updateMaxCalories();
+    this.updateMinCalories();*/
+    this.initializeSlider();
   }
 
+  initializeSlider() {
+    const sliderElement = this.elementRef.nativeElement.querySelector('#slider-range');
+    const amountElement = this.elementRef.nativeElement.querySelector('#amount');
 
-  updateMinCalories() {
+    const componentInstance = this; // Référence au contexte du composant
 
+    $(sliderElement).slider({
+      range: true,
+      min: 0,
+      max: 800,
+      values: [0, 600],
+      slide: function (event, ui) {
+        // Mettre à jour les valeurs du slider
+        componentInstance.minCalories = ui.values[0].toString();
+        componentInstance.maxCalories = ui.values[1].toString();
 
-    const minValue = parseFloat(this.minCalories);
-    const maxValue = parseFloat(this.maxCalories);
+        // Mettre à jour l'affichage des valeurs
+        $(amountElement).val(ui.values[0] + ' - ' + ui.values[1]);
+      },
+      change: function (event, ui) {
+        // Filtrer les aliments lorsque les valeurs du slider changent
+        componentInstance.filter();
+      }
+    });
 
-    if (isNaN(minValue) || isNaN(maxValue)) {
-      console.error('Invalid calories value:', this.minCalories, this.maxCalories);
-      return;
-    }
-
-    const minPercent = (minValue / 800) * 100;
-    const maxPercent = (maxValue / 800) * 100;
-
-
-    if (minValue >= maxValue) {
-      this.minCalories = (maxValue - 1).toString();
-    }
-
-    if (minValue < 0) {
-      this.minCalories = '0';
-    }
-
-
-    this.filter();
+    // Initialiser les valeurs du slider et de l'affichage
+    $(amountElement).val($(sliderElement).slider('values', 0) +
+        ' - ' + $(sliderElement).slider('values', 1));
   }
-  constructor( private miscService:MiscService,private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService) {
+
+
+
+  constructor( private miscService:MiscService,private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService,private elementRef: ElementRef) {
     this.selectedCategories = [];
 
   }
