@@ -11,13 +11,32 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
-  overflow: hidden;
+  background: url(../../assets/BackgroundImages/img_3.png);
+  background-size: 1700px 1700px;
+  background-repeat: repeat;
+  background-position: center; /* Center the background image */
+  animation: rotateBackground 10s linear infinite; /* Use the rotateBackground animation */
 }
+
+@keyframes rotateBackground {
+  0% {
+    background-position: center;
+  }
+  25% {
+    background-position: top;
+  }
+  50% {
+    background-position: right;
+  }
+  75% {
+    background-position: bottom;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+
 
 /* Define the starry background */
 .stars {

@@ -96,6 +96,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { TimerApiComponent } from './timer-api/timer-api.component';
 import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 import {Chart} from "chart.js";
+import { HydrationComponent } from './hydration/hydration.component';
 
 @NgModule({
   declarations: [
@@ -180,6 +181,7 @@ import {Chart} from "chart.js";
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
       DeleteAccountComponent,
+      HydrationComponent,
 
 
     ],

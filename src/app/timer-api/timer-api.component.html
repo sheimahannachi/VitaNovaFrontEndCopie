@@ -50,12 +50,11 @@
           <img [src]="currentExerciseImage" alt="Exercise Image">
         </div>
 
-        <div class="card-body">
+        <div class="card-body-ex">
           <div class="exercise-details">
             <div class="card exercise-card" *ngFor="let exercise of workoutPlan.exercises; let i = index">
               <div class="card-body">
                 <h5 class="card-title">{{ exercise.workout }}</h5>
-                <p>Set: {{ i + 1 }}</p> <!-- Displaying the set number -->
                 <!-- Add more exercise details here -->
               </div>
             </div>
