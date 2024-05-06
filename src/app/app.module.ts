@@ -23,6 +23,7 @@ import {RouterModule} from "@angular/router";
 import { AddPlanComponent } from './add-plan/add-plan.component';
 
 
+
 //yoser+Ons
 import { FoodCardComponent } from './food-card/food-card.component';
 import { FoodDetailsComponent } from './food-details/food-details.component';
@@ -47,7 +48,7 @@ import { AllChallengesBackComponent } from './all-challenges-back/all-challenges
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
 //Amine
-//import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
@@ -63,6 +64,8 @@ import { StripeComponent } from './stripe/stripe.component'; // Import MatDialog
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Ng5SliderModule } from 'ng5-slider';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+
 
 
 
@@ -91,11 +94,23 @@ import { ProductDetailsDialogComponent } from './product-details-dialog/product-
 import { FoodlistaddedComponent } from './foodlistadded/foodlistadded.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
 import { DeleteAccountComponent } from './front-office/delete-account/delete-account.component';
-
-import {MatSelectModule} from "@angular/material/select";
+import { VideoChatComponent } from './video-chat/video-chat.component';
 import { TimerApiComponent } from './timer-api/timer-api.component';
-import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
+//import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PaymentsuccesComponent } from './paymentsucces/paymentsucces.component';
+import { FactureComponent } from './facture/facture.component';
+import { NotificationComponent } from './notification/notification.component';
+import { GymComponent } from './gym/gym.component';
+import { HealthyComponent } from './healthy/healthy.component';
+
+
+
 import {Chart} from "chart.js";
+import{GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from "angularx-social-login";
+import { MatSelectModule } from '@angular/material/select';
+import {MealCardsComponent} from "./meal-cards/meal-cards.component";
+import { RecipiesLowCarbComponent } from './recipies-low-carb/recipies-low-carb.component';
 import { HydrationComponent } from './hydration/hydration.component';
 
 @NgModule({
@@ -123,6 +138,7 @@ import { HydrationComponent } from './hydration/hydration.component';
     ExerciseLinkModelComponent,
     ExerciseDetailsComponent,
 
+    MealCardsComponent,
 //ons
     FooterComponent,
     FoodComponent,
@@ -140,9 +156,8 @@ import { HydrationComponent } from './hydration/hydration.component';
     AllChallengesBackComponent,
     FindCommunityComponent,
     UpdateCommunityComponent,
-
 //Amine
-   // UsersBackComponent,
+   UsersBackComponent,
     UserProfileComponent,
 
     UpdateProductComponent,
@@ -165,7 +180,11 @@ import { HydrationComponent } from './hydration/hydration.component';
 
 
 
-
+    ProductDetailsComponent,
+    
+    
+    
+  
     DialogVerificationComponent,
     DialogSuccessComponent,
     DialogPersonalGoalsComponent,
@@ -180,7 +199,14 @@ import { HydrationComponent } from './hydration/hydration.component';
     ProductDetailsDialogComponent,
       FoodlistaddedComponent,
       PeriodRecommendationsComponent,
+      NotificationComponent,
+      GymComponent,
+      HealthyComponent,
       DeleteAccountComponent,
+      PgoalsBackComponent,
+      RecipiesLowCarbComponent,
+      PaymentsuccesComponent,
+      FactureComponent,
       HydrationComponent,
 
 
@@ -192,8 +218,8 @@ import { HydrationComponent } from './hydration/hydration.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    SocialLoginModule,
     NgxWebstorageModule.forRoot(), // Import and configure SessionStorageModule
-
 
 //yoser
     CommonModule,
@@ -206,21 +232,21 @@ import { HydrationComponent } from './hydration/hydration.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+   // NgxChartsModule,
     //AmineV2
     NgxStripeModule.forRoot('pk_test_51OGMOXL0ywzjvxffqUYYflCe9Q5EkentWEbdikQOwmBa7pyku3CYF6rt2OKYoJpxq9Y5BkFAIJf9AR04xWPEy3l400swqfsj2O'),
     ReactiveFormsModule, // Add this line
     MatDialogModule,
     MatSliderModule,
-
-
-
+    Ng5SliderModule,
     MatSelectModule,
 
 
   ],
   exports:[MatDialogModule,],
-  providers: [],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    
+  ],  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 
 
 

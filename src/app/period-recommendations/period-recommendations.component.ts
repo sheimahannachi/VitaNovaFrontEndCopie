@@ -52,5 +52,10 @@ export class PeriodRecommendationsComponent {
       // Navigate to PeriodInsightsComponent with the period ID as a query parameter
       this.router.navigate(['vitaNova/PeriodRecipes']);
     }
-
+    getCyclePhase(idPeriod: number): void {
+      if (idPeriod) {
+        // Navigate to PeriodInsightsComponent with the period ID as a query parameter
+        this.router.navigate(['vitaNova/PeriodInsights'], { queryParams: { id: idPeriod } });
+      }
+    }
 }

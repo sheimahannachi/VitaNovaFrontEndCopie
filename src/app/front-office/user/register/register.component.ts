@@ -1,17 +1,22 @@
+declare var google:any;
+
 import { HttpClient } from '@angular/common/http';
-import { Component ,HostListener,NgZone} from '@angular/core';
+import { Component ,HostListener,NgZone, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Service/user.service';
 import { MiscService } from 'src/app/Service/misc.service';
+import { switchMap, throwError } from 'rxjs';
+import { AuthService } from 'src/app/Service/auth.service';
+import { Gender } from 'src/app/Models/user.module';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   username: string ="";
   firstName: string ="";
   lastName: string ="";
@@ -83,12 +88,151 @@ onPopState(event: any): void {
 
 
 
-  constructor(private miscService:MiscService, private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
+  constructor(private authService:AuthService,private miscService:MiscService, private http: HttpClient, private sanitizer: DomSanitizer,private fb: FormBuilder,private zone: NgZone,private userService : UserService,private router:Router) {
     this.selectedFileName = this.selectedFile?.name ?? '';
     this.generatedCode=this.generateVerificationCode();
    
   
   }
+  ngAfterViewInit(){
+    const clientId = '437770313790-12a57rcd8k8gmjp3o5enjf394ges5v8t.apps.googleusercontent.com';
+  
+  // Initialize Google Accounts
+  google.accounts.id.initialize({
+    client_id: clientId,
+    callback: (resp: any) => this.handleSignup(resp)
+  });
+
+  // Render the Google Sign-In button
+  const buttonElement = document.getElementById("google-btn-Signup");
+  if (buttonElement) {
+    google.accounts.id.renderButton(buttonElement, {
+      theme: 'filled_black',
+      size: 'large',
+      shape: 'pill',
+      width: 350
+    });
+  } else {
+    console.error("Google Sign-In button element not found.");
+  }}
+  ngOnInit(): void {
+    
+  }
+  
+
+
+
+
+  handleSignup(response: any){
+    if(response) {
+      // Decode the token
+      const payLoad = this.decodeToken(response.credential);
+      // Store in session
+      sessionStorage.setItem("loggedInUser", JSON.stringify(payLoad));
+      const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+      console.log("response ", response)
+      const idToken = response.credential;
+    
+      this.userService.checkEmail(loggedInUser.email).pipe(
+        switchMap((isEmailVerified: boolean) => {
+          if (!isEmailVerified) {
+this.email=loggedInUser.email;
+this.firstName=loggedInUser.family_name;
+this.lastName=loggedInUser.given_name;
+this.username=loggedInUser.given_name+'_'+loggedInUser.family_name;
+this.picture=loggedInUser.picture;
+this.verified=true;
+this.gender=Gender.MALE;
+this.dateOfBirth = new Date('2000-04-06');
+this.password=null;
+this.phoneNumber="00000000";
+console.log(loggedInUser);
+console.log("password : ", this.password)
+this.authService.googleSignup(this.username, this.email,this.password , 'USER', 'MAN', '2000-04-06', this.firstName, this.lastName, this.phoneNumber, this.picture)
+      .subscribe(
+        response => {
+          alert("REGISTERED!! , password : username")
+        this.router.navigate(['login']);
+          console.log('Signup successful:', response);
+        },
+        error => {
+          console.error('Signup failed:', error);
+        }
+      );
+  
+            return loggedInUser.email;
+          } else {
+            console.log(loggedInUser.picture);
+
+            alert("The email is already used");
+
+            console.log(loggedInUser);
+
+            return throwError('Error: Email is not verified');
+          }
+        })
+      ).subscribe()
+        
+                
+    
+
+      
+  }
+
+
+  }
+
+
+ private decodeToken(token: string){
+    return JSON.parse(atob(token.split(".")[1]));
+  }
+
+  
+
+  async fetchUserProfile(accessToken: string): Promise<any> {
+    try {
+      const profileInfo = await this.http.get<any>('https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,photos', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      }).toPromise();
+  
+      return profileInfo;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  async exchangeIdTokenForAccessToken(idToken: string): Promise<string> {
+    try {
+      const response = await this.http.post<any>('https://oauth2.googleapis.com/token', {
+        client_id: '437770313790-12a57rcd8k8gmjp3o5enjf394ges5v8t.apps.googleusercontent.com',
+        code: idToken,
+        grant_type: 'authorization_code',
+        redirect_uri: 'http://localhost:4200', // Same as the one you used for Google Sign-In initialization
+      }).toPromise();
+      
+      return response.access_token;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   switchModes(){
   if(this.theme=="dark"){
     this.theme="light";

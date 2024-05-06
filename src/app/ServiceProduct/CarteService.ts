@@ -19,16 +19,16 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCommandelinesInCart(cartId: number): Observable<Commandeline[]> {
-    return this.http.get<Commandeline[]>(`http://localhost:8081/Cart/commandelines/${cartId}`);
+  getAllCommandelinesInCart(userId: number): Observable<Commandeline[]> {
+    return this.http.get<Commandeline[]>(`http://localhost:8081/Cart/commandelines/${userId}`);
   }
 
   getImageUrl(imagePath: string): string {
     return this.imageBaseUrl + imagePath;
   }
 
-  getNumberOfCommandelinesInCart(cartId: number): Observable<number> {
-    return this.http.get<number>(`http://localhost:8081/Cart/count/${cartId}`);
+  getNumberOfCommandelinesInCart(userId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8081/Cart/count/${userId}`);
   }
 
   getCartItems(): Commandeline[] {
@@ -40,6 +40,7 @@ export class CartService {
   }
 
   deleteCommandelineFromCart(userId: number, productId: number): Observable<any> {
+    console.log('iduser : ' ,userId ,'prd : ',productId )
     const url = `${this.apiUrl3}/${userId}/cart/products/${productId}`;
     return this.http.delete(url);
   }

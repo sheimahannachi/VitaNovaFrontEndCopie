@@ -19,7 +19,7 @@
                 <div id="plist" class="people-list" >
                                                        
                     <ul  class="list-unstyled chat-list mt-2 mb-0" *ngFor="let a of members" >
-                        <li class="clearfix" (click)="goToOneToOne(a.idUser)">
+                        <li class="clearfix" (click)="goToOneToOne(a)" *ngIf="a.idUser !=currentUser.idUser">
                             <!--Generated using ts-->
                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
 
@@ -39,22 +39,45 @@
                         </div>
                                     
                         <ul class="m-b-0" *ngFor="let i of messages">
+
+
+
+
                             
-                            <li class="clearfix" *ngIf="i.sender.idUser!=current.idUser">           
+                            <li class="clearfix" *ngIf="i.sender.idUser!=currentUser.idUser">           
                                 <div class="message-data right-div text-right">
                                                                     <!-- {{i.sentDate}}-->
-                                    <span class="message-data-time ">{{i.sentDate}}</span>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                                </div>                                      
-                                <div class="message my-message float-right "> {{i.message}} </div>
-                           
+                                    <span class="message-data-time ">{{i.sender.username }}</span>
+                                    <br>
+                                    <span class="message-data-time ">{{i.sentDate}}</span> 
+                                    
+                                  <!--  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"> -->
+                                </div>   
+                                                                  
+                                <div class="message my-message float-right " *ngIf="i.message!='a video call message' && i.message!='An image is Sent'"> {{i.message}} </div>
+                                <div class=" float-right " *ngIf="i.message=='a video call message'"> <button type="button" class="btn btn-secondary btn-sm" (click)="goToVideoChat()">Join video Call</button></div>
+                                <div class="message my-message float-right"*ngIf="i.message=='An image is Sent'" >
+                                    <img [src]="imageFolder+i.imageSent" alt="i.username"  style="height: 100%; width: 100%;" >
+                                </div>
                             </li>       
-                            <li class="clearfix" *ngIf="i.sender.idUser==current.idUser" >
+
+
+
+
+
+
+
+
+
+
+                            <li class="clearfix" *ngIf="i.sender.idUser==currentUser.idUser" >
                                 <div id="forBut" *ngIf=" updateCom!=i.id">
-                                <div class="message-data">          
-                                    <span class="message-data-time">{{i.sentDate}}</span>
+                                <div class="message-data">  
+                                    <span class="message-data-time ">You:</span>        
+                                   <!-- <span class="message-data-time">{{i.sentDate}}</span> -->
+                                    
                                 </div>                          
-                                <div class="message my-message" >{{i.message}}
+                                <div class="message my-message" *ngIf="i.message!='a video call message' && i.message!='An image is Sent'" >{{i.message}}
                                   
                                     <div class="buttons">
                                         
@@ -63,6 +86,12 @@
                                         
                                     </div>    
                                 </div>
+                                <div class=" float-right " *ngIf="i.message=='a video call message'"> <button class="btn btn-secondary btn-sm" (click)="goToVideoChat()">Join video Call</button></div>
+                                <div class="message my-message" *ngIf="i.message=='An image is Sent'" >
+                                    <img [src]="imageFolder+i.imageSent" alt="i.username"  style="height: 100%; width: 100%;" >
+                                </div>
+
+
                                 <div class="seen" *ngIf="i.seen==true"><h6 class="hSeen">Seen</h6></div>
                             </div>
                             <div class="updateMessage" *ngIf="elToTextArea==true && updateCom==i.id">
@@ -92,25 +121,36 @@
 
 
                     <div class="chat-message clearfix" >
-                        <table style="margin-left: 30px;">
+                        <table style="margin-left: 00px;">
+                            
                             <tr>
                                 
                         <td>
-                            <input type="text" class="form-control custom-input" placeholder="Write your message..." [(ngModel)]="message" 
-                            style="width: 420px;
-                            height: 45px;
+                            <input #MessageInput type="text" class="form-control custom-input" placeholder="Write your message..." [(ngModel)]="message" 
+                            style="width: 300px;
+                            height: 40px;
                             background-color:#b3d821c5;
                             color: #000000;
+                            
+                            
                             "
                             (keyup.enter)="sendMessage()" (click)="activeSeen()"> 
                         </td>
                         <td>
                             
-                                <button class="btn bg-gradient-success" style="margin-left: 20px;
-                                margin-top: 12px;" (click)="sendMessage();activeSeen()">Send</button>
+                                <button  class="btn bg-gradient-success" style="
+                                margin-left: 10px; margin-top: 12px;" (click)="sendMessage();activeSeen()">Send</button>
                             
                             
                         </td>  
+                        <td>
+                        
+                             <input class="form-control" type="file" id="formFile" accept="Choose File" (change)="sendImage($event)" style="width: 100px; margin-bottom: 15px; margin-top: 12px; background-color: #57af5b; height: 40px; border-radius: 10px;" />
+                            
+                        </td>
+                        <td>
+                            <button class="btn bg-gradient-success" style=" margin-top: 12px; margin-right: 10px;" (click)="goToVideoChat()">Call</button>
+                        </td>
                         </tr>
                         </table>
 

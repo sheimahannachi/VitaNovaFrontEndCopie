@@ -1,5 +1,7 @@
 import { Component,OnInit  } from '@angular/core';
 import axios from 'axios';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-period-recipes',
@@ -9,7 +11,9 @@ import axios from 'axios';
 export class PeriodRecipesComponent  implements OnInit {
   recipes: any[] = [];
 
-constructor() { }
+constructor(    private router: Router,
+  private route: ActivatedRoute,
+) { }
 
 ngOnInit(): void {
   this.fetchRecipes();
@@ -44,5 +48,10 @@ async fetchRecipes(): Promise<void> {
     console.error('Error fetching recipes:', error);
     this.recipes = []; // Reset recipes array on error
   }
+}
+
+getBack(): void {
+  // Navigate to PeriodInsightsComponent with the period ID as a query parameter
+  this.router.navigate(['vitaNova/PeriodRecommendations']);
 }
 }

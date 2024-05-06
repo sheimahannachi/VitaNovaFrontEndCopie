@@ -86,58 +86,57 @@
   height: 100%; /* Ajustez la taille de l'image pour remplir le cercle */
   object-fit: cover; /* Garantit que l'image couvre entièrement le conteneur circulaire */
 }
-.slidecontainer {
-  width: 80%;
-  margin: auto;
+
+
+body {
+  background:#ecf9fa;
 }
 
-.slider-container {
-  position: relative;
+.price-range-slider {
+  width:100%;
+  float:left;
+  padding:10px 20px;
+  .range-value {
+    margin:0;
+    & input {
+      width:100%;
+      background:none;
+      color: #000;
+      font-size: 16px;
+      font-weight: initial;
+      box-shadow: none;
+      border: none;
+      margin: 20px 0 20px 0;
+    }
+  }
+
+  .range-bar {
+    border: none;
+    background: #000;
+    height: 3px;
+    width: 96%;
+    margin-left: 8px;
+
+    .ui-slider-range {
+      background:#06b9c0;
+    }
+
+    .ui-slider-handle {
+      border:none;
+      border-radius:50px;
+      background:#fff;
+      border:2px solid #06b9c0;
+      height:17px;
+      width:17px;
+      top: -0.52em;
+      cursor:pointer;
+    }
+    .ui-slider-handle + span {
+      background:#06b9c0;
+    }
+  }
 }
 
-.slider {
-  -webkit-appearance: none;
-  width: 100%; /* Adjust the width as needed */
-  height: 10px;
-  border-radius: 5px;
-  background: linear-gradient(to right,  #B4D821, #488cfb); /* Green to red gradient */
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-  margin-bottom: 5px; /* Add margin between sliders */
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
-}
-
-.slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-/* Style for the range slider labels */
-.slider-label {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 16px;
-}
 
 .d-flex.justify-content-center {
   justify-content: center;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoginRequest } from '../front-office/user/login/LoginRequest';
@@ -57,5 +57,36 @@ export class AuthService {
     }, error => {
       console.error('Logout failed!', error);
     });
+  }
+
+
+
+  authenticateAndGetTokenGOOGLE(email: string): Observable<UserInfoResponse> {
+    const params = new HttpParams().set('email', email);
+    return this.http.post<UserInfoResponse>(`${this.baseUrl}/LoginGoogle`, {}, { params });
+  }
+
+
+
+
+
+
+
+
+
+  googleSignup(username: string, email: string, password: string, role: string, gender: string, dateOfBirth: string, firstName: string, lastName: string, phone: string, pictureUrl: string) {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('role', role);
+    formData.append('gender', gender);
+    formData.append('dateOfBirth', dateOfBirth);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('phone', phone);
+    formData.append('picture', pictureUrl);
+
+    return this.http.post(this.baseUrl + '/GoogleSignup', formData);
   }
 }

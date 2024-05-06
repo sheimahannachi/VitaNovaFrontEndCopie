@@ -83,6 +83,10 @@ export class UserService {
     return this.http.get<UserModule>(`${this.baseUrl}/user/GetUserByUsername?username=${username}`);
   }
 
+  
+  getUserByEmail(email: string): Observable<UserModule> {
+    return this.http.get<UserModule>(`${this.baseUrl}/user/GetUserByEmail?email=${email}`);
+  }
 
 
 
@@ -115,4 +119,7 @@ export class UserService {
   getUser() {
     return this.userSubject.asObservable();
   }
+
+
+  
 }

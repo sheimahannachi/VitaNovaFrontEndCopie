@@ -3,6 +3,11 @@ import { FoodService } from '../Service/food.service';
 import {FoodCard} from "../Models/FoodCard";
 import {FoodDetailsDialogComponent} from "../food-details-dialog/food-details-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Tracker} from "../models/Tracker";
+import {style} from "@angular/animations";
+import {AuthService} from "../Service/auth.service";
+import {UserModule} from "../Models/user.module";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-foodlistadded',
@@ -14,8 +19,16 @@ export class FoodlistaddedComponent implements OnInit {
   eatenFoodCards: FoodCard[] = [];
   loading = true;
   error: string | null = null;
-
-  constructor(private foodService: FoodService, private dialog: MatDialog) {
+  breakfast: FoodCard[]=[]; // Initialisation des listes
+  lunch: FoodCard[]=[];
+  dinner: FoodCard[]=[];
+  snacks: FoodCard[]=[];
+  tracker :Tracker;
+  userId:UserModule
+  constructor(private foodService: FoodService, private dialog: MatDialog,private authService: AuthService,private router:Router) {
+    this.authService.getUserInfoFromToken().subscribe(userId => {
+      this.userId = userId;
+    });
   }
 
   ngOnInit(): void {
@@ -82,7 +95,18 @@ export class FoodlistaddedComponent implements OnInit {
       );
     }
   }
+  saveTracker(): void {
+    this.foodService.addTracker(this.tracker,this.userId.idUser).subscribe(
+      (response) => {
+        console.log('Tracker added successfully:', response);
+        this.router.navigate(['vitaNova/mealCard']);
+      },
+      (error) => {
+        console.error('Error adding tracker:', error);
 
+      }
+    );
+  }
 
-
+  protected readonly style = style;
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import SpotifyWebApi from 'spotify-web-api-js';
 
@@ -17,8 +17,10 @@ export class MiscService {
   public spotifyApi = new SpotifyWebApi();
   playlists: any;
   playlistsUpdated: EventEmitter<any[]> = new EventEmitter<any[]>();
+ipadress:string;
+  constructor(private http: HttpClient) {
 
-  constructor(private http: HttpClient) {}
+  }
 
   loginSpotify(): void {
     const authWindow = window.open(
@@ -113,8 +115,9 @@ export class MiscService {
     alert(`Playlist with ID ${playlistId} is now playing.`);
   }
 
-  checkIpAddress(username: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}/CheckIpAddress?username=${username}`);
+  checkIpAddress(username: string,ip:string): Observable<boolean> {
+    console.log("adresse : " , ip)
+    return this.http.get<boolean>(`${this.baseUrl}/CheckIpAddress?username=${username}&ipAdress=${ip}`);
   }
 
   encrypt(value: string, key: string): string {
@@ -124,6 +127,31 @@ export class MiscService {
       padding: CryptoJS.pad.Pkcs7
     });
     return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+  }
+  private apiUrl = 'http://localhost:8081/RestController/search-image'; // Assuming this is the relative path to your endpoint
+
+
+  searchImage(query: string, page: number = 1): Observable<{ url: string }> { // Specify the return type
+    const params = {
+      query: query,
+      page: page.toString()
+    };
+
+    return this.http.get<{ url: string }>(this.apiUrl, { params: params }); // Return type should match the expected response
+  }
+
+
+
+  getWANIPAddress(): Observable<string> {
+    const url = 'https://api.ipify.org';
+
+    return this.http.get(url, { responseType: 'text' })
+      .pipe(
+        catchError(error => {
+          console.error('Error retrieving WAN IP address:', error);
+          return throwError('Unable to retrieve WAN IP address');
+        })
+      );
   }
 
 }

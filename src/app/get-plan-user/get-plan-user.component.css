@@ -8,6 +8,35 @@
   flex-direction: column;
   padding-top: 100px; /* Adjust as needed to create space below the fixed navbar and button */
   width: 100%;
+  
+}
+
+
+.workout-card {
+  position: relative; /* Add relative positioning to the card */
+  /*... */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1; /* Add z-index to ensure overlay is on top */
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 body {

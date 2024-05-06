@@ -1,17 +1,21 @@
 export class Notification {
-    id: number;
-    content: string;
-    priority: string;
-    notificationDate: Date; 
-    archive: boolean = false;
-  
-    constructor(id: number,content: string,priority: string,notificationDate: Date, archive: boolean = false) {
-     
-        this.id = id;
-        this.content = content;
-        this.priority = priority;
-        this.notificationDate = notificationDate;
-        this.archive = archive ;
-      }
-    }
-  
+  Id!: number;
+  content: string;
+  categories: string[]; // Change to array type
+  archive: boolean;
+  subscription: boolean;
+
+  constructor(
+    Id: number,
+    content: string,
+    categories: string[],
+    archive: boolean = false,
+    subscription: boolean = false
+  ) {
+    this.Id = Id;
+    this.content = content;
+    this.categories = categories;
+    this.archive = archive;
+    this.subscription = subscription;
+  }
+}

@@ -10,6 +10,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionStorageService } from 'ngx-webstorage';
+import { UserModule } from '../Models/user.module';
+import { AuthService } from '../Service/auth.service';
 
 
 @Component({
@@ -29,10 +31,15 @@ export class GetPlanUserComponent {
   selectedMuscle: string = '';
   selectedEquipment: string = '';
   selectedIntensity: string = '';
+  userProfile:UserModule;
   @Input() count: number = 50; // Default to 50 stars
   stars: number[] = Array(this.count).fill(0);
-
+  @Input() category: string;
+  @Input() categoryIndex: number;
+  Userplan!:boolean;
   isLoading: boolean = false;
+  freePlanLimit = 4;
+
   displayedColumns: string[] = ['workout'];
   dataSource: MatTableDataSource<any>;
   imagesList: string[] = [
@@ -61,24 +68,38 @@ export class GetPlanUserComponent {
   constructor(
     private workoutService: WorkoutService,
     private router: Router,
-    private http: HttpClient,private sessionStorage: SessionStorageService
+    private http: HttpClient,private sessionStorage: SessionStorageService, private authService:AuthService
   ) {
   }
 
+  isDisabled(): void {
+    this.Userplan= this.userProfile.plan === 'FREE';
+  }
+
   ngOnInit(): void {
-    this.getWorkoutPlan(0, 10); // Fetch user-created workout plans
-    // Fetch workout plans from the API
-   /* this.fetchWorkoutPlans();
-    this.dataSource = new MatTableDataSource(this.filteredWorkoutPlans(this.selectedMuscle));
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;*/
-    const storedWorkoutPlans = this.sessionStorage.retrieve('workoutPlans');
-    if (storedWorkoutPlans) {
-      this.workoutPlans = storedWorkoutPlans;
-    } else {
-      // Fetch workout plans from the API
-      this.fetchWorkoutPlans();
-    }
+    this.authService.getUserInfoFromToken().subscribe(
+      (response: UserModule) => {
+        this.userProfile = response;
+        console.log(this.userProfile)
+        this.isDisabled();
+        this.getWorkoutPlan(0, 10); // Fetch user-created workout plans
+        // Fetch workout plans from the API
+       /* this.fetchWorkoutPlans();
+        this.dataSource = new MatTableDataSource(this.filteredWorkoutPlans(this.selectedMuscle));
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;*/
+        const storedWorkoutPlans = this.sessionStorage.retrieve('workoutPlans');
+        if (storedWorkoutPlans) {
+          this.workoutPlans = storedWorkoutPlans;
+        } else {
+          // Fetch workout plans from the API
+          this.fetchWorkoutPlans();
+        }
+      error => {
+        console.error('Error fetching user information:', error);
+      }}
+    ); 
+   
   }
 
   getWorkoutPlan(page: number, size: number): void {

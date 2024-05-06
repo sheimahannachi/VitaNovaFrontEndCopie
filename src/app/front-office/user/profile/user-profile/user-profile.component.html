@@ -96,7 +96,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <span class="title">Profile Information</span>
-
+<div class="error" *ngIf="this.userProfile.phone==null" style="color: red; font-size: 10px;">*Finish setting your account *</div>
                             <br>
                             <div class="profile-info">
                               <div class="row">
@@ -325,17 +325,25 @@
             </div>
 
 
-            <div class="card-body" *ngIf="weightGoal == 0">
-                <button (click)="openDialog()" class="StartBtn">  <span>Start</span>
+            <div class="card-body" *ngIf="weightGoal == 0" style=" display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;">
+                <button (click)="openDialog()" class="StartBtn" style="  display: inline-block;
+                text-align: center;
+                vertical-align: middle;
+                ">  <span>Start</span>
                 </button>
 
             </div>
         </div>
+        <div id="chart"></div>
 
 </div>
+
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
       <div id="chart"></div>
 
-      <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <h6 class="mb-0"> <button class="reward-btn">
@@ -497,6 +505,7 @@
             </form>
         </div>
 
+      
 
 
     </div>

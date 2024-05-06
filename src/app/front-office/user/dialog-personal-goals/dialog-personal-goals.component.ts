@@ -45,13 +45,12 @@ numberOfWeeks:number=8;
 calculateBMI(weightKg: number, heightCm: number): number {
   const heightM = heightCm / 100; // Convert height from centimeters to meters
   let bmi: number;
-
   if (this.data.userProfile.gender === 'MAN') {
     bmi = weightKg / (heightM * heightM);
   } else if (this.data.userProfile.gender  === 'WOMAN') {
     bmi = weightKg / (heightM * heightM) * 0.9; // Adjusted BMI for women
   } else {
-    throw new Error('Invalid gender specified.');
+    bmi = weightKg / (heightM * heightM) * 0.9; 
   }
 
   return parseFloat(bmi.toFixed(1)); // Round BMI to 1 decimal place and convert back to number
@@ -98,10 +97,9 @@ toggleWeightInput(useIdealWeight: boolean) {
 calculateIdealWeight() {
   if (this.data.userProfile.gender === 'MAN') {
     this.IdealWeight = this.calculateIdealWeightForMen(this.data.userProfile.height);
-  } else if (this.data.userProfile.gender === 'WOMAN') {
-    this.IdealWeight = this.calculateIdealWeightForWomen(this.data.userProfile.height);
   } else {
-    throw new Error('Invalid gender specified.');
+    this.IdealWeight = this.calculateIdealWeightForWomen(this.data.userProfile.height);
+
   }
 }
 
@@ -148,7 +146,8 @@ console.log(Math.round(  this.dailyCalories));
     let weeksToGoal: number;
 console.log(this.data.userProfile.personalGoals)
     if (this.data.userProfile.personalGoals === null) {
-      weeksToGoal = this.numberOfWeeks; // Use default number of weeks
+      weeksToGoal = this.numberOfWeeks; 
+      
     } else {
       const startDate: Date = new Date(this.data.userProfile.personalGoals.StartDate);
       const currentDate: Date = new Date();

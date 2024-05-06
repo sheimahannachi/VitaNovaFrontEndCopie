@@ -24,6 +24,8 @@ export class CommunicationServiceService {
   seenUrl="/seenComunications";
   seenOneToOneUrl="/setSeenToComOneToOne"
 
+  uploadImageUrl="/UploadImage";
+
 
 
                     //Get
@@ -82,6 +84,17 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
 
 
 
+    //Upload image For comm
+
+    uploadImage(image:File):Observable<any>{
+      
+      const formData: FormData = new FormData();
+      formData.append('image', image, "image.name");
+      
+      return this.http.post(this.URL+this.uploadImageUrl,formData,{responseType: 'text'});
+    }
+
+
            ////////Web socket Messaging 
 
            myChannel:string='';
@@ -133,7 +146,7 @@ return this.http.get<any>(this.URL+this.findByCommunityUrl,{params,withCredentia
          //Communication
          _send(message:Communication) {
            console.log("calling logout api via web socket");
-         
+        
            this.stompClient.send(this.sendMessage+this.myChannel, {}, JSON.stringify(message));
          
          }

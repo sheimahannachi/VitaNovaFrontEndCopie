@@ -32,9 +32,10 @@ import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { AllChallengesBackComponent } from './all-challenges-back/all-challenges-back.component';
 import { FindCommunityComponent } from './find-community/find-community.component';
 import { UpdateCommunityComponent } from './update-community/update-community.component';
+import { VideoChatComponent } from './video-chat/video-chat.component';
 
 //Amine
-//import { UsersBackComponent } from './users-back/users-back.component';
+import { UsersBackComponent } from './back-office/users-back/users-back.component';
 import { UserProfileComponent } from './front-office/user/profile/user-profile/user-profile.component';
 
 import { AddProductComponent } from './add-product/add-product.component';
@@ -49,16 +50,24 @@ import { PeriodTrackerComponent } from './period-tracker/period-tracker.componen
 import {ShowPeriodComponent}from './show-period/show-period.component'
 import { PeriodInsightsComponent } from './period-insights/period-insights.component';
 import { PeriodRecipesComponent } from './period-recipes/period-recipes.component';
-
 import { CartComponent } from './cart/cart.component';
 import { PeriodRecommendationsComponent } from './period-recommendations/period-recommendations.component';
+import { NotificationComponent } from './notification/notification.component';
+import { GymComponent } from './gym/gym.component';
+import { HealthyComponent } from './healthy/healthy.component';
+
 import {RecipiesLowCarbComponent} from "./recipies-low-carb/recipies-low-carb.component";
+import { PgoalsBackComponent } from './back-office/pgoals-back/pgoals-back.component';
+import {MealCardsComponent} from "./meal-cards/meal-cards.component";
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { PaymentsuccesComponent } from './paymentsucces/paymentsucces.component';
 import {HydrationComponent} from "./hydration/hydration.component";
 const routes: Routes = [
 
   {path:"",redirectTo:"/vitaNova/home",pathMatch:'full'},
   {path:"vitaNova",redirectTo:"/vitaNova/home",pathMatch:'full'},
 
+  {path:"videoChat?roomID=**",component:VideoChatComponent},
   { path:"vitaNova",
     component:AllTemplateFrontComponent,children:[
       {path:"home",component:HomeComponent},
@@ -72,9 +81,11 @@ const routes: Routes = [
 
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
       //firas
+
       {path:"community", component:CommunityComponent,children:[
           {path:"addChallenge/:id", component:AddChallengeComponent},
         ]},
+        {path:"vitaNova/community/videoChat?roomID=**",component:VideoChatComponent},
       {path:"addCommunity",component:AddCommunityComponent},
       {path:"findCommunity",component:FindCommunityComponent},
       {path:"updateCommunity/:id",component:UpdateCommunityComponent},
@@ -86,12 +97,17 @@ const routes: Routes = [
       { path: 'foodDetails/:id', component: FoodDetailsComponent },
       { path: 'Timer/:id', component: TimerPageComponent },
       { path: 'timer-api', component: TimerApiComponent },
+      {path: 'mealCard',component: MealCardsComponent},
+      {path:'lowCarb',component: RecipiesLowCarbComponent},
       {path: 'hydration',component: HydrationComponent},
-      //aziz
-      {path:"showProductUser",
-        component: ShowProductUserComponent},
-      {path:"Cart",
-        component: CartComponent},
+{path:"showProductUser",
+component: ShowProductUserComponent},   
+
+    {path:"Cart",component: CartComponent},
+    {path:"PayementSuccess",component:PaymentsuccesComponent},
+ 
+    {path:"ProductDetails/:productId",
+  component: ProductDetailsComponent},
       //sheima
       {path:"PeriodInformation",
         component:PeriodTrackerComponent},
@@ -101,6 +117,9 @@ const routes: Routes = [
       {path:'PeriodInsights',component:PeriodInsightsComponent},
       {path:'PeriodRecipes', component:PeriodRecipesComponent},
       {path:'PeriodRecommendations', component:PeriodRecommendationsComponent},
+      {path:'Notifications',component:NotificationComponent},
+      {path:'gym',component:GymComponent},
+      {path:'healthy',component:HealthyComponent},
 
       {path: 'lowcarb',component: RecipiesLowCarbComponent},
     ]},
@@ -108,6 +127,7 @@ const routes: Routes = [
 
   { path: 'signup', component: RegisterComponent } ,
   { path: 'login', component: LoginComponent } ,
+  {path: "profile", component: UserProfileComponent},
 
 
 //Admin
@@ -174,7 +194,14 @@ const routes: Routes = [
       {path:"showProduct",
         component: ShowProductComponent},
       { path: 'updateProduct/:id',
-        component: UpdateProductComponent },]},
+        component: UpdateProductComponent },
+
+      
+        {path:"users",
+        component: UsersBackComponent},
+        {path:"goals",
+        component: PgoalsBackComponent},
+      ]},
 ];
 
 

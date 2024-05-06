@@ -58,6 +58,9 @@ export class UserProfileComponent implements OnInit {
     this.getWorkoutSessionData();
   }
 
+
+
+
   getWorkoutSessionData(): void {
     this.authService.getUserInfoFromToken().subscribe(userId => {
       this.user = userId;
@@ -173,8 +176,6 @@ export class UserProfileComponent implements OnInit {
 
 
 
-
-
 getUserInfoFromToken(): void {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
@@ -184,6 +185,7 @@ this.weightGoal=this.userProfile.personalGoals.weightGoal
 this.startDate=this.userProfile.personalGoals.startDate;}
 this.profilePictureUrl=this.userProfile.picture;
 this.accessToken=sessionStorage.getItem("accessToken");
+console.log(this.userProfile.personalGoals)
       },
       error => {
         console.error('Error fetching user information:', error);
@@ -191,6 +193,7 @@ this.accessToken=sessionStorage.getItem("accessToken");
     );
   }
 display(){
+
   this.spotifyMode=!this.spotifyMode;
   this.checkSpotify();
 
@@ -208,6 +211,7 @@ display(){
   //this.spotifyService.checkScope(sessionStorage.getItem("accessToken")).subscribe();
 
 }
+
 
   toggleEditMode(): void {
     console.log("Session name : ", sessionStorage.getItem("username"))
@@ -275,8 +279,8 @@ display(){
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogPersonalGoalsComponent, {
-      width: '400px',
-      height:'388px',
+      width: 'fit-content',
+      height:'fit-content',
       data: { userProfile: this.userProfile },
       disableClose: true ,
 

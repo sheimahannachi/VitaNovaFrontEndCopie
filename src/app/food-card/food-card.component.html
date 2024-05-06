@@ -8,11 +8,14 @@
 
 
       <p>Filter by calories range:</p>
-      <div class="slider-container">
-        <input type="range" id="minSlider" min="0" [max]="maxCalories" class="slider" [(ngModel)]="minCalories" (ngModelChange)="updateMinCalories()">
-        <input type="range" id="maxSlider" [min]="minCalories" max="800" class="slider" [(ngModel)]="maxCalories" (ngModelChange)="updateMaxCalories()">
+      <div class="price-range-slider">
+
+        <p class="range-value">
+          <input type="text" id="amount" readonly>
+        </p>
+        <div id="slider-range" class="range-bar"></div>
+
       </div>
-      <p>{{ minCalories }} - {{ maxCalories }}</p>
 
     </div>
 
@@ -24,22 +27,22 @@
       </div>
     </div>
 
-    </div>
+  </div>
   <div class="main-content">
-  <div class="cards">
-  <div *ngFor="let food of filteredFoods" class="card">
-    <div class="card-body">
-      <div class="card-image">
-        <img src="{{ food.foodPic }}" alt="Food Image">
-      </div>
-      <h5 class="card-title">{{ food.title }}</h5>
-      <button class="btn btn-success" (click)="openFoodDetailsDialog(food)">
-        <i class="fa fa-plus"></i>
-      </button>
+    <div class="cards">
+      <div *ngFor="let food of filteredFoods" class="card">
+        <div class="card-body">
+          <div class="card-image">
+            <img src="{{ food.foodPic }}" alt="Food Image">
+          </div>
+          <h5 class="card-title">{{ food.title }}</h5>
+          <button class="btn btn-success" (click)="openFoodDetailsDialog(food)">
+            <i class="fa fa-plus"></i>
+          </button>
 
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
 
     <div class="d-flex justify-content-center align-items-center mt-3">
       <button class="btn btn-pagination" *ngIf="currentPage !== 0" (click)="previousPage()">
@@ -52,5 +55,4 @@
     </div>
   </div>
 </div>
- 
 

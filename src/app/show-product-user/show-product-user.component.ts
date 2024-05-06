@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SideBarBackComponent } from '../back-office/side-bar-back/side-bar-back.component';
 import { Commandeline } from '../ModelProduct/Commandeline';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { UserModule } from '../Models/user.module';
 
 
 
@@ -26,29 +27,57 @@ export class ShowProductUserComponent {
   searchTerm: string = '';
   isCardExpanded: boolean = false; // Variable pour suivre l'état d'agrandissement de la carte
   selectedProduct: Product | null = null;
-  idUser: number = 1; 
+  idUser: number ; 
   commandelines: Commandeline[] = [];
   nombreLikes: number = 0;
   showDetails: boolean = false;
   numberOfCommandelines: number = 0;
-  cartId: number = 2;
+  cartId: number = 3;
   showSidebar: boolean = false;
   qrCodeUrl!: string;
   productId !: number ;
-
+user:UserModule ;
   constructor(private productService: ProductService , private authService: AuthService ,private router: Router, private cartService: CartService ,private dialog: MatDialog ) { 
  
   }
 
   
   ngOnInit(): void {
-    this.showProducts();
-    this.listenForLikeUpdates();
-    this.fetchNumberOfCommandelines();
-    this.fetchCommandelinesInCart();
-    
+
+    this.getUserInfoFromToken();
   }
   
+
+
+
+
+
+
+
+
+  getUserInfoFromToken(): void {
+    this.authService.getUserInfoFromToken().subscribe(
+      (response: UserModule) => {
+      this.user = response;
+      this.idUser=this.user.idUser;
+      this.showProducts();
+      this.listenForLikeUpdates();
+      this.fetchNumberOfCommandelines();
+      this.fetchCommandelinesInCart();
+      console.log('id user : ' , this.idUser);
+
+    }
+    );
+
+      }
+
+
+
+
+
+
+
+
   showProducts(): void {
 // Appel du service pour récupérer la liste des produits
 this.productService.showProducts()
@@ -82,9 +111,8 @@ this.productService.showProducts()
       );
   }
   addLikeToProduct(productId: number): void {
-    this.productService.addLike(productId).subscribe(
+    this.productService.addLike(this.idUser, productId).subscribe(
       (response: any) => {
-        console.log('Like ajouté avec succès !');
         const product = this.listeProduits.find(prod => prod.idPr === productId);
         if (product) {
           product.likeCount+= 1;
@@ -164,14 +192,11 @@ this.productService.showProducts()
       console.error('Elderly ID is undefined');
     }
   }
-  navigateToCart() {
-    this.router.navigate(['/cart']);
-  }
+
   
   
   fetchCommandelinesInCart(): void {
-    const cartId = 2; // Replace with the actual cart ID
-    this.cartService.getAllCommandelinesInCart(cartId).subscribe(
+    this.cartService.getAllCommandelinesInCart(this.idUser).subscribe(
       commandelines => {
         this.commandelines = commandelines;
       },
@@ -183,7 +208,7 @@ this.productService.showProducts()
   }
   
   fetchNumberOfCommandelines(): void {
-    this.cartService.getNumberOfCommandelinesInCart(this.cartId).subscribe(
+    this.cartService.getNumberOfCommandelinesInCart(this.idUser).subscribe(
       count => {
         console.log("number " + count)
         this.numberOfCommandelines = count;
@@ -258,7 +283,15 @@ console.log(this.commandelines);
     getImageUrl2(imagePath: string): string {
       return this.imageBaseUrl2 + imagePath;
     }
+  
+  getTotalPrice(): number {
+    let totalPrice = 0;
+    for (const commandeline of this.commandelines) {
+      totalPrice += commandeline.product.pricePr * commandeline.quantity;
+    }
+    return totalPrice;
   }
+}
   /*
   expandCard(product: Product): void {
     this.selectedProduct = product;
@@ -306,6 +339,3 @@ onDocumentClick(event: MouseEvent): void {
     // alors réduire la carte agrandie
     this.closeExpandedCard();
   }*/
-
-
-
