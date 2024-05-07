@@ -31,7 +31,7 @@
    // audioList: { downloadUrl: string }[] = []; // Array to store audio URLs
     mp3DownloadLink: string | null = null;
     userId :UserModule
-    searchAPIKey: string = '32432b1541mshac8dc8f263e0326p1e4655jsnb818df6122e0';
+    searchAPIKey: string = '020a985271msh63da4e188052ac8p1761aajsn6b9e047c9fb3';
     searchAPIHost: string = 'real-time-image-search.p.rapidapi.com';
     searchAPIURL: string = 'https://real-time-image-search.p.rapidapi.com/search';
     exerciseImages: string[] = [];
