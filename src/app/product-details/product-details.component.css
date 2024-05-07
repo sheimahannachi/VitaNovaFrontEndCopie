@@ -1,5 +1,5 @@
 body{
-   /* background-image: url('file:C:/Users/ASUS/Desktop/gg.jpg'); */
+    background-image: url('file:C:/Users/ASUS/Desktop/gg.jpg');
     background-size: 100% 100%; /* Enlarge the background image to cover the entire container */
     background-repeat: no-repeat; /* Do not repeat the background image */
 
@@ -14,18 +14,18 @@ body{
     backdrop-filter: blur(10px); /* Ajouter un flou */
 }
 
-  
+
   .product-details {
     display: flex;
     justify-content: space-between;
     width: 900px; /* Largeur automatique */
     height: 700px;
-    
+
 
     align-items: center; /* Centrer verticalement le contenu */
 
   }
-  
+
 
   .product-info {
     flex: 1;
@@ -47,14 +47,14 @@ body{
     font-size: 50px; /* Agrandir la taille de police */
     color: black; /* Changer la couleur du texte en noir */
   }
-  
+
   .product-info p {
     font-size: 18px; /* Agrandir la taille de police */
     color: black; /* Changer la couleur du texte en noir */
     font-weight: bold; /* Mettre le prix en gras */
     margin-bottom: 10px; /* Ajouter un espace en bas */
   }
-  
+
   .product-image {
     margin-right: 10px; /* Ajoute un espace entre les deux cadres */
     background-color: #e1e3e5;
@@ -65,7 +65,7 @@ body{
     height: 700px; /* Hauteur fixe */
 
 }
-  
+
   .product-image img {
     width: 100%;
     height: 600px;

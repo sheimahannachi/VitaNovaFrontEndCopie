@@ -1,6 +1,6 @@
 body {
-/*   background-image: url('file:C:/Users/ASUS/Desktop/back.jpg'); */
-  background-size: 100% 100%; 
+  background-image: url('file:C:/Users/ASUS/Desktop/back.jpg');
+  background-size: 200% 100%;
     background-repeat: no-repeat; /* Do not repeat the background image */
 }
 
@@ -12,16 +12,16 @@ body {
     background-color: #72B215; /* Set background color */
     color: #fff; /* Set text color */
   }
-  
+
   #cart th {
     padding: 12px; /* Add padding to header cells */
     text-align: center; /* Center align text */
   }
-  
+
   #cart th:first-child {
     border-top-left-radius: 5px; /* Add rounded corners to the top-left header cell */
   }
-  
+
   #cart th:last-child {
     border-top-right-radius: 5px; /* Add rounded corners to the top-right header cell */
   }
@@ -29,7 +29,7 @@ body {
     backdrop-filter: blur(1px); /* Apply a blur effect to the background */
     background-color: rgba(255, 255, 255, 0.5); /* Set a semi-transparent background color */
   }
- 
+
   /* Style for the total amount */
 .text-center  {
     color: #007bff; /* Set text color */
@@ -49,10 +49,10 @@ body {
     right: 10px; /* Adjust the position from the right */
 }
 
-  
+
 .test {
   color: #000;
-}  
+}
 .test :hover,.text-center:hover,tr:hover,*{
   color: #000;
 }

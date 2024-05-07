@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abel|Aguafina+Script|Artifika|Athiti|Condiment|Dosis|Droid+Serif|Farsan|Gurajada|Josefin+Sans|Lato|Lora|Merriweather|Noto+Serif|Open+Sans+Condensed:300|Playfair+Display|Rasa|Sahitya|Share+Tech|Text+Me+One|Titillium+Web');
 
 .aaa{
-  /*background-image: url('file:C:/Users/ASUS/Desktop/bbb.jpg');  */
+  background-image: url('file:C:/Users/ASUS/Desktop/bbb.jpg');
   background-size: 100% 100%; /* Enlarge the background image to cover the entire container */
   background-repeat: no-repeat; /* Do not repeat the background image */
 }
@@ -85,7 +85,7 @@
 #container .product-details h1:before {
     position: absolute;
     content: '';
-    right: 0%; 
+    right: 0%;
     top: 0%;
     transform: translate(25px, -15px);
     font-family: 'Farsan', cursive;
@@ -105,7 +105,7 @@
 
 @keyframes chan-sh {
     from  { content: 'free shipping'; }
-    to  { content: 'New'; }   
+    to  { content: 'New'; }
 }
 
 /* Product Rating */
@@ -121,7 +121,7 @@
     font-family: 'Farsan', cursive;
     text-align: center;
     font-size: 20px;
-    color: whitesmoke; 
+    color: whitesmoke;
     position: absolute;
     left: 5%;
 }
@@ -137,7 +137,7 @@
 .control {
     position: absolute;
     bottom: 20%;
-    left: 22.8%;   
+    left: 22.8%;
 }
 
 /* The Button */
@@ -153,7 +153,7 @@
     border: none;
     color: #eee;
     padding: 0;
-    margin: 0;  
+    margin: 0;
 }
 
 .btn:hover {
@@ -166,7 +166,7 @@
     display: inline-block;
     padding: 10px 20px;
     font-size: 1.2em;
-    margin: 0;  
+    margin: 0;
 }
 
 /* Shopping cart icon */
@@ -281,7 +281,7 @@
   align-items: center;
   position: absolute;
   top: 200px; /* Ajustez cette valeur selon vos préférences */
-  left: 3%; 
+  left: 3%;
   padding: 5px; /* Espace à l'intérieur du cadre */
   border: 1px solid #ccc; /* Bordure du cadre */
   border-radius: 5px; /* Coins arrondis du cadre */
@@ -317,39 +317,39 @@
     height: 100%;
     background-color: #fff;
   }
-  
+
   .cart__content {
     padding: 2rem;
   }
-  
+
   .cart__inner {
     margin-bottom: 35px;
   }
-  
+
   .cart__list {
     margin: 0;
   }
-  
+
   .cart__item {
     padding: 1rem 0;
     border-top: 2px solid #eaeaea;
   }
-  
+
   .cart__item:last-child {
     border-bottom: 2px solid #eaeaea;
   }
-  
+
   .cart__item-top {
     min-height: 50px;
     margin-bottom: 10px;
   }
-  
+
   .cart__item-bottom {
     display: table;
     width: 100%;
     table-layout: fixed;
   }
-  
+
   .cart__img-wrap img {
     max-width: 110%; /* Ensures the image doesn't exceed the container's width */
     max-height: 110%; /* Ensures the image doesn't exceed the container's height */
@@ -358,7 +358,7 @@
     width: 50px;
     margin-right: 10px; /* Adjust spacing between image and text */
 }
-  
+
   .cart__item-title {
     position: relative;
     display: block;
@@ -368,7 +368,7 @@
     font-size: 1rem;
     line-height: 1;
   }
-  
+
   .cart__item-title::after {
     position: absolute;
     content: "";
@@ -379,39 +379,39 @@
     height: 8px;
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), #fff 100%, #fff 0, #fff);
   }
-  
+
   .cart__item-qty {
     display: table-cell;
     width: 40%;
   }
-  
+
   .cart__item-price {
     font-weight: bold;
     display: table-cell;
     width: 30%;
   }
-  
+
   .cart__total {
     padding: 5px 0 24px;
   }
-  
+
   .cart__link {
     display: inline-block;
     margin: auto;
     text-decoration: underline;
   }
-  
+
   .b-qty {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .b-qty__field {
     width: 60px;
     margin: 0;
   }
-  
+
   /* Styles for the off-canvas sidebar */
   .off-canvas {
     background-color: #f9f9f9;
@@ -424,13 +424,13 @@
     width: 320px;
     transition: right 0.3s ease; /* Add transition for smooth animation */
     z-index: 999;
-    overflow-y: auto; 
+    overflow-y: auto;
   }
-  
+
   .position-right {
     right: 0; /* Set the sidebar to appear from the right */
   }
-  
+
   .cart__item-container {
     display: flex;
     align-items: center;
@@ -499,7 +499,7 @@
   margin-left: 20px; /* Add some margin to separate it from other elements */
   position: absolute;
   top: 120px; /* Ajustez cette valeur selon vos préférences */
-  left: 29%; 
+  left: 29%;
 }
 .cart__total-price {
   font-size: 20px;
@@ -520,7 +520,7 @@
   transition: background-color 0.3s; /* Animation de transition */
   position: absolute;
   top: 200px; /* Ajustez cette valeur selon vos préférences */
-  left: 17%; 
+  left: 17%;
 }
 
 .details-button:hover {
