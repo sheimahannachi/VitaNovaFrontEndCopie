@@ -10,6 +10,7 @@ import { FoodDetailsDialogComponent } from '../food-details-dialog/food-details-
 import {BarcodeScannerService} from "../barcode-scanner.service";
 import {MealType} from "../models/MealType";
 import { MiscService } from '../Service/misc.service';
+import {Options} from "ng5-slider";
 
 @Component({
   selector: 'app-food-card',
@@ -26,52 +27,28 @@ export class FoodCardComponent implements OnInit {
   totalPages = 0;
   currentPage = 0;
 
-  minCalories: string = "0";
-  maxCalories: string = "800";
+  minCalories: number = 0;
+  maxCalories: number = 800;
   scannedBarcode!: string;
   productDetails: any;
   selectedMealType: MealType;
+  minValue: number = 40;
+  highValue: number = 60;
+  options: Options = {
+    floor: 0,
+    ceil: 800
+  };
 
   ngOnInit() {
     this.getFoods(1,10);
-    /*this.updateMaxCalories();
-    this.updateMinCalories();*/
-    this.initializeSlider();
-  }
 
-  initializeSlider() {
-    const sliderElement = this.elementRef.nativeElement.querySelector('#slider-range');
-    const amountElement = this.elementRef.nativeElement.querySelector('#amount');
-
-    const componentInstance = this; // Référence au contexte du composant
-
-    ($(sliderElement) as any).slider({
-      range: true,
-      min: 0,
-      max: 800,
-      values: [0, 600],
-      slide: function (event, ui) {
-        // Mettre à jour les valeurs du slider
-        componentInstance.minCalories = ui.values[0].toString();
-        componentInstance.maxCalories = ui.values[1].toString();
-
-        // Mettre à jour l'affichage des valeurs
-        $(amountElement).val(ui.values[0] + ' - ' + ui.values[1]);
-      },
-      change: function (event, ui) {
-        // Filtrer les aliments lorsque les valeurs du slider changent
-        componentInstance.filter();
-      }
-    });
-
-    // Initialiser les valeurs du slider et de l'affichage
-    $(amountElement).val(($(sliderElement) as any).slider('values', 0) +
-        ' - ' + ($(sliderElement) as any).slider('values', 1));
   }
 
 
 
-  constructor( private miscService:MiscService,private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService,private elementRef: ElementRef) {
+
+
+  constructor( private miscService:MiscService,private foodService: FoodService,private router: Router,public dialog: MatDialog,private barcodeScannerService: BarcodeScannerService) {
     this.selectedCategories = [];
 
   }
@@ -88,10 +65,10 @@ export class FoodCardComponent implements OnInit {
 
 
 
-  filter(): void {
+  filter(event : number): void {
 
-    const minValue = parseFloat(this.minCalories);
-    const maxValue = parseFloat(this.maxCalories);
+    const minValue = this.minCalories;
+    const maxValue = this.maxCalories;
 
     if (isNaN(minValue)) {
       console.error('Invalid minimum calories value:', this.minCalories);
@@ -167,8 +144,8 @@ export class FoodCardComponent implements OnInit {
       const titleMatch = food.title.toLowerCase().includes(this.searchTitle.toLowerCase());
 
       // Filter by calories
-      const caloriesMatch = this.minCalories === '' || this.maxCalories === '' ||
-          (food.calories >= parseFloat(this.minCalories) && food.calories <= parseFloat(this.maxCalories));
+      const caloriesMatch = this.minCalories === 0 || this.maxCalories === 0 ||
+          (food.calories >= this.minCalories && food.calories <= this.maxCalories);
 
       return titleMatch && caloriesMatch;
     });
