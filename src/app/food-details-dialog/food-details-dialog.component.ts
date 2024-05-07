@@ -64,7 +64,9 @@ export class FoodDetailsDialogComponent {
       response => {
         console.log('Food cards added successfully:', response);
         console.log(mealType);
+        this.dialogRef.close();
         this.router.navigate(['vitaNova/list-of-foods']);
+
       },
       error => {
         console.error('Error adding food cards:', error);

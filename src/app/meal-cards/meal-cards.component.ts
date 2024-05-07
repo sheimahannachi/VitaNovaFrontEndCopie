@@ -17,6 +17,7 @@ export class MealCardsComponent implements OnInit {
   lunchFoodCards: FoodCard[] = [];
   dinnerFoodCards: FoodCard[] = [];
   snacksFoodCards: FoodCard[] = [];
+  breakfastCalories:number;
   mealtype: MealType;
   userId: UserModule;
   idtracker: number;
@@ -88,6 +89,7 @@ export class MealCardsComponent implements OnInit {
     this.router.navigate(['vitaNova/foodFront'], { queryParams: { mealType: mealType } });
   }
 
+
   protected readonly MealType = MealType;
 
   toggleWater(glass): void {
@@ -138,13 +140,13 @@ export class MealCardsComponent implements OnInit {
     if (this.userId && this.userId.personalGoals) {
       const totalDailyCalories = this.userId.personalGoals.dailyNeededCalories;
       // You can adjust the ratios based on your preferences
-      const breakfastCalories = totalDailyCalories * 0.25; // Adjusted ratio for breakfast
+      this.breakfastCalories = totalDailyCalories * 0.25; // Adjusted ratio for breakfast
       const lunchCalories = totalDailyCalories * 0.35; // Adjusted ratio for lunch
       const dinnerCalories = totalDailyCalories * 0.25; // Adjusted ratio for dinner
       const snacksCalories = totalDailyCalories * 0.15; // Adjusted ratio for snacks
 
       // Assign the calculated values to the property
-      this.calculatedCalories = { breakfast: breakfastCalories, lunch: lunchCalories, dinner: dinnerCalories, snacks: snacksCalories };
+      this.calculatedCalories = { breakfast: this.breakfastCalories, lunch: lunchCalories, dinner: dinnerCalories, snacks: snacksCalories };
     }
   }
 

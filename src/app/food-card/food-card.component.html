@@ -10,10 +10,7 @@
       <p>Filter by calories range:</p>
       <div class="price-range-slider">
 
-        <p class="range-value">
-          <input type="text" id="amount" readonly>
-        </p>
-        <div id="slider-range" class="range-bar"></div>
+        <ng5-slider [(value)]="minCalories" [(highValue)]="maxCalories" [options]="options" (valueChange)="filter($event)"></ng5-slider>
 
       </div>
 
