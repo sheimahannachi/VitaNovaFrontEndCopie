@@ -4,6 +4,7 @@ import { WorkoutService } from '../Service/workout.service';
 import { WorkoutPlan } from '../Models/WorkoutPlan';
 import {AuthService} from "../Service/auth.service";
 import {UserModule} from "../Models/user.module";
+import axios from "axios";
 
 @Component({
   selector: 'app-timer-page',
@@ -21,6 +22,8 @@ export class TimerPageComponent implements OnInit {
   baseUrl: string = 'http://localhost:80/uploads/';
   timerClass: string = 'base-timer__path-remaining';
   userId :UserModule
+  mp3DownloadLink: string | null = null;
+
   COLOR_CODES = {
     info: {
       color: "green"
@@ -82,9 +85,16 @@ export class TimerPageComponent implements OnInit {
       } else {
         this.startNextSet();
       }
+
+      // Fetch MP3 download link
+      this.fetchMP3DownloadLink();
+
+      // Play audio
+      this.playAudio();
     }
     this.addSession(); // Calling addSession method here
   }
+
 
   resetTimer(): void {
     clearInterval(this.timerInterval);
@@ -226,5 +236,36 @@ export class TimerPageComponent implements OnInit {
           console.error('Error adding session:', error);
         }
     );
+  }
+  async fetchMP3DownloadLink(): Promise<void> {
+    const options = {
+      method: 'GET',
+      url: 'https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/',
+      params: {
+        url: 'https://www.youtube.com/watch?v=hN5MBlGv2Ac'
+      },
+      headers: {
+        'X-RapidAPI-Key': '2acd7d6738mshdd85e14333aac07p11cf80jsn94660876c278',
+        'X-RapidAPI-Host': 'youtube-mp3-downloader2.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      const data = response.data;
+      if (data && data.status === 'finished') {
+        this.mp3DownloadLink = data.dlink;
+      } else {
+        console.error('Error: Invalid response from the API');
+      }
+    } catch (error) {
+      console.error('Error fetching MP3 download link:', error);
+    }
+  }
+  playAudio(): void {
+    const audioPlayer = document.getElementById('audioPlayer') as HTMLAudioElement;
+    if (audioPlayer) {
+      audioPlayer.play();
+    }
   }
 }

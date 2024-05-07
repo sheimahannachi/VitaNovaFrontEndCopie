@@ -32,6 +32,13 @@
             <button class="stop-button" (click)="stopTimer()">Stop</button>
           </div>
         </div>
+        <div *ngIf="mp3DownloadLink" class="audio-player">
+          <audio id="audioPlayer" controls>
+            <source [src]="mp3DownloadLink" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+
 
         <h2 class="workout-title">{{ workoutPlan?.title }}</h2>
         <div class="current-step">

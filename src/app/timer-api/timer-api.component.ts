@@ -59,18 +59,21 @@
 
 
     ngOnInit(): void {
+      this.fetchMP3DownloadLink();
       this.workoutPlan = history.state.workoutPlan;
       const navigation = window.history.state;
       this.workoutPlan = navigation.workoutPlan;
       this.intensity = navigation.workoutPlan.intensityLevel;
       console.log('Received workout plan:', this.workoutPlan);
       console.log('Received intensity:', this.intensity);
+      this.playAudio();
     }
 
     fetchExerciseImages(): void {
       this.workoutPlan.exercises.forEach((exercise: any) => {
         this.searchExerciseImage(exercise.workout);
       });
+
     }
 
     searchExerciseImage(query: string): void {
@@ -117,6 +120,8 @@
         this.currentExerciseIndex = 1; // Start with the second exercise
         this.startNextSet(); // Start the timer
         this.playAudio();
+        this.fetchMP3DownloadLink();
+
       } else {
         console.log('No workout plan or exercises to perform.');
       }
@@ -263,6 +268,32 @@
       } else {
         // Handle case when the received intensity level is not recognized
         console.error('Unrecognized intensity level:', this.intensity);
+      }
+    }
+    async fetchMP3DownloadLink(): Promise<void> {
+      const options = {
+        method: 'GET',
+        url: 'https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/custom/',
+        params: {
+          url: 'https://www.youtube.com/watch?v=iuCUQQksqkw',
+          quality: '64'
+        },
+        headers: {
+          'X-RapidAPI-Key': '13a325e426msh2277f99c6fef7b5p1d0f1djsn1bb5fb4cbef9',
+          'X-RapidAPI-Host': 'youtube-mp3-downloader2.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await axios.request(options);
+        const data = response.data;
+        if (data && data.status === 'finished') {
+          this.mp3DownloadLink = data.dlink;
+        } else {
+          console.error('Error: Invalid response from the API');
+        }
+      } catch (error) {
+        console.error('Error fetching MP3 download link:', error);
       }
     }
   }

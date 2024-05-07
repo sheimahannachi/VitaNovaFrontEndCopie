@@ -131,9 +131,9 @@ export class WorkoutService {
         })
     );
   }
-  getAllWorkoutSessionData(id:number): Observable<Object[]> {
-    const url = `${this.baseUrl}/statistics/${id}`;
-    return this.http.get<any>(url)
+  getAllWorkoutSessionData(id: number): Observable<Object[]> {
+    const params = new HttpParams().set('id', id.toString());
+    return this.http.get<Object[]>(`${this.baseUrl}/statistics`, { params });
   }
 
 }
