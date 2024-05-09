@@ -51,6 +51,12 @@ export class UserProfileComponent implements OnInit {
       private workoutService: WorkoutService
   ) {
     this.userProfile = new UserModule();
+    sessionStorage.setItem('BreakfastCalories', "0");
+    sessionStorage.setItem('lunchCalories', "0");
+    sessionStorage.setItem('DinnerCalories', "0");
+    sessionStorage.setItem('SnacksCalories', "0");
+
+    
   }
 
   ngOnInit(): void {

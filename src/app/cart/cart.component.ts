@@ -115,46 +115,46 @@ userId:number ;
   }
   
  
-
+// Définition de la fonction onCheckoutClicked
 onCheckoutClicked(): void {
-  let data:any= {
-
-    "receiverWalletId": "663020aad65ce91d9ecb9ed9",
-    "token": "TND",
-    "amount": this.getTotalPrice()*1000,
-    "type": "immediate",
-    "description": "payment description",
-    "acceptedPaymentMethods": [
+  // Création de l'objet data contenant les informations nécessaires pour l'initialisation du paiement
+  let data: any = {
+    "receiverWalletId": "663020aad65ce91d9ecb9ed9", // Identifiant du portefeuille du destinataire
+    "token": "TND", // Token utilisé pour le paiement (par exemple : devise)
+    "amount": this.getTotalPrice() * 1000, // Montant total du paiement (multiplication par 1000 pour convertir en millimes)
+    "type": "immediate", // Type de paiement (dans ce cas, immédiat)
+    "description": "payment description", // Description du paiement
+    "acceptedPaymentMethods": [ // Méthodes de paiement acceptées
       "wallet",
       "bank_card",
       "e-DINAR"
     ],
-    "lifespan": 10,
-    "checkoutForm": true,
-    "addPaymentFeesToAmount": true,
-    "firstName": "aziz",
-    "lastName": "benslimene",
-    "phoneNumber": "20616308",
-    "email": "john.doe@gmail.com",
-    "orderId": "1234657",
-    "webhook": "https://merchant.tech/api/notification_payment",
-    "silentWebhook": true,
-    "successUrl": "http://localhost:4200/vitaNova/PayementSuccess",
-    "failUrl": "https://dev.konnect.network/gateway/payment-failure",
-    "theme": "light"
-  }
-  //http post link https://api.preprod.konnect.network/api/v2/payments/init-payment with header x-api-key header and data body
+    "lifespan": 10, // Durée de validité du paiement (en minutes)
+    "checkoutForm": true, // Utilisation d'un formulaire de paiement
+    "addPaymentFeesToAmount": true, // Ajout des frais de paiement au montant
+    "firstName": "aziz", // Prénom du payeur
+    "lastName": "benslimene", // Nom de famille du payeur
+    "phoneNumber": "20616308", // Numéro de téléphone du payeur
+    "email": "john.doe@gmail.com", // Adresse e-mail du payeur
+    "orderId": "1234657", // Identifiant de la commande
+    "webhook": "https://merchant.tech/api/notification_payment", // URL de webhook pour les notifications de paiement
+    "silentWebhook": true, // Utilisation d'un webhook silencieux
+    "successUrl": "http://localhost:4200/vitaNova/PayementSuccess", // URL de redirection en cas de succès du paiement
+    "failUrl": "https://dev.konnect.network/gateway/payment-failure", // URL de redirection en cas d'échec du paiement
+    "theme": "light" // Thème visuel pour la page de paiement
+  };
+
+  // Envoi d'une requête HTTP POST pour initialiser le paiement
   this.http.post('https://api.preprod.konnect.network/api/v2/payments/init-payment', data, {
     headers: {
-      'x-api-key': '663020aad65ce91d9ecb9ed5:S8rsq1bwkKSL9lpLpCb2zV9O'
+      'x-api-key': '663020aad65ce91d9ecb9ed5:S8rsq1bwkKSL9lpLpCb2zV9O' // Clé d'API pour l'authentification
     }
-  }).subscribe((response) => {
-    console.log(response);
-    //redirect to the payment page from response the link is in response is payUrl external
-
+  }).subscribe((response) => { // Abonnement à l'observable pour traiter la réponse
+    console.log(response); // Affichage de la réponse dans la console
+    // Redirection vers la page de paiement externe en extrayant l'URL de paiement de la réponse
     window.location.href = response['payUrl'];
   });
-
 }
+
 }
 

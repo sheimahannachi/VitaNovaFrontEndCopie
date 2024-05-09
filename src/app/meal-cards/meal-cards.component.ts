@@ -17,10 +17,15 @@ export class MealCardsComponent implements OnInit {
   lunchFoodCards: FoodCard[] = [];
   dinnerFoodCards: FoodCard[] = [];
   snacksFoodCards: FoodCard[] = [];
-  breakfastCalories:number;
   mealtype: MealType;
   userId: UserModule;
   idtracker: number;
+  test:number = 0;
+  BreakfastCalories: number = 0;
+  lunchCalories : number= 0;
+  DinnerCalories  : number = 0;
+
+
   waterConsumed: number = 0;
   calculatedCalories: { breakfast: number, lunch: number, dinner: number,snacks:number };
 
@@ -34,13 +39,29 @@ export class MealCardsComponent implements OnInit {
   constructor(private foodService: FoodService, private router: Router, private authService: AuthService) {
     this.authService.getUserInfoFromToken().subscribe(userId => {
       this.userId = userId;
+      this.BreakfastCalories=parseInt(sessionStorage.getItem('BreakfastCalories'));
+      this.lunchCalories  =parseInt(sessionStorage.getItem('lunchCalories'));
+      this.DinnerCalories  =parseInt(sessionStorage.getItem('DinnerCalories'));
+      this.test  =parseInt(sessionStorage.getItem('SnacksCalories'));
+
+      
+      console.log(this.BreakfastCalories,this.lunchCalories,this.DinnerCalories)
       // Fetch hydration data once user info is available
       this.fetchHydrationData();
+
     });
+
+  
+
   }
 
   ngOnInit(): void {
     this.calculateCaloriesForMeals();
+    this.BreakfastCalories=parseInt(sessionStorage.getItem('BreakfastCalories'));
+    this.lunchCalories  =parseInt(sessionStorage.getItem('lunchCalories'));
+    this.DinnerCalories  =parseInt(sessionStorage.getItem('DinnerCalories'));
+    
+    console.log(this.BreakfastCalories,this.lunchCalories,this.DinnerCalories)
   }
 
   fetchHydrationData(): void {
@@ -140,13 +161,13 @@ export class MealCardsComponent implements OnInit {
     if (this.userId && this.userId.personalGoals) {
       const totalDailyCalories = this.userId.personalGoals.dailyNeededCalories;
       // You can adjust the ratios based on your preferences
-      this.breakfastCalories = totalDailyCalories * 0.25; // Adjusted ratio for breakfast
+      this.BreakfastCalories = totalDailyCalories * 0.25; // Adjusted ratio for breakfast
       const lunchCalories = totalDailyCalories * 0.35; // Adjusted ratio for lunch
       const dinnerCalories = totalDailyCalories * 0.25; // Adjusted ratio for dinner
       const snacksCalories = totalDailyCalories * 0.15; // Adjusted ratio for snacks
 
       // Assign the calculated values to the property
-      this.calculatedCalories = { breakfast: this.breakfastCalories, lunch: lunchCalories, dinner: dinnerCalories, snacks: snacksCalories };
+      this.calculatedCalories = { breakfast: this.BreakfastCalories, lunch: lunchCalories, dinner: dinnerCalories, snacks: snacksCalories };
     }
   }
 

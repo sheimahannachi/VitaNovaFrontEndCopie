@@ -65,7 +65,42 @@ export class FoodDetailsDialogComponent {
         console.log('Food cards added successfully:', response);
         console.log(mealType);
         this.dialogRef.close();
-        this.router.navigate(['vitaNova/list-of-foods']);
+        if(mealType === MealType.BREAKFAST){
+          let breakfastCalories = parseFloat(sessionStorage.getItem('BreakfastCalories'));
+  
+  // Check if the retrieved value is a valid number
+  if (!isNaN(breakfastCalories)) {
+      // Multiply the value by 1.6842 and store it back in sessionStorage
+      sessionStorage.setItem('BreakfastCalories', (calcCalories + breakfastCalories ).toString());
+  }}
+  if(mealType === MealType.LUNCH){
+  
+  let lunchCalories = parseFloat(sessionStorage.getItem('lunchCalories'));
+  
+  // Check if the retrieved value is a valid number
+  if (!isNaN(lunchCalories)) {
+      // Multiply the value by 1.6842 and store it back in sessionStorage
+      sessionStorage.setItem('lunchCalories', (calcCalories + lunchCalories).toString());
+  }
+  }
+  if(mealType === MealType.DINNER){
+  
+  let DinnerCalories = parseFloat(sessionStorage.getItem('DinnerCalories'));
+  
+  // Check if the retrieved value is a valid number
+      // Multiply the value by 1.6842 and store it back in sessionStorage
+      sessionStorage.setItem('DinnerCalories', (calcCalories +DinnerCalories ).toString());
+  }
+  if(mealType === MealType.SNACKS){
+  
+    let SnacksCalories = parseFloat(sessionStorage.getItem('SnacksCalories'));
+    
+    // Check if the retrieved value is a valid number
+        // Multiply the value by 1.6842 and store it back in sessionStorage
+        sessionStorage.setItem('SnacksCalories', (calcCalories +SnacksCalories ).toString());
+    }
+    
+        this.router.navigate(['vitaNova/mealCard']);
 
       },
       error => {

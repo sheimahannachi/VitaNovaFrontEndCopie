@@ -21,26 +21,32 @@ export class PaymentsuccesComponent implements OnInit {
   email: string;
   constructor(private http: HttpClient ,private productService: ProductService,  private authService: AuthService){}
 
-  sendEmail() {
-    const templateParams = {
-      to_name: this.username,
-      from_name: 'Vita Nova Payment ',
+  // Définition de la fonction sendEmail
+sendEmail() {
+  // Définition des paramètres du modèle de l'e-mail
+  const templateParams = {
+    to_name: this.username, // Nom du destinataire de l'e-mail (peut être personnalisé)
+    from_name: 'Vita Nova Payment ', // Nom de l'expéditeur de l'e-mail
 
-      message: 'Congratulations! Your payment was successful.',
-      to_email: this.email // Replace with the recipient's email address
-    };
+    message: 'Congratulations! Your payment was successful.', // Message de l'e-mail (peut être personnalisé)
+    to_email: this.email // Adresse e-mail du destinataire (remplacée par l'adresse e-mail du destinataire)
+  };
 
-    emailjs
-      .send('service_0hvizcq', 'template_1hc0cgn', templateParams,"G5Jr_rOhta32F_Vog")
-      .then(
-        response => {
-          console.log('SUCCESS!', response.status, response.text);
-        },
-        err => {
-          console.error('FAILED...', err);
-        }
-      );
-  }
+  // Envoi de l'e-mail via emailjs en utilisant le service, le modèle et les paramètres définis
+  emailjs
+    .send('service_0hvizcq', 'template_1hc0cgn', templateParams, "G5Jr_rOhta32F_Vog")
+    .then(
+      // Si l'envoi réussit, afficher un message de succès dans la console
+      response => {
+        console.log('SUCCESS!', response.status, response.text);
+      },
+      // Si l'envoi échoue, afficher un message d'erreur dans la console
+      err => {
+        console.error('FAILED...', err);
+      }
+    );
+}
+
   ngOnInit(): void {
     this.authService.getUserInfoFromToken().subscribe(
       (response: UserModule) => {
